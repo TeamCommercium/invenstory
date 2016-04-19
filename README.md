@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/TeamCommercium/invenstory.png?label=ready&title=Ready)](https://waffle.io/TeamCommercium/invenstory)
 # Invenstory
 
 Invenstory provides Amazon sellers with a useful information dashboard.
