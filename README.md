@@ -4,7 +4,7 @@
 ##Stack
 Postgres
 Express
-React + Reducer + Immutable
+React
 Node
 
 
