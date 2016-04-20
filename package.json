@@ -1,0 +1,28 @@
+{
+  "name": "invenstory",
+  "version": "0.0.1",
+  "description": "Invenstory provides Amazon sellers with a useful information dashboard.",
+  "main": "server.js",
+  "dependencies": {
+    "apidoc": "^0.15.1",
+    "jsdoc": "^3.4.0"
+  },
+  "devDependencies": {
+    "apidoc": "^0.15.1",
+    "jsdoc": "^3.4.0",
+    "nodemon": "^1.9.1"
+  },
+  "scripts": {
+    "test": "nodemon ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamCommercium/invenstory.git"
+  },
+  "author": "Team Commercium",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TeamCommercium/invenstory/issues"
+  },
+  "homepage": "https://github.com/TeamCommercium/invenstory#readme"
+}
