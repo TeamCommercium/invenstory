@@ -1,7 +1,6 @@
 import express from 'express'
 import path from 'path'
-
-process.env.PORT = process.env.PORT || 8080
+import webServer from './modules/configs.js'
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
@@ -9,7 +8,7 @@ app.use(express.static(path.join(__dirname, '../dist')))
 app.get('/', (req,res) => res.send())
 
 
-app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)})
+app.listen(webServer.port, ()=>{console.log("Listening on", process.env.PORT)})
 
 
 /**
