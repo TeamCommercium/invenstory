@@ -16,13 +16,11 @@ app.listen(webServer.port, ()=>{console.log("Listening on", process.env.PORT)})
  *  Restricts access to authorized users.
  * @apiHeader (auth) {String} Authorization PassesJWT to auth header
  * @apiError (401 Unauthorized) err User not authenticated.
- * @apiError (404 Not found) err Not found.
  */
 
  /**
   * @apiDefine public Public endpoints
   *  Endpoint may be accessed without credentials.
-  * @apiError (404 Not found) err Not found.
   */
 
 /**
@@ -75,7 +73,9 @@ app.listen(webServer.port, ()=>{console.log("Listening on", process.env.PORT)})
  * @apiSuccess  {number}   inventory.product_id id of product listing.
  * @apiSuccess  {number}   inventory.purchase_price Purchase price of new product listing in USD.
  *
- * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied
+ * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied ISBN or ASIN. One of these must be supplied or an error will occur.
+ *
+ * @apiError (400 Bad Request) Request must have an ASIN or ISBN.
  */
 
  /**
@@ -117,7 +117,7 @@ app.listen(webServer.port, ()=>{console.log("Listening on", process.env.PORT)})
   */
 
 /**
- * @api {delete} /product/delete Delete Product Listing
+ * @api {delete} /inventory/delete Delete Inventory Listing
  * @apiName DeleteProduct
  * @apiGroup product
  * @apiUse restricted
