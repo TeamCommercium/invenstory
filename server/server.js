@@ -1,6 +1,6 @@
 import express from 'express'
 import path from 'path'
-import webServer from './modules/configs.js'
+import webServer from './modules/config.js'
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
