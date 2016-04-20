@@ -1,9 +1,17 @@
-var React = require('react')
-var ReactDOM = require('react-dom')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { AppBar } from 'react-toolbox/lib/index.js'
 
 class App extends React.Component{
   render(){
-    return (<div> Hello World </div>)
+    return (
+      <div> 
+        Hello World
+        <AppBar fixed flat>
+          <a href="/home">React Toolbox Docs</a>
+        </AppBar>
+       </div>
+    )
   }
 }
 

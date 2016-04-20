@@ -17,27 +17,42 @@ module.exports = {
     filename: 'bundle.js',
     path: __dirname + '/dist'
   },
-
+  resolve: {
+    extensions: ['', '.jsx', '.scss', '.js', '.json'],
+    modulesDirectories: [
+      'node_modules',
+      path.resolve(__dirname, './node_modules')
+    ]
+  },
   module: {
     loaders: [
       { 
-        test: /\.jsx?$/, 
+        test: /(\.jsx|\.js)$/,
         loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015'],
         exclude: /node_modules/
       },
-      { 
-        test: /\.css$/, 
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+      {
+        test: /(\.scss|\.css)$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap')
       }
     ]
   },
   plugins: [
-      HTMLWebpackPluginConfig, 
-      new ExtractTextPlugin("/bundle.css"), 
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      })
-    ]
+    HTMLWebpackPluginConfig, 
+    new ExtractTextPlugin("/bundle.css"), 
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ]
 }
+
+// {
+//   test: /\.scss$/,
+//   loaders: ["style", "css", "sass"],
+// },
+// { 
+//   test: /\.css$/, 
+//   loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+// }
