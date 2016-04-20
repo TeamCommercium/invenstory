@@ -1,7 +1,6 @@
 import express from 'express'
 import path from 'path'
-
-process.env.PORT = process.env.PORT || 8080
+import webServer from './modules/configs.js'
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
@@ -9,7 +8,7 @@ app.use(express.static(path.join(__dirname, '../dist')))
 app.get('/', (req,res) => res.send())
 
 
-app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)})
+app.listen(webServer.port, ()=>{console.log("Listening on", process.env.PORT)})
 
 
 /**
@@ -17,13 +16,11 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
  *  Restricts access to authorized users.
  * @apiHeader (auth) {String} Authorization PassesJWT to auth header
  * @apiError (401 Unauthorized) err User not authenticated.
- * @apiError (404 Not found) err Not found.
  */
 
  /**
   * @apiDefine public Public endpoints
   *  Endpoint may be accessed without credentials.
-  * @apiError (404 Not found) err Not found.
   */
 
 /**
@@ -38,11 +35,12 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
  * @api {post} /auth/amazon/callback Amazon Oauth Callback
  * @apiName AmazonOauthCallback
  * @apiGroup Auth
- * @apiDescription Endpoint to initiate Amazon authentication.
+ * @apiDescription Endpoint to initiate Amazon authentication. NOT SURE THIS IS RIGHT.
  * @apiUse public
  * @apiPermission none
  *
  * @apiSuccess (200) {Object} jwt Serialized JWT
+ *
  */
 
  /**
@@ -57,28 +55,27 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
 
 
 /**
- * @api {post} /product/add Add Product Listing
+ * @api {post} /api/inventory/add Add Product Listing
  *
  * @apiName AddProduct
  * @apiGroup product
  * @apiUse restricted
  *
- * @apiParam {Object} product Object with new product listing attributes.
- * @apiParam {String} product.title New product listing title.
- * @apiParam {String} [product.description=null] New product listing description.
- * @apiParam {number} product.purchase_price Purchase price of new product listing in USD.
- * @apiParam {number} product.quantity New product listing.
- * @apiParam {Boolean} [product.shipped=false] Set shipped status.
- * @apiSuccess {Object} product New product listing.
- * @apiSuccess {String} product.id id of new product listing.
- * @apiSuccess {String} product.title Title of new product listing.
- * @apiSuccess {String} product.description New product listing description.
- * @apiSuccess {number} product.purchase_price Purchase price of new product listing in USD.
- * @apiSuccess {number} product.quantity Quantity of new product listing.
- * @apiSuccess {Boolean} product.shipped New product listing shipped status.
+ * @apiParam    {Object}   Inventory  Object with new inventory listing attributes.
+ * @apiParam    {string}   [inventory.asin] ASIN of product
+ * @apiParam    {string}   [inventory.isbn] ISBN of product
+ * @apiParam    {string}   [inventory.product_id] Associated product id.
+ * @apiParam    {number}   inventory.purchase_price Purchase price of new product listing in USD.
+ * @apiParam    {date}     inventory.purchase_date Purchase price of new product listing in USD.
+ * @apiParam    {number}   inventory.quantity Inventory product listing.
+ * @apiSuccess  {Object}   inventory New product listing.
+ * @apiSuccess  {number}   inventory.id id of product listing.
+ * @apiSuccess  {number}   inventory.product_id id of product listing.
+ * @apiSuccess  {number}   inventory.purchase_price Purchase price of new product listing in USD.
  *
+ * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied ISBN or ASIN. One of these must be supplied or an error will occur.
  *
- * @apiDescription Endpoint to add a new product.
+ * @apiError (400 Bad Request) Request must have an ASIN or ISBN.
  */
 
  /**
@@ -92,19 +89,21 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
   *
   * @apiSuccess {Object[]} products Returns user's product listings.
   * @apiSuccess {String} products.id id of new product listing.
-  * @apiSuccess {string} products.title Quantity of new product listing.
-  * @apiSuccess {string} products.description Description of product listing.
-  * @apiSuccess {number} products.quantity Quantity of product listing.
-  * @apiSuccess {number} products.purchase_price Purchase of product listing in USD.
-  * @apiSuccess {number} products.sale_price Quantity of product listing in inventory.
-  * @apiSuccess {timestamp} products.sale_price_time Timestamp of when sale price was last checked.
-  * @apiSuccess {Boolean} products.shipped Shipped status of product listing.
+  * @apiSuccess {number} products.quantity Quantity of product listing in inventory.
+  * @apiSuccess {number} products.purchase_price Average purchase price of in stock inventory.
+  * @apiSuccess {string} products.amzn_title Quantity of new product listing.
+  * @apiSuccess {string} products.amzn_description Description of product listing.
+  * @apiSuccess {number} products.amzn_price Current price of product on Amazon.
+  * @apiSuccess {number} products.amzn_rank Current sales ranks of product on Amazon.
+  * @apiSuccess {number} products.amzn_weight Shipping weight of product.
+  * @apiSuccess {number} products.amzn_manuf Product manufacturer.
+  * @apiSuccess {timestamp} products.amzn_price_time Timestamp of when sale price was last checked.
   *
-  * @apiDescription Endpoint to add a new product.
+  * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
   */
 
  /**
-  * @api {put} /product/update Update Product Listing
+  * @api {put} /inventory/ship/:id Update Product Listing
   * @apiName UpdateProduct
   * @apiGroup product
   * @apiUse restricted
@@ -113,28 +112,20 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
   *
   * @apiParam {Object} product Updated product to update.
   * @apiParam {string} product.id ID of product to update.
-  * @apiParam {string} product.title New product listing title.
-  * @apiParam {string} product.description New product listing description.
-  * @apiParam {number} product.quantity New quantity to update.
-  * @apiParam {boolean} product.shipped Set shipped status.
-  * @apiSuccess {Object} product Return updated product listing.
-  * @apiSuccess {string} product.id ID of updated product listing.
-  * @apiSuccess {number} product.title Title of updated product listing.
-  * @apiSuccess {string} product.description Description of updated product listing.
-  * @apiSuccess {number} product.quantity Quantity of updated product listing.
-  * @apiSuccess {Boolean} product.shipped Status of updated product listing.
+  * @apiParam {number} product.quantity quantity shipped.
+  * @apiSuccess {Object} product Return updated product listing. See /api/product/list.
   */
 
 /**
- * @api {delete} /product/delete Delete Product Listing
+ * @api {delete} /inventory/delete Delete Inventory Listing
  * @apiName DeleteProduct
  * @apiGroup product
  * @apiUse restricted
  *
- * @apiParam {string} id Product listing id to delete.
+ * @apiParam {string} id Product listing id whose inventory should be deleted delete.
  * @apiError (404 Not found) err Not found.
  * @apiSuccessExample success-response:
  *  HTTP/1.1 204 OK
  *
- * @apiDescription Endpoint to allow user to delete user's own product. For security purposes, an authorized deletion should return a 404, as well.
+ * @apiDescription Endpoint to allow user to delete all of their own inventory records for a product.
  */
