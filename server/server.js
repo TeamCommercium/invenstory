@@ -38,11 +38,12 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
  * @api {post} /auth/amazon/callback Amazon Oauth Callback
  * @apiName AmazonOauthCallback
  * @apiGroup Auth
- * @apiDescription Endpoint to initiate Amazon authentication.
+ * @apiDescription Endpoint to initiate Amazon authentication. NOT SURE THIS IS RIGHT.
  * @apiUse public
  * @apiPermission none
  *
  * @apiSuccess (200) {Object} jwt Serialized JWT
+ *
  */
 
  /**
@@ -57,28 +58,27 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
 
 
 /**
- * @api {post} /product/add Add Product Listing
+ * @api {post} /api/inventory/add Add Product Listing
  *
  * @apiName AddProduct
  * @apiGroup product
  * @apiUse restricted
  *
- * @apiParam {Object} product Object with new product listing attributes.
- * @apiParam {String} product.title New product listing title.
- * @apiParam {String} [product.description=null] New product listing description.
- * @apiParam {number} product.purchase_price Purchase price of new product listing in USD.
- * @apiParam {number} product.quantity New product listing.
- * @apiParam {Boolean} [product.shipped=false] Set shipped status.
- * @apiSuccess {Object} product New product listing.
- * @apiSuccess {String} product.id id of new product listing.
- * @apiSuccess {String} product.title Title of new product listing.
- * @apiSuccess {String} product.description New product listing description.
- * @apiSuccess {number} product.purchase_price Purchase price of new product listing in USD.
- * @apiSuccess {number} product.quantity Quantity of new product listing.
- * @apiSuccess {Boolean} product.shipped New product listing shipped status.
+ * @apiParam    {Object}   Inventory  Object with new inventory listing attributes.
+ * @apiParam    {string}   [inventory.asin] ASIN of product
+ * @apiParam    {string}   [inventory.isbn] ISBN of product
+ * @apiParam    {string}   [inventory.product_id] Associated product id.
+ * @apiParam    {number}   inventory.purchase_price Purchase price of new product listing in USD.
+ * @apiParam    {date}     inventory.purchase_date Purchase price of new product listing in USD.
+ * @apiParam    {number}   inventory.quantity Inventory product listing.
+ * @apiParam    {Boolean}  [inventory.shipped=false] Set shipped status.
+ * @apiSuccess  {Object}   inventory New product listing.
+ * @apiSuccess  {number}   inventory.id id of product listing.
+ * @apiSuccess  {number}   inventory.product_id id of product listing.
+ * @apiSuccess  {number}   inventory.purchase_price Purchase price of new product listing in USD.
+ * @apiSuccess  {Boolean}  inventory.shipped New product listing shipped status.
  *
- *
- * @apiDescription Endpoint to add a new product.
+ * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied
  */
 
  /**
@@ -94,8 +94,8 @@ app.listen(process.env.PORT, ()=>{console.log("Listening on", process.env.PORT)}
   * @apiSuccess {String} products.id id of new product listing.
   * @apiSuccess {string} products.title Quantity of new product listing.
   * @apiSuccess {string} products.description Description of product listing.
-  * @apiSuccess {number} products.quantity Quantity of product listing.
-  * @apiSuccess {number} products.purchase_price Purchase of product listing in USD.
+  * @apiSuccess {Object[]} products.inventory Listing of inventory.
+  * @apiSuccess {number} products.inventory Purchase of product listing in USD.
   * @apiSuccess {number} products.sale_price Quantity of product listing in inventory.
   * @apiSuccess {timestamp} products.sale_price_time Timestamp of when sale price was last checked.
   * @apiSuccess {Boolean} products.shipped Shipped status of product listing.
