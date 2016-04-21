@@ -1,5 +1,5 @@
 // Update with your config settings.
-var db = require("./server/modules/config");
+var config = require("./server/modules/config.js").db;
 
 module.exports = {
 
@@ -13,9 +13,9 @@ module.exports = {
   staging: {
     client: 'postgresql',
     connection: {
-      database: db.url,
-      user:     db.username,
-      password: db.password
+      database: config.url,
+      user:     config.username,
+      password: config.password
     },
     pool: {
       min: 2,
@@ -29,9 +29,9 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: db.url,
-      user:     db.username,
-      password: db.password
+      database: config.url,
+      user:     config.username,
+      password: config.password
     },
     pool: {
       min: 2,
