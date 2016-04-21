@@ -9,7 +9,16 @@ Node
 
 
 ##Installation
+1. Clone the repo
+2. Run `npm install` in the terminal
+3. Run `npm start` in the terminal
 
+## NPM scripts
+* `npm start` will run webpack to bundle the front end and then run the server. Doesn't watch for changes.
+* `npm run front` will run webpack and rebundle the front end on changes.
+* `npm run back` will run babel-watch (similar to nodemon) and restart the server on changes.
+* `npm run hot` will run webpack's dev server and hot reload changes for the client side
+* `npm run jake` will bundle the front end once and then start babel-watch.
 
 
 ## Git Workflow
