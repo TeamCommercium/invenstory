@@ -6,7 +6,7 @@ module.exports.db = { url:      process.env.DB_URL || 'localhost',
 module.exports.webServer = {
                     port: process.env.PORT || 8080
 }
-module.exports amazonEnv = {
+module.exports.amazonEnv = {
                     accessKeyId:      process.env.MWS_ACCESS_KEY_ID || null,
                     secretAccessKey:  process.env.MWS_SECRET_KEY || null,
                     merchantId:       process.env.MWS_MERCHANT_ID || null,

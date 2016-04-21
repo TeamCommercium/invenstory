@@ -1,6 +1,6 @@
 var MWS = require ('mws-sdk-promises')
-var config = require ('../config')
-var amazonEnv = require ('../modules/configs.js')
+var config = require ('../modules/config.js')
+var amazonEnv = require ('../modules/config.js').amazonEnv
 
 
 var client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, amazonEnv.merchantId, {})
@@ -18,6 +18,11 @@ function listMatchingProducts(client, args) {
   return client.invoke(req)
 }
 
+function getMatchingProductByASIN(client, args) {
+  var req = MWS.Products.requests.GetMatchingProduct();
+  req.set(args);
+  return client.invoke(req);
+}
 
 //Maximum request quota: 20 requests; 
 //Restore rate: 10 requests every second 
@@ -31,14 +36,11 @@ exports.getLowestOffers = function(req, res) {
   })
     .then(function(result){
       res.send(JSON.stringify(result));
-
-// Finds product by ASIN
-function getMatchingProductByIDs(client, args) {
-  var req = MWS.Products.requests.GetMatchingProduct();
-  req.set(args);
-  return client.invoke(req);
+    })
+    .catch(function(error) {
+      res.send(error)
+    })
 }
-
 
 //Maximum request quota: 20 requests; 
 //Restore rate: One request every five seconds  
@@ -57,8 +59,13 @@ exports.listProductSearch = function(req, res) {
     })
 }
 
+// Finds product by ASIN
+// Maximum request quota: 20 requests
+// Restore rate: 2 requests every second 
+// Hourly request quota: 7200 requests per hour
+
 exports.getMatchingProduct = function(req,res) {
-  getMatchingProductByIDs(client, {
+  getMatchingProductByASIN(client, {
     MarketplaceId: MarketplaceId,
     ASINList: 'B00IDBUM2O',
   })

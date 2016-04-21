@@ -3,7 +3,7 @@ var path = require('path')
 var webConfig = require('./modules/config.js').webServer
 var authAPI = require('./api/auth_api.js')
 var inventoryAPI = require('./api/auth_api.js')
-var amazonMWS = require('./api/amazonMWS')
+var amazonMWS = require('./api/amazonMWS.js')
 
 
 process.env.PORT = process.env.PORT || 8080
