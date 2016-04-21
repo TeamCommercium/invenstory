@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       table.increments('id'); // integer id
       table.string("mws_auth_token").unique();
       table.string("seller_id").unique();
-      table.string("mws_marketplace").unique(); // in app, default to us, which is:  ATVPDKIKX0DER
+      table.string("mws_marketplace"); // in app, default to us, which is:  ATVPDKIKX0DER
       table.timestamps();
     }),
 
@@ -40,7 +40,7 @@ exports.up = function(knex, Promise) {
       table.float('amzn_price'); //current price on amazon
       table.integer('amzn_sales_rank');
       table.string('currency').defaultTo('USD');
-      table.timestamp('amzn_fetch_date'); //last time data was pulled
+      table.datetime('amzn_fetch_date'); //last time data was pulled
     }),
 
     knex.schema.createTable("auth", function(table) {
@@ -58,6 +58,7 @@ exports.down = function(knex, Promise) {
     [
       knex.schema.dropTable('users'),
       knex.schema.dropTable('products'),
+      knex.schema.dropTable('product_details'),
       knex.schema.dropTable('inventory'),
       knex.schema.dropTable('auth'),
     ]
