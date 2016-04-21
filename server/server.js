@@ -1,15 +1,15 @@
-import express from 'express'
-import path from 'path'
-import { webServer } from './modules/config.js'
+var express = require('express')
+var path = require('path')
+var webConfig = require('./modules/config.js').webServer
 var authAPI = require('./api/auth_api.js')
-// import * as inventoryAPI from './api/auth_api.js'
+var inventoryAPI = require('./api/auth_api.js')
 
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
 app.use("/auth", authAPI)
-// app.user("/inventory", inventoryAPI)
+app.use("/inventory", inventoryAPI)
 
 app.get('/', (req,res) => res.send())
 
-app.listen(webServer.port, ()=>{console.log("Listening on", webServer.port)})
+app.listen(webConfig.port, ()=>{console.log("Listening on", webConfig.port)})

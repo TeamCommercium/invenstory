@@ -1,6 +1,5 @@
-// import express from 'express'
-
-// export const router = express.Router();
+var express = require('express')
+var router = express.Router()
 
 /**
  * @api {post} /inventory/add Add Product Listing
@@ -77,3 +76,5 @@
  *
  * @apiDescription Endpoint to allow user to delete all of their own inventory records for a product.
  */
+
+ module.exports = router;
