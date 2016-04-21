@@ -1,6 +1,8 @@
 # Invenstory
 Invenstory provides Amazon sellers with a useful information dashboard.
 
+[![Stories in Ready](https://badge.waffle.io/TeamCommercium/invenstory.png?label=ready&title=Ready)](http://waffle.io/TeamCommercium/invenstory)
+
 ## Stack
 Postgres
 Express
