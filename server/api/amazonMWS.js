@@ -38,15 +38,14 @@ exports.getLowestOffers = function(req, res) {
 }
 
 
-
 //Maximum request quota: 20 requests; 
 //Restore rate: One request every five seconds  
 //Hourly request quota: 720 requests per hour
 
-exports.listMatchingProducts = function(req, res) {
+exports.listProductSearch = function(req, res) {
   listMatchingProducts(client, {
     MarketplaceId: MarketplaceId,
-    Query: 'B00IDBUM2O',
+    Query: '',
   })
     .then(function(result){
       res.send(JSON.stringify(result));
