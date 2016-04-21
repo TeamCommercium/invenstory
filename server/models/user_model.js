@@ -4,13 +4,13 @@
  */
 
 /**
- * getUserId - Retreive userid based on the amazon Oauth userid.
+ * getUserFromAmznId - Retreive userid based on the amazon Oauth userid.
  *
  * @param  {string} amznId amazonId from login
  * @return {Promise}       Resolves to userId from users table
  */
 
-exports.getUserFromAmzn = function (amznId) {
+exports.getUserFromAmznId = function (amznId) {
   // return userId;
 }
 
