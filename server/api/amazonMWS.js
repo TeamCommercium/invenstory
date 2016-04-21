@@ -45,9 +45,10 @@ function getMatchingProductByASIN(client, args) {
 
 /**
  * getLowestOffers - API call to get list of low prices based on ASIN; up to 10/request
- * @param  {Object}
- * @param  {Object}
- * @param  {string} MarketPlaceID [description]
+ * @param  {Object}   req             
+ * @param  {Object}   res
+ * @param  {Array}    ASINList        array of ASINs as strings
+ * @param  {string}   MarketPlaceID   amazon country code 
  * @return {Promise}
  */
 exports.getLowestOffers = function(req, res) {
@@ -61,6 +62,7 @@ exports.getLowestOffers = function(req, res) {
       res.send(cleanResult);
     })
     .catch(function(error) {
+      console.error(error)
       res.send(error)
     })
 }
@@ -72,9 +74,10 @@ exports.getLowestOffers = function(req, res) {
 
 /**
  * listProductSearcg - API call to get list of products through search
- * @param  {Object}
- * @param  {Object}
- * @param  {string} MarketPlaceID [description]
+ * @param  {Object}   req
+ * @param  {Object}   res
+ * @param  {string}   Query           search data sent to amazon
+ * @param  {string}   MarketPlaceID   amazon country code 
  * @return {Promise}
  */
 exports.listProductSearch = function(req, res) {
@@ -86,20 +89,24 @@ exports.listProductSearch = function(req, res) {
       res.send(JSON.stringify(result));
     })
     .catch(function(error) {
+      console.error(error);
       res.send(error)
     })
 }
 
-// Finds product by ASIN
-// Maximum request quota: 20 requests
-// Restore rate: 2 requests every second 
-// Hourly request quota: 7200 requests per hour
+
+/*
+  Maximum request quota: 20 requests
+  Restore rate: 2 requests every second 
+  Hourly request quota: 7200 requests per hour
+ */ 
 
 /**
  * getMatchingProduct - API call to get product info based on ASIN
- * @param  {Object}
- * @param  {Object}
- * @param  {string} MarketPlaceID [description]
+ * @param  {Object}   req
+ * @param  {Object}   res
+ * @param  {Array}    ASINList        array of ASINs as strings
+ * @param  {string}   MarketPlaceID   amazon country code 
  * @return {Promise}
  */
 exports.getMatchingProduct = function(req,res) {
@@ -110,6 +117,7 @@ exports.getMatchingProduct = function(req,res) {
     .then(function(result){
       var cleanResult = utilities.cleanMatchingASIN(result);
       res.send(cleanResult)
+
     })
     .catch(function(error) {
       console.error(error);
