@@ -1,7 +1,6 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-migrations
 dist
 node_modules
 docs

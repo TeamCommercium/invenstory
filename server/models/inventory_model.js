@@ -16,7 +16,7 @@
  * @param  {type} sku           SKU
  * @return {Promise}            Resolves to true if the inventory is added.
  */
-function addInventory(quantity, purchaseDate, purchasePrice, sku, userId, productId) {
+function addInventory(userId, productId, quantity, purchaseDate, purchasePrice, sku) {
 
   // return ;
 }
