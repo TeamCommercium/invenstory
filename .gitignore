@@ -6,8 +6,6 @@ dist
 node_modules
 docs
 *.sqlite3
-config/
-config.js
 
 # Icon must end with two \r
 Icon
