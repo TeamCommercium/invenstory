@@ -24,11 +24,16 @@
     "express": "^4.13.4",
     "knex": "^0.10.0",
     "mws-sdk-promises": "^0.9.16",
+    "immutable": "^3.8.1",
     "path": "^0.12.7",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.3.0",
+    "react-router-redux": "^4.0.2",
     "react-toolbox": "^0.16.2",
-    "redux": "^3.4.0"
+    "redux": "^3.4.0",
+    "redux-immutable": "^3.0.6"
   },
   "devDependencies": {
     "apidoc": "^0.15.1",
