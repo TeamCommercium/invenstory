@@ -5,8 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-front": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --progress --colors",
-    "dev-back": "./node_modules/webpack/bin/webpack.js --progress --colors && ./node_modules/babel-watch/babel-watch.js ./server/server.js",
+    "hot": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --progress --colors",
+    "front": "./node_modules/webpack/bin/webpack.js --watch --progress --colors",
+    "back": "./node_modules/babel-watch/babel-watch.js ./server/server.js",
+    "jake": "./node_modules/webpack/bin/webpack.js && ./node_modules/babel-watch/babel-watch.js ./server/server.js",
     "start": "./node_modules/webpack/bin/webpack.js && ./node_modules/.bin/babel-node ./server/server.js"
   },
   "repository": {
@@ -22,9 +24,9 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "immutable": "^3.8.1",
     "knex": "^0.10.0",
     "mws-sdk-promises": "^0.9.16",
-    "immutable": "^3.8.1",
     "path": "^0.12.7",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
