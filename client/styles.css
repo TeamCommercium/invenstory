@@ -4,3 +4,37 @@ html, body{
   position: relative;
   display: block;
 }
+
+table{
+  border:1px solid black;
+}
+
+:local(.loginBox){
+  position: absolute;
+  top:58%;
+  left:40%;
+  z-index:1000;
+  width: 95%;
+}
+
+:local(.loginBox>button){
+  right:1%;
+  width:19%;
+}
+
+:local(.titleImage){
+  width:80%;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+
+:local(.odd){
+  background: #ADD8E6;
+  border: none;
+}
+
+:local(.even){
+  background: white;
+  border: none;
+}

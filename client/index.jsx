@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+
 import HomeContainer from './containers/home.jsx'
 import DashboardContainer from './containers/dashboard.jsx'
 import LoginContainer from './containers/login.jsx'
@@ -17,6 +18,7 @@ ReactDOM.render(
       <Route path='/' component={LoginContainer}/>
       <Route path='/home'component={HomeContainer}/>
       <Route path='/dashboard' component={DashboardContainer} />
+      <Route path='*' component={LoginContainer} />
     </Router>
   </Provider>,
   document.getElementById('app')
