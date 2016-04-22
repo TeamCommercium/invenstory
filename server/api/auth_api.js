@@ -3,6 +3,7 @@ var passport = require('passport')
 var JWT = require('jsonwebtoken')
 var AmazonStrategy = require('passport-amazon').Strategy
 var amazonAuth_config = require('../modules/config.js').amazonAuth
+var jwt_config = require('../modules/config.js').jwtConfig
 
 passport.use(new AmazonStrategy({
   clientID: amazonAuth_config.clientId,
@@ -59,6 +60,14 @@ var router = express.Router()
       console.log('amazon auth err: ', err)
       res.send(500)
     }
+    if (!user) {
+      res.send(info)
+    }
+    console.log('amazon response user:', user)
+    var token = JWT.sign({
+      user: user
+    }, jwt_config.secret)
+
 
 
   })(req, res, next)
