@@ -1,6 +1,7 @@
-var MWS = require ('mws-sdk-promises')
-var config = require ('../modules/config.js')
+var MWS       = require ('mws-sdk-promises')
+var config    = require ('../modules/config.js')
 var amazonEnv = require ('../modules/config.js').amazonEnv
+var utilities = require ('../modules/utilities.js')
 
 
 var client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, amazonEnv.merchantId, {})
@@ -32,10 +33,11 @@ exports.getLowestOffers = function(req, res) {
   getLowestOfferListingsForASIN(client, {
     MarketplaceId: MarketplaceId,
     ItemCondition: 'NEW',
-    ASINList: 'B00IDBUM2O',
+    ASINList: ['B00UYNAGTI','B007GE5X7S'],
   })
     .then(function(result){
-      res.send(JSON.stringify(result));
+      var cleanResult = utilities.cleanLowestOffers(result)
+      res.send(cleanResult);
     })
     .catch(function(error) {
       res.send(error)
@@ -64,15 +66,14 @@ exports.listProductSearch = function(req, res) {
 // Restore rate: 2 requests every second 
 // Hourly request quota: 7200 requests per hour
 
-exports.getMatchingProduct = function(req,res) {
+exports.getMatchingASIN = function(req,res) {
   getMatchingProductByASIN(client, {
     MarketplaceId: MarketplaceId,
-    ASINList: 'B00IDBUM2O',
+    ASINList: ['B00UYNAGTI','B007GE5X7S']
   })
-    .then(function(RESULT){
-      console.log("--------");
-      res.send(JSON.stringify(RESULT));
-      console.log("--------");
+    .then(function(result){
+      var cleanResult = utilities.cleanMatchingASIN(result);
+      res.send(cleanResult)
     })
     .catch(function(error) {
       console.error(error);
