@@ -1,15 +1,10 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
 import { AppBar, Button, Navigation, Input } from 'react-toolbox/lib/index.js'
-import { Table, Search, ColumnNames, sortColumn, sortColumns, editors, formatters, predicates, cells } from 'reactabular'
-
+import Table from 'react-toolbox/lib/table';
 import { redirect } from '../util/util.jsx'
 
 export default (props) =>
-<Table />
-
-/*
-
 <table>
   <tbody>
     <tr>
@@ -34,5 +29,3 @@ export default (props) =>
    )}
   </tbody>
 </table>
-
- */

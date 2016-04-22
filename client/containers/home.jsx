@@ -2,13 +2,11 @@ import React from 'react'
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox } from 'react-toolbox/lib/list';
 import { AppBar, Button, Navigation, Input } from 'react-toolbox/lib/index.js'
 import NavbarContainer from './navbar.jsx'
-import DataViz from '../components/dataVisualizations.jsx'
 
 export default (props) =>
 <div>
   <NavbarContainer />
   {props.children}
-  <DataViz />
 
   <List className="list" selectable>
     <ListSubHeader caption='Notifications' />
