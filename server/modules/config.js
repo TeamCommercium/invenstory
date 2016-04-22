@@ -16,3 +16,13 @@ module.exports.amazonEnv = {
                     secretAccessKey:  process.env.MWS_SECRET_KEY || null,
                     merchantId:       process.env.MWS_MERCHANT_ID || null,
 }
+
+module.exports.amazonAuth = {
+                    clientId:      process.env.AUTH_CLIENT_ID || null,
+                    clientSecret:  process.env.AUTH_CLIENT_SECRET || null,
+                    callbackURL:   process.env.AUTH_CALLBACK_URL || "http://127.0.0.1:8080/auth/amazon/callback"
+}
+
+module.exports.jwtConfig = {
+                    secret: 'doobydoobydooo'
+}

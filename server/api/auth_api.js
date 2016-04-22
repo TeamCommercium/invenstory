@@ -1,6 +1,43 @@
 var express = require('express')
+var passport = require('passport')
+var JWT = require('jsonwebtoken')
+var AmazonStrategy = require('passport-amazon').Strategy
+var amazonAuth_config = require('../modules/config.js').amazonAuth
+var jwt_config = require('../modules/config.js').jwtConfig
+
+passport.use(new AmazonStrategy({
+    clientID: amazonAuth_config.clientId,
+    clientSecret: amazonAuth_config.clientSecret,
+    callbackURL: amazonAuth_config.callbackURL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log('hello', profile)
+    return done(null, profile)
+  }
+))
+
+function serialize(req, res, next) {
+  //change req.user to desired with db call
+  next()
+}
+
+function generateToken(req, res, next) {
+  console.log('request ', req.user)
+  req.token = JWT.sign({
+      user: req.user
+    }, jwt_config.secret, {
+      expiresIn: 3600
+    })
+
+  next()
+}
+
 var router = express.Router()
 
+
+
+.use(passport.initialize())
+//.use()
 /**
  * @apiDefine restricted Restricted content
  *  Restricts access to authorized users.
@@ -20,9 +57,10 @@ var router = express.Router()
  * @apiDescription Endpoint to initiate Amazon authentication.
  * @apiUse public
  */
-.get('/amazon', (req, res) => { res.status(200).send('hello world')})
 
-module.exports = router ;
+.get('/amazon', passport.authenticate('amazon', { scope: ['profile', 'postal_code'] , session: false}))
+
+
 /**
  * @api {post} /auth/amazon/callback Amazon Oauth Callback
  * @apiName AmazonOauthCallback
@@ -35,6 +73,38 @@ module.exports = router ;
  *
  */
 
+.get('/amazon/callback', 
+  passport.authenticate('amazon', {session: false}),  
+  serialize, 
+  generateToken, 
+  function(req,res){
+    console.log('in here')
+
+    res.json({user:req.user, token: req.token})
+})
+
+
+
+    /*function(err, user, info){
+    if (err) {
+      console.log('amazon auth err: ', err)
+      res.sendStatus(500)
+    }
+    if (!user) {
+      res.send(info)
+    }
+    console.log('amazon response user:', user)
+    var token = JWT.sign({
+      user: user
+    }, jwt_config.secret)
+    res.json({token: token})
+
+
+  })(req, res, next)*/
+
+
+module.exports = router ;
+ 
  /**
   * @api {get} /logout Logout
   * @apiName Logout
