@@ -10,7 +10,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 module.exports = {
   entry: [
-    './client/index.js',
+    './client/index.jsx',
     './client/styles.css'
   ],
   output: {
@@ -40,19 +40,11 @@ module.exports = {
   plugins: [
     HTMLWebpackPluginConfig, 
     new ExtractTextPlugin("/bundle.css"), 
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
   ]
 }
 
-// {
-//   test: /\.scss$/,
-//   loaders: ["style", "css", "sass"],
-// },
-// { 
-//   test: /\.css$/, 
-//   loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-// }
+// new webpack.optimize.UglifyJsPlugin({
+//   compress: {
+//     warnings: false
+//   }
+// })
