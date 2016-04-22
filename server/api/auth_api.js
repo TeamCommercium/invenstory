@@ -2,11 +2,12 @@ var express = require('express')
 var passport = require('passport')
 var JWT = require('jsonwebtoken')
 var AmazonStrategy = require('passport-amazon').Strategy
-var config = require('../modules/config.js').amazonAuth
+var amazonAuth_config = require('../modules/config.js').amazonAuth
 
 passport.use(new AmazonStrategy({
-  clientID: config.clientId,
-  clientSecret: config.clientSecret
+  clientID: amazonAuth_config.clientId,
+  clientSecret: amazonAuth_config.clientSecret,
+  callbackURL: amazonAuth_config.callbackURL
 }))
 
 var router = express.Router()
@@ -35,9 +36,9 @@ var router = express.Router()
  * @apiUse public
  */
 
-.get('/amazon', function(req, res, next){
-
- 
+.get('/amazon', passport.authenticate('amazon', { scope: ['profile', 'postal_code'] , sessions: false}),
+    function(res, res){
+    }) 
 })
 
 /**
@@ -53,7 +54,14 @@ var router = express.Router()
  */
 
 .get('/amazon/callback', function(req, res, next){
+  passport.authenticate('amazon', {sessions: false}, function(err, user, info){
+    if (err) {
+      console.log('amazon auth err: ', err)
+      res.send(500)
+    }
 
+
+  })(req, res, next)
 })
 
 module.exports = router ;
