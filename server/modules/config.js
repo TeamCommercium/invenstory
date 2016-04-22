@@ -23,6 +23,6 @@ module.exports.amazonAuth = {
                     callbackURL:   process.env.AUTH_CALLBACK_URL || "http://127.0.0.1:8080/auth/amazon/callback"
 }
 
-module.exports.jwtConifg = {
+module.exports.jwtConfig = {
                     secret: 'doobydoobydooo'
 }
