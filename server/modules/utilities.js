@@ -1,7 +1,5 @@
-/**
- * @param  {[type]}
- * @return {[type]}
- */
+var env = require('./config.js').state.env;
+
 exports.cleanMatchingASIN = function(data) {
   var json = data.GetMatchingProductResponse.GetMatchingProductResult;
   var items = [];
@@ -23,10 +21,7 @@ exports.cleanMatchingASIN = function(data) {
   return items;
 }
 
-/**
- * @param  {[type]}
- * @return {[type]}
- */
+
 exports.cleanLowestOffers = function(data) {
   var json = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
   var list = [];
@@ -34,7 +29,7 @@ exports.cleanLowestOffers = function(data) {
   for (var i = 0; i < json.length; i++) {
     var product = {};
     var jsonShort = json[i].Product[0].LowestOfferListings[0].LowestOfferListing;
-    
+
     product.asin = json[i].$.ASIN;
     product.price_fba = [];
     product.price_merchant = [];
@@ -47,4 +42,8 @@ exports.cleanLowestOffers = function(data) {
     list.push(product);
   }
   return list;
+}
+
+exports.log = function() {
+  if(env === 'development') console.log.apply(this, Array.prototype.slice.apply(null,arguments))
 }

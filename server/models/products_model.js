@@ -1,3 +1,5 @@
+var db = require('knex')
+var log = require('../modules/utilities.js').log;
 /**
  * module
  * @module Products
@@ -10,7 +12,7 @@
  * @return {Promise}  Resolves to id of the newly created record.
  */
 exports.addProduct = function (asin) {
-   return Promise.resolve(id)
+   return db(products).returning('id').insert({amzn_asin: asin}).
 }
 
 /**
@@ -20,7 +22,7 @@ exports.addProduct = function (asin) {
  * @return {Promise}  Resolves to id of the product record.
  */
 exports.getProductId = function (asin) {
-   return Promise.resolve(id)
+   return db('products').select('id').where({amzn_asin:asin});
 }
 
 /**
@@ -38,15 +40,22 @@ exports.getProductId = function (asin) {
  * @return {Promise}  Resolves to true if updates are successful.
  */
 exports.editProduct = function(params) {
-   return Promise.resolve(prodObj)
+  var id = params.id;
+  delete params.id;
+  log('Going to update product ', id, ' with params ', params)
+   return db('products').where({id:id}).update(params);
 }
 
 /**
- * addProductDetail - description
+ * addProductDetail - Add product detail record.
  *
- * @param  {type} params description
- * @return {type}        description
+ * @param  {Object} params Product detail parameters.
+ * @param  {integer} params.product_id productId Product id for which the detail is being provided.
+ * @param  {flaot} params.amzn_price_fbm Amazon price fulfilled by merchant.
+ * @param  {float} params.amzn_price_fba Amazon price fulfilled by seller.
+ * @param  {type} params.amzn_sales_rank Amazon sales rank.
+ * @return {Promise}        Resolves to integer of detail id.
  */
 exports.addProductDetail = function(params) {
-  return Promise.resolve(id)
+  return db('product_details').returning('id').insert(params);
 }
