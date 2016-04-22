@@ -12,7 +12,7 @@ var log = require('../modules/utilities.js').log;
  * @return {Promise}  Resolves to id of the newly created record.
  */
 exports.addProduct = function (asin) {
-   return db(products).returning('id').insert({amzn_asin: asin}).
+   return db(products).returning('id').insert({amzn_asin: asin})
 }
 
 /**
