@@ -4,7 +4,7 @@
   "description": "Invenstory provides Amazon sellers with a useful information dashboard.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha server/test --recursive",
     "hot": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --progress --colors",
     "front": "./node_modules/webpack/bin/webpack.js --watch --progress --colors",
     "back": "./node_modules/babel-watch/babel-watch.js ./server/server.js",
