@@ -1,3 +1,5 @@
+var env = require('./config.js').state.env;
+
 exports.cleanMatchingASIN = function(data) {
   var json = data.GetMatchingProductResponse.GetMatchingProductResult;
   var items = [];
@@ -40,4 +42,8 @@ exports.cleanLowestOffers = function(data) {
     list.push(product);
   }
   return list;
+}
+
+exports.log = function() {
+  if(env === 'development') console.log.apply(this, Array.prototype.slice.apply(null,arguments))
 }
