@@ -2,7 +2,8 @@
  * module
  * @module User
  */
-
+ var db = require('knex')
+ var log = require('../modules/utilities.js').log;
 /**
  * getUserFromAmznId - Retreive userid based on the amazon Oauth userid.
  *
@@ -11,7 +12,10 @@
  */
 
 exports.getUserFromAmznId = function (amznId) {
-  // return userId;
+  log('Looking up user with amzn id: ', amznId)
+  // return db('auth')
+  //   .where({strategy:'amazon', })
+  //   .select('user_id')
 }
 
 /**
@@ -33,7 +37,9 @@ exports.expireCredentials = function(userId) {
  * @return {Promise}  Resolves to user id from the newly created user.
  */
 exports.createUser = function (params) {
-  // return Promise.resolve( userId );
+  return db('users')
+          .returning('id')
+          .insert(params)
 }
 
 /**
@@ -46,9 +52,15 @@ exports.createUser = function (params) {
  * @param {string}    params.mws_marketplace
  * @return {integer}  Resolves to user id from the newly created user.
  */
-exports.updateUser = function (userId, mws_auth_token, seller_id){
-}
+exports.updateUser = function (params){
+  let id = params.id;
+  delete params.id;
 
+  return db('users')
+    .where({id:id})
+    .update(params)
+
+}
 
 /**
  * addAuth - Returns a promise which resolves to the JWT. Not sure this will be used.
