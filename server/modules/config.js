@@ -7,6 +7,9 @@ module.exports.webServer = {
                     port: process.env.PORT || 8080
 }
 
+exports.state = {
+                    env: process.env.NODE_ENV || 'development';
+}
 
 module.exports.amazonEnv = {
                     accessKeyId:      process.env.MWS_ACCESS_KEY_ID || null,
