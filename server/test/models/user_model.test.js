@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
-var User = require('../../models/user_model.js')
+
+var User = require(__dirname + '/../../models/user_model.js')
 
 describe('User model', function() {
   describe('#getUserFromAmznId', function () {
@@ -19,7 +20,7 @@ describe('User model', function() {
   });
   describe('#addAuth', function () {
     it('should exist', function () {
-      expect(User.getUserFromAmznId).to.exist;
+      expect(User.addAuth).to.exist;
     });
   });
 });
