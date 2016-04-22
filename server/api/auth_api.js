@@ -1,5 +1,19 @@
 var express = require('express')
+var passport = require('passport')
+var JWT = require('jsonwebtoken')
+var AmazonStrategy = require('passport-amazon').Strategy
+var config = require('../modules/config.js').amazonAuth
+
+passport.use(new AmazonStrategy({
+  clientID: config.clientId,
+  clientSecret: config.clientSecret
+}))
+
 var router = express.Router()
+
+
+
+.use(passport.initialize())
 
 /**
  * @apiDefine restricted Restricted content
@@ -20,9 +34,12 @@ var router = express.Router()
  * @apiDescription Endpoint to initiate Amazon authentication.
  * @apiUse public
  */
-.get('/amazon', (req, res) => { res.status(200).send('hello world')})
 
-module.exports = router ;
+.get('/amazon', function(req, res, next){
+
+ 
+})
+
 /**
  * @api {post} /auth/amazon/callback Amazon Oauth Callback
  * @apiName AmazonOauthCallback
@@ -35,6 +52,12 @@ module.exports = router ;
  *
  */
 
+.get('/amazon/callback', function(req, res, next){
+
+})
+
+module.exports = router ;
+ 
  /**
   * @api {get} /logout Logout
   * @apiName Logout

@@ -16,3 +16,8 @@ module.exports.amazonEnv = {
                     secretAccessKey:  process.env.MWS_SECRET_KEY || null,
                     merchantId:       process.env.MWS_MERCHANT_ID || null,
 }
+
+module.exports.amazonAuth = {
+                    clientId:      process.env.AUTH_CLIENT_ID || null,
+                    clientSecret:  process.env.AUTH_CLIENT_SECRET || null,
+}
