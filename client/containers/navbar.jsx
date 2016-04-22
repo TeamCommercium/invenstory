@@ -1,13 +1,16 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Navbar from '../components/navbar.jsx'
 
-export default class NavCont extends React.Component{
-  render(){
-    return <Navbar redirect={redirect} />
-  }
-}
+export default class NavigationContainer extends React.Component{
 
-function redirect(){
-  store.dispatch(push('/home'))
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+    return (<div>
+      <Navbar />
+      {this.props.children}
+    </div>)
+  }
 }
