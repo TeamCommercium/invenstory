@@ -8,7 +8,7 @@ module.exports.webServer = {
 }
 
 exports.state = {
-                    env: process.env.NODE_ENV || 'development';
+                    env: process.env.NODE_ENV || 'development'
 }
 
 module.exports.amazonEnv = {
