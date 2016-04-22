@@ -8,12 +8,12 @@
  * addInventory - Insert new inventory record(s)
  *
  * @static
- * @param  {type} userId        The user this inventory belongs to.
- * @param  {type} productId     description
- * @param  {type} quantity      Number of inventory records to create
- * @param  {type} purchaseDate  Date the inventory was purchased.
- * @param  {type} purchasePrice Priace at which the inventory was purchased.
- * @param  {type} sku           SKU
+ * @param  {integer} userId        The user this inventory belongs to.
+ * @param  {integer} productId     description
+ * @param  {integer} quantity      Number of inventory records to create
+ * @param  {date} purchaseDate  Date the inventory was purchased.
+ * @param  {float} purchasePrice Priace at which the inventory was purchased.
+ * @param  {string} sku           SKU
  * @return {Promise}            Resolves to true if the inventory is added.
  */
 function addInventory(userId, productId, quantity, purchaseDate, purchasePrice, sku) {
