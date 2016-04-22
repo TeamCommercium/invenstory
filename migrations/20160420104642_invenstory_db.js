@@ -37,7 +37,8 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable("product_details", function (table) {
       table.increments('id'); // integer id
       table.string('product_id').references('products.id');
-      table.float('amzn_price'); //current price on amazon
+      table.float('amzn_price_fbm'); //current price fulfilled by merchant
+      table.float('amzn_price_fba'); //current price fulffilled by Amazon (Prime)
       table.integer('amzn_sales_rank');
       table.string('currency').defaultTo('USD');
       table.datetime('amzn_fetch_date'); //last time data was pulled
