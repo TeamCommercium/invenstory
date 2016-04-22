@@ -36,7 +36,9 @@ exports.getLowestOffers = function(req, res) {
     ASINList: 'B00UYNAGTI',
   })
     .then(function(result){
-      res.send(JSON.stringify(result));
+      // var cleanResult = utilities.cleanLowestOffers(result)
+      res.send(RESULT)
+      // res.send(JSON.stringify(result));
     })
     .catch(function(error) {
       res.send(error)
@@ -68,14 +70,12 @@ exports.listProductSearch = function(req, res) {
 exports.getMatchingASIN = function(req,res) {
   getMatchingProductByASIN(client, {
     MarketplaceId: MarketplaceId,
-    ASINList: 'B00UYNAGTI',
+    ASINList: ['B00UYNAGTI','B007GE5X7S']
   })
-    .then(function(RESULT){
-      console.log("--------");
-      var cleanResult = (utilities.cleanMatchingASIN(RESULT));
-      // res.send(JSON.stringify(RESULT))
+    .then(function(result){
+      var cleanResult = utilities.cleanMatchingASIN(result);
+      // res.send(RESULT)
       res.send(cleanResult)
-      console.log("--------");
     })
     .catch(function(error) {
       console.error(error);
