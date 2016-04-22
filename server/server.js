@@ -13,7 +13,7 @@ app.use("/inventory", inventoryAPI)
 
 app.get('/', (req,res) => res.send())
 
-app.get('/getMatchingASIN', amazonMWS.getMatchingASIN)
+app.get('/getMatchingAsins', amazonMWS.getMatchingAsins)
 app.get('/getLowestOffers', amazonMWS.getLowestOffers)
 
 app.listen(webConfig.port, ()=>{console.log("Listening on", webConfig.port)})

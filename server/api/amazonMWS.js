@@ -11,7 +11,7 @@ var MarketplaceId = "ATVPDKIKX0DER";
  * @param  {Object}   args      Amazon MWS API request data
  * @return {Promise}            Returns a promise that resolves into list of lowest offerings from Amazon MWS API
  */
-function getLowestOfferListingsForASIN(client, args) {
+function getLowestOfferListingsForAsin(client, args) {
   var req = MWS.Products.requests.GetLowestOfferListingsForASIN()
   req.set(args);
   return client.invoke(req);
@@ -33,7 +33,7 @@ function listMatchingProducts(client, args) {
  * @param  {Object}   args      Amazon MWS API request data
  * @return {Promise}            Returns a promise that resolves into a product Amazon MWS API
  */
-function getMatchingProductByASIN(client, args) {
+function getMatchingProductsByAsin(client, args) {
   var req = MWS.Products.requests.GetMatchingProduct();
   req.set(args);
   return client.invoke(req);
@@ -44,15 +44,15 @@ function getMatchingProductByASIN(client, args) {
 //Hourly request quota: 36000 requests per hour
 
 /**
- * getLowestOffers - API call to get list of low prices based on ASIN; up to 10/request
+ * getLowestOffers - API call to get list of low prices based on Asin; up to 10/request
  * @param  {Object}   req             
  * @param  {Object}   res
- * @param  {Array}    ASINList        array of ASINs as strings
+ * @param  {Array}    ASINList        array of Asins as strings
  * @param  {string}   MarketPlaceID   amazon country code 
  * @return {Promise}
  */
 exports.getLowestOffers = function(req, res) {
-  return getLowestOfferListingsForASIN(client, {
+  return getLowestOfferListingsForAsin(client, {
     MarketplaceId: MarketplaceId,
     ItemCondition: 'NEW',
     ASINList: ['B00UYNAGTI','B007GE5X7S'],
@@ -102,20 +102,20 @@ exports.listProductSearch = function(req, res) {
  */ 
 
 /**
- * getMatchingProduct - API call to get product info based on ASIN
+ * getMatchingProduct - API call to get product info based on Asin
  * @param  {Object}   req
  * @param  {Object}   res
- * @param  {Array}    ASINList        array of ASINs as strings
+ * @param  {Array}    ASINList        array of Asins as strings
  * @param  {string}   MarketPlaceID   amazon country code 
  * @return {Promise}
  */
-exports.getMatchingASIN = function(req,res) {
-  return getMatchingProductByASIN(client, {
+exports.getMatchingAsins = function(req,res) {
+  return getMatchingProductsByAsin(client, {
     MarketplaceId: MarketplaceId,
     ASINList: ['B00UYNAGTI','B007GE5X7S']
   })
     .then(function(result){
-      var cleanResult = utilities.cleanMatchingASIN(result);
+      var cleanResult = utilities.cleanMatchingAsins(result);
       res.send(cleanResult)
 
     })
