@@ -6,8 +6,8 @@ import { redirect } from '../util/util.jsx'
 
 export default (props) =>
 <div>
-  <Navigation className="loginBox" type='horizontal'>
-    <Button label='Sign in with Amazon' onMouseUp={redirect('/home')} raised floating />
+  <img className="styles__titleImage___2BUYF" src="https://i.imgur.com/CQtx1y3.jpg" />
+  <Navigation className="styles__loginBox___3xm-6" type='horizontal'>
+    <Button label='Sign in' onMouseUp={redirect('/home')} raised floating />
   </Navigation>
 </div>
-
