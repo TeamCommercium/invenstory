@@ -38,9 +38,9 @@ var router = express.Router()
  */
 
 .get('/amazon', passport.authenticate('amazon', { scope: ['profile', 'postal_code'] , sessions: false}),
-    function(res, res){
+    function(req, res){
     }) 
-})
+
 
 /**
  * @api {post} /auth/amazon/callback Amazon Oauth Callback
