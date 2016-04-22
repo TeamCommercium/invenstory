@@ -33,12 +33,11 @@ exports.getLowestOffers = function(req, res) {
   getLowestOfferListingsForASIN(client, {
     MarketplaceId: MarketplaceId,
     ItemCondition: 'NEW',
-    ASINList: 'B00UYNAGTI',
+    ASINList: ['B00UYNAGTI','B007GE5X7S'],
   })
     .then(function(result){
-      // var cleanResult = utilities.cleanLowestOffers(result)
-      res.send(RESULT)
-      // res.send(JSON.stringify(result));
+      var cleanResult = utilities.cleanLowestOffers(result)
+      res.send(cleanResult);
     })
     .catch(function(error) {
       res.send(error)
@@ -74,7 +73,6 @@ exports.getMatchingASIN = function(req,res) {
   })
     .then(function(result){
       var cleanResult = utilities.cleanMatchingASIN(result);
-      // res.send(RESULT)
       res.send(cleanResult)
     })
     .catch(function(error) {
