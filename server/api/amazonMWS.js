@@ -109,7 +109,7 @@ exports.listProductSearch = function(req, res) {
  * @param  {string}   MarketPlaceID   amazon country code 
  * @return {Promise}
  */
-exports.getMatchingProduct = function(req,res) {
+exports.getMatchingASIN = function(req,res) {
   return getMatchingProductByASIN(client, {
     MarketplaceId: MarketplaceId,
     ASINList: ['B00UYNAGTI','B007GE5X7S']
