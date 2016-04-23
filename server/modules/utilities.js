@@ -6,28 +6,35 @@ var env = require('./config.js').state.env;
  */
 
 /**
- * cleanMatchingAsins Does stuff.
- * @param {String}    items.amzn_title The title of the item.
- * @param  {Array}    data Data from amazon
- * @param {Object[]}  items Array of items.
- * @return {String}   items.amzn_title The title of the item.
+ * cleanMatchingAsins - Cull data object from Amazon MWS Api to array
+ * 
+ * @param {Object}    data  Object from Amazon api containing product info for multiple items.
+ * @param {string}    product.asin    Amazon Standard Identification Number.
+ * @param {string}    product.amzn_title    Title of item.
+ * @param {string}    product.amzn_description    Description of item.
+ * @param {string}    product.amzn_manufacturer   Manufacturer of item.
+ * @param {float}     product.amzn_weight   Weight of item in lbs.
+ * @param {string}    product.amzn_thumb_url    Url to thumbnail.
+ * @param {float}     product.amzn_list_price   Retail price of item.
+ * @param {integer}   product.amzn_sales_rank   Amazon sales rank of item.
+ * @return {Object[]} items  Array of objects containing culled product data for multiple items.
  */
 exports.cleanMatchingAsins = function(data) {
-  var responseArr = data.GetMatchingProductResponse.GetMatchingProductResult;
+  var responseObj = data.GetMatchingProductResponse.GetMatchingProductResult;
   var items = [];
 
-  for (var i = 0, len = responseArr.length; i < len; i++) {
+  for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     var product = {};
-    var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
+    var attrPath = responseObj[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
 
-    product.asin = responseArr[i].$.ASIN;
+    product.asin = responseObj[i].$.ASIN;
     product.amzn_title = attrPath["ns2:Title"][0];
     product.amzn_description = attrPath["ns2:Feature"].join(". ");
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
     product.amzn_weight = Number(attrPath["ns2:ItemDimensions"][0]["ns2:Weight"][0]._);
     product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0];
     product.amzn_list_price = Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]);
-    product.amzn_sales_rank = Number(responseArr[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]);
+    product.amzn_sales_rank = Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]);
 
     items.push(product);
   }
@@ -35,22 +42,24 @@ exports.cleanMatchingAsins = function(data) {
 }
 
 /**
- * cleanMatchingAsins - Does stuff.
- *
- * @param  {Array} data Data from amazon
- * @return {Object[]} items Array of items.
- * @return {String} items.amzn_title The title of the item.
+ * cleanLowestOffers - Cull data object from Amazon MWS Api to array
+ * 
+ * @param {Object}    data    Object from Amazon api containing product info for multiple items.
+ * @param {String}    product.asin    Amazon Standard Identification Number.
+ * @param {float}     product.price_fba   Lowest FBA (Fulfilled by Amazon) price available for item.
+ * @param {float}     product.price_fbm   Lowest FBM (Fulfilled by Merchant) price available for item.
+ * @return {Object[]} items   Array of objects containing culled pricing data for multiple items.
  */
 exports.cleanLowestOffers = function(data) {
-  var responseArr = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
+  var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
   var list = [];
 
-  for (var i = 0, len = responseArr.length; i < len; i++) {
+  for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     var product = {};
-    var priceArr = responseArr[i].Product[0].LowestOfferListings[0].LowestOfferListing;
-    product.asin = responseArr[i].$.ASIN;
+    var priceArr = responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing;
+    product.asin = responseObj[i].$.ASIN;
 
-    for (var j = 0; j < priceArr.length; j++) {
+    for (var j = 0, pricesLen = priceArr.length; j < pricesLen; j++) {
       var fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0];
       var price = priceArr[j].Price[0].LandedPrice[0].Amount[0];
       if (fulfillmentChannel === "Amazon") {
@@ -58,7 +67,7 @@ exports.cleanLowestOffers = function(data) {
           product.price_fba = Number(price);
         }
       } else if (!product.price_fbm) {
-          product.price_fbm = Number(price);
+        product.price_fbm = Number(price);
       }
     }
     list.push(product);
