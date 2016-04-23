@@ -77,7 +77,8 @@ var router = express.Router()
   * @apiSuccess {number} products.purchase_price Average purchase price of in stock inventory.
   * @apiSuccess {string} products.amzn_title Quantity of new product listing.
   * @apiSuccess {string} products.amzn_description Description of product listing.
-  * @apiSuccess {number} products.amzn_price Current price of product on Amazon.
+  * @apiSuccess {number} products.amzn_price_fbm Current price of product on Amazon (fulfilled by merchanct).
+  * @apiSuccess {number} products.amzn_price_fba Current price of product on Amazon (fulfilled by Amazon).
   * @apiSuccess {number} products.amzn_rank Current sales ranks of product on Amazon.
   * @apiSuccess {number} products.amzn_weight Shipping weight of product.
   * @apiSuccess {number} products.amzn_manuf Product manufacturer.
