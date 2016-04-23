@@ -8,6 +8,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import HomeContainer from './containers/home.jsx'
 import DashboardContainer from './containers/dashboard.jsx'
 import LoginContainer from './containers/login.jsx'
+
 import { store } from './store/initStore'
 
 // Create an enhanced history that syncs navigation events with the store
