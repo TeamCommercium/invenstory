@@ -4,6 +4,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var log = require('../modules/utilities.js').log;
 var Inventory = require('../models/inventory_model.js')
+var Products = require('../models/products_model.js')
 var router = express.Router()
 
 .use(bodyParser.json())
@@ -17,7 +18,6 @@ var router = express.Router()
  *
  * @apiParam    {Object}   Inventory  Object with new inventory listing attributes.
  * @apiParam    {string}   [inventory.asin] ASIN of product
- * @apiParam    {string}   [inventory.isbn] ISBN of product
  * @apiParam    {string}   [inventory.product_id] Associated product id.
  * @apiParam    {number}   inventory.purchase_price Purchase price of new product listing in USD.
  * @apiParam    {date}     inventory.purchase_date Purchase price of new product listing in USD.
@@ -27,14 +27,32 @@ var router = express.Router()
  * @apiSuccess  {number}   inventory.product_id id of product listing.
  * @apiSuccess  {number}   inventory.purchase_price Purchase price of new product listing in USD.
  *
- * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied ISBN or ASIN. One of these must be supplied or an error will occur.
+ * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied ASIN. One of these must be supplied or an error will occur.
  *
  * @apiError (400 Bad Request) Request must have an ASIN or ISBN.
  */
 .post('/add', function(res, req) {
+  //if product Id is not set, need to lookup or create it
   let params = req.body
   params.user_id = req.user.id
   log("Web service request to add inventory: ", params)
+
+  if(!req.body.product_id) {
+    Products.findOrCreate(req.body.inventory.asin)
+      .then(function(productId) {
+        params.product_id = productId
+        Inventory.addInventory(params)
+          .then(function(data) {
+              res.status(200).send(data)
+          })
+          .catch(function(err) {
+            log("An error occurred adding inventory: ", err)
+            res.status(400).send("Bad request")
+          })
+
+      })
+  }
+
   Inventory.addInventory(params)
     .then(function(data) {
         res.status(200).send(data)
