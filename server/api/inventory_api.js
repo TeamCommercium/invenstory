@@ -1,5 +1,13 @@
+'use strict'
+
 var express = require('express')
+var bodyParser = require('body-parser')
+var log = require('../modules/utilities.js').log;
+var Inventory = require('../models/inventory_model.js')
+var Products = require('../models/products_model.js')
 var router = express.Router()
+
+.use(bodyParser.json())
 
 /**
  * @api {post} /inventory/add Add Product Listing
@@ -10,7 +18,6 @@ var router = express.Router()
  *
  * @apiParam    {Object}   Inventory  Object with new inventory listing attributes.
  * @apiParam    {string}   [inventory.asin] ASIN of product
- * @apiParam    {string}   [inventory.isbn] ISBN of product
  * @apiParam    {string}   [inventory.product_id] Associated product id.
  * @apiParam    {number}   inventory.purchase_price Purchase price of new product listing in USD.
  * @apiParam    {date}     inventory.purchase_date Purchase price of new product listing in USD.
@@ -20,13 +27,43 @@ var router = express.Router()
  * @apiSuccess  {number}   inventory.product_id id of product listing.
  * @apiSuccess  {number}   inventory.purchase_price Purchase price of new product listing in USD.
  *
- * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied ISBN or ASIN. One of these must be supplied or an error will occur.
+ * @apiDescription Endpoint to add inventory. The server will lookup (create if necessary) the associated product id based on the supplied ASIN. One of these must be supplied or an error will occur.
  *
  * @apiError (400 Bad Request) Request must have an ASIN or ISBN.
  */
+.post('/add', function(res, req) {
+  //if product Id is not set, need to lookup or create it
+  let params = req.body
+  params.user_id = req.user.id
+  log("Web service request to add inventory: ", params)
 
+  if(!req.body.product_id) {
+    Products.findOrCreate(req.body.inventory.asin)
+      .then(function(productId) {
+        params.product_id = productId
+        Inventory.addInventory(params)
+          .then(function(data) {
+              res.status(200).send(data)
+          })
+          .catch(function(err) {
+            log("An error occurred adding inventory: ", err)
+            res.status(400).send("Bad request")
+          })
+
+      })
+  }
+
+  Inventory.addInventory(params)
+    .then(function(data) {
+        res.status(200).send(data)
+    })
+    .catch(function(err) {
+      log("An error occurred adding inventory: ", err)
+      res.status(400).send("Bad request")
+    })
+})
  /**
-  * @api {get} /inventory/list/:id List User's Products
+  * @api {get} /inventory/list List User's Products
   *
   * @apiName GetProducts
   * @apiGroup product
@@ -49,19 +86,45 @@ var router = express.Router()
   * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
   */
 
- /**
-  * @api {put} /inventory/ship/:id Update Product Listing
+  .get('/list', function(res, req) {
+   let params = req.query
+   params.user_id = req.user.id
+   log("Web service request to list inventory: ", params)
+   Inventory.getInventory(params)
+     .then(function(data) {
+         res.status(200).send(data)
+     })
+     .catch(function(err) {
+       log("An error occurred getting inventory: ", err)
+       res.status(400).send("Bad request")
+     })
+  })
+  /**
+  * @api {put} /inventory/ship Set inventory status to shipped
   * @apiName UpdateProduct
   * @apiGroup product
   * @apiUse restricted
   *
-  * @apiDescription Endpoint to allow user to update user's own product.
+  * @apiDescription Endpoint to allow user to mark user's inventory as shipped.
   *
   * @apiParam {Object} product Updated product to update.
   * @apiParam {string} product.id ID of product to update.
   * @apiParam {number} product.quantity quantity shipped.
   * @apiSuccess {Object} product Return updated product listing. See /api/product/list.
   */
+
+  .put('/ship', function(res, req) {
+   let params = req.body
+   log("Web service request to ship inventory: ", params)
+   Inventory.shipInventory(params.id, req.user.id, params.quantity)
+     .then(function(data) {
+         res.status(200).send(data)
+     })
+     .catch(function(err) {
+       log("An error occurred shipping inventory: ", err)
+       res.status(400).send("Bad request")
+     })
+  })
 
 /**
  * @api {delete} /inventory/delete Delete Inventory Listing
@@ -76,5 +139,18 @@ var router = express.Router()
  *
  * @apiDescription Endpoint to allow user to delete all of their own inventory records for a product.
  */
+
+ .delete('/delete', function(res, req) {
+  let params = req.body
+  log("Web service request to delete inventory: ", params)
+  Inventory.deleteInventory(params.id, req.user.id)
+    .then(function(data) {
+        res.status(200).send(data)
+    })
+    .catch(function(err) {
+      log("An error occurred deleting inventory: ", err)
+      res.status(400).send("Bad request")
+    })
+ })
 
  module.exports = router;

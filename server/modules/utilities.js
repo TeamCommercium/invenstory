@@ -2,7 +2,7 @@ var env = require('./config.js').state.env;
 
 /**
  * module
- * @module Inventory
+ * @module Utilities
  */
 
 /**
@@ -66,6 +66,12 @@ exports.cleanLowestOffers = function(data) {
   return list;
 }
 
+/**
+ * log - Utility function console logs in dev mode.
+ *
+ * @param {Array} [args] Arguments to pass to console.log
+ * @return {undefined}
+ */
 exports.log = function() {
   if(env === 'development') console.log.apply(this, Array.prototype.slice.apply(null,arguments))
 }
