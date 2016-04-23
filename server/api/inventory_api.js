@@ -3,6 +3,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var log = require('../modules/utilities.js').log;
+var env = require('../modules/config.js').state.env
 var Inventory = require('../models/inventory_model.js')
 var Products = require('../models/products_model.js')
 var router = express.Router()
@@ -72,7 +73,7 @@ var router = express.Router()
   * @apiParam {string} [id] Product to list. If omitted, all users products are returned.
   *
   * @apiSuccess {Object[]} products Returns user's product listings.
-  * @apiSuccess {String} products.id id of new product listing.
+  * @apiSuccess {String} products.product_id id of new product listing.
   * @apiSuccess {number} products.quantity Quantity of product listing in inventory.
   * @apiSuccess {number} products.purchase_price Average purchase price of in stock inventory.
   * @apiSuccess {string} products.amzn_title Name of product.
@@ -87,9 +88,11 @@ var router = express.Router()
   * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
   */
 
-  .get('/list', function(res, req) {
-   let params = req.query
-   params.user_id = req.user.id
+  .get('/list', function(req, res) {
+   let params = req.query || {}
+   params.user_id = env === 'development'
+    ? 2
+    : req.user.id
    log("Web service request to list inventory: ", params)
    Inventory.getInventory(params)
      .then(function(data) {

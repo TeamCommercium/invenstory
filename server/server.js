@@ -2,7 +2,7 @@ var express = require('express')
 var path = require('path')
 var webConfig = require('./modules/config.js').webServer
 var authAPI = require('./api/auth_api.js')
-var inventoryAPI = require('./api/auth_api.js')
+var inventoryAPI = require('./api/inventory_api.js')
 var amazonMWS = require('./api/amazonMWS.js')
 var userAPI = require('./api/user_api.js')
 
