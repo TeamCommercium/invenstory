@@ -13,7 +13,10 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'n0teyT0ken',
         seller_id: 'n0tAseller',
         mws_marketplace: 'ATVPDKIKX0DER',
-        amzn_profile_id: 'asfdsfdf'
+        amzn_profile_id: 'asfdsfdf',
+        amzn_username: 'fakeyJakey',
+        amzn_email: "cakey@example.com",
+        amzn_zip: "12345"
       }),
 
     knex('users').insert({
@@ -21,7 +24,10 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'alson0T0ken',
         seller_id: 'n0tAceller',
         mws_marketplace: 'ATVPDKIKX0DER',
-        amzn_profile_id: 'asfdsfdf3'
+        amzn_profile_id: 'asfdsfdf3',
+        amzn_username: 'HugheyBooey',
+        amzn_email: "luvLegos@example.com",
+        amzn_zip: "12354"
       }),
 
     knex('users').insert({
@@ -29,7 +35,10 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'tokenPHsyc3',
         seller_id: 'pickles!',
         mws_marketplace: 'ATVPDKIKX0DER',
-        amzn_profile_id: 'asfdsfdfasdf'
+        amzn_profile_id: 'asfdsfdfasdf',
+        amzn_username: 'ChrisNate',
+        amzn_email: "joined@example.com",
+        amzn_zip: "13245"
       }),
 
     //Seed products
@@ -49,7 +58,8 @@ exports.seed = function(knex, Promise) {
       knex('product_details').insert({
         id: 3,
         product_id: 85,
-        amzn_price: 19.99,
+        amzn_price_fba: 22.99,
+        amzn_price_fbm: 21.99,
         amzn_sales_rank: 12821,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
         }),
@@ -57,7 +67,8 @@ exports.seed = function(knex, Promise) {
       knex('product_details').insert({
         id: 8,
         product_id: 85,
-        amzn_price: 19.89,
+        amzn_price_fba: 22.99,
+        amzn_price_fbm: 21.99,
         amzn_fetch_date: '2016-04-21 18:33:57', //UTC
         amzn_sales_rank: 12824,
       }),
