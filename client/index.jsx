@@ -19,7 +19,6 @@ ReactDOM.render(
       <Route path='/' component={LoginContainer}/>
       <Route path='/home'component={HomeContainer}/>
       <Route path='/dashboard' component={DashboardContainer} />
-      <Route path='*' component={LoginContainer} />
     </Router>
   </Provider>,
   document.getElementById('app')
