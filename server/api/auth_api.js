@@ -4,6 +4,8 @@ var JWT = require('jsonwebtoken')
 var AmazonStrategy = require('passport-amazon').Strategy
 var amazonAuth_config = require('../modules/config.js').amazonAuth
 var jwt_config = require('../modules/config.js').jwtConfig
+var db = require('knex')
+var log = require('../modules/utilities.js').log;
 
 passport.use(new AmazonStrategy({
     clientID: amazonAuth_config.clientId,
@@ -11,20 +13,24 @@ passport.use(new AmazonStrategy({
     callbackURL: amazonAuth_config.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log('profile: ', profile)
-    console.log('accessToken: ', accessToken)
-    console.log('refreshToken: ', refreshToken)
-    return done(null, profile)
+    var userObj = {
+      amazon_id: profile.id,
+      username: profile.displayName,
+      email: profile.emails[0].value,
+      zipcode: profile._json.postal_code,
+      amazon_accesToken: 'accessToken',
+      amazon_refreshToken: 'refreshToken'
+    }
+    return done(null, userObj)
   }
 ))
 
 function serialize(req, res, next) {
-  //change req.user to desired with db call
   next()
 }
 
 function generateToken(req, res, next) {
-  console.log('request ', req.user)
+  //console.log('generate token ', req.user)
   req.token = JWT.sign({
       user: req.user
     }, jwt_config.secret, {
