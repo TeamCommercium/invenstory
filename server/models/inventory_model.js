@@ -12,8 +12,8 @@ var log = require('../modules/utilities.js').log;
  *
  * @static
  * @param  {integer} params        New inventory parameters
- * @param  {integer} params.userId        The user this inventory belongs to.
- * @param  {integer} params.productId     description
+ * @param  {integer} params.user_id        The user this inventory belongs to.
+ * @param  {integer} params.product_id     description
  * @param  {integer} params.quantity      Number of inventory records to create
  * @param  {date} params.purchaseDate  Date the inventory was purchased.
  * @param  {float} params.purchasePrice Priace at which the inventory was purchased.
