@@ -14,19 +14,10 @@
 
 exports.getUserFromAmznId = function (amznId) {
   log('Looking up user with amzn id: ', amznId)
-  // return db('auth')
-  //   .where({strategy:'amazon', })
-  //   .select('user_id')
-}
-
-/**
- * expireCredentials - Logout/expire client's credentials. Not sure this will be used.
- *
- * @param  {integer} userId user whose credentials should expire.
- * @return {Promise}        Returns a promise which resolves to true if the credientials expire.
- */
-exports.expireCredentials = function(userId) {
-  return
+   return db('users')
+            .returning('id')
+            .where({amzn_profile_id:amznId, })
+            .select('user_id')
 }
 
 /**
@@ -63,17 +54,20 @@ exports.updateUser = function (params){
 
 }
 
-/**
- * addAuth - Returns a promise which resolves to the JWT. Not sure this will be used.
- *
- * @param  {Object}   params
- * @param  {integer}  params.user_id    description
- * @return  {Object}  JWT               description
- * @return  {string}  JWT.strategy   description
- * @return  {integer} JWT.expiration description
- * @return  {string}  JWT.authToken  description
- */
 
-exports.addAuth = function (user_id, strategy, expiration, authToken) {
-  return
+/**
+ * findOrCreateUser - Generator function yields results of userid, next user creation. Creates a new user if necessary.
+ *
+ * @param  {type} amznId    User's amazon oauth profile id.
+ * @return {Promise}        Resolves to id.
+ */
+exports.findOrCreateUser = function* (amznId) {
+
+  yield db('users')
+          .returning('id')
+          .where({amzn_profile_id:id})
+
+  yield db('users')
+          .returning('id')
+          .insert({amzn_profile_id:amznId})
 }
