@@ -36,10 +36,15 @@ passport.use(new AmazonStrategy({
  */
 function serialize(req, res, next) {
   //change req.user to desired with db call
-  let getUserId = User.findOrCreateUser(req.user.amazon_id)
-  let userId = getUserId.next().value
-  if (!userId) getUserId.next().value
-  next()
+  // let getUserId = User.findOrCreateUser(req.user.amazon_id)
+  // let userId = getUserId.next().value
+  // log('Searched for user, result:', userId)
+  // if (!userId[0]) getUserId.next().value
+  // log('Searched for user, result:', userId)
+  User.findOrCreateUser(req.user.amazon_id)
+    .then(function(id) {
+      req.user = {id:id}
+      next()})
 }
 
 function generateToken(req, res, next) {

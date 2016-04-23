@@ -6,7 +6,6 @@ exports.seed = function(knex, Promise) {
     knex('inventory').del(),
     knex('products').del(),
     knex('product_details').del(),
-    knex('auth').del(),
 
     // Seed users entries
     knex('users').insert({
@@ -14,6 +13,7 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'n0teyT0ken',
         seller_id: 'n0tAseller',
         mws_marketplace: 'ATVPDKIKX0DER',
+        amzn_profile_id: 'asfdsfdf'
       }),
 
     knex('users').insert({
@@ -21,6 +21,7 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'alson0T0ken',
         seller_id: 'n0tAceller',
         mws_marketplace: 'ATVPDKIKX0DER',
+        amzn_profile_id: 'asfdsfdf3'
       }),
 
     knex('users').insert({
@@ -28,6 +29,7 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'tokenPHsyc3',
         seller_id: 'pickles!',
         mws_marketplace: 'ATVPDKIKX0DER',
+        amzn_profile_id: 'asfdsfdfasdf'
       }),
 
     //Seed products
@@ -69,7 +71,7 @@ exports.seed = function(knex, Promise) {
         purchase_date: '2015-02-20 11:33:57',
         purchase_price: 14.99,
       }),
-      
+
       knex('inventory').insert({
         id: 2,
         user_id: 2,
