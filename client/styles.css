@@ -5,10 +5,6 @@ html, body{
   display: block;
 }
 
-table{
-  border:1px solid black;
-}
-
 :local(.loginBox){
   position: absolute;
   top:58%;
@@ -29,12 +25,12 @@ table{
   margin: 0 auto;
 }
 
-:local(.odd){
-  background: #ADD8E6;
-  border: none;
+:local(.shortInput){
+  width:50%;
 }
 
-:local(.even){
-  background: white;
-  border: none;
+:local(.inlineButton){
+  float:right;
+  margin-top: -90px;
+  margin-right: 20px;
 }

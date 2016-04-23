@@ -17,7 +17,7 @@ export default (props) =>
       <th>seven</th>
     </tr>
    {props.data.map( (cur, ind) =>
-    <tr key={ind} className={ind%2===0?'styles__even___2vvjc':'styles__odd___3AkYs'}>
+    <tr key={ind} className={ind%2 === 0  ?'styles__even___2vvjc'  :'styles__odd___3AkYs'}>
       <td>one</td>
       <td>two</td>
       <td>three</td>
