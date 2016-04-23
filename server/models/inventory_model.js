@@ -3,7 +3,7 @@
 * @module Inventory
 */
 
-var db = require('knex')
+var db = require('../modules/config').db
 var log = require('../modules/utilities.js').log;
 
 
@@ -66,17 +66,19 @@ function shipInventory(productId, userId, quantity) {
  * getInventory - Returns list of inventory subject to constraints passed in.
  *
  * @static
- * @param  {integer} productId   Product Id from products table.
- * @param  {integer} userId      description
- * @param  {integer} inventoryId description
+ *
+ * @param  {Object} params   Product Id from products table.
+ * @param  {integer} params.productId   Product Id from products table.
+ * @param  {integer} params.userId      description
+ * @param  {integer} params.inventoryId description
  * @return {Promise}             description
  */
-function getInventory(productId, userId, inventoryId) {
-  log('Getting inventory list for ', productId, ' for user ', userId)
+function getInventory(params) {
+  log('Getting inventory list for ', params.product_id, ' for user ', params.user_id)
   return db('inventory')
-            .join('products', 'inventory.product_id', 'product.id')
+            .join('products', 'inventory.product_id', 'products.id')
             .select()
-            .where({user_id:userId,product_id:productId})
+            .where(params)
 }
 
 module.exports = {
