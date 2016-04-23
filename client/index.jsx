@@ -11,7 +11,6 @@ import LoginContainer from './containers/login.jsx'
 
 import { store } from './store/initStore'
 
-// Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(

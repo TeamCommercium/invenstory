@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link, browserHistory } from 'react-router'
 import { AppBar, Button, Navigation, Input } from 'react-toolbox'
 
 import { redirect } from '../util/util.jsx'

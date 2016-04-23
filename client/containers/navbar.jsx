@@ -8,9 +8,9 @@ export default class NavigationContainer extends React.Component{
   }
 
   render(){
-    return (<div>
+    return <div>
       <Navbar />
       {this.props.children}
-    </div>)
+    </div>
   }
 }

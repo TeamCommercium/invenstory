@@ -6,6 +6,24 @@ html, body{
   font-family: 'Roboto', sans-serif;
 }
 
+td > input {
+  width: 99%;
+  height: 150%;
+  font-size: 24px;
+  border: none;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 80%;
+}
+
+table, td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
 :local(.loginBox){
   position: absolute;
   top:58%;
@@ -35,21 +53,4 @@ html, body{
   float:right;
   margin-top: -90px;
   margin-right: 20px;
-}
-
-td > input {
-  width: 99%;
-  height: 150%;
-  font-size: 24px;
-  border: none;
-}
-
-table {
-  border-collapse: collapse;
-  margin: 0 auto;
-}
-
-table, td {
-  border: 1px solid black;
-  padding: 10px;
 }
