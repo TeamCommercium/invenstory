@@ -57,9 +57,8 @@ exports.getLowestOffers = function(req, res) {
     ItemCondition: 'NEW',
     ASINList: ['B00UYNAGTI','B007GE5X7S'],
   })
-    .then(function(result){
-      var cleanResult = utilities.cleanLowestOffers(result)
-      res.send(cleanResult);
+    .then(function(result) {
+      res.send(utilities.cleanLowestOffers(result));
     })
     .catch(function(error) {
       console.error(error)
@@ -83,10 +82,11 @@ exports.getLowestOffers = function(req, res) {
 exports.listProductSearch = function(req, res) {
   return listMatchingProducts(client, {
     MarketplaceId: MarketplaceId,
-    Query: '',
+    Query: 'Lego ant',
   })
-    .then(function(result){
-      res.send(JSON.stringify(result));
+    .then(function(result) {
+      res.send(utilities.cleanListProductSearch(result));
+      // res.send(result);
     })
     .catch(function(error) {
       console.error(error);
@@ -115,9 +115,7 @@ exports.getMatchingAsins = function(req,res) {
     ASINList: ['B00UYNAGTI','B007GE5X7S']
   })
     .then(function(result){
-      var cleanResult = utilities.cleanMatchingAsins(result);
-      res.send(cleanResult)
-
+      res.send(utilities.cleanMatchingAsins(result))
     })
     .catch(function(error) {
       console.error(error);
