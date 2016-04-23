@@ -74,6 +74,7 @@ function shipInventory(productId, userId, quantity) {
 function getInventory(productId, userId, inventoryId) {
   log('Getting inventory list for ', productId, ' for user ', userId)
   return db('inventory')
+            .join('products', 'inventory.product_id', 'product.id')
             .select()
             .where({user_id:userId,product_id:productId})
 }

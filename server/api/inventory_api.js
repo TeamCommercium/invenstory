@@ -75,12 +75,13 @@ var router = express.Router()
   * @apiSuccess {String} products.id id of new product listing.
   * @apiSuccess {number} products.quantity Quantity of product listing in inventory.
   * @apiSuccess {number} products.purchase_price Average purchase price of in stock inventory.
-  * @apiSuccess {string} products.amzn_title Quantity of new product listing.
+  * @apiSuccess {string} products.amzn_title Name of product.
   * @apiSuccess {string} products.amzn_description Description of product listing.
-  * @apiSuccess {number} products.amzn_price Current price of product on Amazon.
-  * @apiSuccess {number} products.amzn_rank Current sales ranks of product on Amazon.
-  * @apiSuccess {number} products.amzn_weight Shipping weight of product.
-  * @apiSuccess {number} products.amzn_manuf Product manufacturer.
+  * @apiSuccess {number} products.amzn_price_fbm Current price of product on Amazon (fulfilled by merchant).
+  * @apiSuccess {number} products.amzn_price_fba Current price of product on Amazon (fulfilled by Amazon).
+  * @apiSuccess {number} products.amzn_rank Current sales rank of product on Amazon.
+  * @apiSuccess {number} products.amzn_weight Shipping weight of product in pounds.
+  * @apiSuccess {string} products.amzn_manuf Product manufacturer.
   * @apiSuccess {timestamp} products.amzn_price_time Timestamp of when sale price was last checked.
   *
   * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.

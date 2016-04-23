@@ -73,5 +73,5 @@ exports.cleanLowestOffers = function(data) {
  * @return {undefined}
  */
 exports.log = function() {
-  if(env === 'development') console.log.apply(this, Array.prototype.slice.apply(null,arguments))
+  if(env === 'development') console.log.apply(this, Array.prototype.slice.call(arguments))
 }

@@ -3,8 +3,11 @@
  * module
  * @module User
  */
- var db = require('knex')
+ var env = require('../modules/config.js').state.env
+ var config = require('../../knexfile.js')[env]
+ var db = require('knex')(config)
  var log = require('../modules/utilities.js').log;
+
 /**
  * getUserFromAmznId - Retreive userid based on the amazon Oauth userid.
  *
@@ -12,21 +15,11 @@
  * @return {Promise}       Resolves to userId from users table
  */
 
-exports.getUserFromAmznId = function (amznId) {
+var getUserFromAmznId = function (amznId) {
   log('Looking up user with amzn id: ', amznId)
-  // return db('auth')
-  //   .where({strategy:'amazon', })
-  //   .select('user_id')
-}
-
-/**
- * expireCredentials - Logout/expire client's credentials. Not sure this will be used.
- *
- * @param  {integer} userId user whose credentials should expire.
- * @return {Promise}        Returns a promise which resolves to true if the credientials expire.
- */
-exports.expireCredentials = function(userId) {
-  return
+   return db('users')
+            .where({amzn_profile_id:amznId})
+            .select('user_id')
 }
 
 /**
@@ -35,10 +28,18 @@ exports.expireCredentials = function(userId) {
  * @param {string}    params.mws_auth_token
  * @param {integer}   params.seller_id
  * @param {string}    params.mws_marketplace
+ * @param {string}    params.amzn_profile_id
+ * @param {string}    params.amzn_username
+ * @param {string}    params.amzn_email
+ * @param {string}    params.amzn_zip
+ * @param {string}    params.amzn_accessToken
+ * @param {string}    params.amzn_refreshToken
  * @return {Promise}  Resolves to user id from the newly created user.
  */
-exports.createUser = function (params) {
-  return db('users')
+var createUser = function (params) {
+  log('Creating user: ',params)
+  return db()
+          .table('users')
           .returning('id')
           .insert(params)
 }
@@ -64,16 +65,35 @@ exports.updateUser = function (params){
 }
 
 /**
- * addAuth - Returns a promise which resolves to the JWT. Not sure this will be used.
+ * findOrCreateUser - Generator function yields results of userid, next user creation. Creates a new user if necessary.
  *
- * @param  {Object}   params
- * @param  {integer}  params.user_id    description
- * @return  {Object}  JWT               description
- * @return  {string}  JWT.strategy   description
- * @return  {integer} JWT.expiration description
- * @return  {string}  JWT.authToken  description
+ * @param  {type} amznId    User's amazon oauth profile id.
+ * @return {Promise}        Resolves to id.
  */
+exports.findOrCreateUser = function (amznId) {
 
-exports.addAuth = function (user_id, strategy, expiration, authToken) {
-  return
+  return getUserFromAmznId(amznId)
+    .then(function(id) {
+      log('Searched for user, result:', id)
+      if(!id[0]) {
+        return createUser({amzn_profile_id:amznId})
+      }
+      return id[0]
+    })
+
+  // let id = yield db('users')
+  //         .select('id')
+  //         .where({amzn_profile_id:amznId})
+  //         .limit(1)
+  //         .then(function(data) {
+  //           log('DB output for user lookup: ',data)
+  //           return data
+  //         })
+  //         .catch(function(err) {log('Error checking for user: ', err)})
+  //
+  // if(id.length === 0 ) id = yield db('users')
+  //         .returning('id')
+  //         .insert({amzn_profile_id:amznId})
+  //
+  // return id;
 }
