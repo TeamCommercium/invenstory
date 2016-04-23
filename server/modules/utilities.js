@@ -20,14 +20,14 @@ var env = require('./config.js').state.env;
  * @return {Object[]} items  Array of objects containing culled product data for multiple items.
  */
 exports.cleanMatchingAsins = function(data) {
-  var responseObj = data.GetMatchingProductResponse.GetMatchingProductResult;
   var items = [];
+  var responseObj = data.GetMatchingProductResponse.GetMatchingProductResult;
 
   for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     var product = {};
     var attrPath = responseObj[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
 
-    product.asin = responseObj[i].$.ASIN;
+    product.amzn_asin = responseObj[i].$.ASIN;
     product.amzn_title = attrPath["ns2:Title"][0];
     product.amzn_description = attrPath["ns2:Feature"].join(". ");
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
@@ -51,13 +51,14 @@ exports.cleanMatchingAsins = function(data) {
  * @return {Object[]} items   Array of objects containing culled pricing data for multiple items.
  */
 exports.cleanLowestOffers = function(data) {
-  var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
   var list = [];
+  var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
 
   for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
-    var product = {};
     var priceArr = responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing;
-    product.asin = responseObj[i].$.ASIN;
+    var product = {};
+
+    product.amazon_asin = responseObj[i].$.ASIN;
 
     for (var j = 0, pricesLen = priceArr.length; j < pricesLen; j++) {
       var fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0];
@@ -73,6 +74,43 @@ exports.cleanLowestOffers = function(data) {
     list.push(product);
   }
   return list;
+}
+
+/**
+ * cleanMatchingAsins - Cull data object from Amazon MWS Api to array
+ * 
+ * @param {Object}    data  Object from Amazon api containing product info for multiple items.
+ * @param {string}    product.asin    Amazon Standard Identification Number.
+ * @param {string}    product.amzn_title    Title of item.
+ * @param {string}    product.amzn_description    Description of item.
+ * @param {string}    product.amzn_manufacturer   Manufacturer of item.
+ * @param {float}     product.amzn_weight   Weight of item in lbs.
+ * @param {string}    product.amzn_thumb_url    Url to thumbnail.
+ * @param {float}     product.amzn_list_price   Retail price of item.
+ * @param {integer}   product.amzn_sales_rank   Amazon sales rank of item.
+ * @return {Object[]} items  Array of objects containing culled product data for multiple items.
+ */
+exports.cleanListProductSearch = function(data) {
+  var items = [];
+  var responseObj = data.ListMatchingProductsResponse.ListMatchingProductsResult[0].Products[0].Product;
+  
+  // api call will return up to 10 results but we only use the first 4
+  var productsLen = responseObj.length >= 4 ? 4 : responseObj.length;
+  for (var i = 0; i < productsLen; i++) {
+    var product = {};
+    var attrPath = responseObj[i].AttributeSets[0]["ns2:ItemAttributes"][0];
+
+    product.amazon_asin = responseObj[i].Identifiers[0].MarketplaceASIN[0].ASIN[0];
+    product.amazon_title = attrPath["ns2:Title"][0];
+    product.amzn_description = attrPath["ns2:Feature"].join(". ");
+    product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
+    product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
+    product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0];
+    product.amzn_sales_rank = Number(responseObj[i].SalesRankings[0].SalesRank[0].Rank[0]);
+
+    items.push(product);
+  }
+  return items;
 }
 
 /**
