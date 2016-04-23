@@ -1,6 +1,17 @@
 import React from 'react'
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox, AppBar, Button, Navigation, Input } from 'react-toolbox'
-import NavbarContainer from './navbar.jsx'
+import {LineChart} from 'rd3'
+
+import NavbarContainer from './navbar'
+
+var lineData = [
+  {
+    name: "Inventory value",
+    values: [ { x: 0, y: 20 }, { x: 24, y: 10 } ],
+    // strokeWidth: 3,
+    // strokeDashArray: "5,5",
+  },
+];
 
 export default class HomeContainer extends React.Component{
 
@@ -11,6 +22,22 @@ export default class HomeContainer extends React.Component{
   render(){
     return <div>
       <NavbarContainer />
+      <LineChart
+        data={lineData}
+        width='100%'
+        height={400}
+        viewBoxObject={{
+          x: 0,
+          y: 0,
+          width: 500,
+          height: 400
+        }}
+        title="Inventory Value"
+        yAxisLabel="Altitude"
+        xAxisLabel="Elapsed Time (sec)"
+        gridHorizontal={true}
+      />
+
       <List className="list" selectable>
         <ListSubHeader caption='Notifications' />
         <ListItem

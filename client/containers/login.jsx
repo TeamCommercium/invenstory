@@ -1,8 +1,14 @@
 import React from 'react'
-import Login from '../components/login.jsx'
-import { redirect } from '../util/util.jsx'
 
+import Login from '../components/login'
+import { redirect } from '../util/util'
 
+/*
+
+  Try to grab user data from the server. If unauthorized render the login page.
+  Otherwise redirect to the home page.
+
+ */
 export default class LoginContainer extends React.Component{
 
   constructor(props){

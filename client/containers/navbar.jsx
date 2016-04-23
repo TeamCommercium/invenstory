@@ -1,5 +1,6 @@
 import React from 'react'
-import Navbar from '../components/navbar.jsx'
+
+import Navbar from '../components/navbar'
 
 export default class NavigationContainer extends React.Component{
 
@@ -8,9 +9,9 @@ export default class NavigationContainer extends React.Component{
   }
 
   render(){
-    return (<div>
+    return <div>
       <Navbar />
       {this.props.children}
-    </div>)
+    </div>
   }
 }
