@@ -11,7 +11,9 @@ passport.use(new AmazonStrategy({
     callbackURL: amazonAuth_config.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log('hello', profile)
+    console.log('profile: ', profile)
+    console.log('accessToken: ', accessToken)
+    console.log('refreshToken: ', refreshToken)
     return done(null, profile)
   }
 ))
@@ -62,7 +64,7 @@ var router = express.Router()
 
 
 /**
- * @api {post} /auth/amazon/callback Amazon Oauth Callback
+ * @api {get} /auth/amazon/callback Amazon Oauth Callback
  * @apiName AmazonOauthCallback
  * @apiGroup Auth
  * @apiDescription Endpoint to initiate Amazon authentication. NOT SURE THIS IS RIGHT.
@@ -83,24 +85,6 @@ var router = express.Router()
     res.json({user:req.user, token: req.token})
 })
 
-
-
-    /*function(err, user, info){
-    if (err) {
-      console.log('amazon auth err: ', err)
-      res.sendStatus(500)
-    }
-    if (!user) {
-      res.send(info)
-    }
-    console.log('amazon response user:', user)
-    var token = JWT.sign({
-      user: user
-    }, jwt_config.secret)
-    res.json({token: token})
-
-
-  })(req, res, next)*/
 
 
 module.exports = router ;
