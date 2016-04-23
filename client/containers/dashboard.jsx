@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './navbar.jsx'
 import Dashboard from '../components/dashboard.jsx'
-import { Button, Input } from 'react-toolbox/lib/index.js'
+import { Button, Input } from 'react-toolbox'
 
 export default class NavbarContainer extends React.Component{
 

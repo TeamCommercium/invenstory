@@ -3,6 +3,7 @@ html, body{
   padding: 0;
   position: relative;
   display: block;
+  font-family: 'Roboto', sans-serif;
 }
 
 :local(.loginBox){
@@ -26,11 +27,29 @@ html, body{
 }
 
 :local(.shortInput){
-  width:50%;
+  width: 80%;
+  margin-left: 20px;
 }
 
 :local(.inlineButton){
   float:right;
   margin-top: -90px;
   margin-right: 20px;
+}
+
+td > input {
+  width: 99%;
+  height: 150%;
+  font-size: 24px;
+  border: none;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table, td {
+  border: 1px solid black;
+  padding: 10px;
 }
