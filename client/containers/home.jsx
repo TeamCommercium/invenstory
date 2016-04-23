@@ -6,8 +6,6 @@ import NavbarContainer from './navbar.jsx'
 export default (props) =>
 <div>
   <NavbarContainer />
-  {props.children}
-
   <List className="list" selectable>
     <ListSubHeader caption='Notifications' />
     <ListItem
