@@ -1,7 +1,8 @@
 import React from 'react'
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox, AppBar, Button, Navigation, Input } from 'react-toolbox'
-import NavbarContainer from './navbar.jsx'
 import {LineChart} from 'rd3'
+
+import NavbarContainer from './navbar'
 
 var lineData = [
   {

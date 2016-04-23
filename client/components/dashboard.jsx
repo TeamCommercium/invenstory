@@ -1,9 +1,8 @@
 import React from 'react'
-import { redirect } from '../util/util.jsx'
 import { Table } from 'Reactable'
 import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox'
 
-
+import { redirect } from '../util/util'
 /*
   setPlaceHolder is setTimeout'ed because the component has to finish rendering to the real DOM
   before I can manipulate the placeholder attribute and there is not a native method for the component.
@@ -29,7 +28,9 @@ function setPlaceHolder(){
 //   />
 
 
-[
+
+
+var tableData = [
   {
     'id': "sampleId",
     'quantity': 4,
@@ -61,7 +62,6 @@ function setPlaceHolder(){
 
 export default (props) =>
 <div>
-
   <Table
     className="table" 
     id="table" 

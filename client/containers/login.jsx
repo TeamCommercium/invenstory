@@ -1,6 +1,7 @@
 import React from 'react'
-import Login from '../components/login.jsx'
-import { redirect } from '../util/util.jsx'
+
+import Login from '../components/login'
+import { redirect } from '../util/util'
 
 /*
 

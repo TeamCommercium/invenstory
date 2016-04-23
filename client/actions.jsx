@@ -1,0 +1,1 @@
+export const UPDATE_INVENTORY = 'UPDATE_INVENTORY';

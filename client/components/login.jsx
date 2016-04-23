@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppBar, Button, Navigation, Input } from 'react-toolbox'
 
-import { redirect } from '../util/util.jsx'
+import { redirect } from '../util/util'
 
 export default (props) =>
 <div>
