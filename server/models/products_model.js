@@ -1,3 +1,5 @@
+'use strict'
+
 var db = require('knex')
 var log = require('../modules/utilities.js').log;
 /**
@@ -13,6 +15,19 @@ var log = require('../modules/utilities.js').log;
  */
 exports.addProduct = function (asin) {
    return db(products).returning('id').insert({amzn_asin: asin})
+}
+/**
+ * findOrCreate - Helper function to lookup product by ASIN, create it if it does not exist, and resolve to the id in either case.
+ *
+ * @param  {string}   amzn_asin  Amazon Standard Identification Number
+ * @return {Promise}  Resolves to id of the (newly created) record.
+ */
+exports.findOrCreate = function(asin) {
+  getProductId(asin)
+    .then(function(id) {
+      if(id) return id
+      return addProduct(asin)
+    })
 }
 
 /**
