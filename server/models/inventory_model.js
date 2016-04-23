@@ -72,8 +72,10 @@ function shipInventory(productId, userId, quantity) {
  * @return {Promise}             description
  */
 function getInventory(productId, userId, inventoryId) {
-
-  return
+  log('Getting inventory list for ', productId, ' for user ', userId)
+  return db('inventory')
+            .select()
+            .where({user_id:userId,product_id:productId})
 }
 
 module.exports = {
