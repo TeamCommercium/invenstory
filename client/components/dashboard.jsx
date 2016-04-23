@@ -28,44 +28,12 @@ function setPlaceHolder(){
 //   />
 
 
-
-
-var tableData = [
-  {
-    'id': "sampleId",
-    'quantity': 4,
-    'purchase_price': 43.34, 
-    'amzn_title': 'Bluetooth speakers',
-    'amzn_description': 'Like speakers but Bluetooth',
-    'amzn_price_fbm': 43.013,
-    'amzn_price_fba': 43.65,
-    'amzn_rank': 4300,
-    'amzn_weight': 1.2,
-    'amzn_manuf': 'Bose',
-    'amzn_price_time': Date.now()
-  },
-  {
-    'id': "asdfasdf",
-    'quantity': 4,
-    'purchase_price': 42, 
-    'amzn_title': 'stuff',
-    'amzn_description': 'Like speakers but Bluetooth',
-    'amzn_price_fbm': 43.013,
-    'amzn_price_fba': 30.65,
-    'amzn_rank': 4300,
-    'amzn_weight': 14,
-    'amzn_manuf': 'Bose',
-    'amzn_price_time': Date.now()
-  },
-]
-
-
 export default (props) =>
 <div>
   <Table
     className="table" 
     id="table" 
-    data={tableData}
+    data={props.data}
     filterable={[
       'quantity',
       'amzn_title',

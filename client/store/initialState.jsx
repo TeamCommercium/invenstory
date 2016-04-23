@@ -1,4 +1,4 @@
 export default {
   inventory: [],
-  lastChanged: null
+  lastChanged: {}
 };
