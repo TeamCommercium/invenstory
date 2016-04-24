@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./node_modules/.bin/mocha ./server/test/models/products_model.test.js
+npm test

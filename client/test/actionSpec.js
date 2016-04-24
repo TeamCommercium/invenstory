@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-
 import { UPDATE_INVENTORY } from '../actions'
 
 describe('Client: actions.jsx', function () {

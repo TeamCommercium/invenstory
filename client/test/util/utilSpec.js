@@ -21,11 +21,15 @@ describe('Client: util/util.jsx', function () {
     expect(stuff.callCount).to.equal(1)
   });
 
+  it('function subscribeTo should exist', function () {
+    expect(subscribeTo).to.exist;
+  });
+
   it('function getUserInventoryList should exist', function () {
     expect(getUserInventoryList).to.exist;
   });
 
-  xit('function getUserInventoryList should make an AJAX request, turn the results into pretty objects, and update state by dispatching an action to the store', function () {
+  xit('function getUserInventoryList should make an AJAX request, transform objects, update state via actions dispatched to store', function () {
     expect(redirect).to.exist;
   });
 

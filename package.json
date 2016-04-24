@@ -4,7 +4,7 @@
   "description": "Invenstory provides Amazon sellers with a useful information dashboard.",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register server/test client/test --recursive",
+    "test": "./node_modules/.bin/mocha --compilers .:client/test/compiler.js,.:babel-core/register server/test client/test/ --recursive",
     "hot": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --progress --colors",
     "front": "./node_modules/webpack/bin/webpack.js --watch --progress --colors",
     "back": "./node_modules/babel-watch/babel-watch.js ./server/server.js",
@@ -23,7 +23,9 @@
   "homepage": "https://github.com/TeamCommercium/invenstory#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "cheerio": "^0.20.0",
     "d3": "^3.5.16",
+    "enzyme": "^2.2.0",
     "express": "^4.13.4",
     "express-jwt": "^3.3.0",
     "history": "^2.1.0",
@@ -36,10 +38,12 @@
     "path": "^0.12.7",
     "rd3": "^0.6.1",
     "react": "^15.0.1",
+    "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-router": "^2.3.0",
     "react-router-redux": "^4.0.2",
     "react-toolbox": "^0.16.2",
+    "react-tools": "^0.13.3",
     "reactable": "^0.13.0",
     "redux": "^3.4.0"
   },
