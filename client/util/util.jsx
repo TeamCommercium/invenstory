@@ -11,8 +11,11 @@ import { UPDATE_INVENTORY } from '../actions'
 /*
   function redirect:
   Takes a URL as a parameter (relative or absolute)
+  Takes an optional parameter for the window object (used for testing)
+
   return a function that will redirect to the given address when invoked
  */
+
 export function redirect(address, _window = window){
   return function (address){
     _window.location.href = address
