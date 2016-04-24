@@ -13,9 +13,9 @@ import { UPDATE_INVENTORY } from '../actions'
   Takes a URL as a parameter (relative or absolute)
   return a function that will redirect to the given address when invoked
  */
-export function redirect(address){
+export function redirect(address, _window = window){
   return function (address){
-    window.location.href = address
+    _window.location.href = address
   }.bind(null, address)
 }
 

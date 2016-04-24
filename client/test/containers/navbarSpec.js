@@ -10,7 +10,7 @@ import Navbar from '../../components/navbar'
 chai.use(chaiEnzyme())
 
 const wrapper = shallow(<NavbarContainer />) // mount/render/shallow when applicable
-console.log(Object.keys(wrapper), "node stuff", wrapper.nodes[0].props)
+// console.log(Object.keys(wrapper), "node stuff", wrapper.nodes[0].props)
 describe('Client: containers/navbarSpec.jsx', function () {
   it('Should contain the Navbar component', function () {
     expect(wrapper).to.contain(<Navbar/>)
