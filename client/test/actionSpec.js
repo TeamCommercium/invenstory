@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 import { UPDATE_INVENTORY } from '../actions'
 
-describe('actions.jsx', function () {
+describe('Client: actions.jsx', function () {
   it('UPDATE_INVENTORY should exist', function () {
     expect(UPDATE_INVENTORY).to.exist;
   });

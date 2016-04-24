@@ -4,7 +4,7 @@ import { getUserInventoryList, redirect, subscribeTo } from '../../util/util'
     
 var stuff = spy(redirect("/testing"))
 
-describe('util.jsx', function () {
+describe('Client: util/util.jsx', function () {
   it('function redirect should exist', function () {
     expect(redirect).to.exist;
   });
@@ -25,7 +25,7 @@ describe('util.jsx', function () {
     expect(getUserInventoryList).to.exist;
   });
 
-  xit('function getUserInventoryList should exist', function () {
+  xit('function getUserInventoryList should make an AJAX request, turn the results into pretty objects, and update state by dispatching an action to the store', function () {
     expect(redirect).to.exist;
   });
 
