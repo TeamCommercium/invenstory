@@ -8,16 +8,16 @@ var env = require('./config.js').state.env;
 /**
  * cleanMatchingAsins - Utility function that culls useful data from object from getMatchingAsins function
  * 
- * @param {Object}    [data]  Object from Amazon api containing product info for multiple items
- * @param {string}    [product.amazon_asin]    Amazon Standard Identification Number
- * @param {string}    [product.amzn_title]    Title of item
- * @param {string}    [product.amzn_description]    Description of item
- * @param {string}    [product.amzn_manufacturer]   Manufacturer of item
- * @param {float}     [product.amzn_weight]   Weight of item in lbs
- * @param {string}    [product.amzn_thumb_url]    Url to thumbnail
- * @param {float}     [product.amzn_list_price]   Retail price of item
- * @param {integer}   [product.amzn_sales_rank]   Amazon sales rank of item
- * @return {Array}    [items]  Array of objects containing culled product data for multiple items
+ * @param {Object}    data  Object from Amazon api containing product info for multiple items
+ * @param {string}    product.amazon_asin    Amazon Standard Identification Number
+ * @param {string}    product.amzn_title    Title of item
+ * @param {string}    product.amzn_description    Description of item
+ * @param {string}    product.amzn_manufacturer   Manufacturer of item
+ * @param {float}     product.amzn_weight   Weight of item in lbs
+ * @param {string}    product.amzn_thumb_url    Url to thumbnail
+ * @param {float}     product.amzn_list_price   Retail price of item
+ * @param {integer}   product.amzn_sales_rank   Amazon sales rank of item
+ * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanMatchingAsins = function(data) {
   var items = [];
@@ -44,11 +44,11 @@ exports.cleanMatchingAsins = function(data) {
 /**
  * cleanLowestOffers - Utility function that culls useful data from object from getLowestOffers function
  * 
- * @param {Object}    [data]    Object from Amazon api containing product info for multiple items
- * @param {String}    [product.amazon_asin]    Amazon Standard Identification Number
- * @param {float}     [product.price_fba]   Lowest FBA (Fulfilled by Amazon) price available for item
- * @param {float}     [product.price_fbm]   Lowest FBM (Fulfilled by Merchant) price available for item
- * @return {Array}    [items]   Array of objects containing culled pricing data for multiple items
+ * @param {Object}    data    Object from Amazon api containing product info for multiple items
+ * @param {String}    product.amazon_asin    Amazon Standard Identification Number
+ * @param {float}     product.price_fba   Lowest FBA (Fulfilled by Amazon) price available for item
+ * @param {float}     product.price_fbm   Lowest FBM (Fulfilled by Merchant) price available for item
+ * @return {Array}    items   Array of objects containing culled pricing data for multiple items
  */
 exports.cleanLowestOffers = function(data) {
   var list = [];
@@ -79,15 +79,15 @@ exports.cleanLowestOffers = function(data) {
 /**
  * cleanListProductSearch - Utility function that culls useful data from object from ListProductSearch function
  * 
- * @param {Object}    [data]  Object from Amazon api containing search results
- * @param {string}    [product.amazon_asin]    Amazon Standard Identification Number
- * @param {string}    [product.amzn_title]    Title of item
- * @param {string}    [product.amzn_description]    Description of item
- * @param {string}    [product.amzn_manufacturer]   Manufacturer of item
- * @param {float}     [product.amzn_weight]   Weight of item in lbs
- * @param {string}    [product.amzn_thumb_url]    Url to thumbnail
- * @param {integer}   [product.amzn_sales_rank]   Amazon sales rank of item
- * @return {Array}    [items]  Array of objects containing culled product data for multiple items
+ * @param {Object}    data  Object from Amazon api containing search results
+ * @param {string}    product.amazon_asin    Amazon Standard Identification Number
+ * @param {string}    product.amzn_title    Title of item
+ * @param {string}    product.amzn_description    Description of item
+ * @param {string}    product.amzn_manufacturer   Manufacturer of item
+ * @param {float}     product.amzn_weight   Weight of item in lbs
+ * @param {string}    product.amzn_thumb_url    Url to thumbnail
+ * @param {integer}   product.amzn_sales_rank   Amazon sales rank of item
+ * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanListProductSearch = function(data) {
   var items = [];
