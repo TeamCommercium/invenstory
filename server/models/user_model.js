@@ -19,7 +19,7 @@ var getUserFromAmznId = function (amznId) {
   log('Looking up user with amzn id: ', amznId)
    return db('users')
             .where({amzn_profile_id:amznId})
-            .select('user_id')
+            .select('id')
 }
 
 /**

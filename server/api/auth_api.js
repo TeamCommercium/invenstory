@@ -42,15 +42,15 @@ function serialize(req, res, next) {
   // if (!userId[0]) getUserId.next().value
   // log('Searched for user, result:', userId)
   User.findOrCreateUser(req.user.amazon_id)
-    .then(function(id) {
-      req.user = {id:id}
+    .then(function(result) {
+      req.user = {id: result.id}
       next()})
 }
 
 function generateToken(req, res, next) {
   //console.log('generate token ', req.user)
   req.token = JWT.sign({
-      user: req.user
+      id: req.user.id
     }, jwt_config.secret, {
       expiresIn: 3600
     })
@@ -63,7 +63,7 @@ var router = express.Router()
 
 
 .use(passport.initialize())
-//.use()
+
 /**
  * @apiDefine restricted Restricted content
  *  Restricts access to authorized users.
@@ -104,17 +104,13 @@ var router = express.Router()
   serialize,
   generateToken,
   function(req,res){
-    console.log('in here')
-
-    res.json({user:req.user, token: req.token})
+    res.cookie('Token', req.token)
+    res.redirect('/')
 })
 
 
-
-module.exports = router ;
-
  /**
-  * @api {get} /logout Logout
+  * @api {get} /auth/logout Logout
   * @apiName Logout
   * @apiGroup Auth
   * @apiUse restricted
@@ -122,3 +118,13 @@ module.exports = router ;
   *
   * @apiDescription Endpoint to cause user's credentials to expire.
   */
+ .get('/logout', function(req, res) {
+      res.clearCookie('Token')
+      res.redirect('/')
+    }
+  )
+
+
+ module.exports = router ;
+
+
