@@ -37,12 +37,12 @@ export function checkAuth(){
   if(store.getState().authenticated)
     return;
 
-  fetch('http://localhost:8080/user/me')
-  .then(function(response) {     
-    response.status >= 400
-     ? redirect("/#/login")()
-     : smartDispatch(UPDATE_AUTHENTICATION, true)
-  })
+  // fetch('http://localhost:8080/user/me')
+  // .then(function(response) {     
+  //   response.status >= 400
+  //    ? redirect("/#/login")()
+  //    : smartDispatch(UPDATE_AUTHENTICATION, true)
+  // })
 }
 
 
