@@ -3,21 +3,25 @@ import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
 import { UPDATE_INVENTORY, UPDATE_AUTHENTICATION } from '../actionTypes'
 
-// Used to test dispatching actions
-setTimeout( function(){
-  smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
-}, 3000);
 
-setTimeout( function(){
-  smartDispatch(UPDATE_AUTHENTICATION, true)
-}, 6000);
+// // Used to test dispatching actions
+// subscribeTo("auth", function(){console.log("auth TRIGGERED", Date.now())})
+// subscribeTo("inventory", function(){console.log("inventory TRIGGERED", Date.now())})
 
-setTimeout( function(){
-  smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
-}, 9000);
+// setTimeout( function(){
+//   smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
+// }, 3000);
 
-subscribeTo("auth", function(){console.log("auth TRIGGERED")})
-subscribeTo("inventory", function(){console.log("inventory TRIGGERED")})
+// setTimeout( function(){
+//   smartDispatch(UPDATE_AUTHENTICATION, true)
+// }, 6000);
+
+// setTimeout( function(){
+//   smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
+// }, 9000);
+
+
+
 /*
   function checkAuth
   Does not take any parameters
@@ -30,8 +34,6 @@ subscribeTo("inventory", function(){console.log("inventory TRIGGERED")})
  */
 
 export function checkAuth(){
-
-  // smartDispatch(UPDATE_AUTHORIZATION, 
   if(store.getState().authenticated)
     return;
 
@@ -72,8 +74,7 @@ export function subscribeTo(property, callback){
   if(property !== "auth" && property !== "inventory")
     throw new Error(`You tried to subscribe to ${property} but you may have meant 'auth' or 'inventory'`)
 
-
-    let action = {
+    var action = {
       inventory: {
         UPDATE_INVENTORY: true
       },
@@ -83,8 +84,10 @@ export function subscribeTo(property, callback){
     }
 
   store.subscribe(function(){
-    let tempState = store.getState()
+    let tempState = store.getState();
     let changed = tempState.lastChanged
+
+
     if(action[property][changed]) 
       callback(tempState);
   })
