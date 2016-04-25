@@ -9,6 +9,18 @@ var router = express.Router()
 
 .use(passport.initialize())
 
+/**
+ *  @api {get}  /user/me  Check User Authentication
+ *
+ *  @apiName GetUserStatus
+ *  @apiGroup user
+ *  @apiUse restricted
+ *  @apiSuccess (200)
+ *
+ *  @apiDescription Endpoint to verify the authorization status of user
+ * 
+ */
+
 .get('/me', function(req, res) {
   res.sendStatus(200)
 })
