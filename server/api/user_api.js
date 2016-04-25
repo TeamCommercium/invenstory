@@ -1,13 +1,8 @@
 var express = require('express')
-var jwt_config = require('../modules/config.js').jwtConfig
-var expressJWT = require('express-jwt')
-var passport = require('passport')
-var authenticate = require('../modules/utilities.js').authenticate
 
 
 var router = express.Router()
 
-.use(passport.initialize())
 
 /**
  *  @api {get}  /user/me  Check User Authentication
@@ -20,9 +15,24 @@ var router = express.Router()
  *  @apiDescription Endpoint to verify the authorization status of user
  * 
  */
-
 .get('/me', function(req, res) {
   res.sendStatus(200)
+})
+
+
+/**
+ *  @api {get}  /user/about  Return User Info from database
+ *
+ *  @apiName GetUserInfo
+ *  @apiGroup user
+ *  @apiUse restricted
+ *  @apiSuccess (200)
+ *
+ *  @apiDescription 
+ *  
+ */
+.get('/about', function(req, res) {
+
 })
 
 
