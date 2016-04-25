@@ -51,6 +51,7 @@ export default class DashboardContainer extends React.Component{
       
       <Dashboard data={this.state.tableData}/>
       {this.props.children}
+      <Addproduct />
     </div>
   }
 }
