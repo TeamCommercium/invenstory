@@ -1,14 +1,14 @@
-exports.db = { url:      process.env.DB_URL || 'localhost',
-                    name:     process.env.DB_NAME || 'invenstory_db',
-                    username: process.env.DB_USER || null,
-                    password: process.env.DB_PASSWORD || null
-                  }
+// exports.db = { url:      process.env.DB_URL || 'localhost',
+//                     name:     process.env.DB_NAME || 'invenstory_db',
+//                     username: process.env.DB_USER || null,
+//                     password: process.env.DB_PASSWORD || null
+//                   }
 exports.webServer = {
                     port: process.env.PORT || 8080
 }
 
 exports.state = {
-                    env: process.env.NODE_ENV || 'development'
+                    env: process.env.NODE_ENV || 'development',
 }
 
 exports.amazonEnv = {
@@ -27,4 +27,4 @@ exports.jwtConfig = {
                     secret: 'doobydoobydooo'
 }
 
-exports.db = require('knex')(require('../../knexfile.js')[exports.state.env])
+ exports.db = require('knex')(require('../../knexfile.js')[exports.state.env])
