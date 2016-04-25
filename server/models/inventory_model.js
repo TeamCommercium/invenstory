@@ -24,7 +24,13 @@ function addInventory(params) {
   log('Adding inventory: ', params)
   return db('inventory')
           .returning('id')
-          .insert(params)
+          .insert({
+            product_id:params.product_id,
+            purchase_date:params.purchaseDate,
+            purchase_price:params.purchasePrice,
+            sku:params.sku,
+            user_id:params.user_id
+          })
 }
 
 
