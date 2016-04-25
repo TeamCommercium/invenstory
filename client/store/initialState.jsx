@@ -1,4 +1,5 @@
 export default {
   inventory: [],
-  lastChanged: {}
+  authenticated: false,
+  lastChanged: undefined
 };

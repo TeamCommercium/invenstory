@@ -15,10 +15,10 @@ const history = syncHistoryWithStore(appHistory, store)
 
 ReactDOM.render(
   <Router history={history}> 
-    <Route path='/' component={LoginContainer}/>
+    <Route path='/' component={HomeContainer}/>
     <Route path='/home'component={HomeContainer}/>
     <Route path='/dashboard' component={DashboardContainer} />
+    <Route path='/login' component={LoginContainer} />
   </Router>,
   document.getElementById('app')
 )
-

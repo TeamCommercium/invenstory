@@ -3,7 +3,7 @@ import { Button, Input } from 'react-toolbox'
 
 import Navbar from './navbar'
 import Dashboard from '../components/dashboard'
-import { subscribeTo } from '../util/util'
+import { subscribeTo, checkAuth } from '../util/util'
 
 const tableData = [
   {
@@ -48,6 +48,8 @@ export default class NavbarContainer extends React.Component{
   }
 
   render(){
+
+   checkAuth()
 
     //Sample code for listening to store and triggering a re-render
     // let component = this;

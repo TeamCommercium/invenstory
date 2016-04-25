@@ -1,12 +1,48 @@
 import { push } from 'react-router-redux'
-
 import { store } from '../store/initStore'
-import { UPDATE_INVENTORY } from '../actions'
+import { smartDispatch } from '../dispatcher'
+import { UPDATE_INVENTORY, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 // Used to test dispatching actions
-// setTimeout( function(){
-//   store.dispatch({type: UPDATE_INVENTORY, inventory: "this is inventory"})
-// }, 5000);
+setTimeout( function(){
+  smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
+}, 3000);
+
+setTimeout( function(){
+  smartDispatch(UPDATE_AUTHENTICATION, true)
+}, 6000);
+
+setTimeout( function(){
+  smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
+}, 9000);
+
+subscribeTo("auth", function(){console.log("auth TRIGGERED")})
+subscribeTo("inventory", function(){console.log("inventory TRIGGERED")})
+/*
+  function checkAuth
+  Does not take any parameters
+  Does not return anything
+
+  If not authenticated, will redirect to the login page.
+
+  Will check if authenticated by looking for it in the store and then if found to be false,
+  will do an ajax call to check if they have logged in yet.
+ */
+
+export function checkAuth(){
+
+  // smartDispatch(UPDATE_AUTHORIZATION, 
+  if(store.getState().authenticated)
+    return;
+
+  fetch('http://localhost:8080/user/me')
+  .then(function(response) {     
+    response.status >= 400
+     ? redirect("/#/login")()
+     : smartDispatch(UPDATE_AUTHENTICATION, true)
+  })
+}
+
 
 /*
   function redirect:
@@ -33,9 +69,23 @@ export function redirect(address, _window = window){
  */
 
 export function subscribeTo(property, callback){
+  if(property !== "auth" && property !== "inventory")
+    throw new Error(`You tried to subscribe to ${property} but you may have meant 'auth' or 'inventory'`)
+
+
+    let action = {
+      inventory: {
+        UPDATE_INVENTORY: true
+      },
+      auth: {
+        UPDATE_AUTHENTICATION: true
+      }
+    }
+
   store.subscribe(function(){
     let tempState = store.getState()
-    if(tempState.lastChanged.lastChanged === property) 
+    let changed = tempState.lastChanged
+    if(action[property][changed]) 
       callback(tempState);
   })
 }
@@ -70,6 +120,6 @@ export function getUserInventoryList(){
           // timestamp: cur.amzn_price_time
         }
       })
-      store.dispatch({type: UPDATE_INVENTORY, inventory: updatedInventory})
+      smartDispatch(UPDATE_INVENTORY, updatedInventory)
     })
 }
