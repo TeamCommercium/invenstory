@@ -1,5 +1,6 @@
 var env = require('./config.js').state.env;
-
+var jwt_config = require('./config.js').jwtConfig
+var expressJWT = require('express-jwt')
 /**
  * module
  * @module Utilities
@@ -121,3 +122,23 @@ exports.cleanListProductSearch = function(data) {
 exports.log = function() {
   if(env === 'development') console.log.apply(this, Array.prototype.slice.call(arguments))
 }
+
+/**
+ * authenticate - Authenticate middleware to decode jwt and place user in req.user
+ *
+ * @private
+ * @param  {Obj}    req     The request, with attached cookie
+ * @return {token}  token   Token is decoded and placed in req.user
+ */
+exports.authenticate = 
+  expressJWT({
+    secret: jwt_config.secret,
+    getToken: function(req) {
+      if( req.cookies && req.cookies.Token) {
+        return req.cookies.Token
+      } else {
+        return null
+      }
+    }
+  })
+
