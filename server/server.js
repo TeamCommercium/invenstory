@@ -17,6 +17,7 @@ app.get('/', (req,res) => res.send())
 
 app.get('/getMatchingAsins', amazonMWS.getMatchingAsins)
 app.get('/getLowestOffers', amazonMWS.getLowestOffers)
+app.get('/listProductSearch', amazonMWS.listProductSearch)
 
 app.all('*', function(req, res){
   res.redirect('/')
