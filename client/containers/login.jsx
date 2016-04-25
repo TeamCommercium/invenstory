@@ -1,14 +1,8 @@
 import React from 'react'
 
 import Login from '../components/login'
-import { redirect } from '../util/util'
-
-/*
-
-  Try to grab user data from the server. If unauthorized render the login page.
-  Otherwise redirect to the home page.
-
- */
+import { redirect } from '../util/util'       
+ 
 export default class LoginContainer extends React.Component{
 
   constructor(props){
@@ -16,14 +10,6 @@ export default class LoginContainer extends React.Component{
   }
 
   render(){
-    // fetch('http://localhost:8080/user/me')
-    // .then(function(response) {     
-    //   console.log("Authentication response props", response)
-    //   if (response.status <= 400) {
-    //     redirect("/home")();
-    //   }
-    // })
-       
 
     return <div>
       <Login />

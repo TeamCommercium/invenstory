@@ -1,13 +1,14 @@
 import React from 'react'
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox, AppBar, Button, Navigation, Input } from 'react-toolbox'
-import {LineChart} from 'rd3'
+import { LineChart } from 'rd3'
 
+import { checkAuth } from '../util/util'
 import NavbarContainer from './navbar'
 
 let lineData = [
   {
     name: "Inventory value",
-    values: [ { x: 0, y: 20 }, { x: 24, y: 10 } ],
+    values: [ { x: 0, y: 20 }, { x: 24, y: 10 } ]
     // strokeWidth: 3,
     // strokeDashArray: "5,5",
   },
@@ -20,6 +21,9 @@ export default class HomeContainer extends React.Component{
   }
 
   render(){
+
+    checkAuth()
+
     return <div>
       <NavbarContainer />
       <LineChart

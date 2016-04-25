@@ -1,11 +1,11 @@
 import initialState from '../store/initialState'
-import { UPDATE_INVENTORY } from '../actionTypes'
+import { UPDATE_LAST_CHANGED } from '../actionTypes'
 
 export default function(state = initialState, action) {
 
   switch(action.type){
-    case UPDATE_INVENTORY:
-      return action.inventory
+    case UPDATE_LAST_CHANGED:
+      return action.current
       break;
 
     default:
