@@ -38,14 +38,14 @@ var router = express.Router()
   let params = env === 'development' ? req.query : req.body
   params.user_id = req.user.id
   log("Web service request to add inventory: ", params)
-
-  if(!req.body.product_id) {
-    Products.findOrCreate(req.body.inventory.asin)
+  if(!params.product_id) {
+    Products.findOrCreate(params.asin)
       .then(function(productId) {
         params.product_id = productId
         Inventory.addInventory(params)
-          .then(function(data) {
-              res.status(200).send(data)
+          .then(function(resp) {
+              log('Inventory id', resp[0], 'added')
+              res.status(200).send({id:resp[0]})
           })
           .catch(function(err) {
             log("An error occurred adding inventory: ", err)
@@ -53,16 +53,17 @@ var router = express.Router()
           })
 
       })
-  }
+  } else {
 
   Inventory.addInventory(params)
     .then(function(data) {
-        res.status(200).send(data)
+        res.status(200).send(data[0])
     })
     .catch(function(err) {
       log("An error occurred adding inventory: ", err)
       res.status(400).send("Bad request")
     })
+  }
 })
  /**
   * @api {get} /inventory/list List User's Products
