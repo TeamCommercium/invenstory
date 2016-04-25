@@ -1,8 +1,8 @@
+import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
 import { UPDATE_INVENTORY, UPDATE_AUTHENTICATION } from '../actionTypes'
-
 
 // // Used to test dispatching actions
 // subscribeTo("auth", function(){console.log("auth TRIGGERED", Date.now())})

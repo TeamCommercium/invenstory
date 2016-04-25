@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { UPDATE_INVENTORY } from '../actions'
+import { UPDATE_INVENTORY } from '../actionTypes'
 
 describe('Client: actions.jsx', function () {
   it('UPDATE_INVENTORY should exist', function () {

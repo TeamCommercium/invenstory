@@ -1,7 +1,6 @@
 import { store } from './store/initStore'
 import { UPDATE_INVENTORY, UPDATE_LAST_CHANGED, UPDATE_AUTHENTICATION } from './actionTypes'
 
-
 /*
   actionCreators is an object that holds a function for each type of action in the app.
 

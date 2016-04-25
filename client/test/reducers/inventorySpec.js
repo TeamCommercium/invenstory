@@ -13,6 +13,6 @@ describe('Client: reducers/inventory.jsx', function () {
   });
 
   it('function reducer should have a case for UPDATE_INVENTORY that updates inventory', function () {
-    expect(reducer(undefined, {type:"UPDATE_INVENTORY", inventory:"testingInventory"})).to.deep.equal({ inventory: "testingInventory", lastChanged: "INVENTORY" })
+    expect(reducer(undefined, {type:"UPDATE_INVENTORY", inventory:"testingInventory"})).to.deep.equal("testingInventory")
   });
 });
