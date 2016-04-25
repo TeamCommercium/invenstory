@@ -4,10 +4,10 @@ var expressJWT = require('express-jwt')
 var passport = require('passport')
 
 /**
- *Authenticate middleware to decode jwt and place response in
+ * authenticate - Authenticate middleware to decode jwt and place user in req.user
  * 
- * @param  {Obj}    req  The request, with attached cookie
- * @return {token}  token   token is decoded and placed in req.user
+ * @param  {Obj}    req     The request, with attached cookie
+ * @return {token}  token   Token is decoded and placed in req.user
  */
 var authenticate = expressJWT({
   secret: jwt_config.secret,
@@ -25,7 +25,7 @@ var router = express.Router()
 .use(passport.initialize())
 
 .get('/me', authenticate, function(req, res) {
-  res.status(200).json(req.user)
+  res.sendStatus(200)
 })
 
 module.exports = router
