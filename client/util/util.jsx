@@ -11,28 +11,35 @@ import { UPDATE_INVENTORY } from '../actions'
 /*
   function redirect:
   Takes a URL as a parameter (relative or absolute)
+  Takes an optional parameter for the window object (used for testing)
+
   return a function that will redirect to the given address when invoked
-  Does a client side routing redirect and interacts with the store
  */
 
-export function redirect(address){
+export function redirect(address, _window = window){
   return function (address){
-    store.dispatch(push(address))
+    _window.location.href = address
   }.bind(null, address)
 }
-
 
 /*
-  function hardRedirect:
-  Takes a URL as a parameter (relative or absolute)
-  return a function that will redirect to the given address when invoked
-  Well redirect to a web-facing url
+  function subscribeTo
+  Takes a string and a callback as parameters.
+  Return's nothing.
+  Wraps the store's subscribe method and only calls your callback when 
+  the most recentlychanged value matches the string you enterred as a property.
+
+  This is intended to prevent unneeded re-renders by only triggering when relevant.
  */
-export function hardRedirect(address){
-  return function (address){
-    window.location.href = address
-  }.bind(null, address)
+
+export function subscribeTo(property, callback){
+  store.subscribe(function(){
+    let tempState = store.getState()
+    if(tempState.lastChanged.lastChanged === property) 
+      callback(tempState);
+  })
 }
+
 
 /*
   function getUserInventoryList:
@@ -65,22 +72,4 @@ export function getUserInventoryList(){
       })
       store.dispatch({type: UPDATE_INVENTORY, inventory: updatedInventory})
     })
-}
-
-/*
-  function subscribeTo
-  Takes a string and a callback as parameters.
-  Return's nothing.
-  Wraps the store's subscribe method and only calls your callback when 
-  the most recentlychanged value matches the string you enterred as a property.
-
-  This is intended to prevent unneeded re-renders by only triggering when relevant.
- */
-
-export function subscribeTo(property, callback){
-  store.subscribe(function(){
-    let tempState = store.getState()
-    if(tempState.lastChanged.lastChanged === property) 
-      callback(tempState);
-  })
 }

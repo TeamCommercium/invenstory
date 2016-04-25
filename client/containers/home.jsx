@@ -4,7 +4,7 @@ import {LineChart} from 'rd3'
 
 import NavbarContainer from './navbar'
 
-var lineData = [
+let lineData = [
   {
     name: "Inventory value",
     values: [ { x: 0, y: 20 }, { x: 24, y: 10 } ],
