@@ -43,6 +43,7 @@ function serialize(req, res, next) {
   // log('Searched for user, result:', userId)
   User.findOrCreateUser(req.user.amazon_id)
     .then(function(id) {
+      console.log('just id: ',id)
       req.user = {id:id}
       next()})
 }
@@ -104,9 +105,8 @@ var router = express.Router()
   serialize,
   generateToken,
   function(req,res){
-    console.log('in here')
-
-    res.json({user:req.user, token: req.token})
+    res.cookie('Token', req.token)
+    res.redirect('/')
 })
 
 

@@ -5,10 +5,12 @@ var authAPI = require('./api/auth_api.js')
 var inventoryAPI = require('./api/inventory_api.js')
 var amazonMWS = require('./api/amazonMWS.js')
 var userAPI = require('./api/user_api.js')
+var cookieParser = require('cookie-parser')
 
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
+app.use(cookieParser())
 app.use("/auth", authAPI)
 app.use("/inventory", inventoryAPI)
 app.use('/user', userAPI)
