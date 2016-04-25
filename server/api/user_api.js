@@ -10,7 +10,6 @@ var router = express.Router()
 .use(passport.initialize())
 
 .get('/me', function(req, res) {
-  console.log(req.user)
   res.sendStatus(200)
 })
 
