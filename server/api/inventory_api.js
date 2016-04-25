@@ -34,7 +34,8 @@ var router = express.Router()
  */
 .post('/add', function(res, req) {
   //if product Id is not set, need to lookup or create it
-  let params = req.body
+  // let params = req.body
+  let params = env === 'development' ? req.query : req.body
   params.user_id = req.user.id
   log("Web service request to add inventory: ", params)
 
@@ -90,9 +91,7 @@ var router = express.Router()
 
   .get('/list', function(req, res) {
    let params = req.query || {}
-   params.user_id = env === 'development'
-    ? 2
-    : req.user.id
+   params.user_id = req.user.id
    log("Web service request to list inventory: ", params)
    Inventory.getInventory(params)
      .then(function(data) {
