@@ -18,7 +18,7 @@ passport.use(new AmazonStrategy({
       username: profile.displayName,
       email: profile.emails[0].value,
       zipcode: profile._json.postal_code,
-      amazon_accesToken: 'accessToken',
+      amazon_accessToken: 'accessToken',
       amazon_refreshToken: 'refreshToken'
     }
     return done(null, userObj)
@@ -41,8 +41,9 @@ function serialize(req, res, next) {
   // log('Searched for user, result:', userId)
   // if (!userId[0]) getUserId.next().value
   // log('Searched for user, result:', userId)
-  User.findOrCreateUser(req.user.amazon_id)
+  User.findOrCreateUser(req.user)
     .then(function(result) {
+      log('Serializing user', result)
       req.user = {id: result.id}
       next()})
 }
@@ -126,5 +127,3 @@ var router = express.Router()
 
 
  module.exports = router ;
-
-
