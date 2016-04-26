@@ -11,8 +11,9 @@ export default (props) =>
         className=""
         type='text' 
         label='ASIN for product'
-        name='amzn_asin'
+        name='asin'
         required={true}
+        error={props.err_asin}
         onChange={props.handleAsin.bind(this)} 
       />
       <Input 
@@ -20,7 +21,6 @@ export default (props) =>
         type='number' 
         label='Purchase Price'
         name='purchase_price'
-        // maxLength={6}
         required={true}
         error={props.err_purchase_price}
         onChange={props.handlePrice.bind(this)} 
@@ -29,16 +29,18 @@ export default (props) =>
         className=""
         type='number' 
         label='Quantity'
-        name='purchase_quantity'
+        name='quantity'
         required={true}
+        error={props.err_quantity}
         onChange={props.handleQuantity.bind(this)} 
       />
       <Input 
         className=""
         type='date' 
-        label='Date Purchased ' 
+        label='Date Purchased' 
         name='purchase_date'
         required={true}
+        error={props.err_purchase_date}
         onChange={props.handleDate.bind(this)} 
       />
       <Button

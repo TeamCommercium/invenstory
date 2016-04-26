@@ -23,7 +23,10 @@ export default class DashboardContainer extends React.Component{
       purchase_price: null,
       purchase_date: null,
       quantity: null,
-      err_purchase_price: null
+      err_asin: null,
+      err_purchase_price: null,
+      err_purchase_date: null,
+      err_quantity: null
     };
 
     let component = this;
@@ -57,38 +60,34 @@ export default class DashboardContainer extends React.Component{
     this.setState({ showModal: true });
   }
 
-  // toggleModal(){
-  //   this.setState({ showModal: !this.state.showModal });
-  //   console.log("STATE (toggle)", this.state);
-  // }
-
   handleAsin(val){
-    console.log("ASINargs:", arguments);
+    // console.log("ASINargs:", arguments);
     this.setState({asin: val});
   }
 
   handlePrice(val){
-    console.log("Price:", val);
+    // console.log("Price:", val);
     this.setState({purchase_price: val});
   }
 
   handleQuantity(val){
-    console.log("Quantity:", val);
+    // console.log("Quantity:", val);
     this.setState({quantity: val});
   }
 
   handleDate(val){
-    console.log("Date:", val);
+    // console.log("Date:", val);
     this.setState({purchase_date: val});
   }
 
   handleSubmit(){
-  // console.log("checking submit");
-  // if (this.state.purchase_price > 10000) {
-  //   this.setState({err_purchase_price: "price is too high"})
-  // } else {
-  // this.setState({showModal: !this.state.showModal});
-  // }
+  console.log("checking submit");
+  
+  if (this.state.purchase_price > 10000) {
+    this.setState({err_purchase_price: "price is too high"})
+  } else {
+  this.setState({showModal: !this.state.showModal});
+  }
 
     let inventory = {};
     inventory.asin = this.state.asin;
@@ -145,7 +144,10 @@ export default class DashboardContainer extends React.Component{
             handleSubmit={this.handleSubmit.bind(this)}
             handleQuantity={this.handleQuantity.bind(this)}
             handleDate={this.handleDate.bind(this)}
+            err_asin={this.state.err_asin}
             err_purchase_price={this.state.err_purchase_price}
+            err_quantity={this.state.err_quantity}
+            err_purchase_date={this.state.err_purchase_date}
           /> 
         : null}
     </div>
