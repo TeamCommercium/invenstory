@@ -105,7 +105,7 @@ export function subscribeTo(property, callback){
   Fetches the current user's inventory from the server's database
    and updates the store with new inventory data.
  */
-export function getUserInventoryList(){
+export function processNewInventory(){
 
 //get data, process it, send to store
   fetch('http://127.0.0.1:8080/inventory/list', {credentials: 'include'})
@@ -115,21 +115,51 @@ export function getUserInventoryList(){
     .then(function(stuff){
 
       console.log("arguments", stuff)
-      // let updatedInventory = responseArrayTHING_REPLACEME.map(function(cur){
-        // return {
-        //   "Quantity": cur.quantity,
-        //   "Purchase Price": cur.purchase_price,
-        //   "Title": cur.amzn_title,
-        //   "Description": cur.amzn_description,
-        //   "Amazon Price": cur.amzn_price_fbm,
-        //   "Merchant Price": cur.amzn_price_fba,
-        //   "Weight": cur.amzn_weight,
-        //   "Manufacture": cur.amzn_manuf
-          // rank: cur.amzn_rank,
-          // id: cur.id,
-          // timestamp: cur.amzn_price_time
-      //   }
-      // })
-      // smartDispatch(UPDATE_INVENTORY, updatedInventory)
+
+      // processRawInventory(data)
+      // processGeneralGraphData(data)
+      // processGeneralTableData(data)
     })
+}
+
+function processRawInventory(inventory){
+
+  smartDispatch(UPDATE_GRAPH_DATA, inventory)
+}
+
+function processGeneralGraphData(inventory){
+//  purchase price/amazon price * 100 = % profit
+
+  let lineData = [{
+    name: "Purchased at",
+    values: inventory.map(function(cur, ind){
+     return {x: cur["Purchase Price"], y: ind}
+    })
+  },
+  {
+    name: "Selling at",
+    values: inventory.map(function(cur, ind){
+     return {x: cur["Amazon Price"], y: ind}
+    })
+  }]
+
+  console.log(JSON.stringify(lineData))
+  smartDispatch(UPDATE_GRAPH_DATA, lineData)
+}
+
+function processGeneralTableData(inventory){
+
+  let tableData = inventory.map(function(cur){
+    return {
+      "Quantity": cur.quantity,
+      "Purchase Price": cur.purchase_price,
+      "Title": cur.amzn_title,
+      "Description": cur.amzn_description,
+      "Amazon Price": cur.amzn_price_fbm,
+      "Merchant Price": cur.amzn_price_fba,
+      "Weight": cur.amzn_weight,
+      "Manufacture": cur.amzn_manuf
+    }
+  })
+  smartDispatch(UPDATE_TABLE_DATA, tableData)
 }

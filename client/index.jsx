@@ -21,4 +21,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById('app')
 )
-//    <Route path='/' component={HomeContainer}/>
