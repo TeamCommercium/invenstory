@@ -19,12 +19,17 @@ var log = require('../modules/utilities.js').log;
      log('Getting products for user:', userId)
     return db('products')
               .join('inventory', 'inventory.product_id', 'products.id')
-              .join('product_details', 'product_details.product_id','products.id')
+              .leftJoin('product_details', function() {
+                this.on('product_details.product_id','products.id').andOn('products.fetch_date', 'product_details.amzn_fetch_date')
+              } )
               .select('products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'product_details.amzn_price_fba', 'product_details.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer')
-              .groupBy('products.id')
+              .groupBy('inventory.product_id')
               .avg('purchase_price as avg_purchase_price')
-              .count('inventory.id as quantity')
+              .count('inventory.product_id as quantity')
               .where({"inventory.user_id":userId})
+              .then(function(data){log(
+                'Get products is complete:',data)
+              return data})
  }
 
 /**
