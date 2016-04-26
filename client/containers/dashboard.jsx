@@ -4,7 +4,8 @@ import { Button, Input } from 'react-toolbox'
 import Navbar from '../components/navbar'
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
-import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
+import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
+import Addproduct from '../components/addproduct'
 
 processNewInventory()
     
@@ -13,12 +14,13 @@ export default class DashboardContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      tableData: store.getState().tableData
+      tableData: store.getState().tableData,
       showModal: false,
-      amzn_asin: null,
+      asin: null,
       purchase_price: null,
-      purchase_quantity: null,
-      purchase_date: null
+      purchase_date: null,
+      quantity: null,
+      err_purchase_price: null
     };
   }
 
@@ -44,29 +46,50 @@ export default class DashboardContainer extends React.Component{
   // }
 
   handleAsin(val){
-    console.log("ASIN:", val);
-    this.setState({ amzn_asin: [val] });
+    console.log("ASINargs:", arguments);
+    this.setState({asin: val});
   }
 
   handlePrice(val){
     console.log("Price:", val);
-    this.setState({ purchase_price: [val] });
+    this.setState({purchase_price: val});
   }
 
   handleQuantity(val){
     console.log("Quantity:", val);
-    this.setState({ purchase_quantity: [val] });
+    this.setState({quantity: val});
   }
 
   handleDate(val){
     console.log("Date:", val);
-    this.setState({ purchase_date: [val] });
+    this.setState({purchase_date: val});
   }
 
   handleSubmit(){
-    this.setState({ showModal: !this.state.showModal });
-    
-    console.log("STATE", this.state);
+  // console.log("checking submit");
+  // if (this.state.purchase_price > 10000) {
+  //   this.setState({err_purchase_price: "price is too high"})
+  // } else {
+  // this.setState({showModal: !this.state.showModal});
+  // }
+
+    let inventory = {};
+    inventory.asin = this.state.asin;
+    inventory.purchase_price = this.state.purchase_price;
+    inventory.purchase_date = this.state.purchase_date;
+    inventory.quantity = this.state.quantity;
+    // addUserInventory(inventory);
+
+    this.setState({
+      showModal: false,
+      amzn_asin: null,
+      purchase_price: null,
+      purchase_quantity: null,
+      purchase_date: null
+    })
+
+    console.log("INVENTORY OBJ:", inventory);
+    console.log("STATE:", this.state);
   }
 
   cancelModal(){
@@ -118,6 +141,7 @@ export default class DashboardContainer extends React.Component{
             handleSubmit={this.handleSubmit.bind(this)}
             handleQuantity={this.handleQuantity.bind(this)}
             handleDate={this.handleDate.bind(this)}
+            err_purchase_price={this.state.err_purchase_price}
           /> 
         : null}
     </div>
