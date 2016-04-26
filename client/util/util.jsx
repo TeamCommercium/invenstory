@@ -139,6 +139,7 @@ export function subscribeTo(property, callback){
   Fetches the current user's inventory from the server's database
    and updates the store with new inventory data.
  */
+setInterval(processNewInventory, 10000)
 export function processNewInventory(){
 
 //get data, process it, send to store

@@ -7,8 +7,6 @@ import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
 import Addproduct from '../components/addproduct'
 
-processNewInventory()
-
 var newData = {
   pending: false,
   data: null

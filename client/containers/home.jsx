@@ -6,8 +6,6 @@ import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 
-processNewInventory()
-
 var status = {
   outOfDate: false,
   data: undefined
