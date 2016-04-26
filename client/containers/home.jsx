@@ -2,7 +2,7 @@ import React from 'react'
 import { LineChart } from 'rd3'
 
 import { checkAuth } from '../util/util'
-import NavbarContainer from '../components/navbar'
+import Navbar from '../components/navbar'
 import Home from '../components/home'
 
 let lineData = [
@@ -24,7 +24,7 @@ export default class HomeContainer extends React.Component{
 
   render(){
     return <div>
-      <NavbarContainer />
+      <Navbar />
       <LineChart
         data={lineData}
         width='100%'

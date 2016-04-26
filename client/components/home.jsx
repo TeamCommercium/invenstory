@@ -2,7 +2,7 @@ import React from 'react'
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox, AppBar, Button, Navigation, Input } from 'react-toolbox'
 
 
-export default (props)=>
+export default (props) =>
 <List className="list" selectable>
   <ListSubHeader caption='Notifications' />
   <ListItem
