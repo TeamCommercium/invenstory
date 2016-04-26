@@ -97,3 +97,17 @@ exports.findOrCreateUser = function (amznId) {
   //
   // return id;
 }
+
+/**
+ * getUserProfileInfo - Returns the signed in user's username, email, and zipcode
+ * 
+ * @param {integer} userId unique user ID
+ * @return {Promies}  Resolves to the user's username, email, and zipcode
+ */
+exports.getUserProfileInfo = function(userId) {
+
+  return db('users')
+    .where({id: userId})
+    .select('amzn_username', 'amzn_email', 'amzn_zip')
+
+}
