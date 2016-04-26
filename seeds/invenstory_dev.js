@@ -13,7 +13,7 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'n0teyT0ken',
         seller_id: 'n0tAseller',
         mws_marketplace: 'ATVPDKIKX0DER',
-        amzn_profile_id: 'asfdsfdf',
+        amzn_profile_id: process.env.InvenAMZN || 'asfdsfdf',
         amzn_username: 'fakeyJakey',
         amzn_email: "cakey@example.com",
         amzn_zip: "12345"
@@ -52,7 +52,7 @@ exports.seed = function(knex, Promise) {
         amzn_thumb_url: "http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg",
         amzn_list_price: 35.12,
         currency: 'USD',
-        fetch_date: '2016-04-21 19:33:57', //what does look like?
+        fetch_date: '2016-04-21 19:33:57', //UTC
       }),
 
       knex('product_details').insert({
@@ -100,6 +100,38 @@ exports.seed = function(knex, Promise) {
         purchase_date: '2015-02-20 11:33:57',
         purchase_price: 14.99,
         shipped: true,
+      }),
+      //Seed products
+      knex('products').insert({
+          id: 86,
+          amzn_asin: 'CHEESE',
+          amzn_title: "Cheese Title",
+          amzn_description: 'I like Cheese sooooo much.',
+          amzn_manufacturer: 'Cheddar, Inc.',
+          amzn_weight: 0.10,
+          amzn_thumb_url: "",
+          amzn_list_price: 35.12,
+          currency: 'USD',
+          fetch_date: '2016-04-21 19:33:57', //UTC
+        }),
+
+      knex('product_details').insert({
+        id: 13,
+        product_id: 86,
+        amzn_price_fba: 22.99,
+        amzn_price_fbm: 21.99,
+        amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+        amzn_sales_rank: 12824,
+      }),
+
+      knex('product_details').insert({
+        id: 17,
+        product_id: 86,
+        amzn_price_fba: 25.99,
+        amzn_price_fbm: 23.99,
+        amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+        amzn_sales_rank: 12824,
       })
+
   );
 };
