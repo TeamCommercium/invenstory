@@ -21,8 +21,10 @@ var getUserFromAmznId = function (amznId) {
             .where({amzn_profile_id:amznId})
             .select('id')
             .then(function(result){
-              log('Found user: ', result[0].id)
-              return result[0].id;
+              log('Found user: ', result[0])
+              if (result[0])
+                return result[0].id;
+              return null
             })
 }
 
