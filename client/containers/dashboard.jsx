@@ -11,7 +11,7 @@ export default class DashboardContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      tableData: store.getState().inventory
+      tableData: store.getState().tableData
     };
   }
 
@@ -31,8 +31,8 @@ export default class DashboardContainer extends React.Component{
 
     // // Sample code for listening to store and triggering a re-render
     // let component = this;
-    // subscribeTo("INVENTORY", function(newState){
-    //   component.setState({"tableData": newState.inventory});
+    // subscribeTo("tableData", function(newState){
+    //   component.setState({"tableData": newState.tableData});
     // })
 
     return <div>
