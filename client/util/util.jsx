@@ -52,7 +52,6 @@ export function checkAuth(){
     } else {
       smartDispatch(UPDATE_AUTHENTICATION, true)
     }
-
   })
 }
 
@@ -76,6 +75,7 @@ export function redirect(address, _window = window){
   function addUserInventory
   Takes 1 parameter. Its an object that should have all the properties expected by inventory_api /add
  */
+
  export function addUserInventory(params){
 
    fetch('http://127.0.0.1:8080/inventory/add',
@@ -148,8 +148,9 @@ processNewInventory()
 export function processNewInventory(){
 
 //get data, process it, send to store
-  fetch('http://127.0.0.1:8080/inventory/list', {credentials: 'include'})
+  fetch('http://127.0.0.1:8080/products/list', {credentials: 'include'})
     .then(function(response) {
+      if(response.status >= 400) redirect("/#/login")()
       return response.json()
     })
     .then(function(data){
@@ -192,13 +193,13 @@ function processGeneralGraphData(inventory){
   let lineData = [{
     name: "Purchased at",
     values: inventory.map(function(cur, ind){
-     return {y: cur.purchase_price, x: ind}
+     return { y: cur.avg_purchase_price, x: ind }
     })
   },
   {
     name: "Selling at",
     values: inventory.map(function(cur, ind){
-     return {y: cur.amzn_list_price, x: ind}
+     return { y: cur.amzn_price_fba, x: ind }
     })
   }]
 
@@ -211,13 +212,13 @@ function processGeneralTableData(inventory){
   let tableData = inventory.map(function(cur){
     return {
       "Quantity": cur.quantity,
-      "Purchase Price": cur.purchase_price,
+      "Purchase Price": cur.avg_purchase_price,
       "Title": cur.amzn_title,
       "Description": cur.amzn_description,
-      "Amazon Price": cur.amzn_price_fbm,
-      "Merchant Price": cur.amzn_price_fba,
+      "Amazon Price": cur.amzn_price_fba,
+      "Merchant Price": cur.amzn_price_fbm,
       "Weight": cur.amzn_weight,
-      "Manufacture": cur.amzn_manuf
+      "Manufacture": cur.amzn_manufacturer
     }
   })
   smartDispatch(UPDATE_TABLE_DATA, tableData)
