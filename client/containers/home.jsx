@@ -6,8 +6,6 @@ import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 
-
-
 export default class HomeContainer extends React.Component{
 
   constructor(props){
@@ -42,8 +40,8 @@ export default class HomeContainer extends React.Component{
           height: 400
         }}
         title="Inventory Value"
-        yAxisLabel="Altitude"
-        xAxisLabel="Elapsed Time (sec)"
+        yAxisLabel="Value ($)"
+        xAxisLabel="Time"
         gridHorizontal={true}
       />
       <Home />

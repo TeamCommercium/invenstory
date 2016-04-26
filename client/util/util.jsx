@@ -142,13 +142,13 @@ function processGeneralGraphData(inventory){
   let lineData = [{
     name: "Purchased at",
     values: inventory.map(function(cur, ind){
-     return {x: cur["Purchase Price"], y: ind}
+     return {y: cur["Purchase Price"], x: ind}
     })
   },
   {
     name: "Selling at",
     values: inventory.map(function(cur, ind){
-     return {x: cur["Amazon Price"], y: ind}
+     return {y: cur["Amazon Price"], x: ind}
     })
   }]
 

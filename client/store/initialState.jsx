@@ -47,7 +47,7 @@ export default {
       "Manufacture": 'Bose' 
     } 
   ],
-  graphData: [{"name":"Purchased at","values":[{"x":43.34,"y":0},{"x":42,"y":1}]},{"name":"Selling at","values":[{"x":43.013,"y":0},{"x":43.013,"y":1}]}],
+  graphData: [{"name":"Purchased at","values":[{"y":43.34,"x":0},{"y":42,"x":1}]},{"name":"Selling at","values":[{"y":43.013,"x":0},{"y":43.013,"x":1}]}],
   authenticated: false,
   lastChanged: undefined
 }
