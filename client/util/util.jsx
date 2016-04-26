@@ -5,7 +5,7 @@ import { smartDispatch } from '../dispatcher'
 import { UPDATE_INVENTORY, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 // // Used to test dispatching actions
-// subscribeTo("auth", function(){console.log("auth TRIGGERED", Date.now())})
+// subscribeTo("authenticated", function(){console.log("authenticated TRIGGERED", Date.now())})
 // subscribeTo("inventory", function(){console.log("inventory TRIGGERED", Date.now())})
 
 // setTimeout( function(){
@@ -44,7 +44,6 @@ export function checkAuth(){
       redirect("/#/login")()   
     } else {
       smartDispatch(UPDATE_AUTHENTICATION, true)
-      redirect("/#/")()
     }
 
   })
@@ -76,25 +75,34 @@ export function redirect(address, _window = window){
  */
 
 export function subscribeTo(property, callback){
-  if(property !== "auth" && property !== "inventory")
-    throw new Error(`You tried to subscribe to ${property} but you may have meant 'auth' or 'inventory'`)
+  if(property !== "authenticated" && property !== "inventory")
+    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated' or 'inventory'`)
 
-    var action = {
+    let action = {
       inventory: {
         UPDATE_INVENTORY: true
       },
-      auth: {
+      authenticated: {
         UPDATE_AUTHENTICATION: true
+      },
+      tableData: {
+        UPDATE_TABLE_DATA: true
+      },
+      graphData: {
+        UPDATE_GRAPH_DATA: true
       }
     }
 
   store.subscribe(function(){
+
+    //Should probably add rate limiting to limit requests to be at least 3 milliseconds apart.
+
     let tempState = store.getState();
     let changed = tempState.lastChanged
 
 
     if(action[property][changed]) 
-      callback(tempState);
+      callback(tempState)
   })
 }
 
@@ -106,28 +114,61 @@ export function subscribeTo(property, callback){
   Fetches the current user's inventory from the server's database
    and updates the store with new inventory data.
  */
-export function getUserInventoryList(){
+export function processNewInventory(){
 
 //get data, process it, send to store
-  fetch('http://localhost:8080/inventory/list')
+  fetch('http://127.0.0.1:8080/inventory/list', {credentials: 'include'})
     .then(function(response) {
-      console.log("List response props", response)
-
-      let updatedInventory = responseArrayTHING_REPLACEME.map(function(cur){
-        return {
-          quantity: cur.quantity,
-          purchasePrice: cur.purchase_price,
-          title: cur.amzn_title,
-          description: cur.amzn_description,
-          amazonPrice: cur.amzn_price_fbm,
-          merchantPrice: cur.amzn_price_fba,
-          weight: cur.amzn_weight,
-          manufacture: cur.amzn_manuf
-          // rank: cur.amzn_rank,
-          // id: cur.id,
-          // timestamp: cur.amzn_price_time
-        }
-      })
-      smartDispatch(UPDATE_INVENTORY, updatedInventory)
+      return response.json()
     })
+    .then(function(stuff){
+
+      console.log("arguments", stuff)
+
+      // processRawInventory(data)
+      // processGeneralGraphData(data)
+      // processGeneralTableData(data)
+    })
+}
+
+function processRawInventory(inventory){
+
+  smartDispatch(UPDATE_GRAPH_DATA, inventory)
+}
+
+function processGeneralGraphData(inventory){
+//  purchase price/amazon price * 100 = % profit
+
+  let lineData = [{
+    name: "Purchased at",
+    values: inventory.map(function(cur, ind){
+     return {x: cur["Purchase Price"], y: ind}
+    })
+  },
+  {
+    name: "Selling at",
+    values: inventory.map(function(cur, ind){
+     return {x: cur["Amazon Price"], y: ind}
+    })
+  }]
+
+  console.log(JSON.stringify(lineData))
+  smartDispatch(UPDATE_GRAPH_DATA, lineData)
+}
+
+function processGeneralTableData(inventory){
+
+  let tableData = inventory.map(function(cur){
+    return {
+      "Quantity": cur.quantity,
+      "Purchase Price": cur.purchase_price,
+      "Title": cur.amzn_title,
+      "Description": cur.amzn_description,
+      "Amazon Price": cur.amzn_price_fbm,
+      "Merchant Price": cur.amzn_price_fba,
+      "Weight": cur.amzn_weight,
+      "Manufacture": cur.amzn_manuf
+    }
+  })
+  smartDispatch(UPDATE_TABLE_DATA, tableData)
 }
