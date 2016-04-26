@@ -41,7 +41,7 @@ var router = express.Router()
   User.getUserProfileInfo(req.user.id)
     .then(function(result){
       log('user_api:38, succesful /user/about', result)
-      res.status(200).({user: result[0]})
+      res.status(200).send({user: result[0]})
     })
     .catch(function(err) {
       log('error in getting user profile ', err)
