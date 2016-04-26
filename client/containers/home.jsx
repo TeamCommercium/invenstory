@@ -13,7 +13,7 @@ export default class HomeContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      lineData: store.getState().graphData
+      graphData: store.getState().graphData
     }
   }
 
@@ -22,10 +22,17 @@ export default class HomeContainer extends React.Component{
   }
 
   render(){
+
+    // // Sample code for listening to store and triggering a re-render
+    // let component = this;
+    // subscribeTo("graphData", function(newState){
+    //   component.setState({"graphData": newState.graphData});
+    // })
+
     return <div>
       <Navbar />
       <LineChart
-        data={this.state.lineData}
+        data={this.state.graphData}
         width='100%'
         height={400}
         viewBoxObject={{

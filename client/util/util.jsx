@@ -5,7 +5,7 @@ import { smartDispatch } from '../dispatcher'
 import { UPDATE_INVENTORY, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 // // Used to test dispatching actions
-// subscribeTo("auth", function(){console.log("auth TRIGGERED", Date.now())})
+// subscribeTo("authenticated", function(){console.log("authenticated TRIGGERED", Date.now())})
 // subscribeTo("inventory", function(){console.log("inventory TRIGGERED", Date.now())})
 
 // setTimeout( function(){
@@ -75,19 +75,28 @@ export function redirect(address, _window = window){
  */
 
 export function subscribeTo(property, callback){
-  if(property !== "auth" && property !== "inventory")
-    throw new Error(`You tried to subscribe to ${property} but you may have meant 'auth' or 'inventory'`)
+  if(property !== "authenticated" && property !== "inventory")
+    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated' or 'inventory'`)
 
     let action = {
       inventory: {
         UPDATE_INVENTORY: true
       },
-      auth: {
+      authenticated: {
         UPDATE_AUTHENTICATION: true
+      },
+      tableData: {
+        UPDATE_TABLE_DATA: true
+      },
+      graphData: {
+        UPDATE_GRAPH_DATA: true
       }
     }
 
   store.subscribe(function(){
+
+    //Should probably add rate limiting to limit requests to be at least 3 milliseconds apart.
+
     let tempState = store.getState();
     let changed = tempState.lastChanged
 
