@@ -78,7 +78,7 @@ export default class DashboardContainer extends React.Component{
     inventory.purchase_price = this.state.purchase_price;
     inventory.purchase_date = this.state.purchase_date;
     inventory.quantity = this.state.quantity;
-    // addUserInventory(inventory);
+    addUserInventory(inventory);
 
     this.setState({
       showModal: false,
@@ -87,9 +87,8 @@ export default class DashboardContainer extends React.Component{
       purchase_quantity: null,
       purchase_date: null
     })
-
-    console.log("INVENTORY OBJ:", inventory);
-    console.log("STATE:", this.state);
+    // console.log("INVENTORY OBJ:", inventory);
+    // console.log("STATE:", this.state);
   }
 
   cancelModal(){
@@ -102,10 +101,6 @@ export default class DashboardContainer extends React.Component{
     })
     console.log("state:",this.state);
   }
-
-  // handleCancel(){
-  //   this.setState({ showModal: !this.state.showModal });
-  // }
 
   render(){
 
