@@ -6,7 +6,10 @@ import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 
-processNewInventory()
+var status = {
+  outOfDate: false,
+  data: undefined
+}
 
 export default class HomeContainer extends React.Component{
 
@@ -15,6 +18,20 @@ export default class HomeContainer extends React.Component{
     this.state = {
       graphData: store.getState().graphData
     }
+
+    let component = this;
+    subscribeTo("graphData", function(newState){
+      console.log("NEWSTATE", JSON.stringify(newState.graphData))
+      status.outOfDate = true;
+      status.data = newState.graphData;
+    })
+  }
+
+  componentDidMount(){
+    if(status.outOfDate){
+      this.setState({ "graphData": status.data });
+      status.outOfDate = false;    
+    }
   }
 
   componentWillMount(){
@@ -22,15 +39,6 @@ export default class HomeContainer extends React.Component{
   }
 
   render(){
-
-
-    // Sample code for listening to store and triggering a re-render
-    let component = this;
-    subscribeTo("graphData", function(newState){
-      console.log("NEWSTATE", JSON.stringify(newState.graphData))
-      // component.setState({ "graphData": newState.graphData });
-    })
-
     return <div>
       <Navbar />
       <LineChart

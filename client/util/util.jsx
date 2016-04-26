@@ -71,6 +71,27 @@ export function redirect(address, _window = window){
   }.bind(null, address)
 }
 
+
+/*
+  function addUserInventory
+  Takes 1 parameter. Its an object that should have all the properties expected by inventory_api /add
+ */
+export function addUserInventory(params){
+
+  console.log("add user inventory", params)
+
+  fetch('http://127.0.0.1:8080/inventory/add', 
+    {
+      credentials: 'include',
+      method: "POST",
+      body: params
+    }
+  )
+  .then(function(response) {     
+    console.log(response)
+  })
+}
+
 /*
   function subscribeTo
   Takes a string and a callback as parameters.
@@ -121,6 +142,7 @@ export function subscribeTo(property, callback){
   Fetches the current user's inventory from the server's database
    and updates the store with new inventory data.
  */
+processNewInventory()
 export function processNewInventory(){
 
 //get data, process it, send to store

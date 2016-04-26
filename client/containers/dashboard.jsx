@@ -7,7 +7,10 @@ import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
 import Addproduct from '../components/addproduct'
 
-processNewInventory()
+var newData = {
+  pending: false,
+  data: null
+}
     
 export default class DashboardContainer extends React.Component{
 
@@ -22,6 +25,20 @@ export default class DashboardContainer extends React.Component{
       quantity: null,
       err_purchase_price: null
     };
+
+    let component = this;
+    subscribeTo("tableData", function(newState){
+      // component.setState({"tableData": newState.tableData});
+      newData.pending = true
+      newData.data = newState.tableData
+    })
+  }
+
+  componentDidMount(){
+    if(newData.pending){
+      this.setState({ "tableData": newData.data });
+      newData.pending = false;
+    }
   }
 
   componentWillMount(){
@@ -103,14 +120,6 @@ export default class DashboardContainer extends React.Component{
   }
 
   render(){
-
-
-    // Sample code for listening to store and triggering a re-render
-    let component = this;
-    subscribeTo("tableData", function(newState){
-      // component.setState({"tableData": newState.tableData});
-    })
-
     return <div>
       <Navbar />
       <Input 
@@ -142,4 +151,3 @@ export default class DashboardContainer extends React.Component{
     </div>
   }
 }
-
