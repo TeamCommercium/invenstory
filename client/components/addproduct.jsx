@@ -56,11 +56,10 @@ export default (props) =>
       <Button
         className=""
         label='Cancel' raised floating
-        onMouseUp={props.cancelModal.bind(this)}
+        onMouseUp={props.resetModal.bind(this)}
       />
     </Dialog>
   </div>
-
 
 /*
 

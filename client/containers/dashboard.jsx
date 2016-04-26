@@ -23,10 +23,10 @@ export default class DashboardContainer extends React.Component{
       purchase_price: '',
       purchase_date: '',
       quantity: '',
-      err_asin: null,
-      err_purchase_price: null,
-      err_purchase_date: null,
-      err_quantity: null
+      err_asin: '',
+      err_purchase_price: '',
+      err_purchase_date: '',
+      err_quantity: ''
     };
 
     let component = this;
@@ -65,12 +65,11 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleSubmit(){
-  console.log("Checking Submit");
-  
-  if (this.state.asin.length !== 10) {
+  // console.log("Checking Submit");
+  if (this.state.asin.length < 10) {
     this.setState({err_asin: "ASIN must be 10 characters"})
   } else {
-    this.setState({showModal: !this.state.showModal});
+    // this.setState({showModal: !this.state.showModal});
 
       let inventory = {};
       inventory.asin = this.state.asin;
@@ -79,27 +78,28 @@ export default class DashboardContainer extends React.Component{
       inventory.quantity = this.state.quantity;
       addUserInventory(inventory);
 
-      this.setState({
-        showModal: false,
-        amzn_asin: null,
-        purchase_price: null,
-        purchase_quantity: null,
-        purchase_date: null
-      })
-    console.log("INVENTORY OBJ:", inventory);
-    console.log("STATE:", this.state);
+      this.resetModal();
+    // console.log("INVENTORY OBJ:", inventory);
+    // console.log("STATE:", this.state);
     }
   }
 
-  cancelModal(){
-    this.setState({
-      showModal: false,
-      amzn_asin: null,
-      purchase_price: null,
-      purchase_quantity: null,
-      purchase_date: null
+  resetModal(){
+    console.log("IN RESET MODAL");
+    this.state = ({
+      tableData: this.state.tableData,
+      asin: '',
+      purchase_price: '',
+      purchase_quantity: '',
+      purchase_date: '',
+      err_asin: '',
+      err_purchase_price: '',
+      err_purchase_date: '',
+      err_quantity: '',
+      showModal: false
     })
-    console.log("state:",this.state);
+    this.setState({showModal: false});
+    // console.log("RESETstate:",this.state);
   }
 
   render(){
@@ -121,9 +121,9 @@ export default class DashboardContainer extends React.Component{
       {this.props.children}
       {this.state.showModal 
         ? <Addproduct 
-            cancelModal={this.cancelModal.bind(this)}
             handleSubmit={this.handleSubmit.bind(this)}
             handleInput={this.handleInput.bind(this)}
+            resetModal={this.resetModal.bind(this)}
             asin={this.state.asin}
             purchase_price={this.state.purchase_price}
             quantity={this.state.quantity}
