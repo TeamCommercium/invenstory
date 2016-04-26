@@ -11,35 +11,42 @@ export default (props) =>
         className=""
         type='text' 
         label='ASIN for product'
-        name='amzn_asin'
+        name='asin'
         required={true}
-        onChange={props.handleAsin.bind(this)} 
+        maxLength={10}
+        value={props.asin}
+        error={props.err_asin}
+        onChange={props.handleInput.bind(this, 'asin')} 
       />
       <Input 
         className=""
         type='number' 
         label='Purchase Price'
         name='purchase_price'
-        // maxLength={6}
         required={true}
+        value={props.purchase_price}
         error={props.err_purchase_price}
-        onChange={props.handlePrice.bind(this)} 
+        onChange={props.handleInput.bind(this, 'purchase_price')} 
       />
       <Input 
         className=""
         type='number' 
         label='Quantity'
-        name='purchase_quantity'
+        name='quantity'
         required={true}
-        onChange={props.handleQuantity.bind(this)} 
+        value={props.quantity}
+        error={props.err_quantity}
+        onChange={props.handleInput.bind(this, 'quantity')} 
       />
       <Input 
         className=""
         type='date' 
-        label='Date Purchased ' 
+        label='Date Purchased' 
         name='purchase_date'
         required={true}
-        onChange={props.handleDate.bind(this)} 
+        value={props.purchase_date}
+        error={props.err_purchase_date}
+        onChange={props.handleInput.bind(this, 'purchase_date')} 
       />
       <Button
         className=""
@@ -49,11 +56,10 @@ export default (props) =>
       <Button
         className=""
         label='Cancel' raised floating
-        onMouseUp={props.cancelModal.bind(this)}
+        onMouseUp={props.resetModal.bind(this)}
       />
     </Dialog>
   </div>
-
 
 /*
 
