@@ -10,7 +10,7 @@ export default (props) =>
       <Button label='Home' onMouseUp={redirect('/#/home')} raised primary />
       <Button label='Dashboard' onMouseUp={redirect('/#/dashboard')} raised primary />
       <Button label='Logout' onMouseUp={logout} raised primary />
-      <IconButton primary><img style={{width: 30, height: 30}} src="https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-128.png" /></IconButton>
+      <IconButton className='stupidButton' primary><img style={{width: 35, height: 35}} src="http://i.imgur.com/pVDjxpB.png" /></IconButton>
     </Navigation>
   </AppBar>
 </div>

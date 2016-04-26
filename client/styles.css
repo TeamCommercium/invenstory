@@ -54,3 +54,7 @@ table, td {
   margin-top: -90px;
   margin-right: 20px;
 }
+
+:local(.stupidButton) {
+  color: white;
+}
