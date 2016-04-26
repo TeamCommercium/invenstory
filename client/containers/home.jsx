@@ -1,10 +1,12 @@
 import React from 'react'
 import { LineChart } from 'rd3'
 
-import { checkAuth } from '../util/util'
+import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
 import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
+
+processNewInventory()
 
 export default class HomeContainer extends React.Component{
 
@@ -21,11 +23,13 @@ export default class HomeContainer extends React.Component{
 
   render(){
 
-    // // Sample code for listening to store and triggering a re-render
-    // let component = this;
-    // subscribeTo("graphData", function(newState){
-    //   component.setState({"graphData": newState.graphData});
-    // })
+
+    // Sample code for listening to store and triggering a re-render
+    let component = this;
+    subscribeTo("graphData", function(newState){
+      console.log("NEWSTATE", JSON.stringify(newState.graphData))
+      // component.setState({ "graphData": newState.graphData });
+    })
 
     return <div>
       <Navbar />
