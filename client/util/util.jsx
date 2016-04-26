@@ -2,23 +2,30 @@ import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
-import { UPDATE_INVENTORY, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { UPDATE_LAST_CHANGED, UPDATE_INVENTORY, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
-// // Used to test dispatching actions
-// subscribeTo("authenticated", function(){console.log("authenticated TRIGGERED", Date.now())})
-// subscribeTo("inventory", function(){console.log("inventory TRIGGERED", Date.now())})
+// Used to test dispatching actions
+// setTimeout( function(){
+//   subscribeTo("tableData", function(){console.log("tableData TRIGGERED", Date.now())})
+//   subscribeTo("graphData", function(){console.log("graphData TRIGGERED", Date.now())})
+// },100)
 
 // setTimeout( function(){
-//   smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
-// }, 3000);
+//   smartDispatch(UPDATE_INVENTORY, null)
+// }, 2000);
 
 // setTimeout( function(){
-//   smartDispatch(UPDATE_AUTHENTICATION, true)
-// }, 6000);
+//   smartDispatch(UPDATE_TABLE_DATA, null)
+// }, 4000);
 
 // setTimeout( function(){
-//   smartDispatch(UPDATE_INVENTORY, [{test: "test"}])
-// }, 9000);
+//   smartDispatch(UPDATE_GRAPH_DATA, null)
+// }, 8000);
+
+// setTimeout( function(){
+//   smartDispatch(UPDATE_AUTHENTICATION, null)
+// }, 10000);
+
 
 
 
@@ -75,8 +82,8 @@ export function redirect(address, _window = window){
  */
 
 export function subscribeTo(property, callback){
-  if(property !== "authenticated" && property !== "inventory")
-    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated' or 'inventory'`)
+  if(property !== "authenticated" && property !== "inventory" && property !== "graphData" && property !== "tableData")
+    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated', 'inventory', 'graphData', or 'tableData'`)
 
     let action = {
       inventory: {
@@ -121,19 +128,19 @@ export function processNewInventory(){
     .then(function(response) {
       return response.json()
     })
-    .then(function(stuff){
+    .then(function(data){
 
-      console.log("arguments", stuff)
+      console.log("arguments", data)
 
-      // processRawInventory(data)
-      // processGeneralGraphData(data)
-      // processGeneralTableData(data)
+      processRawInventory(data)
+      processGeneralGraphData(data)
+      processGeneralTableData(data)
     })
 }
 
 function processRawInventory(inventory){
 
-  smartDispatch(UPDATE_GRAPH_DATA, inventory)
+  smartDispatch(UPDATE_INVENTORY, inventory)
 }
 
 function processGeneralGraphData(inventory){
@@ -142,17 +149,17 @@ function processGeneralGraphData(inventory){
   let lineData = [{
     name: "Purchased at",
     values: inventory.map(function(cur, ind){
-     return {x: cur["Purchase Price"], y: ind}
+     return {y: cur.purchase_price, x: ind}
     })
   },
   {
     name: "Selling at",
     values: inventory.map(function(cur, ind){
-     return {x: cur["Amazon Price"], y: ind}
+     return {y: cur.amzn_list_price, x: ind}
     })
   }]
 
-  console.log(JSON.stringify(lineData))
+  // console.log(JSON.stringify(lineData))
   smartDispatch(UPDATE_GRAPH_DATA, lineData)
 }
 

@@ -4,8 +4,10 @@ import { Button, Input } from 'react-toolbox'
 import Navbar from '../components/navbar'
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
-import { subscribeTo, checkAuth } from '../util/util'
+import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
 
+processNewInventory()
+    
 export default class DashboardContainer extends React.Component{
 
   constructor(props){
@@ -29,11 +31,12 @@ export default class DashboardContainer extends React.Component{
 
   render(){
 
-    // // Sample code for listening to store and triggering a re-render
-    // let component = this;
-    // subscribeTo("tableData", function(newState){
-    //   component.setState({"tableData": newState.tableData});
-    // })
+
+    // Sample code for listening to store and triggering a re-render
+    let component = this;
+    subscribeTo("tableData", function(newState){
+      // component.setState({"tableData": newState.tableData});
+    })
 
     return <div>
       <Navbar />
