@@ -138,6 +138,25 @@ export function processNewInventory(){
     })
 }
 
+/*
+  function logout:
+  Takes no parameters
+  return nothing
+  Api request that deletes the users cookie and redirects to login page
+ */
+
+export function logout() {
+  fetch('http://127.0.0.1:8080/auth/logout', {credentials: 'include'})
+    .then(function(response){
+      smartDispatch(UPDATE_AUTHENTICATION, false)
+      redirect("/#/login")()
+    })
+    .catch(function(error){
+      console.log("Error Logging Out: ", error)
+    })
+}
+
+
 function processRawInventory(inventory){
 
   smartDispatch(UPDATE_INVENTORY, inventory)

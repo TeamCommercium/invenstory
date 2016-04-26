@@ -120,7 +120,7 @@ var router = express.Router()
   */
  .get('/logout', function(req, res) {
       res.clearCookie('Token')
-      res.redirect('/')
+      res.status(200).send('User Logged Out')
     }
   )
 
