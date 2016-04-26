@@ -13,8 +13,10 @@ export default (props) =>
         label='ASIN for product'
         name='asin'
         required={true}
+        maxLength={10}
+        value={props.asin}
         error={props.err_asin}
-        onChange={props.handleAsin.bind(this)} 
+        onChange={props.handleInput.bind(this, 'asin')} 
       />
       <Input 
         className=""
@@ -22,8 +24,9 @@ export default (props) =>
         label='Purchase Price'
         name='purchase_price'
         required={true}
+        value={props.purchase_price}
         error={props.err_purchase_price}
-        onChange={props.handlePrice.bind(this)} 
+        onChange={props.handleInput.bind(this, 'purchase_price')} 
       />
       <Input 
         className=""
@@ -31,8 +34,9 @@ export default (props) =>
         label='Quantity'
         name='quantity'
         required={true}
+        value={props.quantity}
         error={props.err_quantity}
-        onChange={props.handleQuantity.bind(this)} 
+        onChange={props.handleInput.bind(this, 'quantity')} 
       />
       <Input 
         className=""
@@ -40,8 +44,9 @@ export default (props) =>
         label='Date Purchased' 
         name='purchase_date'
         required={true}
+        value={props.purchase_date}
         error={props.err_purchase_date}
-        onChange={props.handleDate.bind(this)} 
+        onChange={props.handleInput.bind(this, 'purchase_date')} 
       />
       <Button
         className=""
