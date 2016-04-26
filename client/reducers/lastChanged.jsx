@@ -6,9 +6,9 @@ export default function(state = initialState, action) {
   switch(action.type){
     case UPDATE_LAST_CHANGED:
       return action.current
-      break;
+      break
 
     default:
-      return state;
+      return state
   }
 }
