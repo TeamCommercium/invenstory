@@ -22,17 +22,22 @@ var log = require('../modules/utilities.js').log;
  */
 function addInventory(params) {
   log('Adding inventory: ', params)
+  var qty = params.quantity;
+  var insertParams = {
+    product_id:params.product_id,
+    purchase_date:params.purchase_date,
+    purchase_price:params.purchase_price,
+    sku:params.sku,
+    user_id:params.user_id
+  }
+  var insert = [];
+  for(let i=0;i<2;i++) {
+      insert.push(Object.assign({},insertParams))
+  }
   return db('inventory')
           .returning('id')
-          .insert({
-            product_id:params.product_id,
-            purchase_date:params.purchaseDate,
-            purchase_price:params.purchasePrice,
-            sku:params.sku,
-            user_id:params.user_id
-          })
+          .insert(insert)
 }
-
 
 /**
  * deleteInventory - A user's inventory records for a given product.

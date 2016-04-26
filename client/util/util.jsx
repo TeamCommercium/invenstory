@@ -45,10 +45,10 @@ export function checkAuth(){
     return;
 
   fetch('http://127.0.0.1:8080/user/me', {credentials: 'include'})
-  .then(function(response) {     
+  .then(function(response) {
     console.log(response)
     if(response.status >= 400){
-      redirect("/#/login")()   
+      redirect("/#/login")()
     } else {
       smartDispatch(UPDATE_AUTHENTICATION, true)
     }
@@ -76,27 +76,29 @@ export function redirect(address, _window = window){
   function addUserInventory
   Takes 1 parameter. Its an object that should have all the properties expected by inventory_api /add
  */
-export function addUserInventory(params){
+ export function addUserInventory(params){
 
-  console.log("add user inventory", params)
-
-  fetch('http://127.0.0.1:8080/inventory/add', 
-    {
-      credentials: 'include',
-      method: "POST",
-      body: params
-    }
-  )
-  .then(function(response) {     
-    console.log(response)
-  })
-}
+   fetch('http://127.0.0.1:8080/inventory/add',
+     {
+       credentials: 'include',
+       method: "POST",
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(params)
+     }
+   )
+   .then(function(response) {
+     console.log(response)
+   })
+ }
 
 /*
   function subscribeTo
   Takes a string and a callback as parameters.
   Return's nothing.
-  Wraps the store's subscribe method and only calls your callback when 
+  Wraps the store's subscribe method and only calls your callback when
   the most recentlychanged value matches the string you enterred as a property.
 
   This is intended to prevent unneeded re-renders by only triggering when relevant.
@@ -129,7 +131,7 @@ export function subscribeTo(property, callback){
     let changed = tempState.lastChanged
 
 
-    if(action[property][changed]) 
+    if(action[property][changed])
       callback(tempState)
   })
 }

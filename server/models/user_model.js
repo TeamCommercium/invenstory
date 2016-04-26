@@ -20,6 +20,10 @@ var getUserFromAmznId = function (amznId) {
    return db('users')
             .where({amzn_profile_id:amznId})
             .select('id')
+            .then(function(result){
+              log('Found user: ', result[0].id)
+              return result[0].id;
+            })
 }
 
 /**
@@ -81,7 +85,7 @@ exports.findOrCreateUser = function (params) {
   return getUserFromAmznId(params.amazon_id)
     .then(function(id) {
       log('Searched for user, result:', id)
-      if(!id[0]) {
+      if(!id) {
         params = {
           amzn_profile_id: params.amazon_id,
           amzn_username: params.username,
@@ -92,7 +96,7 @@ exports.findOrCreateUser = function (params) {
         }
         return createUser(params)
       }
-      return Promise.resolve({id: id[0]})
+      return Promise.resolve({id: id})
     })
 
   // let id = yield db('users')
