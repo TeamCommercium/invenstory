@@ -11,11 +11,11 @@ import { UPDATE_INVENTORY, UPDATE_LAST_CHANGED, UPDATE_AUTHENTICATION } from './
 
 const actionCreators = {
   UPDATE_INVENTORY: function(data){
-    return {type: UPDATE_INVENTORY, inventory: data};
+    return {type: UPDATE_INVENTORY, inventory: data}
   },
 
   UPDATE_AUTHENTICATION: function(data){
-    return {type: UPDATE_AUTHENTICATION, status: data};
+    return {type: UPDATE_AUTHENTICATION, status: data}
   }
 }
 
@@ -37,9 +37,9 @@ const actionCreators = {
 */
 
 export function smartDispatch(type, data){
-  if(! actionCreators[type]) 
+  if(! actionCreators[type])
     throw new Error("invalid action type sent to dispatcher.jsx")
 
-  store.dispatch({type: UPDATE_LAST_CHANGED, current: type});
+  store.dispatch({type: UPDATE_LAST_CHANGED, current: type})
   store.dispatch(actionCreators[type](data))
 }

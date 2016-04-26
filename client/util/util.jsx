@@ -44,7 +44,6 @@ export function checkAuth(){
       redirect("/#/login")()   
     } else {
       smartDispatch(UPDATE_AUTHENTICATION, true)
-      redirect("/#/")()
     }
 
   })
@@ -79,7 +78,7 @@ export function subscribeTo(property, callback){
   if(property !== "auth" && property !== "inventory")
     throw new Error(`You tried to subscribe to ${property} but you may have meant 'auth' or 'inventory'`)
 
-    var action = {
+    let action = {
       inventory: {
         UPDATE_INVENTORY: true
       },
@@ -94,7 +93,7 @@ export function subscribeTo(property, callback){
 
 
     if(action[property][changed]) 
-      callback(tempState);
+      callback(tempState)
   })
 }
 
@@ -109,25 +108,28 @@ export function subscribeTo(property, callback){
 export function getUserInventoryList(){
 
 //get data, process it, send to store
-  fetch('http://localhost:8080/inventory/list')
+  fetch('http://127.0.0.1:8080/inventory/list', {credentials: 'include'})
     .then(function(response) {
-      console.log("List response props", response)
+      return response.json()
+    })
+    .then(function(stuff){
 
-      let updatedInventory = responseArrayTHING_REPLACEME.map(function(cur){
-        return {
-          quantity: cur.quantity,
-          purchasePrice: cur.purchase_price,
-          title: cur.amzn_title,
-          description: cur.amzn_description,
-          amazonPrice: cur.amzn_price_fbm,
-          merchantPrice: cur.amzn_price_fba,
-          weight: cur.amzn_weight,
-          manufacture: cur.amzn_manuf
+      console.log("arguments", stuff)
+      // let updatedInventory = responseArrayTHING_REPLACEME.map(function(cur){
+        // return {
+        //   "Quantity": cur.quantity,
+        //   "Purchase Price": cur.purchase_price,
+        //   "Title": cur.amzn_title,
+        //   "Description": cur.amzn_description,
+        //   "Amazon Price": cur.amzn_price_fbm,
+        //   "Merchant Price": cur.amzn_price_fba,
+        //   "Weight": cur.amzn_weight,
+        //   "Manufacture": cur.amzn_manuf
           // rank: cur.amzn_rank,
           // id: cur.id,
           // timestamp: cur.amzn_price_time
-        }
-      })
-      smartDispatch(UPDATE_INVENTORY, updatedInventory)
+      //   }
+      // })
+      // smartDispatch(UPDATE_INVENTORY, updatedInventory)
     })
 }
