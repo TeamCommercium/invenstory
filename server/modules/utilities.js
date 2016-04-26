@@ -8,7 +8,7 @@ var expressJWT = require('express-jwt')
 
 /**
  * cleanMatchingAsins - Utility function that culls useful data from object from getMatchingAsins function
- * 
+ *
  * @param {Object}    data  Object from Amazon api containing product info for multiple items
  * @param {string}    product.amazon_asin    Amazon Standard Identification Number
  * @param {string}    product.amzn_title    Title of item
@@ -44,7 +44,7 @@ exports.cleanMatchingAsins = function(data) {
 
 /**
  * cleanLowestOffers - Utility function that culls useful data from object from getLowestOffers function
- * 
+ *
  * @param {Object}    data    Object from Amazon api containing product info for multiple items
  * @param {String}    product.amazon_asin    Amazon Standard Identification Number
  * @param {float}     product.price_fba   Lowest FBA (Fulfilled by Amazon) price available for item
@@ -79,7 +79,7 @@ exports.cleanLowestOffers = function(data) {
 
 /**
  * cleanListProductSearch - Utility function that culls useful data from object from ListProductSearch function
- * 
+ *
  * @param {Object}    data  Object from Amazon api containing search results
  * @param {string}    product.amazon_asin    Amazon Standard Identification Number
  * @param {string}    product.amzn_title    Title of item
@@ -93,7 +93,7 @@ exports.cleanLowestOffers = function(data) {
 exports.cleanListProductSearch = function(data) {
   var items = [];
   var responseObj = data.ListMatchingProductsResponse.ListMatchingProductsResult[0].Products[0].Product;
-  
+
   // Api call will return up to 10 results, we use the first 4
   var productsLen = responseObj.length >= 4 ? 4 : responseObj.length;
   for (var i = 0; i < productsLen; i++) {
@@ -130,7 +130,7 @@ exports.log = function() {
  * @param  {Obj}    req     The request, with attached cookie
  * @return {token}  token   Token is decoded and placed in req.user
  */
-exports.authenticate = 
+exports.authenticate =
   expressJWT({
     secret: jwt_config.secret,
     getToken: function(req) {
@@ -141,4 +141,3 @@ exports.authenticate =
       }
     }
   })
-
