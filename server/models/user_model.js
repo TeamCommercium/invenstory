@@ -67,18 +67,32 @@ exports.updateUser = function (params){
 /**
  * findOrCreateUser - Generator function yields results of userid, next user creation. Creates a new user if necessary.
  *
- * @param  {type} amznId    User's amazon oauth profile id.
+ * @param  {Object} params                        User's amazon oauth profile information.
+ * @param {string}  params.amazon_id              User's Amazon Oauth Profile id
+ * @param {string}  params.username                 User's Amazon display name
+ * @param {string}  params.email                    User's email from Amazon.
+ * @param {string}  params.zipcode                  User's zip +4 from Amazon with a hyphen
+ * @param {string}  params.amazon_accessToken      User's access token from Amazon
+ * @param {string}  params.amazon_refreshToken     User's refreshToken from Amazon
  * @return {Promise}        Resolves to id.
  */
-exports.findOrCreateUser = function (amznId) {
+exports.findOrCreateUser = function (params) {
 
-  return getUserFromAmznId(amznId)
+  return getUserFromAmznId(params.amazon_id)
     .then(function(id) {
       log('Searched for user, result:', id)
       if(!id[0]) {
-        return createUser({amzn_profile_id:amznId})
+        params = {
+          amzn_profile_id: params.amazon_id,
+          amzn_username: params.username,
+          amzn_email: params.email,
+          amzn_zip: params.zipcode,
+          amzn_accessToken: params.amazon_accessToken,
+          amzn_refreshToken: params.amazon_refreshToken
+        }
+        return createUser(params)
       }
-      return id[0]
+      return Promise.resolve({id: id[0]})
     })
 
   // let id = yield db('users')
@@ -100,7 +114,7 @@ exports.findOrCreateUser = function (amznId) {
 
 /**
  * getUserProfileInfo - Returns the signed in user's username, email, and zipcode
- * 
+ *
  * @param {integer} userId unique user ID
  * @return {Promies}  Resolves to the user's username, email, and zipcode
  */

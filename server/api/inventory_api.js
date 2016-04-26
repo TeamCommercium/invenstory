@@ -32,10 +32,10 @@ var router = express.Router()
  *
  * @apiError (400 Bad Request) Request must have an ASIN or ISBN.
  */
-.post('/add', function(res, req) {
+.post('/add', function(req, res) {
   //if product Id is not set, need to lookup or create it
-  // let params = req.body
-  let params = env === 'development' ? req.query : req.body
+  let params = req.body
+  // let params = env === 'development' ? req.query : req.body
   params.user_id = req.user.id
   log("Web service request to add inventory: ", params)
   if(!params.product_id) {

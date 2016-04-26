@@ -40,7 +40,9 @@ var log = require('../modules/utilities.js').log;
  */
 exports.addProduct = function (asin) {
     log('Create product with ASIN:', asin)
-   return db('products').returning('id').insert({amzn_asin: asin})
+   return db('products').returning('id').insert({amzn_asin: asin}).then(function(resp) {
+     return resp[0]
+   })
 }
 /**
  * findOrCreate - Helper function to lookup product by ASIN, create it if it does not exist, and resolve to the id in either case.
