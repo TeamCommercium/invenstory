@@ -43,7 +43,7 @@ export default class HomeContainer extends React.Component{
       <Navbar />
       <LineChart
         data={this.state.graphData}
-        width='100%'
+        width={400}
         height={400}
         viewBoxObject={{
           x: 0,
