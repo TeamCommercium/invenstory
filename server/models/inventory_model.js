@@ -27,7 +27,7 @@ function addInventory(params) {
     product_id:params.product_id,
     purchase_date:params.purchase_date,
     purchase_price:params.purchase_price,
-    sku:params.sku,
+    sku:params.seller_sku,
     user_id:params.user_id
   }
   var insert = [];
