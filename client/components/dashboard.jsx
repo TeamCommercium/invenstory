@@ -4,41 +4,33 @@ import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-
 
 import { redirect } from '../util/util'
 
+let columnNames = [
+  "Quantity",
+  "Title",
+  "Purchase ($)",
+  "Description",
+  "Amazon ($)",
+  "Manufacture",
+  "Profit (%)"
+  // "Merchant Price",
+  // "Weight",
+]
+
 export default (props) =>
 <div>
   <Table
     className="table" 
     id="table" 
     data={props.data}
-    filterable={[
-      "Quantity",
-      "Title",
-      "Purchase Price",
-      "Description",
-      "Amazon Price",
-      "Merchant Price",
-      "Weight",
-      "Manufacture",
-    ]} 
+    filterable={columnNames} 
     sortable={[
       {
         column: "Title",
         sortFunction: function(a, b){
-          // Sort by last name
-          var nameA = a.split(' ')
-          var nameB = b.split(' ')
-
-          return nameA[1].localeCompare(nameB[1])
+          return b-a
         }
       },
-      "Quantity",
-      "Title",
-      "Purchase Price",
-      "Description",
-      "Amazon Price",
-      "Merchant Price",
-      "Weight",
-      "Manufacture",
+      ...columnNames
     ]}
     defaultSort={{
       column: "Title",

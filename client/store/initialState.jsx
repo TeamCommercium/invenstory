@@ -31,7 +31,7 @@ export default {
       "Quantity": 4,
       "Purchase Price": 43.34,
       "Title": 'Bluetooth speakers',
-      "Description": 'Like speakers but Bluetooth',
+      "Description": 'Like speakers but BluetoLike speakers but BluetoothLike speakers but BluetoothLike speakers but BluetoothLike speakers but BluetoothLike speakers but BluetoothLike speakers but BluetoothLike speakers but Bluetoothoth',
       "Amazon Price": 43.013,
       "Merchant Price": 43.65,
       "Weight": 1.2,

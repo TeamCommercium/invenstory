@@ -21,7 +21,13 @@ table {
 
 table, td {
   border: 1px solid black;
-  padding: 10px;
+  padding: 15px;
+
+  word-wrap: none;
+  overflow-x: hidden;
+  white-space: nowrap;
+  overflow-wrap: none;
+  text-overflow: none;
 }
 
 :local(.loginBox){
@@ -50,9 +56,9 @@ table, td {
 }
 
 :local(.inlineButton){
-  float:right;
-  margin-top: -90px;
-  margin-right: 20px;
+  display: block;
+  margin: 30px auto;
+  margin-bottom: 0px;
 }
 
 

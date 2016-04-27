@@ -32,7 +32,6 @@ export default class DashboardContainer extends React.Component{
 
     let component = this;
     subscribeTo("tableData", function(newState){
-      // component.setState({"tableData": newState.tableData});
       newData.pending = true
       newData.data = newState.tableData
     })
@@ -134,18 +133,13 @@ export default class DashboardContainer extends React.Component{
   render(){
     return <div>
       <Navbar />
-      <Input 
-        className="styles__shortInput___xZLmg"
-        type='text' 
-        label='ASIN number'
-        name='name'
-        onChange={this.handleChange.bind(this)} 
-      />
+      
       <Button 
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
-      />
+      /><br/>
+
       <Dashboard data={this.state.tableData}/>
       {this.props.children}
       {this.state.showModal 
