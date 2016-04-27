@@ -41,8 +41,11 @@ export default class HomeContainer extends React.Component{
   render(){
     return <div>
       <Navbar />
-      <LineChart
+      {this.state.graphData.length > 0 && this.state.graphData[0].values.length === 0
+        ? <h1 className="styles__centerGraph___PVBDK"> You don't have any data!</h1>
+        : <LineChart
         data={this.state.graphData}
+        className="styles__centerGraph___PVBDK"
         width={400}
         height={400}
         viewBoxObject={{
@@ -56,7 +59,8 @@ export default class HomeContainer extends React.Component{
         xAxisLabel="Time"
         gridHorizontal={true}
       />
-      <Home />
+    }
     </div>
   }
 }
+      // <Home />

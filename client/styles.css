@@ -30,7 +30,7 @@ table, td {
   text-overflow: none;
 }
 
-:local(.loginBox){
+.loginBox{
   position: absolute;
   top:58%;
   left:40%;
@@ -38,24 +38,24 @@ table, td {
   width: 95%;
 }
 
-:local(.loginBox>button){
+.loginBox>button{
   right:1%;
   width:19%;
 }
 
-:local(.titleImage){
+.titleImage{
   width:80%;
   position: relative;
   display: block;
   margin: 0 auto;
 }
 
-:local(.shortInput){
+.shortInput{
   width: 80%;
   margin-left: 20px;
 }
 
-:local(.inlineButton){
+.inlineButton{
   display: block;
   margin: 30px auto;
   margin-bottom: 0px;
@@ -70,8 +70,13 @@ table, td {
   float: right;
 }
 
-:local(.settingButton) {
+.settingButton {
   color: white;
   float: right;
+}
+
+.centerGraph{
+  text-align: center;
+  margin-top: 30px;
 }
 
