@@ -1,6 +1,82 @@
-#app{
-  color:red;
-  background: black;
-  height:50px;
-  margin:50px;
+html, body{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: block;
+  font-family: 'Roboto', sans-serif;
 }
+
+td > input {
+  width: 99%;
+  height: 150%;
+  font-size: 24px;
+  border: none;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 80%;
+}
+
+table, td {
+  border: 1px solid black;
+  padding: 15px;
+
+  word-wrap: none;
+  overflow-x: hidden;
+  white-space: nowrap;
+  overflow-wrap: none;
+  text-overflow: none;
+}
+
+.loginBox{
+  position: absolute;
+  top:58%;
+  left:40%;
+  z-index:1000;
+  width: 95%;
+}
+
+.loginBox>button{
+  right:1%;
+  width:19%;
+}
+
+.titleImage{
+  width:80%;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+
+.shortInput{
+  width: 80%;
+  margin-left: 20px;
+}
+
+.inlineButton{
+  display: block;
+  margin: 30px auto;
+  margin-bottom: 0px;
+}
+
+
+.navbar {
+  width: 100%;
+}
+
+.logout {
+  float: right;
+}
+
+.settingButton {
+  color: white;
+  float: right;
+}
+
+.centerGraph{
+  text-align: center;
+  margin-top: 30px;
+}
+
