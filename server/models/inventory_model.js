@@ -31,7 +31,7 @@ function addInventory(params) {
     user_id:params.user_id
   }
   var insert = [];
-  for(let i=0;i<2;i++) {
+  for(let i=0;i<qty;i++) {
       insert.push(Object.assign({},insertParams))
   }
   return db('inventory')
