@@ -55,6 +55,17 @@ table, td {
   margin-right: 20px;
 }
 
-:local(.stupidButton) {
-  color: white;
+
+.navbar {
+  width: 100%;
 }
+
+.logout {
+  float: right;
+}
+
+:local(.settingButton) {
+  color: white;
+  float: right;
+}
+
