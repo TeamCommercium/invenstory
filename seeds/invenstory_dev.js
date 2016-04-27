@@ -104,133 +104,133 @@ exports.seed = function(knex, Promise) {
       }),
 
       //Seed product details
-      knex('product_details').insert({
-        id: 3,
-        product_id: 85,
-        amzn_price_fba: 22.99,
-        amzn_price_fbm: 20.99,
-        amzn_sales_rank: 12821,
-        amzn_fetch_date: '2016-04-21 19:33:57', //UTC
-        }),
-      knex('product_details').insert({
-        id: 4,
-        product_id: 85,
-        amzn_price_fba: 31.89,
-        amzn_price_fbm: 28.99,
-        amzn_sales_rank: 12821,
-        amzn_fetch_date: '2016-04-22 19:33:57', //UTC
-        }),
-      knex('product_details').insert({
-        id: 5,
-        product_id: 85,
-        amzn_price_fba: 54.76,
-        amzn_price_fbm: 49.99,
-        amzn_sales_rank: 12821,
-        amzn_fetch_date: '2016-04-23 19:33:57', //UTC
-        }),
+      // knex('product_details').insert({
+      //   id: 3,
+      //   product_id: 85,
+      //   amzn_price_fba: 22.99,
+      //   amzn_price_fbm: 20.99,
+      //   amzn_sales_rank: 12821,
+      //   amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+      //   }),
+      // knex('product_details').insert({
+      //   id: 4,
+      //   product_id: 85,
+      //   amzn_price_fba: 31.89,
+      //   amzn_price_fbm: 28.99,
+      //   amzn_sales_rank: 12821,
+      //   amzn_fetch_date: '2016-04-22 19:33:57', //UTC
+      //   }),
+      // knex('product_details').insert({
+      //   id: 5,
+      //   product_id: 85,
+      //   amzn_price_fba: 54.76,
+      //   amzn_price_fbm: 49.99,
+      //   amzn_sales_rank: 12821,
+      //   amzn_fetch_date: '2016-04-23 19:33:57', //UTC
+      //   }),
       knex('product_details').insert({
         id: 6,
         product_id: 85,
         amzn_price_fba: 78.19,
         amzn_price_fbm: 74.81,
         amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-24 18:33:57', //UTC
+        amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
-      knex('product_details').insert({
-        id: 7,
-        product_id: 86,
-        amzn_price_fba: 619.19,
-        amzn_price_fbm: 599.81,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-21 18:33:57', //UTC
-      }),
-      knex('product_details').insert({
-        id: 8,
-        product_id: 86,
-        amzn_price_fba: 849.99,
-        amzn_price_fbm: 819.18,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-22 18:33:57', //UTC
-      }),
+      // knex('product_details').insert({
+      //   id: 7,
+      //   product_id: 86,
+      //   amzn_price_fba: 619.19,
+      //   amzn_price_fbm: 599.81,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+      // }),
+      // knex('product_details').insert({
+      //   id: 8,
+      //   product_id: 86,
+      //   amzn_price_fba: 849.99,
+      //   amzn_price_fbm: 819.18,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+      // }),
       knex('product_details').insert({
         id: 9,
         product_id: 86,
         amzn_price_fba: 1298.95,
         amzn_price_fbm: 1001.99,
         amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-23 18:33:57', //UTC
+        amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
-      knex('product_details').insert({
-        id: 10,
-        product_id: 87,
-        amzn_price_fba: 72.95,
-        amzn_price_fbm: 65.99,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-21 18:33:57', //UTC
-      }),
-      knex('product_details').insert({
-        id: 11,
-        product_id: 87,
-        amzn_price_fba: 148.95,
-        amzn_price_fbm: 139.99,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-22 18:33:57', //UTC
-      }),
+      // knex('product_details').insert({
+      //   id: 10,
+      //   product_id: 87,
+      //   amzn_price_fba: 72.95,
+      //   amzn_price_fbm: 65.99,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+      // }),
+      // knex('product_details').insert({
+      //   id: 11,
+      //   product_id: 87,
+      //   amzn_price_fba: 148.95,
+      //   amzn_price_fbm: 139.99,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+      // }),
       knex('product_details').insert({
         id: 12,
         product_id: 87,
         amzn_price_fba: 169.95,
         amzn_price_fbm: 165.18,
         amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-23 18:33:57', //UTC
+        amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
-      knex('product_details').insert({
-        id: 13,
-        product_id: 88,
-        amzn_price_fba: 189.95,
-        amzn_price_fbm: 176.18,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-21 18:33:57', //UTC
-      }),
-      knex('product_details').insert({
-        id: 14,
-        product_id: 88,
-        amzn_price_fba: 169.95,
-        amzn_price_fbm: 159.43,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-22 18:33:57', //UTC
-      }),
+      // knex('product_details').insert({
+      //   id: 13,
+      //   product_id: 88,
+      //   amzn_price_fba: 189.95,
+      //   amzn_price_fbm: 176.18,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+      // }),
+      // knex('product_details').insert({
+      //   id: 14,
+      //   product_id: 88,
+      //   amzn_price_fba: 169.95,
+      //   amzn_price_fbm: 159.43,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+      // }),
       knex('product_details').insert({
         id: 15,
         product_id: 88,
         amzn_price_fba: 227.94,
         amzn_price_fbm: 224.98,
         amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-23 18:33:57', //UTC
+        amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
-      knex('product_details').insert({
-        id: 16,
-        product_id: 89,
-        amzn_price_fba: 79.94,
-        amzn_price_fbm: 75.98,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-21 18:33:57', //UTC
-      }),
-      knex('product_details').insert({
-        id: 17,
-        product_id: 89,
-        amzn_price_fba: 161.94,
-        amzn_price_fbm: 159.98,
-        amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-22 18:33:57', //UTC
-      }),
+      // knex('product_details').insert({
+      //   id: 16,
+      //   product_id: 89,
+      //   amzn_price_fba: 79.94,
+      //   amzn_price_fbm: 75.98,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+      // }),
+      // knex('product_details').insert({
+      //   id: 17,
+      //   product_id: 89,
+      //   amzn_price_fba: 161.94,
+      //   amzn_price_fbm: 159.98,
+      //   amzn_sales_rank: 12824,
+      //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+      // }),
       knex('product_details').insert({
         id: 18,
         product_id: 89,
         amzn_price_fba: 131.23,
         amzn_price_fbm: 123.66,
         amzn_sales_rank: 12824,
-        amzn_fetch_date: '2016-04-23 18:33:57', //UTC
+        amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
 
       //Seed inventory

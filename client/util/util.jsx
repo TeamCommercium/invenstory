@@ -144,6 +144,8 @@ export function subscribeTo(property, callback){
   Fetches the current user's inventory from the server's database
    and updates the store with new inventory data.
  */
+
+// setInterval(processNewInventory, 1000);
 processNewInventory()
 export function processNewInventory(){
 
@@ -191,8 +193,17 @@ function processRawInventory(inventory){
 function processGeneralGraphData(inventory){
 //  purchase price/amazon price * 100 = % profit
 
+  // console.log("Keys", Object.keys(inventory[0]))
+
+/*
+
+["amzn_title", "amzn_description", "amzn_price_fbm", "amzn_price_fba", "amzn_sales_rank", "amzn_weight", "amzn_manufacturer", "avg_purchase_price", "quantity"]
+ */
+
   let lineData = [{
     name: "Purchased at",
+    // values: []
+  // },
     values: inventory.map(function(cur, ind){
      return { y: cur.avg_purchase_price, x: ind }
     })
@@ -211,13 +222,16 @@ function processGeneralGraphData(inventory){
 function processGeneralTableData(inventory){
 
   let tableData = inventory.map(function(cur){
+    console.log("CUR",cur);
     return {
+      "SKU": cur.seller_sku,
+      "ASIN": cur.amzn_asin,
       "Manufacturer": cur.amzn_manufacturer,
       "Title": cur.amzn_title.slice(0,50) + "...",
       "Description": cur.amzn_description.slice(0,40) + "...",
       "Qty": cur.quantity,
-      "Purchase ($)": cur.avg_purchase_price,
-      "Amazon ($)": cur.amzn_price_fba,
+      "Purchase ($)": Math.round(cur.avg_purchase_price*100)/100,
+      "Amazon ($)": Math.round(cur.amzn_price_fba*100)/100,
       "Profit (%)": Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*10000)/100,
       // "Merchant Price": cur.amzn_price_fbm,
       // "Weight": cur.amzn_weight,
@@ -225,3 +239,13 @@ function processGeneralTableData(inventory){
   })
   smartDispatch(UPDATE_TABLE_DATA, tableData)
 }
+
+/*
+
+  let lineData = [{
+    name: "Purchased at",
+    values: []
+  },
+
+
+ */
