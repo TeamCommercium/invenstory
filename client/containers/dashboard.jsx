@@ -32,8 +32,15 @@ export default class DashboardContainer extends React.Component{
 
     let component = this;
     subscribeTo("tableData", function(newState){
-      newData.pending = true
-      newData.data = newState.tableData
+      console.log("NEWSTATE dashboard", JSON.stringify(newState.tableData))
+
+      try{
+        component.setState({ "tableData": newState.tableData })
+      } catch (e){
+        console.log('caught error', e)
+        newData.pending = true
+        newData.data = newState.tableData
+      }
     })
   }
 
@@ -47,10 +54,10 @@ export default class DashboardContainer extends React.Component{
       && document.getElementById("table").getElementsByTagName('input')[0])
     document.getElementById("table").getElementsByTagName('input')[0].placeholder = "Search Table . ."
 
-      if(newData.pending){
-      this.setState({"tableData": newData.data});
-      newData.pending = false;
-    }
+    // if(newData.pending){
+    //   this.setState({"tableData": newData.data});
+    //   newData.pending = false;
+    // }
   }
 
   handleChange(value){
