@@ -22,7 +22,7 @@ var log = require('../modules/utilities.js').log;
               .leftJoin('product_details', function() {
                 this.on('product_details.product_id','products.id').andOn('products.fetch_date', 'product_details.amzn_fetch_date')
               } )
-              .select('products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'product_details.amzn_price_fba', 'product_details.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer')
+              .select('products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'inventory.sku as seller_sku', 'products.amzn_asin', 'product_details.amzn_price_fba', 'product_details.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer')
               .groupBy('inventory.product_id')
               .avg('purchase_price as avg_purchase_price')
               .count('inventory.product_id as quantity')
