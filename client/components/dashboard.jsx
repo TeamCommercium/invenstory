@@ -5,13 +5,15 @@ import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-
 import { redirect } from '../util/util'
 
 let columnNames = [
-  "Quantity",
+  "Qty",
   "Title",
   "Purchase ($)",
   "Description",
   "Amazon ($)",
   "Manufacture",
-  "Profit (%)"
+  "Profit (%)",
+  "ASIN",
+  "SKU"
   // "Merchant Price",
   // "Weight",
 ]
