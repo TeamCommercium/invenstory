@@ -151,6 +151,7 @@ export function processNewInventory(){
   fetch('http://127.0.0.1:8080/products/list', {credentials: 'include'})
     .then(function(response) {
       if(response.status >= 400) redirect("/#/login")()
+
       return response.json()
     })
     .then(function(data){
@@ -211,14 +212,15 @@ function processGeneralTableData(inventory){
 
   let tableData = inventory.map(function(cur){
     return {
-      "Quantity": cur.quantity,
-      "Purchase Price": cur.avg_purchase_price,
-      "Title": cur.amzn_title,
-      "Description": cur.amzn_description,
-      "Amazon Price": cur.amzn_price_fba,
-      "Merchant Price": cur.amzn_price_fbm,
-      "Weight": cur.amzn_weight,
-      "Manufacture": cur.amzn_manufacturer
+      "Manufacturer": cur.amzn_manufacturer,
+      "Title": cur.amzn_title.slice(0,50) + "...",
+      "Description": cur.amzn_description.slice(0,40) + "...",
+      "Qty": cur.quantity,
+      "Purchase ($)": cur.avg_purchase_price,
+      "Amazon ($)": cur.amzn_price_fba,
+      "Profit (%)": Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*10000)/100,
+      // "Merchant Price": cur.amzn_price_fbm,
+      // "Weight": cur.amzn_weight,
     }
   })
   smartDispatch(UPDATE_TABLE_DATA, tableData)

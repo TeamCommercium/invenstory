@@ -6,9 +6,9 @@ import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 
-var status = {
-  outOfDate: false,
-  data: undefined
+var newData = {
+  pending: false,
+  data: null
 }
 
 export default class HomeContainer extends React.Component{
@@ -21,17 +21,23 @@ export default class HomeContainer extends React.Component{
 
     let component = this;
     subscribeTo("graphData", function(newState){
-      console.log("NEWSTATE", JSON.stringify(newState.graphData))
-      status.outOfDate = true;
-      status.data = newState.graphData;
+      console.log("NEWSTATE home", JSON.stringify(newState.graphData))
+
+      try{
+        component.setState({ "graphData": newState.graphData })
+      } catch (e){
+        console.log('caught error thingy', e)
+        newData.pending = true
+        newData.data = newState.graphData
+      }
     })
   }
 
   componentDidMount(){
-    if(status.outOfDate){
-      this.setState({ "graphData": status.data });
-      status.outOfDate = false;    
-    }
+    // if(newData.pending){
+    //   this.setState({"graphData": newData.data});
+    //   newData.pending = false;
+    // }
   }
 
   componentWillMount(){
@@ -41,22 +47,29 @@ export default class HomeContainer extends React.Component{
   render(){
     return <div>
       <Navbar />
-      <LineChart
-        data={this.state.graphData}
-        width={400}
-        height={400}
-        viewBoxObject={{
-          x: 0,
-          y: 0,
-          width: 500,
-          height: 400
-        }}
-        title="Inventory Value"
-        yAxisLabel="Value ($)"
-        xAxisLabel="Time"
-        gridHorizontal={true}
-      />
-      <Home />
+      {
+        this.state.graphData.length > 0 && this.state.graphData[0].values.length === 0
+        ? <h1 className="styles__centerGraph___PVBDK"> You don't have any data!</h1>
+        : <div>
+            <LineChart
+              data={this.state.graphData}
+              className="styles__centerGraph___PVBDK"
+              width={400}
+              height={400}
+              viewBoxObject={{
+                x: 0,
+                y: 0,
+                width: 500,
+                height: 400
+              }}
+              title="Inventory Value"
+              yAxisLabel="Value ($)"
+              xAxisLabel="Time"
+              gridHorizontal={true}
+            />
+            <Home />
+          </div>
+      }
     </div>
   }
 }

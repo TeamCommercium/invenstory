@@ -21,10 +21,16 @@ table {
 
 table, td {
   border: 1px solid black;
-  padding: 10px;
+  padding: 15px;
+
+  word-wrap: none;
+  overflow-x: hidden;
+  white-space: nowrap;
+  overflow-wrap: none;
+  text-overflow: none;
 }
 
-:local(.loginBox){
+.loginBox{
   position: absolute;
   top:58%;
   left:40%;
@@ -32,27 +38,27 @@ table, td {
   width: 95%;
 }
 
-:local(.loginBox>button){
+.loginBox>button{
   right:1%;
   width:19%;
 }
 
-:local(.titleImage){
+.titleImage{
   width:80%;
   position: relative;
   display: block;
   margin: 0 auto;
 }
 
-:local(.shortInput){
+.shortInput{
   width: 80%;
   margin-left: 20px;
 }
 
-:local(.inlineButton){
-  float:right;
-  margin-top: -90px;
-  margin-right: 20px;
+.inlineButton{
+  display: block;
+  margin: 30px auto;
+  margin-bottom: 0px;
 }
 
 
@@ -64,8 +70,13 @@ table, td {
   float: right;
 }
 
-:local(.settingButton) {
+.settingButton {
   color: white;
   float: right;
+}
+
+.centerGraph{
+  text-align: center;
+  margin-top: 30px;
 }
 

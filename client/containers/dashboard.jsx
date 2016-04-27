@@ -32,17 +32,16 @@ export default class DashboardContainer extends React.Component{
 
     let component = this;
     subscribeTo("tableData", function(newState){
-      // component.setState({"tableData": newState.tableData});
-      newData.pending = true
-      newData.data = newState.tableData
-    })
-  }
+      console.log("NEWSTATE dashboard", JSON.stringify(newState.tableData))
 
-  componentDidMount(){
-    if(newData.pending){
-      this.setState({"tableData": newData.data});
-      newData.pending = false;
-    }
+      try{
+        component.setState({ "tableData": newState.tableData })
+      } catch (e){
+        console.log('caught error', e)
+        newData.pending = true
+        newData.data = newState.tableData
+      }
+    })
   }
 
   componentWillMount(){
@@ -50,7 +49,15 @@ export default class DashboardContainer extends React.Component{
   }
 
   componentDidMount(){
+    if(document.getElementById("table") 
+      && document.getElementById("table").getElementsByTagName('input') 
+      && document.getElementById("table").getElementsByTagName('input')[0])
     document.getElementById("table").getElementsByTagName('input')[0].placeholder = "Search Table . ."
+
+    // if(newData.pending){
+    //   this.setState({"tableData": newData.data});
+    //   newData.pending = false;
+    // }
   }
 
   handleChange(value){
@@ -134,18 +141,13 @@ export default class DashboardContainer extends React.Component{
   render(){
     return <div>
       <Navbar />
-      <Input 
-        className="styles__shortInput___xZLmg"
-        type='text' 
-        label='ASIN number'
-        name='name'
-        onChange={this.handleChange.bind(this)} 
-      />
+      
       <Button 
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
-      />
+      /><br/>
+
       <Dashboard data={this.state.tableData}/>
       {this.props.children}
       {this.state.showModal 
