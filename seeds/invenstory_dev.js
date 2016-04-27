@@ -354,7 +354,7 @@ exports.seed = function(knex, Promise) {
 
       //Seed products
       knex('products').insert({
-          id: 86,
+          id: 952,
           amzn_asin: 'CHEESE',
           amzn_title: "Cheese Title",
           amzn_description: 'I like Cheese sooooo much.',
@@ -366,8 +366,8 @@ exports.seed = function(knex, Promise) {
           fetch_date: '2016-04-21 19:33:57', //UTC
         }),
       knex('product_details').insert({
-        id: 13,
-        product_id: 86,
+        id: 50,
+        product_id: 952,
         amzn_price_fba: 22.99,
         amzn_price_fbm: 21.99,
         amzn_fetch_date: '2016-04-21 18:33:57', //UTC
@@ -375,8 +375,8 @@ exports.seed = function(knex, Promise) {
       }),
 
       knex('product_details').insert({
-        id: 17,
-        product_id: 86,
+        id: 2000,
+        product_id: 952,
         amzn_price_fba: 25.99,
         amzn_price_fbm: 23.99,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
