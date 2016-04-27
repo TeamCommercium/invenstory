@@ -54,3 +54,18 @@ table, td {
   margin-top: -90px;
   margin-right: 20px;
 }
+
+
+.navbar {
+  width: 100%;
+}
+
+.logout {
+  float: right;
+}
+
+:local(.settingButton) {
+  color: white;
+  float: right;
+}
+
