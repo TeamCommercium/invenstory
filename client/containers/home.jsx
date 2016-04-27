@@ -6,11 +6,6 @@ import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 
-var newData = {
-  pending: false,
-  data: null
-}
-
 export default class HomeContainer extends React.Component{
 
   constructor(props){
@@ -27,17 +22,9 @@ export default class HomeContainer extends React.Component{
         component.setState({ "graphData": newState.graphData })
       } catch (e){
         console.log('caught error thingy', e)
-        newData.pending = true
-        newData.data = newState.graphData
+        component.state.graphData = newState.graphData
       }
     })
-  }
-
-  componentDidMount(){
-    // if(newData.pending){
-    //   this.setState({"graphData": newData.data});
-    //   newData.pending = false;
-    // }
   }
 
   componentWillMount(){

@@ -7,11 +7,6 @@ import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
 import Addproduct from '../components/addproduct'
 
-var newData = {
-  pending: false,
-  data: null
-}
-    
 export default class DashboardContainer extends React.Component{
 
   constructor(props){
@@ -38,8 +33,7 @@ export default class DashboardContainer extends React.Component{
         component.setState({ "tableData": newState.tableData })
       } catch (e){
         console.log('caught error', e)
-        newData.pending = true
-        newData.data = newState.tableData
+        component.state.tableData = newState.tableData
       }
     })
   }
@@ -53,11 +47,6 @@ export default class DashboardContainer extends React.Component{
       && document.getElementById("table").getElementsByTagName('input') 
       && document.getElementById("table").getElementsByTagName('input')[0])
     document.getElementById("table").getElementsByTagName('input')[0].placeholder = "Search Table . ."
-
-    // if(newData.pending){
-    //   this.setState({"tableData": newData.data});
-    //   newData.pending = false;
-    // }
   }
 
   handleChange(value){
