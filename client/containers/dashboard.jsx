@@ -65,27 +65,41 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleSubmit(){
-  // console.log("Checking Submit");
-  if (this.state.asin.length < 10) {
-    this.setState({err_asin: "ASIN must be 10 characters"})
-  } else {
-    // this.setState({showModal: !this.state.showModal});
+  // Need to refactor
+    let inputErr = 0;
+    if (this.state.asin.length < 10) {
+      this.setState({err_asin: "Must be 10 characters"});
+      inputErr++;
+    } else this.setState({err_asin: ''});
+    if (!this.state.purchase_price) {
+      this.setState({err_purchase_price: "Please enter purchase price"});
+      inputErr++;
+    } else this.setState({err_purchase_price: ''});
+    if (!this.state.quantity || this.state.quantity < 1) {
+      this.setState({err_quantity: "Please enter valid quantity"});
+      inputErr++;
+    } else this.setState({err_quantity: ''});
+    if (!this.state.purchase_date) {
+      this.setState({err_purchase_date: "Please enter purchase date"});
+      inputErr++;
+    } else this.setState({err_purchase_date: ''});
+    if (!inputErr) {
+      // this.setState({showModal: !this.state.showModal});
+        let inventory = {};
+        inventory.asin = this.state.asin.toUpperCase();
+        inventory.purchase_price = this.state.purchase_price;
+        inventory.purchase_date = this.state.purchase_date;
+        inventory.quantity = this.state.quantity;
+        addUserInventory(inventory);
 
-      let inventory = {};
-      inventory.asin = this.state.asin;
-      inventory.purchase_price = this.state.purchase_price;
-      inventory.purchase_date = this.state.purchase_date;
-      inventory.quantity = this.state.quantity;
-      addUserInventory(inventory);
-
-      this.resetModal();
-    // console.log("INVENTORY OBJ:", inventory);
-    // console.log("STATE:", this.state);
+        this.resetModal();
+      console.log("INVENTORY OBJ SENT:", inventory);
+      // console.log("STATE:", this.state);
     }
   }
 
   resetModal(){
-    console.log("IN RESET MODAL");
+    // console.log("IN RESET MODAL");
     this.state = ({
       tableData: this.state.tableData,
       asin: '',
