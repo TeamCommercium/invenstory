@@ -10,13 +10,20 @@ var log = require('../modules/utilities.js').log;
  */
 
  /**
-  * addProduct - Create a new product record.
+  * getProducts - Retreive summary data for product(s).
   *
   * @param  {string}   amzn_asin  Amazon Standard Identification Number
+  * @param  {integer} [productId]  Amazon Standard Identification Number
   * @return {Promise}  Resolves to id of the newly created record.
   */
- exports.getProducts = function (userId) {
+ exports.getProducts = function (userId, productId) {
      log('Getting products for user:', userId)
+
+    //Passing an undefined value to a where clause in knex seems to include the search term, so build the clause here.
+    let whereClause = {"inventory.user_id":userId,
+                        "shipped":false};
+    if(productId) whereClause['inventory.product_id'] = productId;
+
     return db('products')
               .join('inventory', 'inventory.product_id', 'products.id')
               .leftJoin('product_details', function() {
@@ -26,7 +33,7 @@ var log = require('../modules/utilities.js').log;
               .groupBy('inventory.product_id')
               .avg('purchase_price as avg_purchase_price')
               .count('inventory.product_id as quantity')
-              .where({"inventory.user_id":userId})
+              .where(whereClause)
               .then(function(data){log(
                 'Get products is complete:',data)
               return data})
