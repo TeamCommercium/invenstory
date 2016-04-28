@@ -35,8 +35,8 @@ var amazonMWS = require('../api/amazonMWS.js');
               .avg('purchase_price as avg_purchase_price')
               .count('inventory.product_id as quantity')
               .where(whereClause)
-              .then(function(data){log(
-                'Get products is complete:',data)
+              .then(function(data){
+                log('Get products is complete:',data)
               return data})
  }
 
