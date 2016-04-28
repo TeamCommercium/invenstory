@@ -1,10 +1,12 @@
 var MWS       = require ('mws-sdk-promises')
 var amazonEnv = require ('../modules/config.js').amazonEnv
 var utilities = require ('../modules/utilities.js')
+var log       = require('../modules/utilities.js').log;
+var Products  = require('../models/products_model.js')
 
 var client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, amazonEnv.merchantId, {})
 // Amazon country code defaults to US
-var MarketplaceId = "ATVPDKIKX0DER";
+// var MarketplaceId = "ATVPDKIKX0DER";
 
 /**
  * @param  {Object}   client    Client object with specific access keys
@@ -62,7 +64,7 @@ exports.getLowestOffers = function(req, res) {
       res.send(utilities.cleanLowestOffers(result));
     })
     .catch(function(error) {
-      console.error(error)
+      log(error)
       res.send(error)
     })
 }
@@ -89,33 +91,33 @@ exports.listProductSearch = function(req, res) {
       // res.send(result);
     })
     .catch(function(error) {
-      console.error(error);
+      log(error);
       res.send(error)
     })
 }
 
 /**
- * getMatchingProduct - API call to get product info based on ASIN
+ * getMatchingProductByAsin - API call to get product info based on ASIN
  * Maximum request quota:  20 requests (up to 10 ASINs per request)
  * Restore rate:           2 requests every second
  * Hourly request quota:   7200 requests per hour
  *
- * @param  {Object}   req
- * @param  {Object}   res
+ * @param  {string}   asin
  * @param  {string}   MarketPlaceID   Amazon country code 
  * @param  {Array}    ASINList        Array of ASINs as strings
  * @return {Promise}  
  */
-exports.getMatchingAsins = function(req,res) {
+exports.getMatchingProductByAsin = function(asin) {
+  log('ASIN', asin)
   return getMatchingProductsByAsin(client, {
-    MarketplaceId: MarketplaceId,
-    ASINList: ['B00UYNAGTI','B007GE5X7S']
+    MarketplaceId: amazonEnv.marketplaceId,
+    ASINList: [asin]
   })
     .then(function(result){
-      res.send(utilities.cleanMatchingAsins(result))
+      log('Result of AmazonApi product fetch ', result)
+      return Products.editProduct(utilities.cleanMatchingAsins(result)[0])
     })
     .catch(function(error) {
-      console.error(error);
-      res.send(error)
+      log('Error of AmazonApi product fetch', error);
     })
 }

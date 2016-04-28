@@ -51,6 +51,7 @@ exports.seed = function(knex, Promise) {
         amzn_weight: 0.50,
         amzn_thumb_url: "http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg",
         amzn_list_price: 19.99,
+        amzn_sales_rank: 23423,
         currency: 'USD',
         fetch_date: '2016-04-21 19:33:57', //UTC
       }),
@@ -63,6 +64,7 @@ exports.seed = function(knex, Promise) {
         amzn_weight: 16.4,
         amzn_thumb_url: "http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg",
         amzn_list_price: 399.99,
+        amzn_sales_rank: 23423,
         currency: 'USD',
         fetch_date: '2016-04-21 19:33:57', //UTC
       }),
@@ -75,6 +77,7 @@ exports.seed = function(knex, Promise) {
         amzn_weight: 1,
         amzn_thumb_url: "http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg",
         amzn_list_price: 39.99,
+        amzn_sales_rank: 23423,
         currency: 'USD',
         fetch_date: '2016-04-21 19:33:57', //UTC
       }),
@@ -87,6 +90,7 @@ exports.seed = function(knex, Promise) {
         amzn_weight: 3.5,
         amzn_thumb_url: "http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg",
         amzn_list_price: 109.99,
+        amzn_sales_rank: 23423,
         currency: 'USD',
         fetch_date: '2016-04-21 19:33:57', //UTC
       }),
@@ -99,6 +103,7 @@ exports.seed = function(knex, Promise) {
         amzn_weight: 1.2,
         amzn_thumb_url: "http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg",
         amzn_list_price: 34.99,
+        amzn_sales_rank: 23423,
         currency: 'USD',
         fetch_date: '2016-04-21 19:33:57', //UTC
       }),
@@ -109,7 +114,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 85,
       //   amzn_price_fba: 22.99,
       //   amzn_price_fbm: 20.99,
-      //   amzn_sales_rank: 12821,
       //   amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       //   }),
       // knex('product_details').insert({
@@ -117,7 +121,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 85,
       //   amzn_price_fba: 31.89,
       //   amzn_price_fbm: 28.99,
-      //   amzn_sales_rank: 12821,
       //   amzn_fetch_date: '2016-04-22 19:33:57', //UTC
       //   }),
       // knex('product_details').insert({
@@ -125,7 +128,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 85,
       //   amzn_price_fba: 54.76,
       //   amzn_price_fbm: 49.99,
-      //   amzn_sales_rank: 12821,
       //   amzn_fetch_date: '2016-04-23 19:33:57', //UTC
       //   }),
       knex('product_details').insert({
@@ -133,7 +135,6 @@ exports.seed = function(knex, Promise) {
         product_id: 85,
         amzn_price_fba: 78.19,
         amzn_price_fbm: 74.81,
-        amzn_sales_rank: 12824,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
       // knex('product_details').insert({
@@ -141,7 +142,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 86,
       //   amzn_price_fba: 619.19,
       //   amzn_price_fbm: 599.81,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
       // }),
       // knex('product_details').insert({
@@ -149,7 +149,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 86,
       //   amzn_price_fba: 849.99,
       //   amzn_price_fbm: 819.18,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
       // }),
       knex('product_details').insert({
@@ -157,7 +156,6 @@ exports.seed = function(knex, Promise) {
         product_id: 86,
         amzn_price_fba: 1298.95,
         amzn_price_fbm: 1001.99,
-        amzn_sales_rank: 12824,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
       // knex('product_details').insert({
@@ -165,7 +163,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 87,
       //   amzn_price_fba: 72.95,
       //   amzn_price_fbm: 65.99,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
       // }),
       // knex('product_details').insert({
@@ -173,7 +170,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 87,
       //   amzn_price_fba: 148.95,
       //   amzn_price_fbm: 139.99,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
       // }),
       knex('product_details').insert({
@@ -181,7 +177,6 @@ exports.seed = function(knex, Promise) {
         product_id: 87,
         amzn_price_fba: 169.95,
         amzn_price_fbm: 165.18,
-        amzn_sales_rank: 12824,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
       // knex('product_details').insert({
@@ -189,7 +184,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 88,
       //   amzn_price_fba: 189.95,
       //   amzn_price_fbm: 176.18,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
       // }),
       // knex('product_details').insert({
@@ -197,7 +191,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 88,
       //   amzn_price_fba: 169.95,
       //   amzn_price_fbm: 159.43,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
       // }),
       knex('product_details').insert({
@@ -205,7 +198,6 @@ exports.seed = function(knex, Promise) {
         product_id: 88,
         amzn_price_fba: 227.94,
         amzn_price_fbm: 224.98,
-        amzn_sales_rank: 12824,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
       // knex('product_details').insert({
@@ -213,7 +205,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 89,
       //   amzn_price_fba: 79.94,
       //   amzn_price_fbm: 75.98,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-21 18:33:57', //UTC
       // }),
       // knex('product_details').insert({
@@ -221,7 +212,6 @@ exports.seed = function(knex, Promise) {
       //   product_id: 89,
       //   amzn_price_fba: 161.94,
       //   amzn_price_fbm: 159.98,
-      //   amzn_sales_rank: 12824,
       //   amzn_fetch_date: '2016-04-22 18:33:57', //UTC
       // }),
       knex('product_details').insert({
@@ -229,7 +219,6 @@ exports.seed = function(knex, Promise) {
         product_id: 89,
         amzn_price_fba: 131.23,
         amzn_price_fbm: 123.66,
-        amzn_sales_rank: 12824,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
       }),
 
@@ -371,7 +360,6 @@ exports.seed = function(knex, Promise) {
         amzn_price_fba: 22.99,
         amzn_price_fbm: 21.99,
         amzn_fetch_date: '2016-04-21 18:33:57', //UTC
-        amzn_sales_rank: 12824,
       }),
 
       knex('product_details').insert({
@@ -380,7 +368,6 @@ exports.seed = function(knex, Promise) {
         amzn_price_fba: 25.99,
         amzn_price_fbm: 23.99,
         amzn_fetch_date: '2016-04-21 19:33:57', //UTC
-        amzn_sales_rank: 12824,
       })
 
   );

@@ -1,6 +1,7 @@
 var env = require('./config.js').state.env;
 var jwt_config = require('./config.js').jwtConfig
 var expressJWT = require('express-jwt')
+
 /**
  * module
  * @module Utilities
@@ -21,24 +22,28 @@ var expressJWT = require('express-jwt')
  * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanMatchingAsins = function(data) {
+  console.log('Going to Clean Data', JSON.stringify(data))
   var items = [];
   var responseObj = data.GetMatchingProductResponse.GetMatchingProductResult;
+  console.log('responseObj in cleanMatchingAsins ', responseObj);
 
   for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     var product = {};
     var attrPath = responseObj[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
+  console.log('attrPath', JSON.stringify(attrPath))
 
     product.amzn_asin = responseObj[i].$.ASIN;
     product.amzn_title = attrPath["ns2:Title"][0];
     product.amzn_description = attrPath["ns2:Feature"].join(". ");
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
-    product.amzn_weight = Number(attrPath["ns2:ItemDimensions"][0]["ns2:Weight"][0]._);
+    product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
     product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0];
     product.amzn_list_price = Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]);
     product.amzn_sales_rank = Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]);
 
     items.push(product);
   }
+  console.log('Finished Cleaning- Data', items)
   return items;
 }
 
