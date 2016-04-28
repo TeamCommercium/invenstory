@@ -56,10 +56,8 @@ export default class DashboardContainer extends React.Component{
   }
 
   componentDidMount(){
-    if(document.getElementById("table") 
-      && document.getElementById("table").getElementsByTagName('input') 
-      && document.getElementById("table").getElementsByTagName('input')[0])
-    document.getElementById("table").getElementsByTagName('input')[0].placeholder = "Search Table . ."
+    if(document.getElementById("table").getElementsByTagName('input') && document.getElementById("table").getElementsByTagName('input')[0])
+      document.getElementsByTagName('input')[0].placeholder = "Search Table . ."
   }
 
   handleChange(value){

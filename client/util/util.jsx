@@ -7,10 +7,10 @@ import {unsafe} from 'Reactable'
 import { smartDispatch } from '../dispatcher'
 import { UPDATE_LAST_CHANGED, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
-// Used to test dispatching actions
-setTimeout( function(){
-  subscribeTo("detail", function(stuff){console.log("detail TRIGGERED", stuff)})
-},100)
+// // Used to test dispatching actions
+// setTimeout( function(){
+//   subscribeTo("detail", function(stuff){console.log("detail TRIGGERED", stuff)})
+// },100)
 
 // setTimeout( function(){
 //   smartDispatch(UPDATE_INVENTORY, null)
@@ -209,6 +209,7 @@ function processGeneralTableData(inventory){
 
   let tableData = inventory.map(function(cur){
     return {
+      "Image": <img src="https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg" style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Manufacturer": cur.amzn_manufacturer,

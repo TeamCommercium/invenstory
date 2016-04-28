@@ -19,7 +19,6 @@ let columnNames = [
 export default (props) =>
 <div>
   <Table
-    className="table" 
     id="table" 
     data={props.data}
     filterable={columnNames} 
