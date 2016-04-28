@@ -3,5 +3,6 @@ export default {
   tableData: [],
   graphData: [],
   authenticated: false,
-  lastChanged: undefined
+  lastChanged: undefined,
+  detail: undefined
 }

@@ -3,6 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { browserHistory } from 'react-router'
 import { routerMiddleware, routerReducer } from 'react-router-redux'
 
+import detailReducer from '../reducers/detail'
 import tableDataReducer from '../reducers/table'
 import graphDataReducer from '../reducers/graph'
 import inventoryReducer from '../reducers/inventory'
@@ -19,6 +20,7 @@ export const store = createStore(
     authenticated: authenticationReducer,
     inventory: inventoryReducer,
     lastChanged: lastChangedReducer,
+    detail: detailReducer,
     routing: routerReducer
   }),
   initialState,

@@ -1,14 +1,16 @@
+import React from 'react'
 import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { store } from '../store/initStore'
+import {unsafe} from 'Reactable'
+
 import { smartDispatch } from '../dispatcher'
-import { UPDATE_LAST_CHANGED, UPDATE_INVENTORY, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { UPDATE_LAST_CHANGED, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 // Used to test dispatching actions
-// setTimeout( function(){
-//   subscribeTo("tableData", function(){console.log("tableData TRIGGERED", Date.now())})
-//   subscribeTo("graphData", function(){console.log("graphData TRIGGERED", Date.now())})
-// },100)
+setTimeout( function(){
+  subscribeTo("detail", function(stuff){console.log("detail TRIGGERED", stuff)})
+},100)
 
 // setTimeout( function(){
 //   smartDispatch(UPDATE_INVENTORY, null)
@@ -46,7 +48,6 @@ export function checkAuth(){
 
   fetch('http://127.0.0.1:8080/user/me', {credentials: 'include'})
   .then(function(response) {
-    console.log(response)
     if(response.status >= 400){
       redirect("/#/login")()
     } else {
@@ -78,22 +79,21 @@ export function redirect(address, _window = window){
 
  export function addUserInventory(params){
 
-   fetch('http://127.0.0.1:8080/inventory/add',
-     {
-       credentials: 'include',
-       method: "POST",
-       headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json'
-       },
-       body: JSON.stringify(params)
-     }
-   )
-   .then(function(response) {
-     console.log(response)
-   })
- }
-
+  fetch('http://127.0.0.1:8080/inventory/add',
+    {
+      credentials: 'include',
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }
+  )
+  .catch(function(err){
+    console.log("adding inventory", err)
+  })
+}
 /*
   function subscribeTo
   Takes a string and a callback as parameters.
@@ -105,10 +105,13 @@ export function redirect(address, _window = window){
  */
 
 export function subscribeTo(property, callback){
-  if(property !== "authenticated" && property !== "inventory" && property !== "graphData" && property !== "tableData")
-    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated', 'inventory', 'graphData', or 'tableData'`)
+  if(property !== "authenticated" && property !== "inventory" && property !== "graphData" && property !== "tableData" && property !== "detail")
+    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated', 'inventory', 'graphData', 'detail', or 'tableData'`)
 
     let action = {
+      detail: {
+        UPDATE_DETAIL_DATA: true
+      },
       inventory: {
         UPDATE_INVENTORY: true
       },
@@ -125,11 +128,8 @@ export function subscribeTo(property, callback){
 
   store.subscribe(function(){
 
-    //Should probably add rate limiting to limit requests to be at least 3 milliseconds apart.
-
     let tempState = store.getState();
     let changed = tempState.lastChanged
-
 
     if(action[property][changed])
       callback(tempState)
@@ -157,9 +157,6 @@ export function processNewInventory(){
       return response.json()
     })
     .then(function(data){
-
-      console.log("arguments", data)
-
       processRawInventory(data)
       processGeneralGraphData(data)
       processGeneralTableData(data)
@@ -191,19 +188,9 @@ function processRawInventory(inventory){
 }
 
 function processGeneralGraphData(inventory){
-//  purchase price/amazon price * 100 = % profit
-
-  // console.log("Keys", Object.keys(inventory[0]))
-
-/*
-
-["amzn_title", "amzn_description", "amzn_price_fbm", "amzn_price_fba", "amzn_sales_rank", "amzn_weight", "amzn_manufacturer", "avg_purchase_price", "quantity"]
- */
 
   let lineData = [{
     name: "Purchased at",
-    // values: []
-  // },
     values: inventory.map(function(cur, ind){
      return { y: cur.avg_purchase_price, x: ind }
     })
@@ -215,14 +202,12 @@ function processGeneralGraphData(inventory){
     })
   }]
 
-  // console.log(JSON.stringify(lineData))
   smartDispatch(UPDATE_GRAPH_DATA, lineData)
 }
 
 function processGeneralTableData(inventory){
 
   let tableData = inventory.map(function(cur){
-    console.log("CUR",cur);
     return {
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
@@ -233,19 +218,9 @@ function processGeneralTableData(inventory){
       "Purchase ($)": Math.round(cur.avg_purchase_price*100)/100,
       "Amazon ($)": Math.round(cur.amzn_price_fba*100)/100,
       "Profit (%)": Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*10000)/100,
-      // "Merchant Price": cur.amzn_price_fbm,
-      // "Weight": cur.amzn_weight,
+      "Add": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
   smartDispatch(UPDATE_TABLE_DATA, tableData)
 }
-
-/*
-
-  let lineData = [{
-    name: "Purchased at",
-    values: []
-  },
-
-
- */
+ 

@@ -6,6 +6,7 @@ import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
 import Addproduct from '../components/addproduct'
+import Details from '../components/details'
 
 export default class DashboardContainer extends React.Component{
 
@@ -13,6 +14,7 @@ export default class DashboardContainer extends React.Component{
     super(props)
     this.state = {
       tableData: store.getState().tableData,
+      detail: {},
       showModal: false,
       asin: '',
       seller_sku: '',
@@ -34,6 +36,17 @@ export default class DashboardContainer extends React.Component{
       } catch (e){
         console.log('caught error', e)
         component.state.tableData = newState.tableData
+      }
+    })
+
+    subscribeTo("detail", function(newState){
+      console.log("NEWSTATE dashboard", JSON.stringify(newState.detail))
+
+      try{
+        component.setState({ "detail": newState.detail })
+      } catch (e){
+        console.log('caught error', e)
+        component.state.detail = newState.detail
       }
     })
   }
@@ -112,6 +125,7 @@ export default class DashboardContainer extends React.Component{
     // console.log("IN RESET MODAL");
     this.state = ({
       tableData: this.state.tableData,
+      detail: this.state.detail,
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -130,14 +144,16 @@ export default class DashboardContainer extends React.Component{
   render(){
     return <div>
       <Navbar />
-      
+      <Details data={this.state.detail} />
       <Button 
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
       /><br/>
 
-      <Dashboard data={this.state.tableData}/>
+      <Dashboard data={this.state.tableData} />
+
+
       {this.props.children}
       {this.state.showModal 
         ? <Addproduct 
