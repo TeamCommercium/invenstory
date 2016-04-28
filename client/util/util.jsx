@@ -46,7 +46,7 @@ export function checkAuth(){
   if(store.getState().authenticated)
     return;
 
-  fetch('http://127.0.0.1:8080/user/me', {credentials: 'include'})
+  fetch('http://localhost:8080/user/me', {credentials: 'include'})
   .then(function(response) {
     if(response.status >= 400){
       redirect("/#/login")()
@@ -94,6 +94,7 @@ export function redirect(address, _window = window){
     console.log("adding inventory", err)
   })
 }
+
 /*
   function subscribeTo
   Takes a string and a callback as parameters.
@@ -150,7 +151,7 @@ processNewInventory()
 export function processNewInventory(){
 
 //get data, process it, send to store
-  fetch('http://127.0.0.1:8080/products/list', {credentials: 'include'})
+  fetch('http://localhost:8080/products/list', {credentials: 'include'})
     .then(function(response) {
       if(response.status >= 400) redirect("/#/login")()
 
@@ -171,7 +172,7 @@ export function processNewInventory(){
  */
 
 export function logout() {
-  fetch('http://127.0.0.1:8080/auth/logout', {credentials: 'include'})
+  fetch('http://localhost:8080/auth/logout', {credentials: 'include'})
     .then(function(response){
       smartDispatch(UPDATE_AUTHENTICATION, false)
       redirect("/#/login")()
