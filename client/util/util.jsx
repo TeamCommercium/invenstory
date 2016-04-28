@@ -96,6 +96,7 @@ export function redirect(address, _window = window){
   })
 }
 
+
 /*
   function subscribeTo
   Takes a string and a callback as parameters.
@@ -176,7 +177,6 @@ export function processNewInventory(){
 export function logout() {
 
   fetch('http://localhost:8080/auth/logout', {credentials: 'include'})
-
     .then(function(response){
       smartDispatch(UPDATE_AUTHENTICATION, false)
       redirect("/#/login")()
