@@ -144,7 +144,7 @@ var router = express.Router()
  * @apiDescription Endpoint to allow user to delete all of their own inventory records for a product.
  */
 
- .delete('/delete', function(res, req) {
+ .delete('/delete', function(req, res) {
   let params = req.body
   log("Web service request to delete inventory: ", params)
   Inventory.deleteInventory(params.id, req.user.id)
