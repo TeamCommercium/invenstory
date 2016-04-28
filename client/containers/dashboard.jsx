@@ -69,7 +69,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleModal(){
-    this.setState({showModal: true});
+    this.setState({showModal: !this.state.showModal});
   }
 
   handleSubmit(){
@@ -168,6 +168,7 @@ export default class DashboardContainer extends React.Component{
             err_purchase_price={this.state.err_purchase_price}
             err_quantity={this.state.err_quantity}
             err_purchase_date={this.state.err_purchase_date}
+            handleModalToggle={this.handleModal.bind(this)}
           /> 
         : null}
     </div>
