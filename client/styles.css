@@ -19,15 +19,14 @@ table {
   width: 80%;
 }
 
+th {
+  padding: 10px;
+}
+
 table, td {
   border: 1px solid black;
-  padding: 15px;
-
-  word-wrap: none;
-  overflow-x: hidden;
+  padding: 10px;
   white-space: nowrap;
-  overflow-wrap: none;
-  text-overflow: none;
 }
 
 .loginBox{
@@ -61,7 +60,6 @@ table, td {
   margin-bottom: 0px;
 }
 
-
 .navbar {
   width: 100%;
 }
@@ -75,8 +73,9 @@ table, td {
   float: right;
 }
 
-.centerGraph{
+#table{
   text-align: center;
   margin-top: 30px;
+  width: 50%;
 }
 

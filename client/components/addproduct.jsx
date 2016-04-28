@@ -4,7 +4,7 @@ import { Button, Input, Dialog } from 'react-toolbox'
 export default (props) =>
 
   <div>
-    <Dialog active={true} title="ADD PRODUCT">
+    <Dialog active={true} title="ADD PRODUCT" onOverlayClick={props.handleModalToggle}>
       <Input 
         className=""
         type='text' 

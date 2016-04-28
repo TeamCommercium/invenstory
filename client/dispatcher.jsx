@@ -1,5 +1,5 @@
 import { store } from './store/initStore'
-import { UPDATE_INVENTORY, UPDATE_LAST_CHANGED, UPDATE_AUTHENTICATION, UPDATE_TABLE_DATA, UPDATE_GRAPH_DATA } from './actionTypes'
+import { UPDATE_INVENTORY, UPDATE_LAST_CHANGED, UPDATE_AUTHENTICATION, UPDATE_TABLE_DATA, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA } from './actionTypes'
 
 /*
   actionCreators is an object that holds a function for each type of action in the app.
@@ -24,6 +24,9 @@ const actionCreators = {
 
   UPDATE_AUTHENTICATION: function(data){
     return {type: UPDATE_AUTHENTICATION, status: data}
+  },
+  UPDATE_DETAIL_DATA: function(data){
+    return {type: UPDATE_DETAIL_DATA, data:data}
   }
 }
 

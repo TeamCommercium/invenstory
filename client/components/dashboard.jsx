@@ -2,8 +2,6 @@ import React from 'react'
 import { Table } from 'Reactable'
 import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox'
 
-import { redirect } from '../util/util'
-
 let columnNames = [
   "Qty",
   "Title",
@@ -21,7 +19,6 @@ let columnNames = [
 export default (props) =>
 <div>
   <Table
-    className="table" 
     id="table" 
     data={props.data}
     filterable={columnNames} 
