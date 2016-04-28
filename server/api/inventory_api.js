@@ -121,8 +121,13 @@ var router = express.Router()
    let params = req.body
    log("Web service request to ship inventory: ", params)
    Inventory.shipInventory(params.id, req.user.id, params.quantity)
-     .then(function(data) {
-         res.status(200).send(data)
+     .then(function(resp) {
+        log('Shipped inventory', resp)
+        Products.getProducts(req.user.id, params.id)
+          .then( function(resp) {
+            log('Retreived product after update')
+            res.status(200).send(resp[0])
+          })
      })
      .catch(function(err) {
        log("An error occurred shipping inventory: ", err)
@@ -144,7 +149,7 @@ var router = express.Router()
  * @apiDescription Endpoint to allow user to delete all of their own inventory records for a product.
  */
 
- .delete('/delete', function(res, req) {
+ .delete('/delete', function(req, res) {
   let params = req.body
   log("Web service request to delete inventory: ", params)
   Inventory.deleteInventory(params.id, req.user.id)

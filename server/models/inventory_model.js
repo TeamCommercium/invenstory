@@ -66,11 +66,15 @@ function deleteInventory(productId, userId) {
  */
 function shipInventory(productId, userId, quantity) {
   log('Shipping ', quantity, ' of product ', productId, ' for user ', userId)
+
+  let shipIds = db.from('inventory').select('id')
+  .where({shipped:0, product_id:productId, user_id:userId})
+  .orderBy('purchase_date')
+  .limit(quantity);
+
   return db('inventory')
-            .where({shipped:false, product_id:productId, user_id:userId})
-            .orderBy('purchase_date')
+            .whereIn('id', shipIds)
             .update({shipped:true})
-            .limit(quantity)
 }
 
 /**

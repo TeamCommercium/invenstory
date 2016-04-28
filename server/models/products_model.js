@@ -10,23 +10,30 @@ var log = require('../modules/utilities.js').log;
  */
 
  /**
-  * addProduct - Create a new product record.
+  * getProducts - Retreive summary data for product(s).
   *
   * @param  {string}   amzn_asin  Amazon Standard Identification Number
+  * @param  {integer} [productId]  Amazon Standard Identification Number
   * @return {Promise}  Resolves to id of the newly created record.
   */
- exports.getProducts = function (userId) {
+ exports.getProducts = function (userId, productId) {
      log('Getting products for user:', userId)
+
+    //Passing an undefined value to a where clause in knex seems to include the search term, so build the clause here.
+    let whereClause = {"inventory.user_id":userId,
+                        "shipped":false};
+    if(productId) whereClause['inventory.product_id'] = productId;
+
     return db('products')
               .join('inventory', 'inventory.product_id', 'products.id')
               .leftJoin('product_details', function() {
                 this.on('product_details.product_id','products.id').andOn('products.fetch_date', 'product_details.amzn_fetch_date')
               } )
-              .select('products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'inventory.sku as seller_sku', 'products.amzn_asin', 'product_details.amzn_price_fba', 'product_details.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer')
+              .select('products.id', 'products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'inventory.sku as seller_sku', 'products.amzn_asin', 'product_details.amzn_price_fba', 'product_details.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer')
               .groupBy('inventory.product_id')
               .avg('purchase_price as avg_purchase_price')
               .count('inventory.product_id as quantity')
-              .where({"inventory.user_id":userId})
+              .where(whereClause)
               .then(function(data){log(
                 'Get products is complete:',data)
               return data})
