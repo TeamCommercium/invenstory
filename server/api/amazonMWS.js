@@ -42,30 +42,25 @@ function getMatchingProductsByAsin(client, args) {
 }
 
 /**
- * getLowestOffers - API call to get lowest FBA and FBM prices based on ASIN
+ * getAmznDetails - API call to get lowest FBA and FBM price based on ASIN
  * Maximum request quota: 20 requests (up to 10 ASINs per request)
  * Restore rate: 10 requests every second 
  * Hourly request quota: 36000 requests per hour
  * 
- * @param  {Object}   req             
- * @param  {Object}   res
- * @param  {Array}    ASINList          Array of ASINs as strings
- * @param  {string}   [ItemCondition]   Default: All, Options: New, Used, Collectible, Refurbished, Club
- * @param  {string}   MarketPlaceID     Amazon country code 
- * @return {Promise}
+ * @param  {string}   asin             
+ * @return {Promise}  
  */
-exports.getLowestOffers = function(req, res) {
+exports.getAmznDetails = function(asin) {
   return getLowestOfferListingsForAsin(client, {
-    MarketplaceId: MarketplaceId,
+    MarketplaceId: amazonEnv.marketplaceId,
     ItemCondition: 'NEW',
-    ASINList: ['B00UYNAGTI','B007GE5X7S'],
+    ASINList: [asin],
   })
     .then(function(result) {
-      res.send(utilities.cleanLowestOffers(result));
+      return utilities.cleanAmznDetails(result)[0];
     })
     .catch(function(error) {
       log(error)
-      res.send(error)
     })
 }
 

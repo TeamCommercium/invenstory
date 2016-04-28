@@ -22,10 +22,9 @@ var expressJWT = require('express-jwt')
  * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanMatchingAsins = function(data) {
-  console.log('Going to Clean Data', JSON.stringify(data))
+  console.log('Going to Clean Data')
   var items = [];
   var responseObj = data.GetMatchingProductResponse.GetMatchingProductResult;
-  console.log('responseObj in cleanMatchingAsins ', responseObj);
 
   for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     var product = {};
@@ -43,7 +42,6 @@ exports.cleanMatchingAsins = function(data) {
 
     items.push(product);
   }
-  console.log('Finished Cleaning- Data', items)
   return items;
 }
 
@@ -56,7 +54,7 @@ exports.cleanMatchingAsins = function(data) {
  * @param {float}     product.price_fbm   Lowest FBM (Fulfilled by Merchant) price available for item
  * @return {Array}    items   Array of objects containing culled pricing data for multiple items
  */
-exports.cleanLowestOffers = function(data) {
+exports.cleanAmznDetails = function(data) {
   var list = [];
   var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
 
@@ -70,11 +68,11 @@ exports.cleanLowestOffers = function(data) {
       var fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0];
       var price = priceArr[j].Price[0].LandedPrice[0].Amount[0];
       if (fulfillmentChannel === "Amazon") {
-        if (!product.price_fba) {
-          product.price_fba = Number(price);
+        if (!product.amzn_price_fba) {
+          product.amzn_price_fba = Number(price);
         }
-      } else if (!product.price_fbm) {
-        product.price_fbm = Number(price);
+      } else if (!product.amzn_price_fbm) {
+        product.amzn_price_fbm = Number(price);
       }
     }
     list.push(product);

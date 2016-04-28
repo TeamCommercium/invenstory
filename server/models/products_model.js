@@ -47,11 +47,30 @@ var amazonMWS = require('../api/amazonMWS.js');
  * @return {Promise}  Resolves to id of the newly created record.
  */
 exports.addProduct = function (asin) {
-    log('Create product with ASIN:', asin)
-   return db('products').returning('id').insert({amzn_asin: asin}).then(function(resp) {
-    amazonMWS.getMatchingProductByAsin(asin)
-     return resp[0]
-   })
+  log('Create product with ASIN:', asin)
+  return db('products')
+    .returning('id')
+    .insert({amzn_asin: asin})
+    .then(function(resp) {
+      amazonMWS.getMatchingProductByAsin(asin)
+      return resp[0]
+    })
+    .then(function(id) {
+      amazonMWS.getAmznDetails(asin)
+        .then(function(priceObj) {
+          delete priceObj.amazon_asin
+          priceObj.product_id = id
+          exports.addProductDetail(priceObj)
+            .catch(function(err) {
+              log('Error adding new product detail 1-', err)
+            })
+        })
+        .catch(function(err) {
+          log('Error adding new product detail 2-', err)
+        })
+      return id
+    })
+
 }
 /**
  * findOrCreate - Helper function to lookup product by ASIN, create it if it does not exist, and resolve to the id in either case.
@@ -124,5 +143,12 @@ exports.editProduct = function(params) {
  * @return {Promise}        Resolves to integer of detail id.
  */
 exports.addProductDetail = function(params) {
-  return db('product_details').returning('id').insert(params);
+  log('Adding product Detail', params)
+  return db('product_details').returning('id').insert(params)
+  .then(function(data) {
+    log('Added product_details', data)
+  })
+  .catch( function(err) {
+    log("Error while adding product details", err)
+  })
 }
