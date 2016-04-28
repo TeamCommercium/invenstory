@@ -46,7 +46,8 @@ export function checkAuth(){
   if(store.getState().authenticated)
     return;
 
-  fetch('/user/me', {credentials: 'include'})
+
+  fetch('http://localhost:8080/user/me', {credentials: 'include'})
   .then(function(response) {
     if(response.status >= 400){
       redirect("/#/login")()
@@ -151,7 +152,8 @@ processNewInventory()
 export function processNewInventory(){
 
 //get data, process it, send to store
-  fetch('/products/list', {credentials: 'include'})
+
+  fetch('http://localhost:8080/products/list', {credentials: 'include'})
     .then(function(response) {
       if(response.status >= 400) redirect("/#/login")()
 
@@ -172,7 +174,9 @@ export function processNewInventory(){
  */
 
 export function logout() {
-  fetch('/auth/logout', {credentials: 'include'})
+
+  fetch('http://localhost:8080/auth/logout', {credentials: 'include'})
+
     .then(function(response){
       smartDispatch(UPDATE_AUTHENTICATION, false)
       redirect("/#/login")()
