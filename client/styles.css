@@ -72,9 +72,8 @@ table, td {
 }
 
 .centerGraph{
-  display: block;
-  position: absolute;
-  left: 300px;
+  padding-left:25%;
+  padding-right:25%;
 }
 
 .loginBox{
