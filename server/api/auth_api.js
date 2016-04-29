@@ -6,6 +6,7 @@ var amazonAuth_config = require('../modules/config.js').amazonAuth
 var jwt_config = require('../modules/config.js').jwtConfig
 var User = require('../models/user_model.js')
 var log = require('../modules/utilities.js').log
+var webConfig = require('../modules/config.js').webServer
 
 passport.use(new AmazonStrategy({
     clientID: amazonAuth_config.clientId,
@@ -106,7 +107,7 @@ var router = express.Router()
   generateToken,
   function(req,res){
     res.cookie('Token', req.token)
-    res.redirect('/')
+    res.redirect('http://' + req.hostname + ':' + webConfig.port)
 })
 
 

@@ -8,9 +8,17 @@ var amazonMWS = require('./api/amazonMWS.js')
 var userAPI = require('./api/user_api.js')
 var cookieParser = require('cookie-parser')
 var authenticate = require('./modules/utilities').authenticate
+var fs = require('fs');
+var http = require('http')
+var https = require('https')
+
 
 require('./modules/amznPriceService.js').init()
 
+var privateKey  = fs.readFileSync('../sslcert/domain.key', 'utf8');
+var certificate = fs.readFileSync('../sslcert/domain.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate}
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
@@ -27,4 +35,8 @@ app.all('*', function(req, res){
   res.redirect('/')
 })
 
-app.listen(webConfig.port, ()=>{console.log("Listening on", webConfig.port)})
+var httpServer = http.createServer(app)
+var httpsServer = https.createServer(credentials, app)
+
+httpServer.listen(webConfig.port, ()=>{console.log("Listening on", webConfig.port)})
+httpsServer.listen(8443)
