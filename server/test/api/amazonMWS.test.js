@@ -8,10 +8,11 @@ var app = express()
 
 var testASIN = "B00UYNAGTI"
 
-app.get('/getMatchingASIN', function() { 
+app.get('/getMatchingASIN', function(req, res) { 
   amazonMWS.getMatchingProductByAsin(testASIN)
   .then(function(result){
-    res.json(result)
+    console.log('test: ', result)
+    res.json({result: result})
   })
 })
 
@@ -33,11 +34,19 @@ describe("Amazon MWS API", function() {
   })
   
   it('Should get product info based on ASIN', function(done){
-    //set req.body... to B00UYNAGTI
+    this.timeout(5000);
     testServer
       .get("/getMatchingASIN")
-      .expect('Content-Type', /json/)
+
       .expect(200, done)
+  })
+
+  it('Should work without my silly server', function(done){
+    var result = amazonMWS.getMatchingProductByAsin(testASIN)
+    result
+      .then(function(res) { expect(res).to.equal(1) })
+      .then(done)
+
   })
 })
 
