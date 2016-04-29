@@ -11,7 +11,6 @@ var testASIN = "B00UYNAGTI"
 app.get('/getMatchingASIN', function(req, res) { 
   amazonMWS.getMatchingProductByAsin(testASIN)
   .then(function(result){
-    console.log('test: ', result)
     res.json({result: result})
   })
 })
@@ -25,7 +24,6 @@ describe("Amazon MWS API", function() {
   var server;
 
   beforeEach(function(){
-    console.log("in heree")
     server = app.listen(3000)
   })
 
