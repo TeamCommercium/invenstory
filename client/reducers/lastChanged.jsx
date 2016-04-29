@@ -5,7 +5,7 @@ export default function(state = initialState, action) {
 
   switch(action.type){
     case UPDATE_LAST_CHANGED:
-      return action.current
+      return action.data
       break
 
     default:

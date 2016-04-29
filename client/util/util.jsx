@@ -80,7 +80,7 @@ export function redirect(address, _window = window){
 
  export function addUserInventory(params){
 
-  fetch('http://127.0.0.1:8080/inventory/add',
+  fetch('http://localhost:8080/inventory/add',
     {
       credentials: 'include',
       method: "POST",
@@ -108,26 +108,30 @@ export function redirect(address, _window = window){
  */
 
 export function subscribeTo(property, callback){
-  if(property !== "authenticated" && property !== "inventory" && property !== "graphData" && property !== "tableData" && property !== "detail")
-    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated', 'inventory', 'graphData', 'detail', or 'tableData'`)
 
-    let action = {
-      detail: {
-        UPDATE_DETAIL_DATA: true
-      },
-      inventory: {
-        UPDATE_INVENTORY: true
-      },
-      authenticated: {
-        UPDATE_AUTHENTICATION: true
-      },
-      tableData: {
-        UPDATE_TABLE_DATA: true
-      },
-      graphData: {
-        UPDATE_GRAPH_DATA: true
-      }
+  let action = {
+    detail: {
+      UPDATE_DETAIL_DATA: true
+    },
+    inventory: {
+      UPDATE_INVENTORY: true
+    },
+    authenticated: {
+      UPDATE_AUTHENTICATION: true
+    },
+    tableData: {
+      UPDATE_TABLE_DATA: true
+    },
+    graphData: {
+      UPDATE_GRAPH_DATA: true
+    },
+    tab: {
+      CHANGE_TAB: true
     }
+  }
+
+  if( ! action[property])
+    throw new Error(`You tried to subscribe to ${property} but you may have meant on of the following: detail, inventory, authenticated, tableData, graphData, tab`)
 
   store.subscribe(function(){
 
@@ -180,6 +184,7 @@ export function logout() {
     .then(function(response){
       smartDispatch(UPDATE_AUTHENTICATION, false)
       redirect("/#/login")()
+      console.log("Logged out")
     })
     .catch(function(error){
       console.log("Error Logging Out: ", error)
@@ -214,7 +219,7 @@ function processGeneralTableData(inventory){
 
   let tableData = inventory.map(function(cur){
     return {
-      "Image": <img src="https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg" style={{width: 50, height:50, padding:0, margin:0}} />,
+      "Image": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Manufacturer": cur.amzn_manufacturer,

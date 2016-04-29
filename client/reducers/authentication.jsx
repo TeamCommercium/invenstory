@@ -5,7 +5,7 @@ export default function(state = initialState, action) {
 
   switch(action.type){
     case UPDATE_AUTHENTICATION:
-      return action.status
+      return action.data
       break
 
     default:
