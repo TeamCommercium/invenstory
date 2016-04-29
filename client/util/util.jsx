@@ -184,6 +184,7 @@ export function logout() {
     .then(function(response){
       smartDispatch(UPDATE_AUTHENTICATION, false)
       redirect("/#/login")()
+      console.log("Logged out")
     })
     .catch(function(error){
       console.log("Error Logging Out: ", error)

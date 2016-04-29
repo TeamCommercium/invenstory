@@ -40,14 +40,21 @@ export default class TabsContainer extends React.Component{
   }
 
   render(){
-    return <Tabs index={this.state.tab} onChange={this.handleTabChange.bind(this)}>
-        <Tab label='Home'><Home /></Tab>
-        <Tab label='Dashboard'><Dashboard /></Tab>
-        <Tab label='Logout' onClick={logout}><div></div></Tab>
+    return <Layout>
+    <NavDrawer active={false}/>
+    <Panel>
+      <Tabs index={this.state.tab} className={"styles__tabContainer___1UKO5"}onChange={this.handleTabChange.bind(this)} fixed >
+        <Tab label='Home' className={"styles__tabsNames___EyUYr"}><Home /></Tab>
+        <Tab label='Dashboard' className={"styles__tabsNames___EyUYr"}><Dashboard /></Tab>
+        <Tab label='Logout' className="styles__logout___3o2E6" onActive={logout}><div/></Tab>
       </Tabs>
+    </Panel>
+    <Sidebar pinned={false} width={ 5 }>
+        <div><IconButton icon='close'/></div>
+        <div style={{ flex: 1 }}>
+            <p>Supplemental content goes here.</p>
+        </div>
+    </Sidebar>
+    </Layout>
   }
 }
-
-// <Button className='styles__logout___3o2E6' label='Logout' onMouseUp={logout} raised primary />
-// <IconButton className='styles__settingButton___MrjY-' primary><img style={{width: 35, height: 35}} src="http://i.imgur.com/pVDjxpB.png" /> </IconButton>
-

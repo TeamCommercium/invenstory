@@ -29,19 +29,6 @@ table, td {
   white-space: nowrap;
 }
 
-.loginBox{
-  position: absolute;
-  top:58%;
-  left:40%;
-  z-index:1000;
-  width: 95%;
-}
-
-.loginBox>button{
-  right:1%;
-  width:19%;
-}
-
 .titleImage{
   width:80%;
   position: relative;
@@ -65,12 +52,19 @@ table, td {
 }
 
 .logout {
-  float: right;
+  display: block;
+  position: absolute;
+  margin-right: 20px;
+  right: 10px;
 }
 
 .settingButton {
   color: white;
   float: right;
+}
+
+.tabsNames {
+  margin-left: 20px;
 }
 
 #table{
@@ -79,3 +73,6 @@ table, td {
   width: 50%;
 }
 
+.tabContainer {
+  /*position:fixed;*/
+}
