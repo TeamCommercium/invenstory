@@ -223,12 +223,12 @@ function processGeneralTableData(inventory){
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Manufacturer": cur.amzn_manufacturer,
-      "Title": cur.amzn_title.slice(0,50) + "...",
-      "Description": cur.amzn_description.slice(0,40) + "...",
+      "Title": cur.amzn_title && cur.amzn_title.slice(0,50) + "...",
+      "Description": cur.amzn_description && cur.amzn_description.slice(0,40) + "...",
       "Qty": cur.quantity,
-      "Purchase ($)": Math.round(cur.avg_purchase_price*100)/100,
-      "Amazon ($)": Math.round(cur.amzn_price_fba*100)/100,
-      "Profit (%)": Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*10000)/100,
+      "Purchase ($)": cur.avg_purchase_price && Math.round(cur.avg_purchase_price*100)/100,
+      "Amazon ($)": cur.amzn_price_fba && Math.round(cur.amzn_price_fba*100)/100,
+      "Profit (%)": cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*10000)/100,
       "Add": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
