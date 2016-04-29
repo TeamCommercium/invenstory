@@ -107,6 +107,7 @@ exports.getMatchingProductByAsin = function(asin) {
   return getMatchingProductsByAsin(client, {
     MarketplaceId: amazonEnv.marketplaceId,
     ASINList: [asin]
+
   })
     .then(function(result){
       log('Result of AmazonApi product fetch ', result)

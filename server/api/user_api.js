@@ -39,7 +39,7 @@ var router = express.Router()
 .get('/about', function(req, res) {
   User.getUserProfileInfo(req.user.id)
     .then(function(result){
-      log('user_api:38, succesful /user/about', result)
+      log('user_api succesful /user/about', result)
       res.status(200).send({user: result[0]})
     })
     .catch(function(err) {
