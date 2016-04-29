@@ -152,8 +152,8 @@ export function subscribeTo(property, callback){
    and updates the store with new inventory data.
  */
 
-// setInterval(processNewInventory, 1000);
-processNewInventory()
+setInterval(processNewInventory, 2000);
+// processNewInventory()
 export function processNewInventory(){
 
 //get data, process it, send to store
@@ -222,13 +222,12 @@ function processGeneralTableData(inventory){
       "Image": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
-      "Manufacturer": cur.amzn_manufacturer,
-      "Title": cur.amzn_title && cur.amzn_title.slice(0,50) + "...",
-      "Description": cur.amzn_description && cur.amzn_description.slice(0,40) + "...",
-      "Qty": cur.quantity,
-      "Purchase ($)": cur.avg_purchase_price && Math.round(cur.avg_purchase_price*100)/100,
-      "Amazon ($)": cur.amzn_price_fba && Math.round(cur.amzn_price_fba*100)/100,
-      "Profit (%)": cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*10000)/100,
+      "Title": cur.amzn_title && cur.amzn_title.slice(0,35) + "...",
+      "QTY": cur.quantity,
+      "Cost": cur.avg_purchase_price && Math.round(cur.avg_purchase_price*100)/100,
+      "FBM Price": cur.amzn_price_fbm && Math.round(cur.amzn_price_fbm*100)/100,
+      "FBA Price": cur.amzn_price_fba && Math.round(cur.amzn_price_fba*100)/100,
+      "% Gain": cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100),
       "Add": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })

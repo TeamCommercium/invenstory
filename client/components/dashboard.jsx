@@ -3,15 +3,15 @@ import { Table } from 'reactable'
 import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox'
 
 let columnNames = [
-  "Qty",
-  "Title",
-  "Purchase ($)",
-  "Description",
-  "Amazon ($)",
-  "Manufacture",
-  "Profit (%)",
+  "SKU",
   "ASIN",
-  "SKU"
+  "Title",
+  "Description",
+  "QTY",
+  "Cost",
+  "FBM Price",
+  "FBA Price",
+  "% Gain"
 ]
 
 export default (props) =>

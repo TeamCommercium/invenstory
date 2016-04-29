@@ -24,9 +24,10 @@ th {
 }
 
 table, td {
-  border: 1px solid black;
+  border: 0px;
   padding: 10px;
   white-space: nowrap;
+  text-align: right;
 }
 
 .titleImage{
