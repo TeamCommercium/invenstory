@@ -36,12 +36,12 @@ export default class HomeContainer extends React.Component{
     return <div>
       { this.state.graphData.length > 0 && this.state.graphData[0].values.length === 0
        ? <h1 className="styles__centerGraph___PVBDK"> You don't have any data! </h1>
-       : <div>
+       :<div> 
+        <div className="styles__centerGraph___PVBDK">
           <LineChart
             legend={true}
             legendOffset={20}
             data={this.state.graphData}
-            className="styles__centerGraph___PVBDK"
             width={600}
             height={500}
             viewBoxObject={{
@@ -56,7 +56,7 @@ export default class HomeContainer extends React.Component{
             gridHorizontal={true}
             yAxisLabelOffset={50}
           />
-
+          </div>
           <Home />
         </div>
       }
