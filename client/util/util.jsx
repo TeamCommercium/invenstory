@@ -157,6 +157,7 @@ export function subscribeTo(property, callback){
 
 processNewInventory()
 setInterval(processNewInventory, 2000);
+
 export function processNewInventory(){
 
 //get data, process it, send to store
