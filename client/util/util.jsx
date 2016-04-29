@@ -80,7 +80,7 @@ export function redirect(address, _window = window){
 
  export function addUserInventory(params){
 
-  fetch('http://127.0.0.1:8080/inventory/add',
+  fetch('http://localhost:8080/inventory/add',
     {
       credentials: 'include',
       method: "POST",
@@ -219,7 +219,7 @@ function processGeneralTableData(inventory){
 
   let tableData = inventory.map(function(cur){
     return {
-      "Image": <img src="https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg" style={{width: 50, height:50, padding:0, margin:0}} />,
+      "Image": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Manufacturer": cur.amzn_manufacturer,
