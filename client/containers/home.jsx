@@ -1,10 +1,11 @@
 import React from 'react'
 import { LineChart } from 'rd3'
-
+import { AppBar, Checkbox, IconButton, Button, Input } from 'react-toolbox';
 import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
 import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
+import dashboard from './dashboard'
 
 export default class HomeContainer extends React.Component{
 

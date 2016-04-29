@@ -5,7 +5,7 @@ export default function(state = initialState, action) {
 
   switch(action.type){
     case UPDATE_INVENTORY:
-      return action.inventory
+      return action.data
       break
 
     default:

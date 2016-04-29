@@ -19,6 +19,6 @@ export function smartDispatch(type, data){
   if(! actions[type])
     throw new Error("invalid action type sent to dispatcher.jsx")
 
-  store.dispatch({type: UPDATE_LAST_CHANGED, current: type})
+  store.dispatch({type: actions.UPDATE_LAST_CHANGED, data: type})
   store.dispatch({type: type, data:data})
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input } from 'react-toolbox'
+import { Button } from 'react-toolbox';
 
 import Navbar from '../components/navbar'
 import Dashboard from '../components/dashboard'
@@ -141,7 +141,6 @@ export default class DashboardContainer extends React.Component{
 
   render(){
     return <div>
-      <Navbar />
       <Details data={this.state.detail} />
       <Button 
         className="styles__inlineButton___16AEc"
@@ -151,26 +150,25 @@ export default class DashboardContainer extends React.Component{
 
       <Dashboard data={this.state.tableData} />
 
-
       {this.props.children}
       {this.state.showModal 
-        ? <Addproduct 
-            handleSubmit={this.handleSubmit.bind(this)}
-            handleInput={this.handleInput.bind(this)}
-            resetModal={this.resetModal.bind(this)}
-            asin={this.state.asin}
-            seller_sku={this.state.seller_sku}
-            purchase_price={this.state.purchase_price}
-            quantity={this.state.quantity}
-            purchase_date={this.state.purchase_date}
-            err_asin={this.state.err_asin}
-            err_seller_sku={this.state.err_seller_sku}
-            err_purchase_price={this.state.err_purchase_price}
-            err_quantity={this.state.err_quantity}
-            err_purchase_date={this.state.err_purchase_date}
-            handleModalToggle={this.handleModal.bind(this)}
-          /> 
-        : null}
+      ? <Addproduct 
+          handleSubmit={this.handleSubmit.bind(this)}
+          handleInput={this.handleInput.bind(this)}
+          resetModal={this.resetModal.bind(this)}
+          asin={this.state.asin}
+          seller_sku={this.state.seller_sku}
+          purchase_price={this.state.purchase_price}
+          quantity={this.state.quantity}
+          purchase_date={this.state.purchase_date}
+          err_asin={this.state.err_asin}
+          err_seller_sku={this.state.err_seller_sku}
+          err_purchase_price={this.state.err_purchase_price}
+          err_quantity={this.state.err_quantity}
+          err_purchase_date={this.state.err_purchase_date}
+          handleModalToggle={this.handleModal.bind(this)}
+        /> 
+      : null}
     </div>
   }
 }
