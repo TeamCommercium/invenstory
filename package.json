@@ -26,6 +26,7 @@
     "cheerio": "^0.20.0",
     "cookie-parser": "^1.4.1",
     "d3": "^3.5.16",
+    "dateformat": "^1.0.12",
     "enzyme": "^2.2.0",
     "express": "^4.13.4",
     "express-jwt": "^3.3.0",

@@ -1,5 +1,6 @@
 'use strict'
 
+var dateFormat = require('dateformat')
 var env = require('../modules/config.js').state.env
 var config = require('../../knexfile.js')[env]
 var db = require('knex')(config)
@@ -47,10 +48,12 @@ var amazonMWS = require('../api/amazonMWS.js');
  * @return {Promise}  Resolves to id of the newly created record.
  */
 exports.addProduct = function (asin) {
+  let now = new Date()
+  let insertDate = dateFormat(now, 'yyyy-mm-dd hh:MM:ss', true)
   log('Create product with ASIN:', asin)
   return db('products')
     .returning('id')
-    .insert({amzn_asin: asin})
+    .insert({amzn_asin: asin, fetch_date: insertDate})
     .then(function(resp) {
       amazonMWS.getMatchingProductByAsin(asin)
       return resp[0]
@@ -60,6 +63,7 @@ exports.addProduct = function (asin) {
         .then(function(priceObj) {
           delete priceObj.amazon_asin
           priceObj.product_id = id
+          priceObj.amzn_fetch_date = insertDate
           exports.addProductDetail(priceObj)
             .catch(function(err) {
               log('Error adding new product detail 1-', err)
