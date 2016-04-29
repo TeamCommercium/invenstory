@@ -46,10 +46,10 @@ export default class TabsContainer extends React.Component{
 
     </NavDrawer>
     <Panel>
-      <Tabs index={this.state.tab} className={"styles__tabContainer___1UKO5"} onChange={this.handleTabChange.bind(this)} fixed >
-        <Tab label='Home' className={"styles__tabsNames___EyUYr"}><Home /></Tab>
-        <Tab label='Dashboard' className={"styles__tabsNames___EyUYr"}><Dashboard /></Tab>
-        <Tab label='Logout' className="styles__logout___3o2E6" onActive={logout}><div/></Tab>
+      <Tabs index={this.state.tab} className="styles__tabContainer___1UKO5" onChange={this.handleTabChange.bind(this)} fixed >
+        <Tab label='Home' className="styles__tabsNames___EyUYr"><Home /></Tab>
+        <Tab label='Dashboard' className="styles__tabsNames___EyUYr"><Dashboard /></Tab>
+        <Tab label='Logout' className="styles__logout___3o2E6 styles__tabsNames___EyUYr" onActive={logout}><div/></Tab>
       </Tabs>
     </Panel>
     <Sidebar pinned={false} width={ 5 }>

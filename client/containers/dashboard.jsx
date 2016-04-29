@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-toolbox';
+import { Button, Snackbar } from 'react-toolbox';
 
 import Navbar from '../components/navbar'
 import Dashboard from '../components/dashboard'

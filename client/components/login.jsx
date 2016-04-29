@@ -9,5 +9,4 @@ export default (props) =>
   <Navigation className="styles__loginBox___3xm-6" type='horizontal'>
     <Button label='Sign in' onMouseUp={redirect('/auth/amazon')} raised floating />
   </Navigation>
-  {props.children}
 </div>
