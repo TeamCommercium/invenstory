@@ -2,7 +2,7 @@ import React from 'react'
 import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { store } from '../store/initStore'
-import {unsafe} from 'Reactable'
+import {unsafe} from 'reactable'
 
 import { smartDispatch } from '../dispatcher'
 import { UPDATE_LAST_CHANGED, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'Reactable'
+import { Table } from 'reactable'
 import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox'
 
 let columnNames = [
