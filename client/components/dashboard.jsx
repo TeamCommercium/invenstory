@@ -12,8 +12,6 @@ let columnNames = [
   "Profit (%)",
   "ASIN",
   "SKU"
-  // "Merchant Price",
-  // "Weight",
 ]
 
 export default (props) =>

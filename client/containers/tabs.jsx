@@ -30,6 +30,7 @@ export default class TabsContainer extends React.Component{
     })
   }
 
+
   handleTabChange(index){
     checkAuth()
     smartDispatch(CHANGE_TAB, index)
@@ -41,9 +42,11 @@ export default class TabsContainer extends React.Component{
 
   render(){
     return <Layout>
-    <NavDrawer active={false}/>
+    <NavDrawer active={this.state.navDrawer}>
+
+    </NavDrawer>
     <Panel>
-      <Tabs index={this.state.tab} className={"styles__tabContainer___1UKO5"}onChange={this.handleTabChange.bind(this)} fixed >
+      <Tabs index={this.state.tab} className={"styles__tabContainer___1UKO5"} onChange={this.handleTabChange.bind(this)} fixed >
         <Tab label='Home' className={"styles__tabsNames___EyUYr"}><Home /></Tab>
         <Tab label='Dashboard' className={"styles__tabsNames___EyUYr"}><Dashboard /></Tab>
         <Tab label='Logout' className="styles__logout___3o2E6" onActive={logout}><div/></Tab>
@@ -58,3 +61,19 @@ export default class TabsContainer extends React.Component{
     </Layout>
   }
 }
+  //   simulateProgress () {
+
+  //         progress: 0,
+  //     showProgress: true
+
+  //     { this.state.showProgress && <ProgressBar mode='determinate' min={0} max={100} value={this.state.progress} /> }
+  //   this.simulateProgress()  
+  //   
+  //   var key = setInterval(() => {
+  //     if(this.state.progress > 99){
+  //       this.setState({showProgress: null})
+  //       clearInterval(key)
+  //     }
+  //     this.setState({progress: this.state.progress + 1})
+  //   }, 10);
+  // }
