@@ -1,11 +1,10 @@
 import React from 'react'
 import { LineChart } from 'rd3'
-import { AppBar, Checkbox, IconButton, Button, Input } from 'react-toolbox';
+
 import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
 import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
-import dashboard from './dashboard'
 
 export default class HomeContainer extends React.Component{
 
@@ -34,7 +33,6 @@ export default class HomeContainer extends React.Component{
 
   render(){
     return <div>
-      <Navbar />
       {
         this.state.graphData.length > 0 && this.state.graphData[0].values.length === 0
         ? <h1 className="styles__centerGraph___PVBDK"> You don't have any data!</h1>

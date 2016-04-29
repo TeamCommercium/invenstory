@@ -108,26 +108,30 @@ export function redirect(address, _window = window){
  */
 
 export function subscribeTo(property, callback){
-  if(property !== "authenticated" && property !== "inventory" && property !== "graphData" && property !== "tableData" && property !== "detail")
-    throw new Error(`You tried to subscribe to ${property} but you may have meant 'authenticated', 'inventory', 'graphData', 'detail', or 'tableData'`)
 
-    let action = {
-      detail: {
-        UPDATE_DETAIL_DATA: true
-      },
-      inventory: {
-        UPDATE_INVENTORY: true
-      },
-      authenticated: {
-        UPDATE_AUTHENTICATION: true
-      },
-      tableData: {
-        UPDATE_TABLE_DATA: true
-      },
-      graphData: {
-        UPDATE_GRAPH_DATA: true
-      }
+  let action = {
+    detail: {
+      UPDATE_DETAIL_DATA: true
+    },
+    inventory: {
+      UPDATE_INVENTORY: true
+    },
+    authenticated: {
+      UPDATE_AUTHENTICATION: true
+    },
+    tableData: {
+      UPDATE_TABLE_DATA: true
+    },
+    graphData: {
+      UPDATE_GRAPH_DATA: true
+    },
+    tab: {
+      CHANGE_TAB: true
     }
+  }
+
+  if( ! action[property])
+    throw new Error(`You tried to subscribe to ${property} but you may have meant on of the following: detail, inventory, authenticated, tableData, graphData, tab`)
 
   store.subscribe(function(){
 

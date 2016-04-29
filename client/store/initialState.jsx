@@ -4,5 +4,6 @@ export default {
   graphData: [],
   authenticated: false,
   lastChanged: undefined,
-  detail: undefined
+  detail: undefined,
+  tab: 0
 }
