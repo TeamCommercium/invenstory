@@ -15,6 +15,7 @@ exports.amazonEnv = {
                     accessKeyId:      process.env.MWS_ACCESS_KEY_ID || null,
                     secretAccessKey:  process.env.MWS_SECRET_KEY || null,
                     merchantId:       process.env.MWS_MERCHANT_ID || null,
+                    marketplaceId:    process.env.MWS_MARKETPLACE_ID || "ATVPDKIKX0DER"
 }
 
 exports.amazonAuth = {

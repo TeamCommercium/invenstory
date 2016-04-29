@@ -37,6 +37,7 @@ exports.up = function(knex, Promise) {
       table.string('amzn_thumb_url'); //url of thumbnail image
       table.float('amzn_list_price'); //original retail price
       table.string('currency').defaultTo('USD');
+      table.integer('amzn_sales_rank');
       table.datetime('fetch_date'); //last time data was pulled
     }),
 
@@ -45,7 +46,6 @@ exports.up = function(knex, Promise) {
       table.string('product_id').references('products.id');
       table.float('amzn_price_fbm'); //current price fulfilled by merchant
       table.float('amzn_price_fba'); //current price fulffilled by Amazon (Prime)
-      table.integer('amzn_sales_rank');
       table.string('currency').defaultTo('USD');
       table.datetime('amzn_fetch_date'); //last time data was pulled
     })

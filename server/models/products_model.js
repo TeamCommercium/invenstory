@@ -1,9 +1,11 @@
 'use strict'
 
+var dateFormat = require('dateformat')
 var env = require('../modules/config.js').state.env
 var config = require('../../knexfile.js')[env]
 var db = require('knex')(config)
 var log = require('../modules/utilities.js').log;
+var amazonMWS = require('../api/amazonMWS.js');
 /**
  * module
  * @module Products
@@ -29,13 +31,13 @@ var log = require('../modules/utilities.js').log;
               .leftJoin('product_details', function() {
                 this.on('product_details.product_id','products.id').andOn('products.fetch_date', 'product_details.amzn_fetch_date')
               } )
-              .select('products.id', 'products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'inventory.sku as seller_sku', 'products.amzn_asin', 'product_details.amzn_price_fba', 'product_details.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer')
+              .select('products.id', 'products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'inventory.sku as seller_sku', 'products.amzn_asin', 'product_details.amzn_price_fba', 'products.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer')
               .groupBy('inventory.product_id')
               .avg('purchase_price as avg_purchase_price')
               .count('inventory.product_id as quantity')
               .where(whereClause)
-              .then(function(data){log(
-                'Get products is complete:',data)
+              .then(function(data){
+                log('Get products is complete:',data)
               return data})
  }
 
@@ -46,10 +48,33 @@ var log = require('../modules/utilities.js').log;
  * @return {Promise}  Resolves to id of the newly created record.
  */
 exports.addProduct = function (asin) {
-    log('Create product with ASIN:', asin)
-   return db('products').returning('id').insert({amzn_asin: asin}).then(function(resp) {
-     return resp[0]
-   })
+  let now = new Date()
+  let insertDate = dateFormat(now, 'yyyy-mm-dd hh:MM:ss', true)
+  log('Create product with ASIN:', asin)
+  return db('products')
+    .returning('id')
+    .insert({amzn_asin: asin, fetch_date: insertDate})
+    .then(function(resp) {
+      amazonMWS.getMatchingProductByAsin(asin)
+      return resp[0]
+    })
+    .then(function(id) {
+      amazonMWS.getAmznDetails(asin)
+        .then(function(priceObj) {
+          delete priceObj.amazon_asin
+          priceObj.product_id = id
+          priceObj.amzn_fetch_date = insertDate
+          exports.addProductDetail(priceObj)
+            .catch(function(err) {
+              log('Error adding new product detail 1-', err)
+            })
+        })
+        .catch(function(err) {
+          log('Error adding new product detail 2-', err)
+        })
+      return id
+    })
+
 }
 /**
  * findOrCreate - Helper function to lookup product by ASIN, create it if it does not exist, and resolve to the id in either case.
@@ -80,10 +105,11 @@ exports.getProductId = function (asin) {
 }
 
 /**
- * editProduct - Edit product record
+ * editProduct - Edit product record requires either product.id or amzn_asin
  *
  * @param  {Object}   params  All parameters
- * @param  {string}   params.id  Internal id of product to edit.
+ * @param  {string}   [params.id]  Internal id of product to edit.
+ * @param  {string}   [params.amzn_asin]  Asin of product to edit.
  * @param  {string}   [params.amzn_title]  Product title provided by Amazon.
  * @param  {string}   [params.amzn_description]  Product description provided by Amazon.
  * @param  {string}   [params.amzn_manufacturer]  Manufacturer name provided by Amazon.
@@ -95,9 +121,19 @@ exports.getProductId = function (asin) {
  */
 exports.editProduct = function(params) {
   var id = params.id;
+  var asin = params.amzn_asin;
+  var where = {};
+  if (id) {
+    where.id = id;
+  } else {
+    where.amzn_asin = asin
+  }
   delete params.id;
-  log('Going to update product ', id, ' with params ', params)
-   return db('products').where({id:id}).update(params);
+  delete params.amzn_asin;
+  log('Going to update product ', id, 'asin ', asin,' with params ', params)
+   return db('products')
+            .where(where)
+            .update(params)
 }
 
 /**
@@ -111,5 +147,12 @@ exports.editProduct = function(params) {
  * @return {Promise}        Resolves to integer of detail id.
  */
 exports.addProductDetail = function(params) {
-  return db('product_details').returning('id').insert(params);
+  log('Adding product Detail', params)
+  return db('product_details').returning('id').insert(params)
+  .then(function(data) {
+    log('Added product_details', data)
+  })
+  .catch( function(err) {
+    log("Error while adding product details", err)
+  })
 }

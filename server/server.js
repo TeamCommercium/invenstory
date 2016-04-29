@@ -21,9 +21,9 @@ app.use("/products", authenticate, productsAPI)
 
 app.get('/', (req,res) => res.send())
 
-app.get('/getMatchingAsins', authenticate, amazonMWS.getMatchingAsins)
-app.get('/getLowestOffers', authenticate, amazonMWS.getLowestOffers)
-app.get('/listProductSearch', authenticate, amazonMWS.listProductSearch)
+app.get('/getMatchingProductByAsin', authenticate, amazonMWS.getMatchingProductByAsin)
+// app.get('/getLowestOffers', authenticate, amazonMWS.getLowestOffers)
+// app.get('/listProductSearch', authenticate, amazonMWS.listProductSearch)
 
 app.all('*', function(req, res){
   res.redirect('/')
