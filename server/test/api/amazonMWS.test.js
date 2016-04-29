@@ -43,7 +43,7 @@ describe("Amazon MWS API", function() {
     var result = amazonMWS.getMatchingProductByAsin(testASIN)
     result
       .then(function(res) { expect(res).to.equal(1) })
-      .then(done)
+      .then(done, done)
 
   })
 })
