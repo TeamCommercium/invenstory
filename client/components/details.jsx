@@ -6,7 +6,8 @@ import { LineChart } from 'rd3'
   // {JSON.stringify(data)}
 
 export default ({data}) =>
-<div className="styles__detailDisplay___2K0QU">
+data.amzn_asin
+? <div className="styles__detailDisplay___2K0QU">
 
   <img src={data.amzn_thumb_url} style={{height:100, width: 100, display: "inline-block"}} />
   <span> {data.amzn_title} </span>
@@ -15,7 +16,7 @@ export default ({data}) =>
   <div> Rank: {data.amzn_sales_rank} </div>
   <div> ASIN: {data.amzn_asin} </div>
 </div>
-
+: null
 
 /*
 
