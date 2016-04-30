@@ -17,8 +17,6 @@ export default class HomeContainer extends React.Component{
 
     let component = this;
     subscribeTo("graphData", function(newState){
-      // console.log("NEWSTATE home", JSON.stringify(newState.graphData))
-
       try{
         component.setState({ "graphData": newState.graphData })
       } catch (e){
@@ -28,8 +26,6 @@ export default class HomeContainer extends React.Component{
     })
 
     subscribeTo("notifications", function(newState){
-      console.log("notifications", JSON.stringify(newState.notifications))
-
       try{
         component.setState({ "notifications": newState.notifications })
       } catch (e){
@@ -46,7 +42,7 @@ export default class HomeContainer extends React.Component{
   render(){
     return <div>
       { this.state.graphData.length > 0 && this.state.graphData[0].values.length === 0
-       ? <h1 className="styles__centerGraph___PVBDK"> You don't have any data! Add some in the Dashboard </h1>
+       ? <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
        :<div> 
         <div className="styles__centerGraph___PVBDK">
           <LineChart
@@ -74,12 +70,3 @@ export default class HomeContainer extends React.Component{
     </div>
   }
 }
-          /*<BarChart
-            data={this.state.graphData}
-            width={500}
-            height={200}
-            fill={'#3182bd'}
-            title='Bar Chart'
-            yAxisLabel='Label'
-            xAxisLabel='Value'
-          />*/

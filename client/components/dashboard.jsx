@@ -2,24 +2,11 @@ import React from 'react'
 import { Table } from 'reactable'
 import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox'
 
-let columnNames = [
-  "SKU",
-  "ASIN",
-  "Title",
-  "Description",
-  "QTY",
-  "Cost",
-  "FBM Price",
-  "FBA Price",
-  "% Gain"
-]
-
-// <div className="styles__tableContainer___1">
-export default (props) =>
+export default ({ columnNames, data }) =>
 <div>
   <Table
     id="table" 
-    data={props.data}
+    data={data}
     filterable={columnNames} 
     sortable={[
       {

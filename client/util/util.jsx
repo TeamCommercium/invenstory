@@ -210,8 +210,6 @@ function processNotifications(inventory){
     return cur.profit > 150 //could build in setting here
   })
 
-  console.log("notifications", notifications)
-
   smartDispatch(UPDATE_NOTIFICATIONS, notifications)
 }
 

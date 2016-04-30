@@ -141,8 +141,7 @@ export default class DashboardContainer extends React.Component{
         onMouseUp={this.handleModal.bind(this)}
       /><br/>
       
-      <Dashboard data={this.state.tableData} />
-
+      <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
       {this.props.children}
       <Addproduct 
         active={this.state.showModal}
