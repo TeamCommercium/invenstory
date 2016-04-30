@@ -15,7 +15,7 @@ var dateFormat = require('dateformat')
 */
 exports.init = function() {
 
-  setInterval(amznPriceSvc, 5000)
+  setInterval(amznPriceSvc, 60000)
 }
 
 /**
@@ -37,9 +37,12 @@ function amznPriceSvc() {
       amznUtil.getAmznDetails(asins)
         .then((details) => {
           log('Retreived details for batch.')
-          let insertArr = theBatch.prepareInsert(details)
+          theBatch.prepareInsert(details)
           Promise.all(
-            details.map(Products.addProductDetail)
+            details.map(e =>
+              Products.addProductDetail(e)
+                .then( resp => Products.editProduct({id: e.product_id, fetch_date:theBatch.batchTime}))
+              )
           ).then(
             (data) => log('whatthen', data)
           )
@@ -52,7 +55,7 @@ function amznPriceSvc() {
 }
 
 /**
- * Batch - description
+ * Batch - Batch data type to facilitate processing batches of product updates.
  * @param  {Object[]} arrayObjs
  * @param  {integer}  arrayObjs.id        From products.id
  * @param  {string}   arrayObjs.amzn_asin From products.amzn_asin
@@ -61,6 +64,10 @@ function amznPriceSvc() {
 
 function Batch (arrayObjs) {
   var storage = {};
+
+  let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd hh:MM:ss', true);
+  this.asins = asins;
+  this.prepareInsert = prepareInsert;
 
   arrayObjs.forEach((e) => {storage[e.amzn_asin] = e.id})
   log('Initialized batch storage object', storage)
@@ -72,8 +79,7 @@ function Batch (arrayObjs) {
     details.forEach(e => {
       e.product_id = storage[e.amzn_asin]
       delete e.amzn_asin
+      e.amzn_fetch_date = batchTime;
     })
   }
-  this.asins = asins;
-  this.prepareInsert = prepareInsert;
 }
