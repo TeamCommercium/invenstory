@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button } from 'react-toolbox';
+import { Button, Snackbar } from 'react-toolbox';
 
-import Navbar from '../components/navbar'
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
@@ -29,24 +28,24 @@ export default class DashboardContainer extends React.Component{
 
     let component = this;
     subscribeTo("tableData", function(newState){
-      console.log("NEWSTATE dashboard", JSON.stringify(newState.tableData))
+      // console.log("NEWSTATE dashboard", JSON.stringify(newState.tableData))
 
       try{
         component.setState({ "tableData": newState.tableData })
       } catch (e){
         console.log('caught error', e)
-        component.state.tableData = newState.tableData
+        // component.state.tableData = newState.tableData
       }
     })
 
     subscribeTo("detail", function(newState){
-      console.log("NEWSTATE dashboard", JSON.stringify(newState.detail))
+      // console.log("NEWSTATE dashboard", JSON.stringify(newState.detail))
 
       try{
         component.setState({ "detail": newState.detail })
       } catch (e){
         console.log('caught error', e)
-        component.state.detail = newState.detail
+        // component.state.detail = newState.detail
       }
     })
   }
@@ -116,36 +115,33 @@ export default class DashboardContainer extends React.Component{
   }
 
   resetModal(){
-    // // console.log("IN RESET MODAL");
-    // this.state = ({
-    //   tableData: this.state.tableData,
-    //   detail: this.state.detail,
-    //   asin: '',
-    //   seller_sku: '',
-    //   purchase_price: '',
-    //   purchase_quantity: '',
-    //   purchase_date: '',
-    //   err_asin: '',
-    //   err_purchase_price: '',
-    //   err_purchase_date: '',
-    //   err_quantity: '',
-    //   showModal: false
-    // })
+    // console.log("IN RESET MODAL");
+    this.state = ({
+      tableData: this.state.tableData,
+      detail: this.state.detail,
+      asin: '',
+      seller_sku: '',
+      purchase_price: '',
+      purchase_quantity: '',
+      purchase_date: '',
+      err_asin: '',
+      err_purchase_price: '',
+      err_purchase_date: '',
+      err_quantity: '',
+    })
     this.setState({showModal: false});
     // console.log("RESETstate:",this.state);
   }
 
   render(){
     return <div>
-      <Details data={this.state.detail} />
       <Button 
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
       /><br/>
-
-      <Dashboard data={this.state.tableData} />
-
+      
+      <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
       {this.props.children}
       <Addproduct 
         active={this.state.showModal}
@@ -162,8 +158,9 @@ export default class DashboardContainer extends React.Component{
         err_purchase_price={this.state.err_purchase_price}
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
-        handleModalToggle={this.handleModal.bind(this)}
       /> 
+      
+      <Details data={this.state.detail} />
     </div>
   }
 }

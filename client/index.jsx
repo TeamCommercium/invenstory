@@ -5,7 +5,7 @@ import { Router, Route, Redirect, IndexRoute, useRouterHistory } from 'react-rou
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import Tabs from './containers/tabs'
-import Login from './components/login'
+import Login from './containers/login'
 import { store } from './store/initStore'
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })

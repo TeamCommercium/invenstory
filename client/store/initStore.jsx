@@ -3,6 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { browserHistory } from 'react-router'
 import { routerMiddleware, routerReducer } from 'react-router-redux'
 
+import notificationReducer from '../reducers/notification'
 import tabReducer from '../reducers/tab'
 import detailReducer from '../reducers/detail'
 import tableDataReducer from '../reducers/table'
@@ -23,6 +24,7 @@ export const store = createStore(
     lastChanged: lastChangedReducer,
     detail: detailReducer,
     routing: routerReducer,
+    notifications: notificationReducer,
     tab: tabReducer
   }),
   initialState,

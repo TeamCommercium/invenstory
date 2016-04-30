@@ -5,5 +5,6 @@ export default {
   authenticated: false,
   lastChanged: undefined,
   detail: undefined,
+  notifications: undefined,
   tab: 0
 }
