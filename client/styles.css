@@ -104,12 +104,20 @@ table, td {
 /* On the Dashboard page, displays all individual data*/
 .detailDisplay{
   position: fixed;
-  bottom: 0;
-  box-shadow: 1px 2px 2px 2px #888888;
+  padding: 30px;
+
   width: 100%;
-  background: white;
+  height: 200px;
+
+  left:0;
+  bottom: 0;
+
   z-index: 5;
-  height: 300px;
+  background: white;
+  box-shadow: 1px 2px 2px 2px #888888;
+}
+.detailDisplay > button {
+  margin-left: 10px;
 }
 
 /* Table on the dashboard */
