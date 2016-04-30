@@ -37,7 +37,7 @@ var amazonMWS = require('../api/amazonMWS.js');
               .count('inventory.product_id as quantity')
               .where(whereClause)
               .then(function(data){
-                log('Get products is complete:',data)
+                log('Get products is complete.')
               return data})
  }
 
@@ -59,9 +59,10 @@ exports.addProduct = function (asin) {
       return resp[0]
     })
     .then(function(id) {
-      amazonMWS.getAmznDetails(asin)
+      amazonMWS.getAmznDetails([asin])
         .then(function(priceObj) {
-          delete priceObj.amazon_asin
+          priceObj = priceObj[0]
+          delete priceObj.amzn_asin
           priceObj.product_id = id
           priceObj.amzn_fetch_date = insertDate
           exports.addProductDetail(priceObj)
