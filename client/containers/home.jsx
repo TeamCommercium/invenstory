@@ -3,7 +3,6 @@ import { LineChart, BarChart } from 'rd3'
 import { ProgressBar } from 'react-toolbox'
 
 import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
-import Navbar from '../components/navbar'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 

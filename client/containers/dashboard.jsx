@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Snackbar } from 'react-toolbox';
 
-import Navbar from '../components/navbar'
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'

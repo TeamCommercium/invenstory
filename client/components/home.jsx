@@ -12,10 +12,3 @@ export default ({data}) =>
     />
   )}
 </List>
-
-
-// <div>
-//   {JSON.stringify(Array.prototype.map.call(data, (cur, index)=>{
-//     return cur
-//   }))}
-// </div>
