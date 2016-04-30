@@ -5,8 +5,6 @@ var log       = require('../modules/utilities.js').log;
 var Products  = require('../models/products_model.js')
 
 var client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, amazonEnv.merchantId, {})
-// Amazon country code defaults to US
-// var MarketplaceId = "ATVPDKIKX0DER";
 
 /**
  * @param  {Object}   client    Client object with specific access keys
@@ -44,23 +42,25 @@ function getMatchingProductsByAsin(client, args) {
 /**
  * getAmznDetails - API call to get lowest FBA and FBM price based on ASIN
  * Maximum request quota: 20 requests (up to 10 ASINs per request)
- * Restore rate: 10 requests every second 
+ * Restore rate: 10 requests every second
  * Hourly request quota: 36000 requests per hour
- * 
- * @param  {string}   asin             
- * @return {Promise}  
+ *
+ * @param  {string}   asin
+ * @return {Promise}
  */
-exports.getAmznDetails = function(asin) {
+exports.getAmznDetails = function(asins) {
   return getLowestOfferListingsForAsin(client, {
     MarketplaceId: amazonEnv.marketplaceId,
     ItemCondition: 'NEW',
-    ASINList: [asin],
+    ASINList: asins,
   })
     .then(function(result) {
-      return utilities.cleanAmznDetails(result)[0];
+      log("Retreived price data for,", result)
+      if(result.ErrorResponse) log(result.ErrorResponse.Error)
+      return utilities.cleanAmznDetails(result);
     })
     .catch(function(error) {
-      log(error)
+      log('Error retreiving price data:', error)
     })
 }
 
@@ -69,10 +69,10 @@ exports.getAmznDetails = function(asin) {
  * Maximum request quota:  20 requests (1 ASIN per request)
  * Restore rate:           1 request every five seconds
  * Hourly request quota:   720 requests per hour
- * 
+ *
  * @param  {Object}   req
  * @param  {Object}   res
- * @param  {string}   MarketPlaceID   Amazon country code 
+ * @param  {string}   MarketPlaceID   Amazon country code
  * @param  {string}   Query           Search string sent to Amazon
  * @return {Promise}
  */
@@ -98,9 +98,8 @@ exports.listProductSearch = function(req, res) {
  * Hourly request quota:   7200 requests per hour
  *
  * @param  {string}   asin
- * @param  {string}   MarketPlaceID   Amazon country code 
  * @param  {Array}    ASINList        Array of ASINs as strings
- * @return {Promise}  
+ * @return {Promise}
  */
 exports.getMatchingProductByAsin = function(asin) {
   log('ASIN', asin)

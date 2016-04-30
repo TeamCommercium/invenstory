@@ -9,6 +9,8 @@ var userAPI = require('./api/user_api.js')
 var cookieParser = require('cookie-parser')
 var authenticate = require('./modules/utilities').authenticate
 
+require('./modules/amznPriceService.js').init()
+
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
@@ -20,10 +22,6 @@ app.use("/user", authenticate, userAPI)
 app.use("/products", authenticate, productsAPI)
 
 app.get('/', (req,res) => res.send())
-
-app.get('/getMatchingProductByAsin', authenticate, amazonMWS.getMatchingProductByAsin)
-// app.get('/getLowestOffers', authenticate, amazonMWS.getLowestOffers)
-// app.get('/listProductSearch', authenticate, amazonMWS.listProductSearch)
 
 app.all('*', function(req, res){
   res.redirect('/')
