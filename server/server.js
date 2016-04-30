@@ -9,6 +9,8 @@ var userAPI = require('./api/user_api.js')
 var cookieParser = require('cookie-parser')
 var authenticate = require('./modules/utilities').authenticate
 
+require('./modules/amznPriceService.js').init()
+
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
