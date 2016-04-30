@@ -136,12 +136,9 @@ export default class DashboardContainer extends React.Component{
 
         this.resetModal();
       console.log("INVENTORY OBJ SENT:", inventory);
-      // console.log("STATE:", this.state);
     }
   }
 
-  resetModal(){
-    // console.log("IN RESET MODAL");
     this.state = ({
       tableData: this.state.tableData,
       detail: this.state.detail,
@@ -156,7 +153,6 @@ export default class DashboardContainer extends React.Component{
       err_quantity: '',
     })
     this.setState({showModal: false});
-    // console.log("RESETstate:",this.state);
   }
 
   handleBlur(){
