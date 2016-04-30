@@ -10,6 +10,81 @@ import { smartDispatch } from '../dispatcher'
 import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, redirect, logout } from '../util/util'
 
+let mounted = false;
+
+let backlog = {
+  tab: {
+    pending: false,
+    payload: undefined
+  }
+};
+
+/*
+let mounted = false;
+
+let backlog = {
+  graphData: {
+    pending: false,
+    payload: undefined
+  },
+  notifications: {
+    pending: false,
+    payload: undefined
+  }
+};
+
+export default class HomeContainer extends React.Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      graphData: store.getState().graphData,
+      notifications: store.getState().notifications
+    }
+
+    let component = this;
+    subscribeTo("graphData", function(newState){
+      if(mounted)
+        component.setState({ "graphData": newState.graphData })
+      else{
+        backlog.graphData.payload = newState.graphData
+        backlog.graphData.pending = true
+      }
+    })
+
+    subscribeTo("notifications", function(newState){
+      if(mounted)
+        component.setState({ "notifications": newState.notifications })
+      else{
+        backlog.notifications.payload = newState.notifications
+        backlog.notifications.pending = true
+      }
+    })
+  }
+
+  componentWillMount(){
+    checkAuth()
+  }
+
+  componentDidMount(){
+    if(backlog.graphData.pending){
+      this.setState({ "graphData": backlog.graphData.payload })
+      backlog.graphData.pending = false
+    }
+
+    if(backlog.notifications.pending){
+      this.setState({ "notifications": backlog.notifications.payload })
+      backlog.notifications.pending = false
+    }
+
+    mounted = true;
+  }
+
+  componentWillUnmount(){
+    mounted = false;
+  }
+*/
+
 export default class TabsContainer extends React.Component{
 
   constructor(props){
@@ -20,13 +95,13 @@ export default class TabsContainer extends React.Component{
 
     let component = this;
     subscribeTo("tab", function(newState){
-
-      try{
+      if(mounted)
         component.setState({ "tab": newState.tab })
-      } catch (e){
-        console.log('setState in tabs.jsx failed', e)
-      //   component.state.tab = newState.tab
+      else{
+        backlog.tab.payload = newState.tab
+        backlog.tab.pending = true
       }
+
     })
   }
 
@@ -37,6 +112,19 @@ export default class TabsContainer extends React.Component{
 
   componentWillMount(){
     checkAuth()
+  }
+
+  componentDidMount(){
+    if(backlog.tab.pending && mounted){
+      this.setState({ "tab": backlog.tab.payload })
+      backlog.tab.pending = false
+    }
+
+    mounted = true;
+  }
+
+  componentWillUnmount(){
+    mounted = false;
   }
 
   render(){
