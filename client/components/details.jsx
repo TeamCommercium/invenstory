@@ -8,12 +8,32 @@ import Details from './details'
 export default ({data}) =>
 data.amzn_asin
 ? <div className="styles__detailDisplay___2K0QU">
-  <img src={data.amzn_thumb_url} style={{height:100, width: 100, display: "inline-block"}} />
-  <span> {data.amzn_title} </span>
+  <img src={data.amzn_thumb_url} style={{height:200, width: 200, display: "inline", float: "right", marginRight:60}} />
+  <h1> {data.amzn_title} </h1>
   <div> {data.amzn_description} </div>
   <div> Weight: {data.amzn_weight} </div>
   <div> Rank: {data.amzn_sales_rank} </div>
   <div> ASIN: {data.amzn_asin} </div>
+  <Button 
+    className=""
+    label='Delete all' raised floating primary
+    onMouseUp={function(){}}
+  />
+  <Button 
+    className=""
+    label='Ship' raised floating primary
+    onMouseUp={function(){}}
+  />
+  <Button 
+    className=""
+    label='Edit' raised floating primary
+    onMouseUp={function(){}}
+  />
+  <Button 
+    className=""
+    label='Add Another' raised floating primary
+    onMouseUp={function(){}}
+  />
 </div>
 : null
 

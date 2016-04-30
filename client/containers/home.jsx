@@ -6,6 +6,19 @@ import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 
+let mounted = false;
+
+let backlog = {
+  graphData: {
+    pending: false,
+    payload: undefined
+  },
+  notifications: {
+    pending: false,
+    payload: undefined
+  }
+};
+
 export default class HomeContainer extends React.Component{
 
   constructor(props){
@@ -17,26 +30,44 @@ export default class HomeContainer extends React.Component{
 
     let component = this;
     subscribeTo("graphData", function(newState){
-      try{
+      if(mounted)
         component.setState({ "graphData": newState.graphData })
-      } catch (e){
-        console.log('caught error thingy', e)
-      //   component.state.graphData = newState.graphData
+      else{
+        backlog.graphData.payload = newState.graphData
+        backlog.graphData.pending = true
       }
     })
 
     subscribeTo("notifications", function(newState){
-      try{
+      if(mounted)
         component.setState({ "notifications": newState.notifications })
-      } catch (e){
-        console.log('caught error thingy', e)
-      //   component.state.notifications = newState.notifications
+      else{
+        backlog.notifications.payload = newState.notifications
+        backlog.notifications.pending = true
       }
     })
   }
 
   componentWillMount(){
     checkAuth()
+  }
+
+  componentDidMount(){
+    mounted = true;
+
+    if(backlog.graphData.pending){
+      this.setState({ "graphData": backlog.graphData.payload })
+      backlog.graphData.pending = false
+    }
+
+    if(backlog.notifications.pending){
+      this.setState({ "notifications": backlog.notifications.payload })
+      backlog.notifications.pending = false
+    }
+  }
+
+  componentWillUnmount(){
+    mounted = false;
   }
 
   render(){

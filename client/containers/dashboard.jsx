@@ -7,6 +7,19 @@ import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '.
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
 
+let mounted = false;
+
+let backlog = {
+  detail: {
+    pending: false,
+    payload: undefined
+  },
+  tableData: {
+    pending: false,
+    payload: undefined
+  }
+};
+
 export default class DashboardContainer extends React.Component{
 
   constructor(props){
@@ -27,36 +40,49 @@ export default class DashboardContainer extends React.Component{
     };
 
     let component = this;
-    subscribeTo("tableData", function(newState){
-      // console.log("NEWSTATE dashboard", JSON.stringify(newState.tableData))
-
-      try{
-        component.setState({ "tableData": newState.tableData })
-      } catch (e){
-        console.log('caught error', e)
-        // component.state.tableData = newState.tableData
+    subscribeTo("detail", function(newState){
+      if(mounted)
+        component.setState({ "detail": newState.detail })
+      else{
+        backlog.detail.payload = newState.detail
+        backlog.detail.pending = true
       }
     })
 
-    subscribeTo("detail", function(newState){
-      // console.log("NEWSTATE dashboard", JSON.stringify(newState.detail))
-
-      try{
-        component.setState({ "detail": newState.detail })
-      } catch (e){
-        console.log('caught error', e)
-        // component.state.detail = newState.detail
+    subscribeTo("tableData", function(newState){
+      if(mounted)
+        component.setState({ "tableData": newState.tableData })
+      else{
+        backlog.tableData.payload = newState.tableData
+        backlog.tableData.pending = true
       }
     })
   }
 
   componentDidMount(){
+    mounted = true;
+
+    if(backlog.detail.pending){
+      this.setState({ "detail": backlog.detail.payload })
+      backlog.detail.pending = false
+    }
+
+    if(backlog.tableData.pending){
+      this.setState({ "tableData": backlog.tableData.payload })
+      backlog.tableData.pending = false
+    }
+
     if(document.getElementById("table").getElementsByTagName('input') && document.getElementById("table").getElementsByTagName('input')[0])
       document.getElementsByTagName('input')[0].placeholder = "Search Table . ."
   }
 
-  handleChange(value){
-    console.log(arguments)
+
+  componentWillMount(){
+    checkAuth()
+  }
+
+  componentWillUnmount(){
+    mounted = false;
   }
 
   handleInput(name, value) {

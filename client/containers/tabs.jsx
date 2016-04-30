@@ -10,6 +10,15 @@ import { smartDispatch } from '../dispatcher'
 import { store } from '../store/initStore'
 import { subscribeTo, checkAuth, processNewInventory, redirect, logout } from '../util/util'
 
+let mounted = false;
+
+let backlog = {
+  tab: {
+    pending: false,
+    payload: undefined
+  }
+};
+
 export default class TabsContainer extends React.Component{
 
   constructor(props){
@@ -20,13 +29,13 @@ export default class TabsContainer extends React.Component{
 
     let component = this;
     subscribeTo("tab", function(newState){
-
-      try{
+      if(mounted)
         component.setState({ "tab": newState.tab })
-      } catch (e){
-        console.log('setState in tabs.jsx failed', e)
-      //   component.state.tab = newState.tab
+      else{
+        backlog.tab.payload = newState.tab
+        backlog.tab.pending = true
       }
+
     })
   }
 
@@ -37,6 +46,19 @@ export default class TabsContainer extends React.Component{
 
   componentWillMount(){
     checkAuth()
+  }
+
+  componentDidMount(){
+    mounted = true;
+
+    if(backlog.tab.pending){
+      this.setState({ "tab": backlog.tab.payload })
+      backlog.tab.pending = false
+    }
+  }
+
+  componentWillUnmount(){
+    mounted = false;
   }
 
   render(){
