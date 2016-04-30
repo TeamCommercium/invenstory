@@ -5,35 +5,20 @@ import { LineChart } from 'rd3'
 
 import Details from './details'
 
-export default ({data}) =>
+export default ({data, hideDetails}) =>
 data.amzn_asin
 ? <div className="styles__detailDisplay___2K0QU">
-  <img src={data.amzn_thumb_url} style={{height:200, width: 200, display: "inline", float: "right", marginRight:60}} />
+  <img src={data.amzn_thumb_url} style={{height:200, width: 200, zIndex:-1, display: "inline", float: "right", marginRight:60}} />
+  <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
+  <Button className="" label='Delete all' raised floating primary onMouseUp={function(){}} />
+  <Button className="" label='Ship' raised floating primary onMouseUp={function(){}} />
+  <Button className="" label='Edit' raised floating primary onMouseUp={function(){}} />
+  <Button className="" label='Add' raised floating primary onMouseUp={function(){}} />
   <h1> {data.amzn_title} </h1>
   <div> {data.amzn_description} </div>
   <div> Weight: {data.amzn_weight} </div>
   <div> Rank: {data.amzn_sales_rank} </div>
   <div> ASIN: {data.amzn_asin} </div>
-  <Button 
-    className=""
-    label='Delete all' raised floating primary
-    onMouseUp={function(){}}
-  />
-  <Button 
-    className=""
-    label='Ship' raised floating primary
-    onMouseUp={function(){}}
-  />
-  <Button 
-    className=""
-    label='Edit' raised floating primary
-    onMouseUp={function(){}}
-  />
-  <Button 
-    className=""
-    label='Add Another' raised floating primary
-    onMouseUp={function(){}}
-  />
 </div>
 : null
 
