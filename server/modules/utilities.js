@@ -1,7 +1,7 @@
 var env = require('./config.js').state.env;
 var jwt_config = require('./config.js').jwtConfig
 var expressJWT = require('express-jwt')
-
+var log;
 /**
  * module
  * @module Utilities
@@ -22,14 +22,14 @@ var expressJWT = require('express-jwt')
  * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanMatchingAsins = function(data) {
-  console.log('Going to Clean Data')
   var items = [];
   var responseObj = data.GetMatchingProductResponse.GetMatchingProductResult;
 
+  log('Starting to Clean Data')
   for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     var product = {};
     var attrPath = responseObj[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
-  console.log('attrPath', JSON.stringify(attrPath))
+    console.log('attrPath', JSON.stringify(attrPath))
 
     product.amzn_asin = responseObj[i].$.ASIN;
     product.amzn_title = attrPath["ns2:Title"][0];
@@ -57,7 +57,7 @@ exports.cleanMatchingAsins = function(data) {
 exports.cleanAmznDetails = function(data) {
   var list = [];
   var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
-
+  log('Preparing to clean price data')
   for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     var priceArr = responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing;
     var product = {};
@@ -77,6 +77,7 @@ exports.cleanAmznDetails = function(data) {
     }
     list.push(product);
   }
+  log('Cleaned product price information', list)
   return list;
 }
 
@@ -122,7 +123,7 @@ exports.cleanListProductSearch = function(data) {
  * @param {Array} [args] Arguments to pass to console.log
  * @return {undefined}
  */
-exports.log = function() {
+exports.log = log = function() {
   if(env === 'development') console.log.apply(this, Array.prototype.slice.call(arguments))
 }
 
