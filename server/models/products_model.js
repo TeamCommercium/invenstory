@@ -16,7 +16,7 @@ var amazonMWS = require('../api/amazonMWS.js');
   *
   * @param  {string}   amzn_asin  Amazon Standard Identification Number
   * @param  {integer} [productId]  Amazon Standard Identification Number
-  * @return {Promise}  Resolves to id of the newly created record.
+  * @return {Promise}  Resolves an array of objects representing the product.
   */
  exports.getProducts = function (userId, productId) {
      log('Getting products for user:', userId)
@@ -38,7 +38,21 @@ var amazonMWS = require('../api/amazonMWS.js');
               .where(whereClause)
               .then(function(data){
                 log('Get products is complete.')
-              return data})
+                return data
+              })
+              .then(function(products) {
+                if(productId) {
+                  log('Retrieving detail history for product ', productId)
+                  return getDetailHistory(productId)
+                          .then(function(detail) {
+                            log('Retreived history ', detail)
+                            products[0].history = detail
+                            return products
+                          })
+                } else {
+                  return products
+                }
+              })
  }
 
 /**
@@ -156,4 +170,20 @@ exports.addProductDetail = function(params) {
   .catch( function(err) {
     log("Error while adding product details", err)
   })
+}
+
+
+/**
+ * getDetailHistory - Retreive pricing detail for product.
+ *
+ * @param  {integer} product_id description
+ * @return {Promise.<Array.<Object>>}  Returns a promise which resolves to an of history objects in the form {amzn_fetch_date, amzn_price_fba, amzn_price_fbm}
+ */
+let getDetailHistory = exports.getDetailHistory = function(product_id) {
+
+  return db('product_details')
+          .select('amzn_fetch_date', 'amzn_price_fba', 'amzn_price_fbm')
+          .where({product_id:product_id})
+          .orderBy('amzn_fetch_date')
+
 }
