@@ -159,6 +159,11 @@ export default class DashboardContainer extends React.Component{
     // console.log("RESETstate:",this.state);
   }
 
+  handleBlur(){
+    console.log("handleBlur called")
+    this.setState({detail: {}});
+  }
+
   render(){
     return <div>
       <Button 
@@ -186,7 +191,7 @@ export default class DashboardContainer extends React.Component{
         err_purchase_date={this.state.err_purchase_date}
       /> 
       
-      <Details data={this.state.detail} />
+      <Details hideDetails={this.handleBlur.bind(this)} data={this.state.detail} />
     </div>
   }
 }
