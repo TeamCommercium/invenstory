@@ -30,7 +30,6 @@ export default class TabsContainer extends React.Component{
     })
   }
 
-
   handleTabChange(index){
     checkAuth()
     smartDispatch(CHANGE_TAB, index)
@@ -42,9 +41,6 @@ export default class TabsContainer extends React.Component{
 
   render(){
     return <Layout>
-    <NavDrawer active={this.state.navDrawer}>
-
-    </NavDrawer>
     <Panel>
       <Tabs index={this.state.tab} className="styles__tabContainer___1UKO5" onChange={this.handleTabChange.bind(this)} fixed >
         <Tab label='Home' className="styles__tabsNames___EyUYr"><Home /></Tab>
@@ -52,15 +48,11 @@ export default class TabsContainer extends React.Component{
         <Tab label='Logout' className="styles__logout___3o2E6 styles__tabsNames___EyUYr" onActive={logout}><div/></Tab>
       </Tabs>
     </Panel>
-    <Sidebar pinned={false} width={ 5 }>
-        <div><IconButton icon='close'/></div>
-        <div style={{ flex: 1 }}>
-            <p>Supplemental content goes here.</p>
-        </div>
-    </Sidebar>
     </Layout>
   }
 }
+  // <NavDrawer active={this.state.navDrawer}></NavDrawer>
+  // <Sidebar pinned={false} width={ 5 }></Sidebar>
   //   simulateProgress () {
 
   //         progress: 0,

@@ -116,28 +116,26 @@ export default class DashboardContainer extends React.Component{
   }
 
   resetModal(){
-    // // console.log("IN RESET MODAL");
-    // this.state = ({
-    //   tableData: this.state.tableData,
-    //   detail: this.state.detail,
-    //   asin: '',
-    //   seller_sku: '',
-    //   purchase_price: '',
-    //   purchase_quantity: '',
-    //   purchase_date: '',
-    //   err_asin: '',
-    //   err_purchase_price: '',
-    //   err_purchase_date: '',
-    //   err_quantity: '',
-    //   showModal: false
-    // })
+    // console.log("IN RESET MODAL");
+    this.state = ({
+      tableData: this.state.tableData,
+      detail: this.state.detail,
+      asin: '',
+      seller_sku: '',
+      purchase_price: '',
+      purchase_quantity: '',
+      purchase_date: '',
+      err_asin: '',
+      err_purchase_price: '',
+      err_purchase_date: '',
+      err_quantity: '',
+    })
     this.setState({showModal: false});
     // console.log("RESETstate:",this.state);
   }
 
   render(){
     return <div>
-      <Details data={this.state.detail} />
       <Button 
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
@@ -162,8 +160,8 @@ export default class DashboardContainer extends React.Component{
         err_purchase_price={this.state.err_purchase_price}
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
-        handleModalToggle={this.handleModal.bind(this)}
       /> 
+      <Details data={this.state.detail} />
     </div>
   }
 }

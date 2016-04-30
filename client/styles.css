@@ -34,6 +34,8 @@ table, td {
 /*Makes the slidey thing white*/
 :global(.style__pointer___XKUds){
   background-color: white;
+  height: 7px;
+  margin-top: -7px
 }
 
 /* Makes the navbar blue */
@@ -98,10 +100,10 @@ table, td {
 
 /* On the Dashboard page, displays all individual data*/
 .detailDisplay{
+  position: fixed;
+  bottom: 0;
   box-shadow: 1px 2px 2px 2px #888888;
-  display: block;
-  margin: 0 auto;
-  width: 80%;
+  width: 100%;
 }
 
 /* Table on the dashboard */

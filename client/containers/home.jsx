@@ -39,7 +39,7 @@ export default class HomeContainer extends React.Component{
        :<div> 
         <div className="styles__centerGraph___PVBDK">
           <LineChart
-            legend={true}
+            legend={false}
             legendOffset={20}
             data={this.state.graphData}
             width={600}

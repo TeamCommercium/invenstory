@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Input, Dialog } from 'react-toolbox'
 
 export default (props) =>
-<Dialog active={props.active} onOverlayClick={props.handleModalToggle}>
+<Dialog active={props.active} onOverlayClick={props.resetModal}>
   <h3 style={{color: "black", fontSize: 32, textAlign: "center"}}> Add Product</h3>
   <Input 
     className=""
