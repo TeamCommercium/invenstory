@@ -37,7 +37,7 @@ exports.cleanMatchingAsins = function(data) {
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
     product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
     product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0];
-    product.amzn_list_price = Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]);
+    product.amzn_list_price = attrPath["ns2:ListPrice"] ? Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]) : null;
     product.amzn_sales_rank = Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]);
 
     items.push(product);
