@@ -14,6 +14,7 @@ let columnNames = [
   "% Gain"
 ]
 
+// <div className="styles__tableContainer___1">
 export default (props) =>
 <div>
   <Table

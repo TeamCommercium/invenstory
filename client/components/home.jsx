@@ -1,22 +1,21 @@
 import React from 'react'
 import { List, ListItem, ListSubHeader, Button } from 'react-toolbox'
 
-export default (props) =>
+export default ({data}) =>
 <List className="list" selectable>
   <ListSubHeader caption='Notifications' />
-  <ListItem
-    avatar='http://www.gadgetreview.com/wp-content/uploads/2014/02/LEGO-7784-Batmobile-Ultimate-Collectors-Edition-Open.jpg'
-    caption='Batmobile LEGO set'
-    legend="Price went up 20% since you last checked"
-  />
-  <ListItem
-    avatar='http://images.brickset.com/sets/images/10188-1.jpg?200807260532'
-    caption='DeathStar LEGO set'
-    legend="Profit margin is as 150%"
-  />
-  <ListItem
-    avatar='https://dp1eoqdp1qht7.cloudfront.net/community/blogs/1/2133006-o_1a0slu9hp1ed2qrf1v9h15892vja.jpg'
-    caption='Doctor Who LEGO set'
-    legend="Competition lowered their prices"
-  />
+  {Array.prototype.map.call(data, (cur, index)=>
+    <ListItem
+      avatar={cur.amzn_thumb_url}
+      caption={cur.amzn_title}
+      legend={"Profit is at " + cur.profit + "%"}
+    />
+  )}
 </List>
+
+
+// <div>
+//   {JSON.stringify(Array.prototype.map.call(data, (cur, index)=>{
+//     return cur
+//   }))}
+// </div>

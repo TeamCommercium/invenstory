@@ -29,24 +29,24 @@ export default class DashboardContainer extends React.Component{
 
     let component = this;
     subscribeTo("tableData", function(newState){
-      console.log("NEWSTATE dashboard", JSON.stringify(newState.tableData))
+      // console.log("NEWSTATE dashboard", JSON.stringify(newState.tableData))
 
       try{
         component.setState({ "tableData": newState.tableData })
       } catch (e){
         console.log('caught error', e)
-        component.state.tableData = newState.tableData
+        // component.state.tableData = newState.tableData
       }
     })
 
     subscribeTo("detail", function(newState){
-      console.log("NEWSTATE dashboard", JSON.stringify(newState.detail))
+      // console.log("NEWSTATE dashboard", JSON.stringify(newState.detail))
 
       try{
         component.setState({ "detail": newState.detail })
       } catch (e){
         console.log('caught error', e)
-        component.state.detail = newState.detail
+        // component.state.detail = newState.detail
       }
     })
   }
@@ -141,7 +141,7 @@ export default class DashboardContainer extends React.Component{
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
       /><br/>
-
+      
       <Dashboard data={this.state.tableData} />
 
       {this.props.children}
@@ -161,6 +161,7 @@ export default class DashboardContainer extends React.Component{
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
       /> 
+      
       <Details data={this.state.detail} />
     </div>
   }

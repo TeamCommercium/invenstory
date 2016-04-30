@@ -5,6 +5,8 @@ html, body{
   display: block;
   font-family: 'Roboto', sans-serif;
   color: black;
+  overflow-x: hidden;
+  overflow-x: scroll;
 }
 
 td > input {
@@ -15,6 +17,7 @@ td > input {
 }
 
 table {
+  display: block;
   border-collapse: collapse;
   margin: 20px auto;
   width: 80%;
@@ -104,11 +107,16 @@ table, td {
   bottom: 0;
   box-shadow: 1px 2px 2px 2px #888888;
   width: 100%;
+  background: white;
+  z-index: 5;
+  height: 300px;
 }
 
 /* Table on the dashboard */
 #table{
-  text-align: center;
-  margin-top: 30px;
-  width: 50%;
+  display: block;
+  margin-bottom: 300px;
+  
 }
+
+

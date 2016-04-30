@@ -5,7 +5,7 @@ import { store } from '../store/initStore'
 import {unsafe} from 'reactable'
 
 import { smartDispatch } from '../dispatcher'
-import { UPDATE_LAST_CHANGED, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 // // Used to test dispatching actions
 // setTimeout( function(){
@@ -127,11 +127,14 @@ export function subscribeTo(property, callback){
     },
     tab: {
       CHANGE_TAB: true
+    },
+    notifications: {
+      UPDATE_NOTIFICATIONS: true
     }
   }
 
   if( ! action[property])
-    throw new Error(`You tried to subscribe to ${property} but you may have meant on of the following: detail, inventory, authenticated, tableData, graphData, tab`)
+    throw new Error(`You tried to subscribe to ${property} but you may have meant on of the following: detail, inventory, authenticated, tableData, notifications, graphData, tab`)
 
   store.subscribe(function(){
 
@@ -152,8 +155,8 @@ export function subscribeTo(property, callback){
    and updates the store with new inventory data.
  */
 
+processNewInventory()
 setInterval(processNewInventory, 2000);
-// processNewInventory()
 export function processNewInventory(){
 
 //get data, process it, send to store
@@ -168,6 +171,7 @@ export function processNewInventory(){
       processRawInventory(data)
       processGeneralGraphData(data)
       processGeneralTableData(data)
+      processNotifications(data)
     })
 }
 
@@ -193,8 +197,22 @@ export function logout() {
 
 
 function processRawInventory(inventory){
-
+  inventory = inventory.map(function(cur){
+    cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
+    return cur
+  })
   smartDispatch(UPDATE_INVENTORY, inventory)
+}
+
+function processNotifications(inventory){
+
+  let notifications = inventory.filter(function(cur){
+    return cur.profit > 150 //could build in setting here
+  })
+
+  console.log("notifications", notifications)
+
+  smartDispatch(UPDATE_NOTIFICATIONS, notifications)
 }
 
 function processGeneralGraphData(inventory){
@@ -222,12 +240,12 @@ function processGeneralTableData(inventory){
       "Image": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
-      "Title": cur.amzn_title && cur.amzn_title.slice(0,35) + "...",
+      "Title": cur.amzn_title && (cur.amzn_title.slice(0,35) + "..."),
       "QTY": cur.quantity,
       "Cost": cur.avg_purchase_price && Math.round(cur.avg_purchase_price*100)/100,
       "FBM Price": cur.amzn_price_fbm && Math.round(cur.amzn_price_fbm*100)/100,
       "FBA Price": cur.amzn_price_fba && Math.round(cur.amzn_price_fba*100)/100,
-      "% Gain": cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100),
+      "% Gain": cur.profit,
       "Add": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })

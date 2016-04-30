@@ -25,7 +25,7 @@ export default class TabsContainer extends React.Component{
         component.setState({ "tab": newState.tab })
       } catch (e){
         console.log('setState in tabs.jsx failed', e)
-        component.state.tab = newState.tab
+      //   component.state.tab = newState.tab
       }
     })
   }
