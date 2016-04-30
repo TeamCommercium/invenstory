@@ -224,7 +224,7 @@ function processGeneralGraphData(inventory){
   {
     name: "Selling at",
     values: inventory.map(function(cur, ind){
-     return { y: cur.amzn_price_fba, x: ind }
+     return { y: cur.amzn_price_fba ? cur.amzn_price_fba : cur.amzn_price_fbm, x: ind }
     })
   }]
 
