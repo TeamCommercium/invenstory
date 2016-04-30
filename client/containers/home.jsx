@@ -53,17 +53,17 @@ export default class HomeContainer extends React.Component{
   }
 
   componentDidMount(){
-    if(backlog.graphData.pending && mounted){
+    mounted = true;
+
+    if(backlog.graphData.pending){
       this.setState({ "graphData": backlog.graphData.payload })
       backlog.graphData.pending = false
     }
 
-    if(backlog.notifications.pending && mounted){
+    if(backlog.notifications.pending){
       this.setState({ "notifications": backlog.notifications.payload })
       backlog.notifications.pending = false
     }
-
-    mounted = true;
   }
 
   componentWillUnmount(){
