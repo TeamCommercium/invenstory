@@ -21,7 +21,7 @@ exports.amazonEnv = {
 exports.amazonAuth = {
                     clientId:      process.env.AUTH_CLIENT_ID || null,
                     clientSecret:  process.env.AUTH_CLIENT_SECRET || null,
-                    callbackURL:   process.env.AUTH_CALLBACK_URL || "http://localhost:8080/auth/amazon/callback"
+                    callbackURL:   process.env.AUTH_CALLBACK_URL || "http://localhost:8080/auth/amazon/callback",
                     redirectURL:   process.env.AUTH_REDIRECT_URL || "http://localhost:8080"
 }
 
