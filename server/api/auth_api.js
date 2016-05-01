@@ -50,7 +50,6 @@ function serialize(req, res, next) {
 }
 
 function generateToken(req, res, next) {
-  //console.log('generate token ', req.user)
   req.token = JWT.sign({
       id: req.user.id
     }, jwt_config.secret, {
@@ -107,7 +106,7 @@ var router = express.Router()
   generateToken,
   function(req,res){
     res.cookie('Token', req.token)
-    res.redirect('http://' + req.hostname + ':' + webConfig.port)
+    res.redirect(amazonAuth_config.redirectURL)
 })
 
 

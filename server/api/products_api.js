@@ -36,8 +36,6 @@ var router = express.Router()
  */
 
  .get('/list', function(req, res) {
-  log('request: ', req)
-  log("get /list req.user: ", req.user)
 
   let params = req.query || {}
   params.user_id = req.user.id
