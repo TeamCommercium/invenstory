@@ -34,8 +34,6 @@ import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DET
  // })
 export function deleteInventoryItem(params){
 
-  console.log("delete inventory", params)
-
   fetch('/inventory/delete',
     {
       credentials: 'include',
@@ -88,7 +86,6 @@ export function deleteInventoryItem(params){
   // })
 
 export function shipInventoryItems(params){
-  console.log("shipInventory", params)
 
   fetch('/inventory/ship',
     {
