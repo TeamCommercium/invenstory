@@ -8,7 +8,8 @@ import Home from './home'
 import { CHANGE_TAB } from '../actionTypes'
 import { smartDispatch } from '../dispatcher'
 import { store } from '../store/initStore'
-import { subscribeTo, checkAuth, processNewInventory, redirect, logout } from '../util/util'
+import { subscribeTo } from '../util/util'
+import { checkAuth, processNewInventory, addUserInventory, logout } from '../util/requests'
 
 let mounted = false;
 

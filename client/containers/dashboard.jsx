@@ -3,7 +3,8 @@ import { Button, Snackbar } from 'react-toolbox';
 
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
-import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
+import { subscribeTo } from '../util/util'
+import { checkAuth, processNewInventory, addUserInventory } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
 

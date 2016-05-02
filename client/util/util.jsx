@@ -1,11 +1,10 @@
 import React from 'react'
-import fetch from 'isomorphic-fetch'
-import { push } from 'react-router-redux'
 import { store } from '../store/initStore'
-import {unsafe} from 'reactable'
+import { unsafe } from 'reactable'
 
 import { smartDispatch } from '../dispatcher'
 import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+
 
 // // Used to test dispatching actions
 // setTimeout( function(){
@@ -15,48 +14,6 @@ import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DET
 // setTimeout( function(){
 //   smartDispatch(UPDATE_INVENTORY, null)
 // }, 2000);
-
-// setTimeout( function(){
-//   smartDispatch(UPDATE_TABLE_DATA, null)
-// }, 4000);
-
-// setTimeout( function(){
-//   smartDispatch(UPDATE_GRAPH_DATA, null)
-// }, 8000);
-
-// setTimeout( function(){
-//   smartDispatch(UPDATE_AUTHENTICATION, null)
-// }, 10000);
-
-
-
-
-/*
-  function checkAuth
-  Does not take any parameters
-  Does not return anything
-
-  If not authenticated, will redirect to the login page.
-
-  Will check if authenticated by looking for it in the store and then if found to be false,
-  will do an ajax call to check if they have logged in yet.
- */
-
-export function checkAuth(){
-  if(store.getState().authenticated)
-    return;
-
-
-  fetch('/user/me', {credentials: 'include'})
-  .then(function(response) {
-    if(response.status >= 400){
-      redirect("/#/login")()
-    } else {
-      smartDispatch(UPDATE_AUTHENTICATION, true)
-    }
-  })
-}
-
 
 /*
   function redirect:
@@ -70,30 +27,6 @@ export function redirect(address, _window = window){
   return function (address){
     _window.location.href = address
   }.bind(null, address)
-}
-
-
-/*
-  function addUserInventory
-  Takes 1 parameter. Its an object that should have all the properties expected by inventory_api /add
- */
-
- export function addUserInventory(params){
-
-  fetch('/inventory/add',
-    {
-      credentials: 'include',
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-    }
-  )
-  .catch(function(err){
-    console.log("adding inventory", err)
-  })
 }
 
 
@@ -146,54 +79,11 @@ export function subscribeTo(property, callback){
   })
 }
 
-
-/*
-  function getUserInventoryList:
-  Takes no parameters
-  return nothing
-  Fetches the current user's inventory from the server's database
-   and updates the store with new inventory data.
- */
-
-processNewInventory()
-setInterval(processNewInventory, 2000);
-
-export function processNewInventory(){
-
-//get data, process it, send to store
-
-  fetch('/products/list', {credentials: 'include'})
-    .then(function(response) {
-      if(response.status >= 400) redirect("/#/login")()
-
-      return response.json()
-    })
-    .then(function(data){
-      processRawInventory(data)
-      processGeneralGraphData(data)
-      processGeneralTableData(data)
-      processNotifications(data)
-    })
-}
-
-/*
-  function logout:
-  Takes no parameters
-  return nothing
-  Api request that deletes the users cookie and redirects to login page
- */
-
-export function logout() {
-
-  fetch('/auth/logout', {credentials: 'include'})
-    .then(function(response){
-      smartDispatch(UPDATE_AUTHENTICATION, false)
-      redirect("/#/login")()
-      console.log("Logged out")
-    })
-    .catch(function(error){
-      console.log("Error Logging Out: ", error)
-    })
+export function processNewData(data){
+  processRawInventory(data)
+  processGeneralGraphData(data)
+  processGeneralTableData(data)
+  processNotifications(data)  
 }
 
 

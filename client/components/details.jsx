@@ -12,8 +12,6 @@ data.amzn_asin
   <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
   <Button className="" label='Delete all' raised floating primary onMouseUp={function(){}} />
   <Button className="" label='Ship' raised floating primary onMouseUp={function(){}} />
-  <Button className="" label='Edit' raised floating primary onMouseUp={function(){}} />
-  <Button className="" label='Add' raised floating primary onMouseUp={function(){}} />
   <h1> {data.amzn_title} </h1>
   <div> {data.amzn_description} </div>
   <div> Weight: {data.amzn_weight} </div>
@@ -22,6 +20,8 @@ data.amzn_asin
 </div>
 : null
 
+//   <Button className="" label='Edit' raised floating primary onMouseUp={function(){}} />
+//   <Button className="" label='Add' raised floating primary onMouseUp={function(){}} />
 /*
 
   {

@@ -2,7 +2,8 @@ import React from 'react'
 import { LineChart, BarChart } from 'rd3'
 import { ProgressBar } from 'react-toolbox'
 
-import { subscribeTo, checkAuth, processNewInventory } from '../util/util'
+import { subscribeTo } from '../util/util'
+import { checkAuth, processNewInventory } from '../util/requests'
 import Home from '../components/home'
 import { store } from '../store/initStore'
 
