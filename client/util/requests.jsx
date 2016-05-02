@@ -93,7 +93,7 @@ export function shipInventoryItems(params){
   fetch('/inventory/ship',
     {
       credentials: 'include',
-      method: "POST",
+      method: "PUT",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
