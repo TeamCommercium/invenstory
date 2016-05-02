@@ -166,6 +166,7 @@ exports.addProductDetail = function(params) {
   return db('product_details').returning('id').insert(params)
   .then(function(data) {
     log('Added product_details', data)
+    return data[0]
   })
   .catch( function(err) {
     log("Error while adding product details", err)
