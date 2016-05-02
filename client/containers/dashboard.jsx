@@ -139,6 +139,7 @@ export default class DashboardContainer extends React.Component{
     }
   }
 
+  resetModal(){
     this.state = ({
       tableData: this.state.tableData,
       detail: this.state.detail,
