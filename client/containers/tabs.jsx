@@ -11,6 +11,17 @@ import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory, addUserInventory, logout } from '../util/requests'
 
+/*
+  mounted tracks the mounting status of the container and is used to verify that the container
+  is mounted before using setState.
+
+  Backlog is used as storage and will store the updates that were ignored if the container wasn't mounted
+  when new information came in.
+
+  Backlog is checked and set back to "not pending" whenever componentDidMount is called
+ */
+
+
 let mounted = false;
 
 let backlog = {

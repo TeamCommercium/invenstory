@@ -79,6 +79,12 @@ export function subscribeTo(property, callback){
   })
 }
 
+
+/*
+  Called whenever new data is recieved by requests: processNewInventory
+  All of the functions invoked within processNewData format the new data as needed and save it to the store.
+ */
+
 export function processNewData(data){
   processRawInventory(data)
   processGeneralGraphData(data)

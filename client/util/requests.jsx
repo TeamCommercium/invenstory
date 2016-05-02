@@ -1,10 +1,42 @@
-import { smartDispatch } from '../dispatcher'
-import { store } from '../store/initStore'
-import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 import fetch from 'isomorphic-fetch'
 
+import { store } from '../store/initStore'
+import { smartDispatch } from '../dispatcher'
 import { redirect, processNewData } from './util'
+import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
+
+
+export function deleteInventoryItem(){
+
+}
+
+
+export function shipInventoryItems(){
+  
+}
+
+
+
+/*
+  function logout:
+  Takes no parameters
+  return nothing
+  Api request that deletes the users cookie and redirects to login page
+ */
+
+export function logout() {
+
+  fetch('/auth/logout', {credentials: 'include'})
+    .then(function(response){
+      smartDispatch(UPDATE_AUTHENTICATION, false)
+      redirect("/#/login")()
+      console.log("Logged out")
+    })
+    .catch(function(error){
+      console.log("Error Logging Out: ", error)
+    })
+}
 
 /*
   function checkAuth
@@ -70,8 +102,6 @@ setInterval(processNewInventory, 2000);
 
 export function processNewInventory(){
 
-//get data, process it, send to store
-
   fetch('/products/list', {credentials: 'include'})
     .then(function(response) {
       if(response.status >= 400) redirect("/#/login")()
@@ -80,27 +110,6 @@ export function processNewInventory(){
     })
     .then(function(data){
       processNewData(data)
-    })
-}
-
-
-/*
-  function logout:
-  Takes no parameters
-  return nothing
-  Api request that deletes the users cookie and redirects to login page
- */
-
-export function logout() {
-
-  fetch('/auth/logout', {credentials: 'include'})
-    .then(function(response){
-      smartDispatch(UPDATE_AUTHENTICATION, false)
-      redirect("/#/login")()
-      console.log("Logged out")
-    })
-    .catch(function(error){
-      console.log("Error Logging Out: ", error)
     })
 }
 
