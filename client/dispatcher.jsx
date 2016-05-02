@@ -3,7 +3,7 @@ import * as actions from './actionTypes'
 
 /*
   function smartDispatch
-  Takes 2 parameters, 2 is for action type, the second is for data.
+  Takes 2 parameters, first is for action type, the second is for data.
   
   This method should be used everywhere in the app whenever something is dispatch.
   The first reason for this is that it will automatically create the action object based on the action type

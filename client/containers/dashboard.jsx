@@ -3,9 +3,29 @@ import { Button, Snackbar } from 'react-toolbox';
 
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
-import { subscribeTo, checkAuth, processNewInventory, addUserInventory } from '../util/util'
+import { subscribeTo } from '../util/util'
+import { checkAuth, processNewInventory, addUserInventory } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
+
+/*
+  mounted tracks the mounting status of the container and is used to verify that the container
+  is mounted before using setState.
+
+  Backlog is used as storage and will store the updates that were ignored if the container wasn't mounted
+  when new information came in.
+
+  Backlog is checked and set back to "not pending" whenever componentDidMount is called
+
+
+
+  A lot of state is being used in this container and this seems very un-redux-like at first glance.
+  The reason we are using state is because of 2 main reasons.
+  1) We are currently not using React-Redux and updating state to rerender seems less hacky than forceUpdate.
+  2) There are input fields in one of the components rendered here and it 
+
+
+ */
 
 let mounted = false;
 
@@ -136,12 +156,10 @@ export default class DashboardContainer extends React.Component{
 
         this.resetModal();
       console.log("INVENTORY OBJ SENT:", inventory);
-      // console.log("STATE:", this.state);
     }
   }
 
   resetModal(){
-    // console.log("IN RESET MODAL");
     this.state = ({
       tableData: this.state.tableData,
       detail: this.state.detail,
@@ -156,7 +174,6 @@ export default class DashboardContainer extends React.Component{
       err_quantity: '',
     })
     this.setState({showModal: false});
-    // console.log("RESETstate:",this.state);
   }
 
   handleBlur(){
