@@ -117,7 +117,7 @@ var router = express.Router()
   * @apiSuccess {Object} product Return updated product listing. See /api/product/list.
   */
 
-  .put('/ship', function(res, req) {
+  .put('/ship', function(req, res) {
    let params = req.body
    log("Web service request to ship inventory: ", params)
    Inventory.shipInventory(params.id, req.user.id, params.quantity)

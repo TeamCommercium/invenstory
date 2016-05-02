@@ -1,17 +1,26 @@
 import React from 'react'
 import { Table } from 'reactable'
-import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox'
+import { Button, Input } from 'react-toolbox'
 import { LineChart } from 'rd3'
 
 import Details from './details'
 
-export default ({data, hideDetails}) =>
+export default ({data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
 data.amzn_asin
 ? <div className="styles__detailDisplay___2K0QU">
   <img src={data.amzn_thumb_url} style={{height:200, width: 200, zIndex:-1, display: "inline", float: "right", marginRight:60}} />
   <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
-  <Button className="" label='Delete all' raised floating primary onMouseUp={function(){}} />
-  <Button className="" label='Ship' raised floating primary onMouseUp={function(){}} />
+  <Button className="" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id)} />
+  <Input 
+    className="styles__shortInputField___3ucFK"
+    type='number' 
+    label='Ship qty'
+    name='quantity'
+    value={quantity}
+    error={err_quantity}
+    onChange={handleQuantityChange.bind(this)} 
+  />
+  <Button className="" label='Ship' raised floating primary onMouseUp={confirmShip.bind(null, data.id )} />
   <h1> {data.amzn_title} </h1>
   <div> {data.amzn_description} </div>
   <div> Weight: {data.amzn_weight} </div>
