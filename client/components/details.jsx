@@ -6,8 +6,7 @@ import { LineChart } from 'rd3'
 import Details from './details'
 
 export default ({data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
-data.amzn_asin
-? <div className="styles__detailDisplay___2K0QU">
+<div className="styles__detailDisplay___2K0QU">
   <img src={data.amzn_thumb_url} style={{height:200, width: 200, zIndex:-1, display: "inline", float: "right", marginRight:60}} />
   <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
   <Button className="" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id)} />
@@ -27,7 +26,6 @@ data.amzn_asin
   <div> Rank: {data.amzn_sales_rank} </div>
   <div> ASIN: {data.amzn_asin} </div>
 </div>
-: null
 
 //   <Button className="" label='Edit' raised floating primary onMouseUp={function(){}} />
 //   <Button className="" label='Add' raised floating primary onMouseUp={function(){}} />
