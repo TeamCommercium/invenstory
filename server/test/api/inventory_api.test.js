@@ -1,35 +1,30 @@
 var supertest = require('supertest')
 var expect = require('chai').expect
-var should = require('chai').should
-var amazonMWS = require('../../api/amazonMWS')
+var api = supertest('http://localhost:8080');
 
-var express = require('express')
-var app = express()
+describe('Inventory API Authentication', function() {
 
+  it('errors if not logged in', function(done) {
+    api
+    .post('/inventory/add')
+    .expect(401, done)
+  });
 
-app.get('/getMatchingASIN', function(req, res) { 
-  amazonMWS.getMatchingProductByAsin(testASIN)
-  .then(function(result){
-    res.json({result: result})
-  })
-})
+  it('errors if not logged in', function(done) {
+    api
+    .get('/inventory/list')
+    .expect(401, done)
+  });
 
+  it('errors if not logged in', function(done) {
+    api
+    .put('/inventory/ship')
+    .expect(401, done)
+  });
 
-var testServer = supertest("http://localhost:3000")
-
-describe("Inventory API", function() {
-  var server;
-
-  beforeEach(function(){
-    server = app.listen(3000)
-  })
-
-  afterEach(function(){
-    server.close()
-  })
-  
-  xit('Should do stuff', function(done){
-    
-  })
-
-})
+  it('errors if not logged in', function(done) {
+    api
+    .delete('/inventory/delete')
+    .expect(401, done)
+  });
+});

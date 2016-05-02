@@ -113,7 +113,7 @@ exports.findOrCreate = function(asin) {
  * getProductId - Returns the internal product id of a product with the given ASIN.
  *
  * @param  {string}   amzn_asin  Amazon Standard Identification Number
- * @return {Promise}  Resolves to id of the product record.
+ * @return {Promise}  Resolves to an array with an object containing the id of the product record.
  */
 exports.getProductId = function (asin) {
    return db('products').select('id').where({amzn_asin:asin});
@@ -132,7 +132,7 @@ exports.getProductId = function (asin) {
  * @param  {string}   [params.amzn_thumb_url]  URL of thumbnail image provided by Amazon.
  * @param  {float}    [params.amzn_list_price]  MSRP provided by Amazon.
  * @param  {string}   [params.currency]  Defaults to 'USD'.
- * @return {Promise}  Resolves to true if updates are successful.
+ * @return {Promise}  Resolves to 1 if updates are successful.
  */
 exports.editProduct = function(params) {
   var id = params.id;
@@ -166,6 +166,7 @@ exports.addProductDetail = function(params) {
   return db('product_details').returning('id').insert(params)
   .then(function(data) {
     log('Added product_details', data)
+    return data[0]
   })
   .catch( function(err) {
     log("Error while adding product details", err)
