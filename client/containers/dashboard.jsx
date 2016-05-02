@@ -231,7 +231,8 @@ export default class DashboardContainer extends React.Component{
         err_purchase_date={this.state.err_purchase_date}
       /> 
 
-      <Details
+      { this.state.detail.amzn_asin
+       ? <Details
         handleQuantityChange={this.handleQuantityChange.bind(this)}
         quantity={this.state.ship_quantity}
         deleteAll={this.confirmDelete.bind(this)} 
@@ -239,7 +240,9 @@ export default class DashboardContainer extends React.Component{
         hideDetails={this.handleBlur.bind(this)} 
         err_quantity={this.state.err_ship_quantity}
         quantity={this.state.ship_quantity}
-        data={this.state.detail} />
+        data={this.state.detail} 
+       />
+       :null}
     </div>
   }
 }
