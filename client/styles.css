@@ -121,6 +121,11 @@ table, td {
   display: inline-block;
 }
 
+.shortInputField{
+  height: 20px;
+  width: 100px;
+}
+
 /* Table on the dashboard */
 #table{
   display: block;

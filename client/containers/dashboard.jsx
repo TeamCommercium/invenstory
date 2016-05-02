@@ -4,7 +4,7 @@ import { Button, Snackbar } from 'react-toolbox';
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
-import { checkAuth, processNewInventory, addUserInventory } from '../util/requests'
+import { checkAuth, processNewInventory, addUserInventory, shipInventoryItems, deleteInventoryItem } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
 
@@ -56,7 +56,9 @@ export default class DashboardContainer extends React.Component{
       err_asin: '',
       err_purchase_price: '',
       err_purchase_date: '',
-      err_quantity: ''    
+      err_quantity: '',
+      ship_quantity: '',
+      err_ship_quantity: '',
     };
 
     let component = this;
@@ -172,6 +174,8 @@ export default class DashboardContainer extends React.Component{
       err_purchase_price: '',
       err_purchase_date: '',
       err_quantity: '',
+      ship_quantity: '',
+      err_ship_quantity: '',
     })
     this.setState({showModal: false});
   }
@@ -179,6 +183,25 @@ export default class DashboardContainer extends React.Component{
   handleBlur(){
     console.log("handleBlur called")
     this.setState({detail: {}});
+  }
+
+  confirmDelete(params){
+    if(confirm("Are you sure you want to delete"))
+      deleteInventoryItem({id: params})
+  }
+
+  confirmShip(params){
+
+    if (!this.state.ship_quantity || this.state.ship_quantity < 1) {
+      this.setState({err_ship_quantity: "Please enter valid quantity"});
+    } else {
+      this.setState({err_ship_quantity: ''});
+      shipInventoryItems({id: params, quantity: this.state.ship_quantity})
+    } 
+  }
+
+  handleQuantityChange(val){
+    this.setState({ship_quantity: val})
   }
 
   render(){
@@ -207,8 +230,16 @@ export default class DashboardContainer extends React.Component{
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
       /> 
-      
-      <Details hideDetails={this.handleBlur.bind(this)} data={this.state.detail} />
+
+      <Details
+        handleQuantityChange={this.handleQuantityChange.bind(this)}
+        quantity={this.state.ship_quantity}
+        deleteAll={this.confirmDelete.bind(this)} 
+        confirmShip={this.confirmShip.bind(this)} 
+        hideDetails={this.handleBlur.bind(this)} 
+        err_quantity={this.state.err_ship_quantity}
+        quantity={this.state.ship_quantity}
+        data={this.state.detail} />
     </div>
   }
 }
