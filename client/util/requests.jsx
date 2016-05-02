@@ -34,7 +34,7 @@ import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DET
  // })
 export function deleteInventoryItem(params){
 
-  console.log("shipInventory", params)
+  console.log("delete inventory", params)
 
   fetch('/inventory/delete',
     {
@@ -44,7 +44,7 @@ export function deleteInventoryItem(params){
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: params.id
+      body: JSON.stringify(params)
     }
   )
   .then(function(){
@@ -191,7 +191,7 @@ export function checkAuth(){
  */
 
 processNewInventory()
-setInterval(processNewInventory, 2000);
+// setInterval(processNewInventory, 2000);
 
 export function processNewInventory(){
 
