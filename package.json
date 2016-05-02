@@ -30,6 +30,7 @@
     "enzyme": "^2.2.0",
     "express": "^4.13.4",
     "express-jwt": "^3.3.0",
+    "fs": "0.0.2",
     "history": "^2.1.0",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^5.7.0",
