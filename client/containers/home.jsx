@@ -113,7 +113,12 @@ export default class HomeContainer extends React.Component{
           <div className="styles__centerGraph___PVBDK">
             <Chart chartType = "ColumnChart" data = {this.state.data} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
           </div>
-          <Home data={this.state.notifications}/>
+
+          { this.state.notifications && this.state.notifications.length>0
+           ? <Home data={this.state.notifications}/>
+           : null
+            
+          }
         </div>
       }
     </div>
