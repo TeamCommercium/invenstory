@@ -38,7 +38,7 @@ app.all('*', function(req, res){
 var httpServer = http.createServer(app)
 var httpsServer = https.createServer(credentials, app)
 
-httpServer.listen(webConfig.port, ()=>{console.log("Listening on", webConfig.port)})
-httpsServer.listen(8443)
+httpServer.listen(webConfig.port, ()=>{console.log("Listening on:", webConfig.port)})
+httpsServer.listen(webConfig.httpsPort, ()=>{console.log("Https listening on:", webConfig.httpsPort)})
 
 module.exports = app
