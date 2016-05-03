@@ -4,7 +4,7 @@ import { Button, Snackbar } from 'react-toolbox';
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
-import { checkAuth, processNewInventory, addUserInventory, shipInventoryItems, deleteInventoryItem } from '../util/requests'
+import { checkAuth, processNewInventory, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
 
@@ -37,6 +37,10 @@ let backlog = {
   tableData: {
     pending: false,
     payload: undefined
+  },
+  historical: {
+    pending: false,
+    payload: undefined
   }
 };
 
@@ -47,6 +51,7 @@ export default class DashboardContainer extends React.Component{
     this.state = {
       tableData: store.getState().tableData,
       detail: {},
+      historical: {},
       showModal: false,
       asin: '',
       seller_sku: '',
@@ -63,6 +68,21 @@ export default class DashboardContainer extends React.Component{
 
     let component = this;
     subscribeTo("detail", function(newState){
+      console.log("newState looking for productId", newState)
+      // getHistoricalData(id)//pass in product Id
+      // .then(function(data){
+
+      //   console.log("historical data, check how it looks:", data)
+
+      //   if(mounted)
+      //     component.setState({ "historical": newState.historical })
+      //   else{
+      //     backlog.historical.payload = newState.historical
+      //     backlog.historical.pending = true
+      //   }
+      // })
+
+
       if(mounted)
         component.setState({ "detail": newState.detail })
       else{
@@ -165,6 +185,7 @@ export default class DashboardContainer extends React.Component{
     this.state = ({
       tableData: this.state.tableData,
       detail: this.state.detail,
+      historical: this.state.historical,
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -210,7 +231,9 @@ export default class DashboardContainer extends React.Component{
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
-      /><br/>
+      />
+
+      <br/>
       
       {this.state.tableData[0]
        ? <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
