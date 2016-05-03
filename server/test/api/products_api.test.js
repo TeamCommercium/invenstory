@@ -11,4 +11,10 @@ describe('Products API Authentication', function() {
     .expect(401, done)
   });
 
+  it('errors if not logged in', function(done) {
+    api
+    .get('/products/search')
+    .expect(401, done)
+  });
+
 });
