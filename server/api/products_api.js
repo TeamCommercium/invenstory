@@ -18,7 +18,7 @@ var router = express.Router()
  * @apiGroup product
  * @apiUse restricted
  *
- * @apiParam {string} [id] Product to list. If omitted, all user's products are returned.
+ * @apiParam {string} [product_id] Product to list. If omitted, all user's products are returned.
  *
  * @apiSuccess {Object[]} products Returns user's product listings.
  * @apiSuccess {number} products.id id of  product.
