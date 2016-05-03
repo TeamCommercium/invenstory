@@ -1,7 +1,7 @@
 var supertest = require('supertest')
 var expect = require('chai').expect
 var should = require('chai').should
-var api = supertest('http://localhost:8080');
+var api = supertest(require('../../server'));
 
 describe('Products API Authentication', function() {
 
