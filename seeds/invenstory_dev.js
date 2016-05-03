@@ -2,10 +2,10 @@
 exports.seed = function(knex, Promise) {
   return Promise.join(
     // Deletes ALL existing entries
-    knex('users').del(),
     knex('inventory').del(),
-    knex('products').del(),
     knex('product_details').del(),
+    knex('products').del(),
+    knex('users').del(),
 
     // Seed users entries
     knex('users').insert({
