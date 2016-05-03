@@ -20,17 +20,6 @@ function getLowestOfferListingsForAsin(client, args) {
 /**
  * @param  {Object}   client    Client object with specific access keys
  * @param  {Object}   args      AmazonMWS API request data
- * @return {Promise}            Returns a promise that resolves into list of matching product from AmazonMWS API
- */
-function listMatchingProducts(client, args) {
-  var req = MWS.Products.requests.ListMatchingProducts()
-  req.set(args)
-  return client.invoke(req)
-}
-
-/**
- * @param  {Object}   client    Client object with specific access keys
- * @param  {Object}   args      AmazonMWS API request data
  * @return {Promise}            Returns a promise that resolves into a product AmazonMWS API
  */
 function getMatchingProductsByAsin(client, args) {
@@ -61,33 +50,6 @@ exports.getAmznDetails = function(asins) {
     })
     .catch(function(error) {
       log('Error retreiving price data:', error)
-    })
-}
-
-/**
- * listProductSearch - API call to get list of products through search
- * Maximum request quota:  20 requests (1 ASIN per request)
- * Restore rate:           1 request every five seconds
- * Hourly request quota:   720 requests per hour
- *
- * @param  {Object}   req
- * @param  {Object}   res
- * @param  {string}   MarketPlaceID   Amazon country code
- * @param  {string}   Query           Search string sent to Amazon
- * @return {Promise}
- */
-exports.listProductSearch = function(req, res) {
-  return listMatchingProducts(client, {
-    MarketplaceId: MarketplaceId,
-    Query: 'Lego ant',
-  })
-    .then(function(result) {
-      res.send(utilities.cleanListProductSearch(result));
-      // res.send(result);
-    })
-    .catch(function(error) {
-      log(error);
-      res.send(error)
     })
 }
 

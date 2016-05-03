@@ -90,40 +90,6 @@ exports.cleanAmznDetails = function(data) {
 }
 
 /**
- * cleanListProductSearch - Utility function that culls useful data from object from ListProductSearch function
- *
- * @param {Object}    data  Object from Amazon api containing search results
- * @param {string}    product.amazon_asin    Amazon Standard Identification Number
- * @param {string}    product.amzn_title    Title of item
- * @param {string}    product.amzn_description    Description of item
- * @param {string}    product.amzn_manufacturer   Manufacturer of item
- * @param {float}     product.amzn_weight   Weight of item in lbs
- * @param {string}    product.amzn_thumb_url    Url to thumbnail
- * @param {integer}   product.amzn_sales_rank   Amazon sales rank of item
- * @return {Array}    items  Array of objects containing culled product data for multiple items
- */
-exports.cleanListProductSearch = function(data) {
-  var items = [];
-  var responseArr = data.ListMatchingProductsResponse.ListMatchingProductsResult[0].Products[0].Product;
-
-  for (var i = 0, productsLen = responseArr.length; i < productsLen; i++) {
-    var product = {};
-    var attrPath = responseArr[i].AttributeSets[0]["ns2:ItemAttributes"][0];
-
-    product.amzn_asin = responseArr[i].Identifiers[0].MarketplaceASIN[0].ASIN[0];
-    product.amzn_title = attrPath["ns2:Title"][0];
-    product.amzn_description = attrPath["ns2:Feature"].join(". ");
-    product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
-    product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
-    product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0];
-    product.amzn_sales_rank = Number(responseArr[i].SalesRankings[0].SalesRank[0].Rank[0]);
-
-    items.push(product);
-  }
-  return items;
-}
-
-/**
  * log - Utility function console logs in dev mode
  *
  * @param {Array} [args] Arguments to pass to console.log
