@@ -51,6 +51,27 @@ var router = express.Router()
     })
  })
 
+
+ /**
+  * @api {get} /products/search List User's Products
+  *
+  * @apiName GetProducts
+  * @apiGroup product
+  * @apiUse restricted
+  *
+  * @apiParam {string} q String to query Amazon products database with.
+  *
+  * @apiSuccess {Object[]}  products Returns user's product listings.
+  * @apiSuccess {string}    prodcuts.amzn_asin ASIN of found product
+  * @apiSuccess {string}    products.amzn_title Name of product.
+  * @apiSuccess {string}    products.amzn_description Description of product listing.
+  * @apiSuccess {string}    products.amzn_manufacturer Product manufacturer.
+  * @apiSuccess {number}    products.amzn_weight Shipping weight of product in pounds.
+  * @apiSuccess {number}    products.amzn_thumb_url URL of thumbnail images.
+  * @apiSuccess {number}    products.amzn_sales_rank Current sales rank of product on Amazon.
+  *
+  * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
+  */
  .get('/search', (req, res) => {
 
    let query = req.query.q
