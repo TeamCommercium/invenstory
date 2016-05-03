@@ -45,7 +45,8 @@ function serialize(req, res, next) {
   User.findOrCreateUser(req.user)
     .then(function(result) {
       log('Serializing user', result)
-      req.user = {id: result.id}
+      var id = result[0] || result.id
+      req.user = {id: id}
       next()})
 }
 
