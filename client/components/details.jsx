@@ -1,12 +1,12 @@
 import React from 'react'
 import { Table } from 'reactable'
 import { Button, Input } from 'react-toolbox'
-import { LineChart } from 'rd3'
-
-import Details from './details'
+import { Chart } from 'react-google-charts'
 
 export default ({data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
 <div className="styles__detailDisplay___2K0QU">
+  <Chart chartType = "ColumnChart" data = {this.state.data} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
+
   <img src={data.amzn_thumb_url} style={{height:200, width: 200, zIndex:-1, display: "inline", float: "right", marginRight:60}} />
   <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
   <Button className="" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id)} />

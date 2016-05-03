@@ -15,6 +15,21 @@ import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DET
 //   smartDispatch(UPDATE_INVENTORY, null)
 // }, 2000);
 
+
+/*
+  function getHistoricalData:
+  Takes a URL as a parameter (relative or absolute)
+  Takes an optional parameter for the window object (used for testing)
+
+  return a function that will redirect to the given address when invoked
+ */
+
+export function getHistoricalData(address, _window = window){
+  
+}
+
+
+
 /*
   function redirect:
   Takes a URL as a parameter (relative or absolute)
