@@ -4,7 +4,8 @@
 //                     password: process.env.DB_PASSWORD || null
 //                   }
 exports.webServer = {
-                    port: process.env.PORT || 8080
+                    port: process.env.PORT || 8080,
+                    httpsPort: process.env.HTTPS_PORT || 8443 
 }
 
 exports.state = {
@@ -21,8 +22,8 @@ exports.amazonEnv = {
 exports.amazonAuth = {
                     clientId:      process.env.AUTH_CLIENT_ID || null,
                     clientSecret:  process.env.AUTH_CLIENT_SECRET || null,
-                    callbackURL:   process.env.AUTH_CALLBACK_URL || "http://localhost:8080/auth/amazon/callback",
-                    redirectURL:   process.env.AUTH_REDIRECT_URL || "http://localhost:8080"
+                    callbackURL:   process.env.AUTH_CALLBACK_URL || "http://localhost:" + exports.webServer.port + "/auth/amazon/callback",
+                    redirectURL:   process.env.AUTH_REDIRECT_URL || "http://localhost:" + exports.webServer.port
 }
 
 exports.jwtConfig = {
