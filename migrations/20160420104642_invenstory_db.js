@@ -43,7 +43,7 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable("product_details", function (table) {
       table.increments('id'); // integer id
-      table.string('product_id').references('products.id');
+      table.integer('product_id').references('products.id');
       table.float('amzn_price_fbm'); //current price fulfilled by merchant
       table.float('amzn_price_fba'); //current price fulffilled by Amazon (Prime)
       table.string('currency').defaultTo('USD');
