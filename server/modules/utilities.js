@@ -104,21 +104,19 @@ exports.cleanAmznDetails = function(data) {
  */
 exports.cleanListProductSearch = function(data) {
   var items = [];
-  var responseObj = data.ListMatchingProductsResponse.ListMatchingProductsResult[0].Products[0].Product;
+  var responseArr = data.ListMatchingProductsResponse.ListMatchingProductsResult[0].Products[0].Product;
 
-  // Api call will return up to 10 results, we use the first 4
-  var productsLen = responseObj.length >= 4 ? 4 : responseObj.length;
-  for (var i = 0; i < productsLen; i++) {
+  for (var i = 0, productsLen = responseArr.length; i < productsLen; i++) {
     var product = {};
-    var attrPath = responseObj[i].AttributeSets[0]["ns2:ItemAttributes"][0];
+    var attrPath = responseArr[i].AttributeSets[0]["ns2:ItemAttributes"][0];
 
-    product.amazon_asin = responseObj[i].Identifiers[0].MarketplaceASIN[0].ASIN[0];
-    product.amazon_title = attrPath["ns2:Title"][0];
+    product.amzn_asin = responseArr[i].Identifiers[0].MarketplaceASIN[0].ASIN[0];
+    product.amzn_title = attrPath["ns2:Title"][0];
     product.amzn_description = attrPath["ns2:Feature"].join(". ");
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
     product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
     product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0];
-    product.amzn_sales_rank = Number(responseObj[i].SalesRankings[0].SalesRank[0].Rank[0]);
+    product.amzn_sales_rank = Number(responseArr[i].SalesRankings[0].SalesRank[0].Rank[0]);
 
     items.push(product);
   }
