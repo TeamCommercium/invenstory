@@ -243,7 +243,8 @@ export default class DashboardContainer extends React.Component{
         hideDetails={this.handleBlur.bind(this)} 
         err_quantity={this.state.err_ship_quantity}
         quantity={this.state.ship_quantity}
-        data={this.state.detail} 
+        data={this.state.detail}
+        graphData={ [['Item ASIN', 'Cost', 'Profit'],[ 1,    12,   3],[ 2,    5.5,  4],[ 3,    14,   5],[ 4,    5,    2],[ 5,    3.5,  2],[ 6,    7,    5] ]} 
        />
        :null}
     </div>
