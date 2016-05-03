@@ -1,6 +1,6 @@
 var supertest = require('supertest')
 var expect = require('chai').expect
-var api = supertest('http://localhost:8080');
+var api = supertest(require('../../server'));
 
 describe('Inventory API Authentication', function() {
 

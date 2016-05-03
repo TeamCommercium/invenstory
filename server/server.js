@@ -40,3 +40,5 @@ var httpsServer = https.createServer(credentials, app)
 
 httpServer.listen(webConfig.port, ()=>{console.log("Listening on", webConfig.port)})
 httpsServer.listen(8443)
+
+module.exports = app
