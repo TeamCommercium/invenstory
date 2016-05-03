@@ -3,7 +3,7 @@ import { Table } from 'reactable'
 import { Button, Input } from 'react-toolbox'
 import { Chart } from 'react-google-charts'
 
-export default ({graphData, data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
+export default ({historical, options, data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
 <div className="styles__detailDisplay___2K0QU">
   <img src={data.amzn_thumb_url} style={{height:200, width: 200, zIndex:-1, display: "inline", float: "right", marginRight:60}} />
   <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
@@ -22,12 +22,7 @@ export default ({graphData, data, hideDetails, deleteAll, confirmShip, err_quant
   />
 
   <h1> {data.amzn_title} </h1>
-  <Chart chartType="LineChart" data={graphData} options={{
-      title: 'Profit overview',
-      curveType: 'function',
-      bar: { groupWidth: '75%' },
-      isStacked: true
-    }} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
+  <Chart chartType="LineChart" data={historical} options={options} />
   <div> {data.amzn_description} </div>
   <div> Weight: {data.amzn_weight} </div>
   <div> Rank: {data.amzn_sales_rank} </div>

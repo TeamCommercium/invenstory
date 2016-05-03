@@ -11,22 +11,21 @@ import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DET
  */
 
 export function getHistoricalData(productId){
-  fetch('/products/list',
+  return fetch(`/products/list?product_id=${productId}`,
     {
       credentials: 'include',
       method: "GET",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({product_id: productId})
+      }
     }
   )
-  .then(function(data){
-    console.log("data from HISTORICAL:", data)
+  .then(function(response){
+    return response.json()
   })
   .catch(function(err){
-    console.log("adding inventory", err)
+    console.log("getHistoricalData error:", err)
   })
 }
 
