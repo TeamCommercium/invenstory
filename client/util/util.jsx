@@ -111,21 +111,24 @@ function processNotifications(inventory){
   smartDispatch(UPDATE_NOTIFICATIONS, notifications)
 }
 
+/**
+ * processGeneralGraphData - A function that processes the inventory data to a format usable by the bar graph
+ *
+ * @param  {Array}   inventory  An array of ojects containing product data
+ * @return {Promise}
+ */
 function processGeneralGraphData(inventory){
 
-  let lineData = [{
-    name: "Purchased at",
-    values: inventory.map(function(cur, ind){
-     return { y: cur.avg_purchase_price, x: ind }
-    })
-  },
-  {
-    name: "Selling at",
-    values: inventory.map(function(cur, ind){
-     return { y: cur.amzn_price_fba ? cur.amzn_price_fba : cur.amzn_price_fbm, x: ind }
-    })
-  }]
-
+  let lineData =  [['SKU', 'Cost', 'Current Value']]; 
+  let priceData = inventory.forEach(function(cur, ind){
+    lineData.push(
+      [
+        cur.seller_sku,
+        Math.round(cur.avg_purchase_price*100)/100,
+        Math.round(cur.amzn_price_fba*100)/100
+      ]
+    )
+  })
   smartDispatch(UPDATE_GRAPH_DATA, lineData)
 }
 

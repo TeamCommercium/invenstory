@@ -76,29 +76,19 @@ export default class HomeContainer extends React.Component{
       backlog.notifications.pending = false
     }
 
-
-    var options = {
-      title: 'Profit overview',
-      // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-      // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+    const options = {
+      title: 'Current Inventory Performance',
+      hAxis: {title: 'SKU'},
+      vAxis: {title: 'Value'},
       legend: { position: 'top', maxLines: 3 },
       bar: { groupWidth: '75%' },
-      isStacked: true
+      isStacked: false
     };
 
-    var data = [
-      ['Item ASIN', 'Cost', 'Profit'],
-      [ 1,    12,   3],
-      [ 2,    5.5,  4],
-      [ 3,    14,   5]
-    ];
     this.setState({
-      'data' : data,
       'options' : options
     });
 
-    //test re-rendering for new data
-    setTimeout(()=>{this.setState({'data': [['Item ASIN', 'Cost', 'Profit'],[ 1,    12,   3],[ 2,    5.5,  4],[ 3,    14,   5],[ 4,    5,    2],[ 5,    3.5,  2],[ 6,    7,    5] ]})}, 3000)
   }
 
   componentWillUnmount(){
@@ -107,11 +97,11 @@ export default class HomeContainer extends React.Component{
 
   render(){
     return <div>
-      { this.state.graphData.length > 0 && this.state.graphData[0].values.length === 0
+      { this.state.graphData.length > 0 && this.state.graphData[1].length === 0
        ? <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
        :<div> 
           <div className="styles__centerGraph___PVBDK">
-            <Chart chartType = "ColumnChart" data = {this.state.data} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
+            <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
           </div>
 
           { this.state.notifications && this.state.notifications.length>0
