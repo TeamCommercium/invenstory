@@ -6,6 +6,7 @@ var log = require('../modules/utilities.js').log;
 var env = require('../modules/config.js').state.env
 var Inventory = require('../models/inventory_model.js')
 var Products = require('../models/products_model.js')
+var amznSearch = require('../modules/amznSearchSvc.js')
 var router = express.Router()
 
 .use(bodyParser.json())
@@ -46,6 +47,23 @@ var router = express.Router()
     })
     .catch(function(err) {
       log("An error occurred getting products: ", err)
+      res.status(400).send("Bad request")
+    })
+ })
+
+ .get('/search', (req, res) => {
+
+   let query = req.query.q
+
+   log("Web service request to search for products on Amazon")
+
+   amznSearch.listProductSearch(query)
+    .then((products) => {
+      log('Products found', products)
+      res.status(200).send(products)
+    })
+    .catch((err) => {
+      log("Error occurred fetching product list from Amazon: ", err)
       res.status(400).send("Bad request")
     })
  })
