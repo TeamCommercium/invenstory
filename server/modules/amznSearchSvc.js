@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Amazon Search Service module
  * @module Amazon Search service
