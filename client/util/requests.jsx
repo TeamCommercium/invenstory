@@ -6,32 +6,31 @@ import { redirect, processNewData } from './util'
 import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 
-/**
- * @api {delete} /inventory/delete Delete Inventory Listing
- * @apiName DeleteProduct
- * @apiGroup product
- * @apiUse restricted
- *
- * @apiParam {string} id Product listing id whose inventory should be deleted delete.
- * @apiError (404 Not found) err Not found.
- * @apiSuccessExample success-response:
- *  HTTP/1.1 204 OK
- *
- * @apiDescription Endpoint to allow user to delete all of their own inventory records for a product.
+/*
+  function getHistoricalData:
  */
 
- // .delete('/delete', function(req, res) {
- //  let params = req.body
- //  log("Web service request to delete inventory: ", params)
- //  Inventory.deleteInventory(params.id, req.user.id)
- //    .then(function(data) {
- //        res.status(200).send(data)
- //    })
- //    .catch(function(err) {
- //      log("An error occurred deleting inventory: ", err)
- //      res.status(400).send("Bad request")
- //    })
- // })
+export function getHistoricalData(productId){
+  return fetch(`/products/list?product_id=${productId}`,
+    {
+      credentials: 'include',
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+  .then(function(response){
+    return response.json()
+  })
+  .catch(function(err){
+    console.log("getHistoricalData error:", err)
+  })
+}
+
+
+
 export function deleteInventoryItem(params){
 
   fetch('/inventory/delete',
@@ -53,38 +52,7 @@ export function deleteInventoryItem(params){
   })
 }
 
-  /**
-  * @api {put} /inventory/ship Set inventory status to shipped
-  * @apiName UpdateProduct
-  * @apiGroup product
-  * @apiUse restricted
-  *
-  * @apiDescription Endpoint to allow user to mark user's inventory as shipped.
-  *
-  * @apiParam {Object} product Updated product to update.
-  * @apiParam {string} product.id ID of product to update.
-  * @apiParam {number} product.quantity quantity shipped.
-  * @apiSuccess {Object} product Return updated product listing. See /api/product/list.
-  */
-
-  // .put('/ship', function(res, req) {
-  //  let params = req.body
-  //  log("Web service request to ship inventory: ", params)
-  //  Inventory.shipInventory(params.id, req.user.id, params.quantity)
-  //    .then(function(resp) {
-  //       log('Shipped inventory', resp)
-  //       Products.getProducts(req.user.id, params.id)
-  //         .then( function(resp) {
-  //           log('Retreived product after update')
-  //           res.status(200).send(resp[0])
-  //         })
-  //    })
-  //    .catch(function(err) {
-  //      log("An error occurred shipping inventory: ", err)
-  //      res.status(400).send("Bad request")
-  //    })
-  // })
-
+ 
 export function shipInventoryItems(params){
 
   fetch('/inventory/ship',

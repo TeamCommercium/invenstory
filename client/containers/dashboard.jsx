@@ -4,7 +4,7 @@ import { Button, Snackbar } from 'react-toolbox';
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
-import { checkAuth, processNewInventory, addUserInventory, shipInventoryItems, deleteInventoryItem } from '../util/requests'
+import { checkAuth, processNewInventory, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
 
@@ -37,6 +37,10 @@ let backlog = {
   tableData: {
     pending: false,
     payload: undefined
+  },
+  historical: {
+    pending: false,
+    payload: undefined
   }
 };
 
@@ -47,6 +51,7 @@ export default class DashboardContainer extends React.Component{
     this.state = {
       tableData: store.getState().tableData,
       detail: {},
+      historical: { graphData: null, options: null},
       showModal: false,
       asin: '',
       seller_sku: '',
@@ -63,11 +68,49 @@ export default class DashboardContainer extends React.Component{
 
     let component = this;
     subscribeTo("detail", function(newState){
+
       if(mounted)
         component.setState({ "detail": newState.detail })
       else{
         backlog.detail.payload = newState.detail
         backlog.detail.pending = true
+      }
+
+      // Get historical data for this item.
+      if(newState && newState.detail && typeof newState.detail.id === "number"){
+        getHistoricalData(newState.detail.id)
+        .then(function(data){
+           
+          let historicalData = {
+            graphData: [ 
+              ["Date", "Price"], 
+              ...data[0].history.map((cur)=>
+                [ new Date(cur.amzn_fetch_date).getTime(), cur.amzn_price_fba || cur.amzn_price_fbm ])
+            ],
+
+            options: {
+              title: 'Profit overview',
+              curveType: 'function',
+              bar: { groupWidth: '75%' },
+              isStacked: true,
+              hAxis: {
+                ticks: data[0].history.map((cur)=> new Date(cur.amzn_fetch_date))
+              }
+            }
+          }
+
+          console.log(historicalData.options.hAxis.ticks)
+
+          if(mounted)
+            component.setState({ "historical": historicalData })
+          else{
+            backlog.historical.payload = historicalData
+            backlog.historical.pending = true
+          }
+        })
+        .catch(function(err){
+          console.log("error in catch from getHistoricalData in the DashboardContainer", err)
+        })
       }
     })
 
@@ -92,6 +135,11 @@ export default class DashboardContainer extends React.Component{
     if(backlog.tableData.pending){
       this.setState({ "tableData": backlog.tableData.payload })
       backlog.tableData.pending = false
+    }
+
+    if(backlog.tableData.pending){
+      this.setState({ "historical": backlog.historical.payload })
+      backlog.historical.pending = false
     }
 
     if(document.getElementById("table").getElementsByTagName('input') && document.getElementById("table").getElementsByTagName('input')[0])
@@ -165,6 +213,7 @@ export default class DashboardContainer extends React.Component{
     this.state = ({
       tableData: this.state.tableData,
       detail: this.state.detail,
+      historical: this.state.historical,
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -210,7 +259,9 @@ export default class DashboardContainer extends React.Component{
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
-      /><br/>
+      />
+
+      <br/>
       
       {this.state.tableData[0]
        ? <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
@@ -243,9 +294,13 @@ export default class DashboardContainer extends React.Component{
         hideDetails={this.handleBlur.bind(this)} 
         err_quantity={this.state.err_ship_quantity}
         quantity={this.state.ship_quantity}
-        data={this.state.detail} 
+        data={this.state.detail}
+        historical={this.state.historical.graphData}
+        options={this.state.historical.options} 
        />
        :null}
     </div>
   }
 }
+
+// [['Item ASIN', 'Cost', 'Profit'],[ 1,    12,   3],[ 2,    5.5,  4],[ 3,    14,   5],[ 4,    5,    2],[ 5,    3.5,  2],[ 6,    7,    5] ]
