@@ -1,5 +1,5 @@
 import React from 'react'
-import { LineChart, BarChart } from 'rd3'
+import { Chart } from 'react-google-charts'
 import { ProgressBar } from 'react-toolbox'
 
 import { subscribeTo } from '../util/util'
@@ -75,6 +75,30 @@ export default class HomeContainer extends React.Component{
       this.setState({ "notifications": backlog.notifications.payload })
       backlog.notifications.pending = false
     }
+
+
+    var options = {
+      title: 'Profit overview',
+      // hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+      // vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+      legend: { position: 'top', maxLines: 3 },
+      bar: { groupWidth: '75%' },
+      isStacked: true
+    };
+
+    var data = [
+      ['Item ASIN', 'Cost', 'Profit'],
+      [ 1,    12,   3],
+      [ 2,    5.5,  4],
+      [ 3,    14,   5]
+    ];
+    this.setState({
+      'data' : data,
+      'options' : options
+    });
+
+    //test re-rendering for new data
+    setTimeout(()=>{this.setState({'data': [['Item ASIN', 'Cost', 'Profit'],[ 1,    12,   3],[ 2,    5.5,  4],[ 3,    14,   5],[ 4,    5,    2],[ 5,    3.5,  2],[ 6,    7,    5] ]})}, 3000)
   }
 
   componentWillUnmount(){
@@ -86,25 +110,8 @@ export default class HomeContainer extends React.Component{
       { this.state.graphData.length > 0 && this.state.graphData[0].values.length === 0
        ? <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
        :<div> 
-        <div className="styles__centerGraph___PVBDK">
-          <LineChart
-            legend={false}
-            legendOffset={20}
-            data={this.state.graphData}
-            width={600}
-            height={500}
-            viewBoxObject={{
-              x: 0,
-              y: 0,
-              width: 400,
-              height: 400
-            }}
-            title="Inventory Value"
-            yAxisLabel="Value"
-            xAxisLabel="Time"
-            gridHorizontal={true}
-            yAxisLabelOffset={50}
-          />
+          <div className="styles__centerGraph___PVBDK">
+            <Chart chartType = "ColumnChart" data = {this.state.data} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
           </div>
           <Home data={this.state.notifications}/>
         </div>
