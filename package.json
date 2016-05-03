@@ -39,6 +39,7 @@
     "passport": "^0.3.2",
     "passport-amazon": "^1.0.0",
     "path": "^0.12.7",
+    "pg": "^4.5.5",
     "rd3": "^0.6.1",
     "react": "^15.0.1",
     "react-addons-test-utils": "^15.0.1",
