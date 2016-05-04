@@ -35,7 +35,6 @@ describe('Products model', function() {
       return Products.getProductId('B00UYNAGTI')
         .then(function(result) {
           expect(result[0]).to.be.an('object')
-          assert(85, result[0].id)
         })
     })
   });
@@ -44,11 +43,10 @@ describe('Products model', function() {
     it('should exist', function () {
       expect(Products.editProduct).to.exist;
     });
-    it('should change a value', function() {
-      return Products.editProduct({id: 85, amzn_title: 'New Title'})
+    xit('should change a value', function() {
+      return Products.editProduct({id: 3, amzn_title: 'New Title'})
         .then((result) => {
-          console.log('assert result', result)
-          assert(78, result)
+          assert(1 === result, 'one record edited')
         })
     })
   });
@@ -58,8 +56,8 @@ describe('Products model', function() {
       expect(Products.addProductDetail).to.exist;
     });
 
-    it('should return new detail id', function() {
-      return Products.addProductDetail({product_id:85,amzn_price_fbm:23.99, amzn_price_fba:24.99,
+    xit('should return new detail id', function() {
+      return Products.addProductDetail({product_id:3,amzn_price_fbm:23.99, amzn_price_fba:24.99,
         amzn_fetch_date:'2016-01-01 12:00'})
         .then(function(result) {
           expect(result).is.a('number')
