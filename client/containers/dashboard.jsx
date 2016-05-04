@@ -144,7 +144,7 @@ export default class DashboardContainer extends React.Component{
       backlog.historical.pending = false
     }
 
-    if(document.getElementById("styles__table___1QENt").getElementsByTagName('input') && document.getElementById("styles__table___1QENt").getElementsByTagName('input')[0])
+    if(document.getElementById("styles__table___1QENt") && document.getElementById("styles__table___1QENt").getElementsByTagName('input') && document.getElementById("styles__table___1QENt").getElementsByTagName('input')[0])
       document.getElementsByTagName('input')[0].placeholder = "Search Table . ."
   }
 
@@ -238,11 +238,10 @@ export default class DashboardContainer extends React.Component{
     this.setState({searchString: value})
   }
 
-  handleAmazonSearch(string){
+  handleAmazonSearch(){
     let component = this;
-    searchAmazonForASIN(string)
+    searchAmazonForASIN(this.state.searchString)
     .then(function(data){
-      console.log("helper", data)
       component.setState({searchResults: data})
     })
     .catch(function(err){

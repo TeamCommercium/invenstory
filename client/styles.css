@@ -52,6 +52,11 @@ table, td {
   color: white;
 }
 
+/* Should hopefully make the tab thing fixed
+:global(.style__navigation___VJ4pk){
+  position: fixed;
+  width: 100%;
+}*/
 
 /* Login page's backsplash */
 .titleImage{
@@ -71,7 +76,7 @@ table, td {
 /* logout button in the navbar */
 .logout {
   display: block;
-  position: absolute;
+  position: fixed;
   margin-right: 20px;
   right: 10px;
 }
