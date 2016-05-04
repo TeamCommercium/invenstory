@@ -59,7 +59,7 @@ exports.seed = function(knex, Promise) {
         amzn_list_price: 19.99,
         amzn_sales_rank: 23423,
         currency: 'USD',
-        fetch_date: '2016-04-21 19:33:57', //UTC
+        fetch_date: '2016-04-23 19:33:57', //UTC
       }).then(
         function(result) {
           var product_id = result[0]
