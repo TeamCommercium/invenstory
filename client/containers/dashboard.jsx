@@ -262,9 +262,9 @@ export default class DashboardContainer extends React.Component{
     this.setState({detail: {}});
   }
 
-  confirmDelete(params){
-    if(confirm("Are you sure you want to delete?"))
-      deleteInventoryItem({id: params})
+  confirmDelete(id, quantity, seller_sku){
+    if(confirm("Are you sure you want to delete all " + quantity + " units of " + seller_sku + " from your inventory?"))
+      deleteInventoryItem({id: id})
   }
 
   confirmShip(params){
@@ -272,6 +272,7 @@ export default class DashboardContainer extends React.Component{
     if (!this.state.ship_quantity || this.state.ship_quantity < 1) {
       this.setState({err_ship_quantity: "Please enter valid quantity"});
     } else {
+
       this.setState({err_ship_quantity: ''});
       shipInventoryItems({id: params, quantity: this.state.ship_quantity})
     } 
