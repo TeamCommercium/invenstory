@@ -76,7 +76,7 @@ table, td {
 /* logout button in the navbar */
 .logout {
   display: block;
-  position: fixed;
+  position: absolute;
   margin-right: 20px;
   right: 10px;
 }
