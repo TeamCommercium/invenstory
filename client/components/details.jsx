@@ -17,6 +17,7 @@ export default ({historical, options, data, hideDetails, deleteAll, confirmShip,
   <Button className="styles__detailButton___1aYnt" label='Ship' raised floating primary onMouseUp={confirmShip.bind(null, data.id )} />
   
   <Slider className="styles__detailSlider___317hh" pinned snaps min={0} max={data.quantity} step={1} editable value={quantity || 0} onChange={handleQuantityChange.bind(this)} />
+  <p>Total Cost: ${(data.avg_purchase_price * quantity).toFixed(2)}, Total Value: ${(data.amzn_price_fba * quantity).toFixed(2)}, Gain: {data.profit}%</p>
 
   <Chart className="styles__detailChart___1CgJr" chartType="LineChart" data={historical} options={options} />
 
