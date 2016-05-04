@@ -5,28 +5,28 @@ import { Chart } from 'react-google-charts'
 
 export default ({historical, options, data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
 <div className="styles__detailDisplay___2K0QU">
-  <img src={data.amzn_thumb_url} style={{height:200, width: 200, zIndex:-1, display: "inline", float: "right", marginRight:60}} />
-  <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
-  <Button className="" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id)} />
-  <Button className="" label='Edit' raised floating primary onMouseUp={function(){}} />
-  <Button className="" label='Add' raised floating primary onMouseUp={function(){}} />
-  <Button className="" label='Ship' raised floating primary onMouseUp={confirmShip.bind(null, data.id )} />
+  <img className="styles__detailImage___3CFNO" src={data.amzn_thumb_url} />
+  <h3 className="styles__detailTitle___2N12_"> {data.amzn_title} </h3>
+  <div className="styles__detailDescription___2v665"> {data.amzn_description} </div>
+  <div> Weight: {data.amzn_weight} </div>
+  <div> Sales Rank: {data.amzn_sales_rank} </div>
+  <div> ASIN: {data.amzn_asin} </div>
+  <Button className="styles__detailButton___1aYnt" label='Close' raised floating inverse onMouseUp={hideDetails} />
+  <Button className="styles__detailButton___1aYnt" label='Edit' raised floating primary onMouseUp={function(){}} />
+  <Button className="styles__detailButton___1aYnt" label='Add' raised floating primary onMouseUp={function(){}} />
+  <Button className="styles__detailButton___1aYnt" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id)} />
+  <Button className="styles__detailButton___1aYnt" label='Ship' raised floating primary onMouseUp={confirmShip.bind(null, data.id )} />
   <Input 
     className="styles__shortInputField___3ucFK"
     type='number' 
-    label='Ship qty'
+    label=''
     name='quantity'
     value={quantity}
     error={err_quantity}
     onChange={handleQuantityChange.bind(this)} 
   />
 
-  <h1> {data.amzn_title} </h1>
-  <Chart chartType="LineChart" data={historical} options={options} />
-  <div> {data.amzn_description} </div>
-  <div> Weight: {data.amzn_weight} </div>
-  <div> Rank: {data.amzn_sales_rank} </div>
-  <div> ASIN: {data.amzn_asin} </div>
+  <Chart className="styles__detailChart___1CgJr" chartType="LineChart" data={historical} options={options}  style="width: 500px; height: 200px" />
 </div>
 
 

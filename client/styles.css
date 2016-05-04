@@ -45,6 +45,7 @@ table, td {
 :global(.style__navigation___VJ4pk){
   box-shadow: inset 0 -1px #eeeeee;
   background: #3f51b6;
+  width: 100%;
 }
 
 /* Makes the selected tab's text */
@@ -109,7 +110,7 @@ table, td {
 /* On the Dashboard page, displays all individual data*/
 .detailDisplay{
   position: fixed;
-  padding: 30px;
+  padding: 10px;
 
   width: 100%;
   height: 200px;
@@ -118,14 +119,45 @@ table, td {
   bottom: 0;
 
   z-index: 5;
-  background: white;
+  background: #DBE9EE;
   box-shadow: 1px 2px 2px 2px #888888;
 
   overflow: auto;
 }
+
 .detailDisplay > button {
   margin: 10px;
   display: inline-block;
+}
+
+.detailImage {
+  height: 100;
+  width: 100;
+  z-index: -1;
+  display: inline;
+  float: left;
+  margin: 30px;
+  border: blue;
+}
+
+.detailButton {
+  height: 30px;
+  max-width: 40px;
+  font-size: 15px;
+}
+.detailTitle {
+  margin: 10px 0px 0px 10px;
+  font-size: 18px;
+}
+
+.detailDescription {
+  margin: 0px 0px 0px 10px;
+  font-size: 14px;
+  max-width: 750px;
+}
+
+.detailChart {
+  width: 300px;
 }
 
 .shortInputField{
@@ -136,8 +168,8 @@ table, td {
 /* Table on the dashboard */
 #table{
   display: block;
-  margin-bottom: 300px;
-  
+  margin-bottom: 200px;
+  margin-left: 20px;
 }
 
 
