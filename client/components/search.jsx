@@ -1,18 +1,6 @@
 import React from 'react'
 import { List, ListItem, ListSubHeader, Button, Input } from 'react-toolbox'
 
-/*
-
-  err_quantity={this.state.err_quantity}
-  err_purchase_date={this.state.err_purchase_date}
-  handleSearchStringChange={this.handleSearchStringChange.bind(this)}
-  handleAmazonSearch={this.handleAmazonSearch.bind(this)}
-  handleAmazonResultSelection={this.handleAmazonResultSelection.bind(this)}
-  handleSearchToggle={this.handleSearchToggle.bind(this)}
-  showSearch={this.state.showSearchOption}
-
- */
-
 export default ({inherit}) =>
 <div>
   {inherit.showSearch
@@ -50,4 +38,3 @@ export default ({inherit}) =>
         onMouseUp={inherit.handleSearchToggle}
       />
 </div>
-
