@@ -17,7 +17,7 @@ var dateFormat = require('dateformat')
 */
 exports.init = function() {
 
-  setInterval(amznPriceSvc, 10800000)
+  setInterval(amznPriceSvc, 1800000)
 }
 
 /**
