@@ -91,8 +91,8 @@ table, td {
 
 /* style for the parent div of the home page graph*/
 .centerGraph{
-  padding-left:25%;
-  padding-right:25%;
+  padding-left:10%;
+  padding-right:10%;
 }
 
 /* Login button on the login page that is ontop of the image*/
