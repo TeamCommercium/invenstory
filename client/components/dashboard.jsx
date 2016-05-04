@@ -5,7 +5,7 @@ import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-
 export default ({ columnNames, data }) =>
 <div>
   <Table
-    id="table" 
+    id="styles__table___1QENt" 
     data={data}
     filterable={columnNames} 
     sortable={[

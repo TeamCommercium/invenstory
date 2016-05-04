@@ -142,7 +142,7 @@ export default class DashboardContainer extends React.Component{
       backlog.historical.pending = false
     }
 
-    if(document.getElementById("table").getElementsByTagName('input') && document.getElementById("table").getElementsByTagName('input')[0])
+    if(document.getElementById("styles__table___1QENt").getElementsByTagName('input') && document.getElementById("styles__table___1QENt").getElementsByTagName('input')[0])
       document.getElementsByTagName('input')[0].placeholder = "Search Table . ."
   }
 
