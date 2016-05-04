@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Snackbar } from 'react-toolbox';
 
-import Dashboard from '../components/dashboard'
+import Table from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
@@ -52,6 +52,9 @@ export default class DashboardContainer extends React.Component{
       detail: {},
       historical: { graphData: null, options: null},
       showModal: false,
+      showSearchOption: false,
+      searchResults: [],
+      searchString: ''
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -162,6 +165,8 @@ export default class DashboardContainer extends React.Component{
     this.setState({showModal: !this.state.showModal});
   }
 
+
+
   handleSubmit(){
     let inputErr = 0;
     
@@ -209,10 +214,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   resetModal(){
-    this.state = ({
-      tableData: this.state.tableData,
-      detail: this.state.detail,
-      historical: this.state.historical,
+    this.setState({
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -224,12 +226,37 @@ export default class DashboardContainer extends React.Component{
       err_quantity: '',
       ship_quantity: '',
       err_ship_quantity: '',
+      showModal: false
+    });
+  }
+  
+  handleSearchStringChange(value){
+    this.setState({searchString: value})
+  }
+
+  handleAmazonSearch(string){
+    searchAmazonForASIN(string)
+    .then(function(){
+      //get data
+      //save to store or state
     })
-    this.setState({showModal: false});
+    .catch(function(err){
+      console.log("There was an error in handleAmazonSearch, dashboard container, line ~240")
+    })
+
+    //TODO: map the data into a List and ListItems (separate component)
+  }
+
+  handleAmazonResultSelection(ASIN){
+    this.setState({ 
+      asin: ASIN
+      searchResults: [],
+      searchString: '',
+      showSearchOption: false
+    })
   }
 
   handleBlur(){
-    console.log("handleBlur called")
     this.setState({detail: {}});
   }
 
@@ -270,7 +297,7 @@ export default class DashboardContainer extends React.Component{
        />
 
     if(this.state.tableData[0])
-      dashboard = <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
+      dashboard = <Table data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
 
 
     return <div>
@@ -279,9 +306,7 @@ export default class DashboardContainer extends React.Component{
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
       />
-
       <br/>
-      
       {dashboard}
       {this.props.children}
       <Addproduct 
@@ -299,10 +324,10 @@ export default class DashboardContainer extends React.Component{
         err_purchase_price={this.state.err_purchase_price}
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
+        search={this.handleAmazonSearch.bind(this)}
+        handleSearchStringChange={this.handleSearchStringChange.bind(this)}
       /> 
       {details}
     </div>
   }
 }
-
-// [['Item ASIN', 'Cost', 'Profit'],[ 1,    12,   3],[ 2,    5.5,  4],[ 3,    14,   5],[ 4,    5,    2],[ 5,    3.5,  2],[ 6,    7,    5] ]
