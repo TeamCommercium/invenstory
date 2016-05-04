@@ -1,9 +1,10 @@
 'use strict'
 
-const expect = require('chai').expect;
-const assert = require('chai').assert;
-const Products = require(__dirname + '/../../models/products_model.js')
-const db      = require('../../modules/config.js').db
+const expect    = require('chai').expect;
+const assert    = require('chai').assert;
+const Products  = require(__dirname + '/../../models/products_model.js')
+const db        = require('../../modules/config.js').db
+
 describe('Products model', function() {
 
   beforeEach(function(){
@@ -77,12 +78,11 @@ describe('Products model', function() {
     })
     it('should resolve to an array', function(done) {
       let uid = 2;
-      expect(Products.getProducts(uid)
+      Products.getProducts(uid)
         .then(function(result){
           expect(result).to.be.an('array')
           done()
         })
-      )
     })
   });
 });
