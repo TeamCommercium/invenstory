@@ -125,9 +125,9 @@ function processGeneralGraphData(inventory){
       [
         cur.seller_sku,
         Math.round(cur.avg_purchase_price*100)/100,
-        cur.amzn_title.slice(0,35) + " Cost:" + Math.round(cur.avg_purchase_price*100)/100,
+        cur.amzn_title.slice(0,35) + " COST: $" + cur.avg_purchase_price.toFixed(2),
         Math.round(cur.amzn_price_fba*100)/100,
-        cur.amzn_title.slice(0,40) + " Current Value:" + Math.round(cur.amzn_price_fba*100)/100
+        cur.amzn_title.slice(0,35) + " CUR VAL: $" + cur.amzn_price_fba.toFixed(2) + ", TOT VAL: $" + (cur.amzn_price_fba * cur.quantity).toFixed(2) + ", GAIN: " + cur.profit + "%"
       ]
     )
   })
