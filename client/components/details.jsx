@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table } from 'reactable'
-import { Button, Input } from 'react-toolbox'
+import { Button, Input, Slider } from 'react-toolbox'
 import { Chart } from 'react-google-charts'
 
 export default ({historical, options, data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
@@ -15,6 +15,16 @@ export default ({historical, options, data, hideDetails, deleteAll, confirmShip,
   <Button className="styles__detailButton___1aYnt" label='Add' raised floating primary onMouseUp={function(){}} />
   <Button className="styles__detailButton___1aYnt" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id)} />
   <Button className="styles__detailButton___1aYnt" label='Ship' raised floating primary onMouseUp={confirmShip.bind(null, data.id )} />
+  <Slider className="styles__detailSlider___317hh" pinned snaps min={0} max={data.quantity} step={1} editable value={quantity || 0} onChange={handleQuantityChange.bind(this)} />
+
+  <Chart className="styles__detailChart___1CgJr" chartType="LineChart" data={historical} options={options} />
+
+</div>
+
+
+
+/*
+
   <Input 
     className="styles__shortInputField___3ucFK"
     type='number' 
@@ -24,13 +34,7 @@ export default ({historical, options, data, hideDetails, deleteAll, confirmShip,
     error={err_quantity}
     onChange={handleQuantityChange.bind(this)} 
   />
-  <Chart className="styles__detailChart___1CgJr" chartType="LineChart" data={historical} options={options} />
 
-</div>
-
-
-
-/*
   {
     "amzn_weight":1,
     "amzn_asin":"B002HFHFCC",

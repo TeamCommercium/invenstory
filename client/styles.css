@@ -156,6 +156,11 @@ table, td {
   max-width: 750px;
 }
 
+.detailSlider {
+  width: 500px;
+  margin: auto;
+}
+
 .detailChart {
   width: 300px;
 }
@@ -168,7 +173,7 @@ table, td {
 /* Table on the dashboard */
 #table{
   display: block;
-  margin: 20px auto 250px auto;
+  margin: 10px auto 250px auto;
 /*  margin-bottom: 250px;
   margin-left: 20px;*/
 }
