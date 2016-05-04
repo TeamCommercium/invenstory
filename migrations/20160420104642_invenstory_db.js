@@ -15,18 +15,6 @@ exports.up = function(knex, Promise) {
       table.timestamps();
     }),
 
-    knex.schema.createTable("inventory", function (table) {
-      table.increments('id'); // integer id
-      table.integer('user_id').notNullable().references('users.id');
-      table.integer('product_id').notNullable().references('products.id');
-      table.string("sku");
-      table.date("purchase_date");
-      table.float("purchase_price");
-      table.boolean("shipped").defaultTo(false);
-      table.string("currency").defaultTo('USD');
-      table.timestamps();
-    }),
-
     knex.schema.createTable("products", function (table) {
       table.increments('id'); // integer id
       table.string('amzn_asin');
@@ -39,6 +27,18 @@ exports.up = function(knex, Promise) {
       table.string('currency').defaultTo('USD');
       table.integer('amzn_sales_rank');
       table.datetime('fetch_date'); //last time data was pulled
+    }),
+
+    knex.schema.createTable("inventory", function (table) {
+      table.increments('id'); // integer id
+      table.integer('user_id').notNullable().references('users.id');
+      table.integer('product_id').notNullable().references('products.id');
+      table.string("sku");
+      table.date("purchase_date");
+      table.float("purchase_price");
+      table.boolean("shipped").defaultTo(false);
+      table.string("currency").defaultTo('USD');
+      table.timestamps();
     }),
 
     knex.schema.createTable("product_details", function (table) {
@@ -55,10 +55,10 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all(
     [
-      knex.schema.dropTable('users'),
-      knex.schema.dropTable('products'),
       knex.schema.dropTable('product_details'),
       knex.schema.dropTable('inventory'),
+      knex.schema.dropTable('products'),
+      knex.schema.dropTable('users'),
     ]
   )
 };
