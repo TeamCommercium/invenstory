@@ -1,9 +1,11 @@
 import React from 'react'
 import { Button, Input, Dialog } from 'react-toolbox'
+import SearchModule from '../components/search'
 
 export default (props) =>
 <Dialog active={props.active} onOverlayClick={props.resetModal}>
   <h3 style={{color: "black", fontSize: 32, textAlign: "center"}}> Add Product</h3>
+  <SearchModule inherit={props}/>
   <Input 
     className=""
     type='text' 

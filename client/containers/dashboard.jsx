@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Snackbar } from 'react-toolbox';
 
-import Table from '../components/dashboard'
+import Table from '../components/table'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
@@ -54,7 +54,7 @@ export default class DashboardContainer extends React.Component{
       showModal: false,
       showSearchOption: false,
       searchResults: [],
-      searchString: ''
+      searchString: '',
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -230,26 +230,29 @@ export default class DashboardContainer extends React.Component{
     });
   }
   
+  handleSearchToggle(){
+    this.setState({showSearchOption: !this.state.showSearchOption})
+  }
+
   handleSearchStringChange(value){
     this.setState({searchString: value})
   }
 
   handleAmazonSearch(string){
+    let component = this;
     searchAmazonForASIN(string)
-    .then(function(){
-      //get data
-      //save to store or state
+    .then(function(data){
+      console.log("helper", data)
+      component.setState({searchResults: data})
     })
     .catch(function(err){
       console.log("There was an error in handleAmazonSearch, dashboard container, line ~240")
     })
-
-    //TODO: map the data into a List and ListItems (separate component)
   }
 
   handleAmazonResultSelection(ASIN){
     this.setState({ 
-      asin: ASIN
+      asin: ASIN,
       searchResults: [],
       searchString: '',
       showSearchOption: false
@@ -324,8 +327,12 @@ export default class DashboardContainer extends React.Component{
         err_purchase_price={this.state.err_purchase_price}
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
-        search={this.handleAmazonSearch.bind(this)}
         handleSearchStringChange={this.handleSearchStringChange.bind(this)}
+        handleAmazonSearch={this.handleAmazonSearch.bind(this)}
+        handleAmazonResultSelection={this.handleAmazonResultSelection.bind(this)}
+        handleSearchToggle={this.handleSearchToggle.bind(this)}
+        showSearch={this.state.showSearchOption}
+        searchResults={this.state.searchResults}
       /> 
       {details}
     </div>

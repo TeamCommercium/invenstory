@@ -20,9 +20,6 @@ export function searchAmazonForASIN(searchString){
   .then(function(response){
     return response.json()
   })
-  .then(function(data){
-    console.log("data from AMAZON", data)
-  })
   .catch(function(err){
     console.log("searchAmazonForASIN error:", err)
   })
