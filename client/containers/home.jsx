@@ -99,18 +99,20 @@ export default class HomeContainer extends React.Component{
 
     var notifications, dashboard;
 
-    if(this.state.graphData.length > 0 && this.state.graphData[1].length === 0)
-      dashboard = <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
-    else
+    if(this.state.notifications){
+      console.log("notifications work")
+      notifications = <Notifications data={this.state.notifications}/>
+    }
+
+    if(this.state.graphData.length > 0 && this.state.graphData[1] && this.state.graphData[1].length > 0)
       dashboard = <div> 
         <div className="styles__centerGraph___PVBDK">
           <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
         { notifications }
       </div>
-
-    if(this.state.notifications && this.state.notifications.length>0)
-      notifications = <Notifications data={this.state.notifications}/>
+    else
+      dashboard = <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
 
     return <div>{dashboard}</div>
   }

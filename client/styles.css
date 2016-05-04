@@ -52,6 +52,11 @@ table, td {
   color: white;
 }
 
+/* Should hopefully make the tab thing fixed
+:global(.style__navigation___VJ4pk){
+  position: fixed;
+  width: 100%;
+}*/
 
 /* Login page's backsplash */
 .titleImage{
