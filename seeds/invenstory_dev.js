@@ -10,7 +10,7 @@ exports.seed = function(knex, Promise) {
   .then(
     function(result) {
     // Seed users entries
-    Promise.join(
+    return Promise.join(
       knex('users').insert({
         id: 1,
         mws_auth_token: 'n0teyT0ken',
