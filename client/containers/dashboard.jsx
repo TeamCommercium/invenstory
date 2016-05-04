@@ -4,7 +4,7 @@ import { Button, Snackbar } from 'react-toolbox';
 import Dashboard from '../components/dashboard'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
-import { checkAuth, processNewInventory, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
+import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
 
@@ -23,7 +23,6 @@ import Details from '../components/details'
   The reason we are using state is because of 2 main reasons.
   1) We are currently not using React-Redux and updating state to rerender seems less hacky than forceUpdate.
   2) There are input fields in one of the components rendered here and it 
-
 
  */
 
@@ -254,6 +253,26 @@ export default class DashboardContainer extends React.Component{
   }
 
   render(){
+    var details, dashboard;
+
+    if(this.state.detail.amzn_asin)
+     details = <Details
+        handleQuantityChange={this.handleQuantityChange.bind(this)}
+        quantity={this.state.ship_quantity}
+        deleteAll={this.confirmDelete.bind(this)} 
+        confirmShip={this.confirmShip.bind(this)} 
+        hideDetails={this.handleBlur.bind(this)} 
+        err_quantity={this.state.err_ship_quantity}
+        quantity={this.state.ship_quantity}
+        data={this.state.detail}
+        historical={this.state.historical.graphData}
+        options={this.state.historical.options} 
+       />
+
+    if(this.state.tableData[0])
+      dashboard = <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
+
+
     return <div>
       <Button 
         className="styles__inlineButton___16AEc"
@@ -263,10 +282,7 @@ export default class DashboardContainer extends React.Component{
 
       <br/>
       
-      {this.state.tableData[0]
-       ? <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
-       : null
-      }
+      {dashboard}
       {this.props.children}
       <Addproduct 
         active={this.state.showModal}
@@ -284,21 +300,7 @@ export default class DashboardContainer extends React.Component{
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
       /> 
-
-      { this.state.detail.amzn_asin
-       ? <Details
-        handleQuantityChange={this.handleQuantityChange.bind(this)}
-        quantity={this.state.ship_quantity}
-        deleteAll={this.confirmDelete.bind(this)} 
-        confirmShip={this.confirmShip.bind(this)} 
-        hideDetails={this.handleBlur.bind(this)} 
-        err_quantity={this.state.err_ship_quantity}
-        quantity={this.state.ship_quantity}
-        data={this.state.detail}
-        historical={this.state.historical.graphData}
-        options={this.state.historical.options} 
-       />
-       :null}
+      {details}
     </div>
   }
 }

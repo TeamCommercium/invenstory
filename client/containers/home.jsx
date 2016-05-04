@@ -4,7 +4,7 @@ import { ProgressBar } from 'react-toolbox'
 
 import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory } from '../util/requests'
-import Home from '../components/home'
+import Notifications from '../components/notifications'
 import { store } from '../store/initStore'
 
 /*
@@ -96,21 +96,22 @@ export default class HomeContainer extends React.Component{
   }
 
   render(){
-    return <div>
-      { this.state.graphData.length > 0 && this.state.graphData[1].length === 0
-       ? <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
-       :<div> 
-          <div className="styles__centerGraph___PVBDK">
-            <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
-          </div>
 
-          { this.state.notifications && this.state.notifications.length>0
-           ? <Home data={this.state.notifications}/>
-           : null
-            
-          }
+    var notifications, dashboard;
+
+    if(this.state.graphData.length > 0 && this.state.graphData[1].length === 0)
+      dashboard = <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
+    else
+      dashboard = <div> 
+        <div className="styles__centerGraph___PVBDK">
+          <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
-      }
-    </div>
+        { notifications }
+      </div>
+
+    if(this.state.notifications && this.state.notifications.length>0)
+      notifications = <Notifications data={this.state.notifications}/>
+
+    return <div>{dashboard}</div>
   }
 }
