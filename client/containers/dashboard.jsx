@@ -263,15 +263,14 @@ export default class DashboardContainer extends React.Component{
   }
 
   confirmDelete(id, quantity, seller_sku){
-    if(confirm("Are you sure you want to delete all " + quantity + " units of " + seller_sku + " from your inventory?"))
+    if(confirm("Are you sure you want to delete all " + quantity + (quantity === 1 ? " unit of " : " units of ") + seller_sku + " from your inventory?"))
       deleteInventoryItem({id: id})
   }
 
-  confirmShip(id, seller_sku){
-    console.log(arguments)
+  confirmShip(id, seller_sku, amzn_price_fba){
     if (!this.state.ship_quantity || this.state.ship_quantity < 1) {
       this.setState({err_ship_quantity: "Please enter valid quantity"});
-    } else if (confirm("Please confirm that you are shipping " + this.state.ship_quantity + (this.state.ship_quantity === 1 ? " unit of " : " units of ") + seller_sku + " from your inventory?")) {
+    } else if (confirm("Please confirm that you are shipping " + this.state.ship_quantity + (this.state.ship_quantity === 1 ? " unit of " : " units of ") + seller_sku + " valued at $" + (amzn_price_fba * this.state.ship_quantity).toFixed(2) + " from your inventory?")) {
         this.setState({err_ship_quantity: ''});
         shipInventoryItems({id: id, quantity: this.state.ship_quantity})
     } 
