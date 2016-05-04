@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button, Snackbar } from 'react-toolbox';
 
-import Dashboard from '../components/dashboard'
+import Table from '../components/table'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
-import { checkAuth, processNewInventory, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
+import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Details from '../components/details'
 
@@ -23,7 +23,6 @@ import Details from '../components/details'
   The reason we are using state is because of 2 main reasons.
   1) We are currently not using React-Redux and updating state to rerender seems less hacky than forceUpdate.
   2) There are input fields in one of the components rendered here and it 
-
 
  */
 
@@ -53,6 +52,9 @@ export default class DashboardContainer extends React.Component{
       detail: {},
       historical: { graphData: null, options: null},
       showModal: false,
+      showSearchOption: false,
+      searchResults: [],
+      searchString: '',
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -163,6 +165,8 @@ export default class DashboardContainer extends React.Component{
     this.setState({showModal: !this.state.showModal});
   }
 
+
+
   handleSubmit(){
     let inputErr = 0;
     
@@ -210,10 +214,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   resetModal(){
-    this.state = ({
-      tableData: this.state.tableData,
-      detail: this.state.detail,
-      historical: this.state.historical,
+    this.setState({
       asin: '',
       seller_sku: '',
       purchase_price: '',
@@ -225,12 +226,40 @@ export default class DashboardContainer extends React.Component{
       err_quantity: '',
       ship_quantity: '',
       err_ship_quantity: '',
+      showModal: false
+    });
+  }
+  
+  handleSearchToggle(){
+    this.setState({showSearchOption: !this.state.showSearchOption})
+  }
+
+  handleSearchStringChange(value){
+    this.setState({searchString: value})
+  }
+
+  handleAmazonSearch(string){
+    let component = this;
+    searchAmazonForASIN(string)
+    .then(function(data){
+      console.log("helper", data)
+      component.setState({searchResults: data})
     })
-    this.setState({showModal: false});
+    .catch(function(err){
+      console.log("There was an error in handleAmazonSearch, dashboard container, line ~240")
+    })
+  }
+
+  handleAmazonResultSelection(ASIN){
+    this.setState({ 
+      asin: ASIN,
+      searchResults: [],
+      searchString: '',
+      showSearchOption: false
+    })
   }
 
   handleBlur(){
-    console.log("handleBlur called")
     this.setState({detail: {}});
   }
 
@@ -254,19 +283,34 @@ export default class DashboardContainer extends React.Component{
   }
 
   render(){
+    var details, dashboard;
+
+    if(this.state.detail.amzn_asin)
+     details = <Details
+        handleQuantityChange={this.handleQuantityChange.bind(this)}
+        quantity={this.state.ship_quantity}
+        deleteAll={this.confirmDelete.bind(this)} 
+        confirmShip={this.confirmShip.bind(this)} 
+        hideDetails={this.handleBlur.bind(this)} 
+        err_quantity={this.state.err_ship_quantity}
+        quantity={this.state.ship_quantity}
+        data={this.state.detail}
+        historical={this.state.historical.graphData}
+        options={this.state.historical.options} 
+       />
+
+    if(this.state.tableData[0])
+      dashboard = <Table data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
+
+
     return <div>
       <Button 
         className="styles__inlineButton___16AEc"
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
       />
-
       <br/>
-      
-      {this.state.tableData[0]
-       ? <Dashboard data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
-       : null
-      }
+      {dashboard}
       {this.props.children}
       <Addproduct 
         active={this.state.showModal}
@@ -283,24 +327,14 @@ export default class DashboardContainer extends React.Component{
         err_purchase_price={this.state.err_purchase_price}
         err_quantity={this.state.err_quantity}
         err_purchase_date={this.state.err_purchase_date}
+        handleSearchStringChange={this.handleSearchStringChange.bind(this)}
+        handleAmazonSearch={this.handleAmazonSearch.bind(this)}
+        handleAmazonResultSelection={this.handleAmazonResultSelection.bind(this)}
+        handleSearchToggle={this.handleSearchToggle.bind(this)}
+        showSearch={this.state.showSearchOption}
+        searchResults={this.state.searchResults}
       /> 
-
-      { this.state.detail.amzn_asin
-       ? <Details
-        handleQuantityChange={this.handleQuantityChange.bind(this)}
-        quantity={this.state.ship_quantity}
-        deleteAll={this.confirmDelete.bind(this)} 
-        confirmShip={this.confirmShip.bind(this)} 
-        hideDetails={this.handleBlur.bind(this)} 
-        err_quantity={this.state.err_ship_quantity}
-        quantity={this.state.ship_quantity}
-        data={this.state.detail}
-        historical={this.state.historical.graphData}
-        options={this.state.historical.options} 
-       />
-       :null}
+      {details}
     </div>
   }
 }
-
-// [['Item ASIN', 'Cost', 'Profit'],[ 1,    12,   3],[ 2,    5.5,  4],[ 3,    14,   5],[ 4,    5,    2],[ 5,    3.5,  2],[ 6,    7,    5] ]

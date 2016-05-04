@@ -51,7 +51,6 @@ var router = express.Router()
     })
  })
 
-
  /**
   * @api {get} /products/search List User's Products
   *
@@ -72,6 +71,7 @@ var router = express.Router()
   *
   * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
   */
+ 
  .get('/search', (req, res) => {
 
    let query = req.query.q

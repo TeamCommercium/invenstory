@@ -5,6 +5,26 @@ import { smartDispatch } from '../dispatcher'
 import { redirect, processNewData } from './util'
 import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
+// searchAmazonForASIN("lego batman")
+export function searchAmazonForASIN(searchString){
+  return fetch(`/products/search?q=${searchString}`,
+    {
+      credentials: 'include',
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+  .then(function(response){
+    return response.json()
+  })
+  .catch(function(err){
+    console.log("searchAmazonForASIN error:", err)
+  })
+}
+
 
 /*
   function getHistoricalData:
