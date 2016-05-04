@@ -65,10 +65,9 @@
 
      product.amzn_asin = responseArr[i].Identifiers[0].MarketplaceASIN[0].ASIN[0];
      product.amzn_title = attrPath["ns2:Title"][0];
-    //  log('attrPath:',attrPath)
      product.amzn_description = attrPath["ns2:Feature"] ? attrPath["ns2:Feature"].join(". ") : '';
-     product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
-     product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
+     product.amzn_manufacturer = attrPath["ns2:Manufacturer"] ? attrPath["ns2:Manufacturer"][0] : '';
+     product.amzn_weight = attrPath["ns2:PackageDimensions"] && attrPath["ns2:PackageDimensions"][0]["ns2:Weight"] ? Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._) : '';
      product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0] || '';
      product.amzn_sales_rank = typeof responseArr[i].SalesRankings[0] === 'object' ? Number(responseArr[i].SalesRankings[0].SalesRank[0].Rank[0]) : '';
 
