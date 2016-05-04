@@ -31,9 +31,12 @@ var amazonMWS = require('../api/amazonMWS.js');
               .leftJoin('product_details', function() {
                 this.on('product_details.product_id','products.id').andOn('products.fetch_date', 'product_details.amzn_fetch_date')
               } )
-              .select('products.id', 'products.amzn_title','products.amzn_description', 'product_details.amzn_price_fbm', 'inventory.sku as seller_sku', 'products.amzn_asin', 'product_details.amzn_price_fba', 'products.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer', 'products.amzn_thumb_url')
-              .groupBy('inventory.product_id')
+              .select('products.id', 'products.amzn_title','products.amzn_description', 'products.amzn_asin',  'products.amzn_sales_rank', 'amzn_weight', 'amzn_manufacturer', 'products.amzn_thumb_url')
+              .max('product_details.amzn_price_fba')
+              .max('product_details.amzn_price_fbm')
+              .groupBy('inventory.product_id', 'products.id')
               .avg('purchase_price as avg_purchase_price')
+              .max('inventory.sku as seller_sku')
               .count('inventory.product_id as quantity')
               .where(whereClause)
               .then(function(data){
