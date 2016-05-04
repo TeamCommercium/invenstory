@@ -263,7 +263,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   confirmDelete(params){
-    if(confirm("Are you sure you want to delete"))
+    if(confirm("Are you sure you want to delete?"))
       deleteInventoryItem({id: params})
   }
 

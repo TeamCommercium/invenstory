@@ -8,9 +8,8 @@ export default ({historical, options, data, hideDetails, deleteAll, confirmShip,
   <img className="styles__detailImage___3CFNO" src={data.amzn_thumb_url} />
   <h3 className="styles__detailTitle___2N12_"> {data.amzn_title} </h3>
   <div className="styles__detailDescription___2v665"> {data.amzn_description} </div>
-  <div> Weight: {data.amzn_weight} </div>
   <div> Sales Rank: {data.amzn_sales_rank} </div>
-  <div> ASIN: {data.amzn_asin} </div>
+  <div> Weight: {data.amzn_weight} lbs</div>
   <Button className="styles__detailButton___1aYnt" label='Close' raised floating inverse onMouseUp={hideDetails} />
   <Button className="styles__detailButton___1aYnt" label='Edit' raised floating primary onMouseUp={function(){}} />
   <Button className="styles__detailButton___1aYnt" label='Add' raised floating primary onMouseUp={function(){}} />
@@ -25,8 +24,8 @@ export default ({historical, options, data, hideDetails, deleteAll, confirmShip,
     error={err_quantity}
     onChange={handleQuantityChange.bind(this)} 
   />
+  <Chart className="styles__detailChart___1CgJr" chartType="LineChart" data={historical} options={options} />
 
-  <Chart className="styles__detailChart___1CgJr" chartType="LineChart" data={historical} options={options}  style="width: 500px; height: 200px" />
 </div>
 
 
