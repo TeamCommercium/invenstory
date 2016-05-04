@@ -117,3 +117,19 @@ exports.authenticate =
       }
     }
   })
+
+/**
+ * jwtUnauth - Error handling middleware for JWT Authentication
+ * @param  {Object}   err  Error
+ * @param  {Object}   req  Request
+ * @param  {Object}   res  Response
+ * @param  {Function} next 
+ * @return {Object}        Response Object with error text and status
+ */
+exports.jwtUnauth = function(err, req, res, next){
+  if (err.name === "UnauthorizedError") {
+    res.status(401).send('Invalid User Token')
+  }
+
+}
+
