@@ -27,7 +27,7 @@ exports.amazonAuth = {
 }
 
 exports.jwtConfig = {
-                    secret: 'doobydoobydooo'
+                    secret: process.env.JWT_SECRET || "dp4L2lRayDn4RvN4tr3hziqb5Df/3IR/L9TrrGhm+Em"
 }
 
  exports.db = require('knex')(require('../../knexfile.js')[exports.state.env])

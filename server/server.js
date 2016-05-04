@@ -8,6 +8,7 @@ var amazonMWS = require('./api/amazonMWS.js')
 var userAPI = require('./api/user_api.js')
 var cookieParser = require('cookie-parser')
 var authenticate = require('./modules/utilities').authenticate
+var jwtUnauth = require('./modules/utilities').jwtUnauth
 var fs = require('fs');
 var http = require('http')
 var https = require('https')
@@ -24,6 +25,7 @@ const app = express()
 app.use(express.static(path.join(__dirname, '../dist')))
 app.use(cookieParser())
 
+
 app.use("/auth", authAPI)
 app.use("/inventory", authenticate, inventoryAPI)
 app.use("/user", authenticate, userAPI)
@@ -34,6 +36,8 @@ app.get('/', (req,res) => res.send())
 app.all('*', function(req, res){
   res.redirect('/')
 })
+
+app.use(jwtUnauth)
 
 var httpServer = http.createServer(app)
 var httpsServer = https.createServer(credentials, app)
