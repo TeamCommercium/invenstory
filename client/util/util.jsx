@@ -121,13 +121,14 @@ function processGeneralGraphData(inventory){
 
   let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}, 'Current Value', {type: 'string', role: 'tooltip'}]]; 
   let priceData = inventory.forEach(function(cur, ind){
+    const amznPrice = cur.amzn_price_fba || cur.amzn_price_fbm;
     lineData.push(
       [
         cur.seller_sku,
-        Math.round(cur.avg_purchase_price*100)/100,
+        Math.round(cur.avg_purchase_price*100) / 100,
         cur.amzn_title && cur.amzn_title.slice(0,35) + ", QTY:" + cur.quantity + " COST: $" + cur.avg_purchase_price.toFixed(2) + " TOT COST: $" + (cur.avg_purchase_price * cur.quantity).toFixed(2),
-        Math.round(cur.amzn_price_fba*100)/100,
-        cur.amzn_title && cur.amzn_title.slice(0,35) + ", CUR VAL: $" + cur.amzn_price_fba.toFixed(2) + " TOT VAL: $" + (cur.amzn_price_fba * cur.quantity).toFixed(2) + " GAIN: " + cur.profit + "%"
+        Math.round(amznPrice * 100) / 100,
+        cur.amzn_title && cur.amzn_title.slice(0,35) + ", CUR VAL: $" + amznPrice.toFixed(2) + " TOT VAL: $" + (amznPrice * cur.quantity).toFixed(2) + " GAIN: " + (amznPrice / cur.avg_purchase_price * 100).toFixed(0) + "%"
       ]
     )
   })
@@ -146,8 +147,8 @@ function processGeneralTableData(inventory){
       "Cost": cur.avg_purchase_price && Math.round(cur.avg_purchase_price*100)/100,
       "FBM Price": cur.amzn_price_fbm && Math.round(cur.amzn_price_fbm*100)/100,
       "FBA Price": cur.amzn_price_fba && Math.round(cur.amzn_price_fba*100)/100,
-      "Tot Value": cur.amzn_price_fba && Math.round(cur.amzn_price_fba * cur.quantity * 100)/100,
-      "% Gain": cur.profit,
+      "Tot Value": cur.amzn_price_fba ? Math.round(cur.amzn_price_fba * cur.quantity * 100)/100 : Math.round(cur.amzn_price_fbm * cur.quantity * 100)/100,
+      "% Gain": Math.round((cur.amzn_price_fba || cur.amzn_price_fbm) / cur.avg_purchase_price * 100),
       "Details": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
