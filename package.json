@@ -4,6 +4,7 @@
   "description": "Invenstory provides Amazon sellers with a useful information dashboard.",
   "main": "server.js",
   "scripts": {
+    "pretest": "./node_modules/.bin/knex seed:run",
     "test": "./node_modules/.bin/mocha --compilers .:client/test/compiler.js,.:babel-core/register server/test client/test/ --recursive",
     "hot": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --progress --colors",
     "front": "./node_modules/webpack/bin/webpack.js --watch --progress --colors",

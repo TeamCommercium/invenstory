@@ -7,10 +7,6 @@ const db        = require('../../modules/config.js').db
 
 describe('Products model', function() {
 
-  beforeEach(function(){
-    db.seed.run()
-  })
-
   describe('#addProduct', function () {
 
     it('should exist', function () {
