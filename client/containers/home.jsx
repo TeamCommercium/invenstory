@@ -2,7 +2,6 @@ import React from 'react'
 import { Chart } from 'react-google-charts'
 import { ProgressBar } from 'react-toolbox'
 
-
 import { UPDATE_DETAIL_DATA, CHANGE_TAB } from '../actionTypes'
 import { smartDispatch } from '../dispatcher'
 import { subscribeTo } from '../util/util'
