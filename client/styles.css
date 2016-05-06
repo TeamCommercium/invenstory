@@ -45,6 +45,8 @@ table, td {
 :global(.style__navigation___VJ4pk){
   box-shadow: inset 0 -1px #eeeeee;
   background: #3f51b6;
+  width: 100%;
+  /*height: 70px*/
 }
 
 /* Makes the selected tab's text */
@@ -89,8 +91,8 @@ table, td {
 
 /* style for the parent div of the home page graph*/
 .centerGraph{
-  padding-left:25%;
-  padding-right:25%;
+  padding-left:10%;
+  padding-right:10%;
 }
 
 /* Login button on the login page that is ontop of the image*/
@@ -109,10 +111,10 @@ table, td {
 /* On the Dashboard page, displays all individual data*/
 .detailDisplay{
   position: fixed;
-  padding: 30px;
+  padding: 0px;
 
   width: 100%;
-  height: 200px;
+  height: 500px;
 
   left:0;
   bottom: 0;
@@ -123,9 +125,45 @@ table, td {
 
   overflow: auto;
 }
+
 .detailDisplay > button {
   margin: 10px;
   display: inline-block;
+}
+
+.detailImage {
+  height: 150;
+  width: 150;
+  z-index: -1;
+  display: inline;
+  float: left;
+  margin: 30px;
+  border: blue;
+}
+
+.detailButton {
+  height: 30px;
+  max-width: 40px;
+  font-size: 15px;
+}
+.detailTitle {
+  margin: 10px 0px 0px 10px;
+  font-size: 18px;
+}
+
+.detailDescription {
+  margin: 0px 0px 0px 10px;
+  font-size: 14px;
+  max-width: 750px;
+}
+
+.detailSlider {
+  width: 500px;
+  margin-left: 120px;
+}
+
+.detailChart {
+  width: 300px;
 }
 
 .shortInputField{
@@ -136,8 +174,7 @@ table, td {
 /* Table on the dashboard */
 #table{
   display: block;
-  margin-bottom: 300px;
-  
+  margin: 10px 25px 500px 25px;
+/*  margin-bottom: 250px;
+  margin-left: 20px;*/
 }
-
-
