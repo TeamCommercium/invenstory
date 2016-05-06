@@ -340,6 +340,7 @@ export default class DashboardContainer extends React.Component{
         handleSearchToggle={this.handleSearchToggle.bind(this)}
         showSearch={this.state.showSearchOption}
         searchResults={this.state.searchResults}
+        searchString={this.state.searchString}
       /> 
       {details}
     </div>

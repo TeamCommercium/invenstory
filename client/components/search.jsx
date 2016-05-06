@@ -8,6 +8,7 @@ export default ({inherit}) =>
      <Input 
       label='Search Amazon'
       name='Search Amazon'
+      value={inherit.searchString}
       onChange={inherit.handleSearchStringChange}
     />
 
