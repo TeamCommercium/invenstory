@@ -281,7 +281,6 @@ export default class DashboardContainer extends React.Component{
   }
 
   smartAdd(data){
-    console.log("Smart add", arguments)
     this.setState({
       asin: data.amzn_asin,
       seller_sku: data.seller_sku,

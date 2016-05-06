@@ -95,8 +95,32 @@ export function processNewData(data){
 
 
 function processRawInventory(inventory){
+
+  // "id"
+  // "amzn_title"
+  // "amzn_description"
+  // "amzn_asin"
+  // "amzn_sales_rank"
+  // "amzn_weight"
+  // "amzn_manufacturer"
+  // "amzn_thumb_url"
+  // "amzn_price_fba"
+  // "amzn_price_fbm"
+  // "seller_sku"
+  // "avg_purchase_price"
+  // "quantity"
+  // "profit"
+
   inventory = inventory.map(function(cur){
     cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
+    console.log("process inventory", Object.keys(cur), JSON.stringify(cur))
+    for(var key in cur){
+      console.log("key", key)
+      if(cur[key] === null || cur[key] === undefined)
+        cur[key] = 0
+    }
+    console.log("post cleanup", JSON.stringify(cur))
+
     return cur
   })
   smartDispatch(UPDATE_INVENTORY, inventory)
