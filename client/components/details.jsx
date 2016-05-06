@@ -1,37 +1,44 @@
 import React from 'react'
 import { Table } from 'reactable'
-import { Button, Input } from 'react-toolbox'
+import { Button, Input, Slider } from 'react-toolbox'
 import { Chart } from 'react-google-charts'
 
 export default ({historical, options, data, hideDetails, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity }) =>
 <div className="styles__detailDisplay___2K0QU">
-  <img src={data.amzn_thumb_url} style={{height:200, width: 200, zIndex:-1, display: "inline", float: "right", marginRight:60}} />
-  <Button label='Close' raised floating inverse onMouseUp={hideDetails} />
-  <Button className="" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id)} />
-  <Button className="" label='Edit' raised floating primary onMouseUp={function(){}} />
-  <Button className="" label='Add' raised floating primary onMouseUp={function(){}} />
-  <Button className="" label='Ship' raised floating primary onMouseUp={confirmShip.bind(null, data.id )} />
+  <img className="styles__detailImage___3CFNO" src={data.amzn_thumb_url} />
+  <h3 className="styles__detailTitle___2N12_"> {data.amzn_title} </h3>
+  <div className="styles__detailDescription___2v665"> {data.amzn_description} </div>
+  <div> Sales Rank: {data.amzn_sales_rank} </div>
+  <div> Weight: {data.amzn_weight} lbs</div>
+  <Button className="styles__detailButton___1aYnt" label='Close' raised floating inverse onMouseUp={hideDetails} />
+  <Button className="styles__detailButton___1aYnt" label='Edit' raised floating primary onMouseUp={function(){}} />
+  <Button className="styles__detailButton___1aYnt" label='Add' raised floating primary onMouseUp={function(){}} />
+  <Button className="styles__detailButton___1aYnt" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id, data.quantity, data.seller_sku)} />
+  <Button className="styles__detailButton___1aYnt" label='Ship' raised floating primary onMouseUp={confirmShip.bind(null, data.id, data.seller_sku, data.amzn_price_fba || data.amzn_price_fbm)} />
+  
+  <Slider className="styles__detailSlider___317hh" pinned snaps min={0} max={data.quantity} step={1} editable value={quantity || 0} onChange={handleQuantityChange.bind(this)} />
+  <p>
+    Total Cost: ${(data.avg_purchase_price * quantity).toFixed(2)}, Total Value: ${(data.amzn_price_fba * quantity).toFixed(2)}, Net Gain: ${((data.amzn_price_fba - data.avg_purchase_price) * quantity).toFixed(2)}, ROI: {quantity ? data.profit : 0}%
+  </p>
+
+  <Chart className="styles__detailChart___1CgJr" chartType="LineChart" data={historical} options={options} />
+
+</div>
+
+
+
+/*
+
   <Input 
     className="styles__shortInputField___3ucFK"
     type='number' 
-    label='Ship qty'
+    label=''
     name='quantity'
     value={quantity}
     error={err_quantity}
     onChange={handleQuantityChange.bind(this)} 
   />
 
-  <h1> {data.amzn_title} </h1>
-  <Chart chartType="LineChart" data={historical} options={options} />
-  <div> {data.amzn_description} </div>
-  <div> Weight: {data.amzn_weight} </div>
-  <div> Rank: {data.amzn_sales_rank} </div>
-  <div> ASIN: {data.amzn_asin} </div>
-</div>
-
-
-
-/*
   {
     "amzn_weight":1,
     "amzn_asin":"B002HFHFCC",
