@@ -95,9 +95,14 @@ export function processNewData(data){
 
 
 function processRawInventory(inventory){
+
   inventory = inventory.map(function(cur){
     cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
-    return cur
+     return Object.keys(cur).map(function(key){
+      return (cur[key] === null || cur[key] === undefined)
+        ? cur[key] = 0
+        : cur[key]
+     })
   })
   smartDispatch(UPDATE_INVENTORY, inventory)
 }
@@ -106,6 +111,9 @@ function processNotifications(inventory){
 
   let notifications = inventory.filter(function(cur){
     return cur.profit > 150 //could build in setting here
+  })
+  .sort(function(a, b){
+    return b.profit - a.profit
   })
 
   smartDispatch(UPDATE_NOTIFICATIONS, notifications)

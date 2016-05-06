@@ -280,11 +280,20 @@ export default class DashboardContainer extends React.Component{
     this.setState({ship_quantity: val})
   }
 
+  smartAdd(data){
+    this.setState({
+      asin: data.amzn_asin,
+      seller_sku: data.seller_sku,
+      showModal: true,
+    });
+  }
+
   render(){
     var details, dashboard;
 
-    if(this.state.detail.amzn_asin)
+    if(this.state.detail && this.state.detail.amzn_asin)
      details = <Details
+        smartAdd={this.smartAdd.bind(this)}
         handleQuantityChange={this.handleQuantityChange.bind(this)}
         quantity={this.state.ship_quantity}
         deleteAll={this.confirmDelete.bind(this)} 

@@ -2,6 +2,9 @@ import React from 'react'
 import { Chart } from 'react-google-charts'
 import { ProgressBar } from 'react-toolbox'
 
+
+import { UPDATE_DETAIL_DATA, CHANGE_TAB } from '../actionTypes'
+import { smartDispatch } from '../dispatcher'
 import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory } from '../util/requests'
 import Notifications from '../components/notifications'
@@ -95,19 +98,26 @@ export default class HomeContainer extends React.Component{
     mounted = false;
   }
 
+  visitItem(cur){
+    if(typeof cur === 'object'){
+      smartDispatch(CHANGE_TAB, 1)
+      setTimeout(smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 0)
+    }
+  }
+
   render(){
 
     var notifications, dashboard;
 
     if(this.state.notifications){
       console.log("notifications work")
-      notifications = <Notifications data={this.state.notifications}/>
+      notifications = <Notifications visitItem={this.visitItem} data={this.state.notifications}/>
     }
 
     if(this.state.graphData.length > 0 && this.state.graphData[1] && this.state.graphData[1].length > 0)
       dashboard = <div> 
         <div className="styles__centerGraph___PVBDK">
-          <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"500px"}  legend_toggle={true} />
+          <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
         { notifications }
       </div>
