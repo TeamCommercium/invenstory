@@ -283,7 +283,7 @@ export default class DashboardContainer extends React.Component{
   render(){
     var details, dashboard;
 
-    if(this.state.detail.amzn_asin)
+    if(this.state.detail && this.state.detail.amzn_asin)
      details = <Details
         handleQuantityChange={this.handleQuantityChange.bind(this)}
         quantity={this.state.ship_quantity}

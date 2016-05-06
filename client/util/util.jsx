@@ -107,6 +107,9 @@ function processNotifications(inventory){
   let notifications = inventory.filter(function(cur){
     return cur.profit > 150 //could build in setting here
   })
+  .sort(function(a, b){
+    return b.profit - a.profit
+  })
 
   smartDispatch(UPDATE_NOTIFICATIONS, notifications)
 }
