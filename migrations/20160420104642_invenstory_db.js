@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
       table.increments('id'); // integer id
       table.string('amzn_asin');
       table.string('amzn_title');
-      table.string('amzn_description');
+      table.text('amzn_description');
       table.string('amzn_manufacturer');
       table.float('amzn_weight');
       table.string('amzn_thumb_url'); //url of thumbnail image
