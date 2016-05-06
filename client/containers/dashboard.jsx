@@ -91,7 +91,7 @@ export default class DashboardContainer extends React.Component{
             ],
 
             options: {
-              title: 'Profit overview',
+              title: 'Product Historical Price Data',
               curveType: 'function',
               bar: { groupWidth: '75%' },
               isStacked: true,
