@@ -90,7 +90,6 @@ export default class HomeContainer extends React.Component{
     this.setState({
       'options' : options
     });
-
   }
 
   componentWillUnmount(){
@@ -109,7 +108,6 @@ export default class HomeContainer extends React.Component{
     var notifications, dashboard;
 
     if(this.state.notifications){
-      console.log("notifications work")
       notifications = <Notifications visitItem={this.visitItem} data={this.state.notifications}/>
     }
 
