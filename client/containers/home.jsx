@@ -101,8 +101,7 @@ export default class HomeContainer extends React.Component{
   visitItem(cur){
     if(typeof cur === 'object'){
       smartDispatch(CHANGE_TAB, 1)
-
-      setTimeout(smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 100)
+      setTimeout(smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 0)
     }
   }
 
@@ -118,7 +117,7 @@ export default class HomeContainer extends React.Component{
     if(this.state.graphData.length > 0 && this.state.graphData[1] && this.state.graphData[1].length > 0)
       dashboard = <div> 
         <div className="styles__centerGraph___PVBDK">
-          <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"500px"}  legend_toggle={true} />
+          <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
         { notifications }
       </div>
