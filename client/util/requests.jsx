@@ -177,7 +177,7 @@ export function checkAuth(){
  */
 
 processNewInventory()
-// setInterval(processNewInventory, 2000);
+setInterval(processNewInventory, 2000);
 
 export function processNewInventory(){
 

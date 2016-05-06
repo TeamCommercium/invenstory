@@ -141,9 +141,15 @@ table, td {
   border: blue;
 }
 
+.detailButtonsDiv{
+  margin-left: 100px;
+}
+
 .detailButton {
   height: 30px;
-  max-width: 40px;
+  display: inline-block;
+  margin: 10px 5px 0px 5px;
+  min-width: 100px;
   font-size: 15px;
 }
 .detailTitle {
@@ -158,18 +164,24 @@ table, td {
 }
 
 .detailSlider {
-  width: 500px;
-  margin-left: 120px;
+  width: 60%;
+  margin: 0px 20px 20px 20px;
+
+}
+
+.detailSliderInfo {
+  display: inline-block;
+  margin: 20px 20px 0px 50px;
 }
 
 .detailChart {
-  width: 300px;
+  max-width: 500px;
 }
 
-.shortInputField{
+/*.shortInputField{
   height: 20px;
   width: 100px;
-}
+}*/
 
 /* Table on the dashboard */
 #table{
