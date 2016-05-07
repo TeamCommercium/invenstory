@@ -118,7 +118,7 @@ var router = express.Router()
   * @apiUse restricted
   * @apiPermission user
   *
-  * @apiDescription Endpoint to cause user's credentials to expire.
+  * @apiDescription Endpoint clears the cookie with auth token.
   */
  .get('/logout', function(req, res) {
       res.clearCookie('Token')
