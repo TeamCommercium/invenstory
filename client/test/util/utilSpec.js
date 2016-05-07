@@ -43,7 +43,8 @@ describe('Client: util/util.jsx', function () {
     expect(typeof subscribeTo).to.equal("function")
   });
 
-  it('function subscribeTo should not call the callback provided when the changed property doesn\'t match', function () {
+  // could test each description
+  it('function subscribeTo should call the callback provided when the changed property matches', function () {
     expect(normalSubscribeSpy.callCount).to.equal(0)
     expect(fancySubscribeSpy.callCount).to.equal(0)
     store.dispatch({type: "UPDATE_LAST_CHANGED", data: "CHANGE_TAB"})
@@ -52,7 +53,10 @@ describe('Client: util/util.jsx', function () {
 
     // Changing "last changed" counts as an update
     expect(fancySubscribeSpy.callCount).to.equal(2)
+  });
 
+  it('function subscribeTo should not call the callback provided when the changed property doesn\'t match', function () {
+  
     store.dispatch({type: "UPDATE_LAST_CHANGED", data: "UPDATE_NOTIFICATIONS"})
     store.dispatch({type: "CHANGE_TAB", data: 0})
     store.dispatch({type: "UPDATE_NOTIFICATIONS", data: 0})
