@@ -21,7 +21,7 @@ describe('Client: store/initStore.jsx', function () {
     expect(store.subscribe).to.exist
   });
 
-  xit('getState should inherit properties from the initialState', function () {
+  it('getState should inherit properties from the initialState', function () {
     expect(store.getState()).to.contain(initialState)
   });
 });

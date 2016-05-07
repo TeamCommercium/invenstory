@@ -8,7 +8,6 @@ import tabReducer from '../reducers/tab'
 import detailReducer from '../reducers/detail'
 import tableDataReducer from '../reducers/table'
 import graphDataReducer from '../reducers/graph'
-import inventoryReducer from '../reducers/inventory'
 import authenticationReducer from '../reducers/authentication'
 import lastChangedReducer from '../reducers/lastChanged'
 import initialState from './initialState'
@@ -20,7 +19,6 @@ export const store = createStore(
     tableData: tableDataReducer,
     graphData: graphDataReducer,
     authenticated: authenticationReducer,
-    inventory: inventoryReducer,
     lastChanged: lastChangedReducer,
     detail: detailReducer,
     routing: routerReducer,
