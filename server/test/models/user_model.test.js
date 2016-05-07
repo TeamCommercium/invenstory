@@ -3,10 +3,11 @@ var expect = require('chai').expect;
 var User = require(__dirname + '/../../models/user_model.js')
 
 describe('User model', function() {
+
   describe('#findOrCreateUser', function () {
 
     it('should exist', function () {
-      expect(User.findOrCreateUser).to.exist;
+      expect(User.findOrCreateUser).to.exist
     });
 
     it('should should return an array with id for a new user', function () {
@@ -25,9 +26,4 @@ describe('User model', function() {
 
   });
 
-  describe('#updateUser', function () {
-    it('should exist', function () {
-      expect(User.updateUser).to.exist;
-    });
-  });
 });

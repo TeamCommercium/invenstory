@@ -51,26 +51,6 @@ var createUser = function (params) {
 }
 
 /**
- * updateUser - Update a user record.
- *
- * @param {Object}    params            Properties to update.
- * @param {integer}   params.id         User to update.
- * @param {string}    params.mws_auth_token
- * @param {integer}   params.seller_id
- * @param {string}    params.mws_marketplace
- * @return {integer}  Resolves to user id from the newly created user.
- */
-exports.updateUser = function (params){
-  let id = params.id;
-  delete params.id;
-
-  return db('users')
-    .where({id:id})
-    .update(params)
-
-}
-
-/**
  * findOrCreateUser - Returns user.id for existing or new user (if necessary).
  *
  * @param  {Object} params                        User's amazon oauth profile information.
