@@ -3,8 +3,11 @@ import { spy } from 'sinon'
 import { store } from '../../store/initStore'
 import { redirect, subscribeTo, processNewData, processRawInventory, processNotifications, processGeneralGraphData, processGeneralTableData } from '../../util/util'
     
-let callback = spy()
-store.subscribe(callback)
+let normalSubscribeSpy = spy()
+store.subscribe(normalSubscribeSpy)
+
+let fancySubscribeSpy = spy()
+subscribeTo("tab", fancySubscribeSpy)
 
 let window = {location: {href: "testingHREF"}};
 let sampleRaw  = [{"id":1152,"amzn_title":"LEGO Superheroes Marvel's Ant-Man 76039 Building Kit","amzn_description":"Super-jump to knock over Yellowjacket","amzn_asin":"B00UYNAGTI","amzn_sales_rank":23423,"amzn_weight":0.5,"amzn_manufacturer":"LEGO","amzn_thumb_url":"http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg","amzn_price_fba":54.76,"amzn_price_fbm":49.99,"seller_sku":"76039","avg_purchase_price":22.41142857142857,"quantity":7},{"id":1153,"amzn_title":"LEGO Star Wars Super Star Destroyer 10221","amzn_description":"Includes Darth Vader, Admiral Piett, Dengar and Bossk minifigures and also includes IG-88 figure","amzn_asin":"B0050R0YB8","amzn_sales_rank":23423,"amzn_weight":16.4,"amzn_manufacturer":"LEGO","amzn_thumb_url":"http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg","amzn_price_fba":1298.95,"amzn_price_fbm":1001.99,"seller_sku":"10221","avg_purchase_price":432.99,"quantity":2},{"id":1154,"amzn_title":"LEGO Architecture Solomon R. Guggenheim Museum (21004)","amzn_description":"Replica of real-world architectural landmark Solomon R. Guggenheim museum","amzn_asin":"B002HFHFCC","amzn_sales_rank":23423,"amzn_weight":1,"amzn_manufacturer":"LEGO","amzn_thumb_url":"http://ecx.images-amazon.com/images/I/61Gt0B2E7tL.​_SL75_​.jpg","amzn_price_fba":169.95,"amzn_price_fbm":165.18,"seller_sku":"21004","avg_purchase_price":37.88,"quantity":4}]
@@ -41,13 +44,26 @@ describe('Client: util/util.jsx', function () {
   });
 
   it('function subscribeTo should not call the callback provided when the changed property doesn\'t match', function () {
-    expect(callback.callCount).to.equal(0)
+    expect(normalSubscribeSpy.callCount).to.equal(0)
+    expect(fancySubscribeSpy.callCount).to.equal(0)
+    store.dispatch({type: "UPDATE_LAST_CHANGED", data: "CHANGE_TAB"})
     store.dispatch({type: "CHANGE_TAB", data: 0})
-    expect(callback.callCount).to.equal(1)
+    expect(normalSubscribeSpy.callCount).to.equal(2)
+
+    // Changing "last changed" counts as an update
+    expect(fancySubscribeSpy.callCount).to.equal(2)
+
+    store.dispatch({type: "UPDATE_LAST_CHANGED", data: "UPDATE_NOTIFICATIONS"})
+    store.dispatch({type: "CHANGE_TAB", data: 0})
+    store.dispatch({type: "UPDATE_NOTIFICATIONS", data: 0})
+    store.dispatch({type: "UPDATE_DETAIL_DATA", data: 0})
+    store.dispatch({type: "UPDATE_TABLE_DATA", data: 0})
+    store.dispatch({type: "UPDATE_GRAPH_DATA", data: 0})
+    store.dispatch({type: "UPDATE_AUTHENTICATION", data: 0})
+
+    expect(normalSubscribeSpy.callCount).to.equal(9)
+    expect(fancySubscribeSpy.callCount).to.equal(2)
   });
-
-
-
 
   it('function processNewData should exist', function () {
     expect(processNewData).to.exist;
