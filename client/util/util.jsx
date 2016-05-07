@@ -4,8 +4,9 @@ import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
 import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
-//Get rid of console.logs in production
-process.env.NODE_ENV === "production" && require('noconsole')
+//Get rid of console.logs when not developing
+if(process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== "development")
+  require('noconsole')
 
 // // Used to test dispatching actions
 // setTimeout( function(){
