@@ -2,7 +2,6 @@ import React from 'react'
 import { Chart } from 'react-google-charts'
 import { ProgressBar } from 'react-toolbox'
 
-
 import { UPDATE_DETAIL_DATA, CHANGE_TAB } from '../actionTypes'
 import { smartDispatch } from '../dispatcher'
 import { subscribeTo } from '../util/util'
@@ -91,7 +90,6 @@ export default class HomeContainer extends React.Component{
     this.setState({
       'options' : options
     });
-
   }
 
   componentWillUnmount(){
@@ -110,7 +108,6 @@ export default class HomeContainer extends React.Component{
     var notifications, dashboard;
 
     if(this.state.notifications){
-      console.log("notifications work")
       notifications = <Notifications visitItem={this.visitItem} data={this.state.notifications}/>
     }
 

@@ -1,10 +1,11 @@
 import React from 'react'
-import { store } from '../store/initStore'
-import { unsafe } from 'reactable'
 
+import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
 import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
+//Get rid of console.logs in production
+process.env.NODE_ENV === "production" && require('noconsole')
 
 // // Used to test dispatching actions
 // setTimeout( function(){
@@ -87,27 +88,33 @@ export function subscribeTo(property, callback){
  */
 
 export function processNewData(data){
-  processRawInventory(data)
-  processGeneralGraphData(data)
-  processGeneralTableData(data)
-  processNotifications(data)  
+  //Each of these functions return something for testing purposes, but don't need to. 
+  console.log(JSON.stringify(data))
+  console.log("raw", JSON.stringify(processRawInventory(data)))
+
+  let withProfit = processRawInventory(data)
+  console.log("graph", JSON.stringify(processGeneralGraphData(withProfit)))
+  console.log("table", JSON.stringify(processGeneralTableData(withProfit)))
+  console.log("notif", JSON.stringify(processNotifications(withProfit)))  
 }
 
 
-function processRawInventory(inventory){
+export function processRawInventory(inventory){
 
   inventory = inventory.map(function(cur){
-    cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
-     return Object.keys(cur).map(function(key){
+   cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
+    Object.keys(cur).map(function(key){
       return (cur[key] === null || cur[key] === undefined)
-        ? cur[key] = 0
-        : cur[key]
-     })
+       ? cur[key] = 0
+       : cur[key]
+    })
+    return cur;
   })
   smartDispatch(UPDATE_INVENTORY, inventory)
+  return inventory
 }
 
-function processNotifications(inventory){
+export function processNotifications(inventory){
 
   let notifications = inventory.filter(function(cur){
     return cur.profit > 150 //could build in setting here
@@ -117,6 +124,7 @@ function processNotifications(inventory){
   })
 
   smartDispatch(UPDATE_NOTIFICATIONS, notifications)
+  return notifications
 }
 
 /**
@@ -125,7 +133,7 @@ function processNotifications(inventory){
  * @param  {Array}   inventory  An array of ojects containing product data
  * @return {Promise}
  */
-function processGeneralGraphData(inventory){
+export function processGeneralGraphData(inventory){
 
   let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}, 'Current Value', {type: 'string', role: 'tooltip'}]]; 
   let priceData = inventory.forEach(function(cur, ind){
@@ -141,9 +149,10 @@ function processGeneralGraphData(inventory){
     )
   })
   smartDispatch(UPDATE_GRAPH_DATA, lineData)
+  return lineData
 }
 
-function processGeneralTableData(inventory){
+export function processGeneralTableData(inventory){
 
   let tableData = inventory.map(function(cur){
     return {
@@ -161,5 +170,6 @@ function processGeneralTableData(inventory){
     }
   })
   smartDispatch(UPDATE_TABLE_DATA, tableData)
+  return tableData
 }
  
