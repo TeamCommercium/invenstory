@@ -23,7 +23,7 @@ describe('Client: store/initialState.jsx', function () {
     expect(initialState.authenticated).to.equal(false)
   });
 
-  it('Should be have a property for lastChanged that is an Array', function () {
+  it('Should be have a property for lastChanged that is null', function () {
     expect(initialState.lastChanged).to.equal(null)
   });
 
@@ -35,7 +35,7 @@ describe('Client: store/initialState.jsx', function () {
     expect(initialState.notifications).to.equal(null)
   });
 
-  it('Should be have a property for tab that is an Array', function () {
+  it('Should be have a property for tab that is a number (0)', function () {
     expect(initialState.tab).to.exist
     expect(initialState.tab).to.equal(0)
   });
