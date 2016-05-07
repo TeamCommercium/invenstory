@@ -21,7 +21,7 @@ describe('Client: reducers/table.jsx', function () {
 
     expect(reducer(initialState, {type: actions.UPDATE_TABLE_DATA, data: 1})).to.deep.equal(1)
     store.dispatch({type: actions.UPDATE_TABLE_DATA, data: 1})
-    // expect(store.getState()).to.contain(initialStateWithNewTab)
+    expect(store.getState()).to.contain(initialStateWithNewTab)
     
     //reset
     store.dispatch({type: actions.UPDATE_TABLE_DATA, data: initialState.tableData})
