@@ -11,34 +11,128 @@ html, body{
 
 td > input {
   width: 99%;
-  height: 150%;
+  height: 125%;
   font-size: 24px;
-  border: none;
 }
 
 table {
   display: block;
   border-collapse: collapse;
-  margin: 20px auto;
-  width: 80%;
+  overflow-x: hidden;
 }
 
 th {
   padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
 }
 
 table, td {
   border: 0px;
-  padding: 10px;
-  white-space: nowrap;
-  text-align: right;
+  padding: 5px;
 }
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: yellow;
+}
+
+/*set minimum width on title column of table*/
+tr > td:nth-child(4) {min-width: 150px;}
+
+/*right justify the numeric columns only*/
+tr > td:nth-child(5) {text-align: center}
+tr > td:nth-child(6) {text-align: right} 
+tr > td:nth-child(7) {text-align: right} 
+tr > td:nth-child(8) {text-align: right} 
+tr > td:nth-child(9) {text-align: right} 
+tr > td:nth-child(10) {text-align: right} 
+
+@media 
+  only screen 
+  and (max-width: 760px), (min-device-width: 768px)
+  and (max-device-width: 1024px) {
+    table, thead, tbody, th, td, tr { 
+      display: block; 
+    }
+
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    
+    tr { border: 1px solid #ccc; }
+    
+    td { 
+      border: none;
+      border-bottom: 1px solid #eee; 
+      position: relative;
+      padding-left: 50%; 
+    }
+    
+    td:before { 
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 45%; 
+      padding-right: 10px; 
+      white-space: nowrap;
+    }
+    
+    /* Label the data and change alignment when appropriate */
+    td:nth-of-type(2):before {
+      content: "SKU:";
+      text-align: right;
+    }
+    td:nth-of-type(3):before {
+      content: "ASIN:";
+      text-align: right;
+    }
+    td:nth-of-type(4):before {
+      content: "Title:";
+      text-align: right;
+    }
+    td:nth-of-type(5):before {
+      content: "Quantity:";
+      text-align: right;
+    }
+    tr > td:nth-child(5) {text-align: right}
+    td:nth-of-type(6):before { content: "Cost:"; }
+    td:nth-of-type(7):before { content: "FBM Price:"; }
+    td:nth-of-type(8):before { content: "FBM Price:"; }
+    td:nth-of-type(9):before { content: "Total Value:"; }
+    td:nth-of-type(10):before { content: "% Gain:"; }
+}
+
+/* Smartphones */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  body { 
+    padding: 0; 
+    margin: 0; 
+    width: 320px; }
+  }
+
+/* iPads */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) {
+    body { 
+      width: 495px; 
+    }
+  }
 
 /*Makes the slidey thing white*/
 :global(.style__pointer___XKUds){
   background-color: white;
   height: 7px;
-  margin-top: -7px
+  margin-top: -7px;
 }
 
 /* Makes the navbar blue */
@@ -49,11 +143,6 @@ table, td {
   /*height: 70px*/
 }
 
-/* Makes the selected tab's text */
-:global(.style__label___V031b.style__active___lY_Ar){
-  color: white;
-}
-
 /* Should hopefully make the tab thing fixed
 :global(.style__navigation___VJ4pk){
   position: fixed;
@@ -62,7 +151,7 @@ table, td {
 
 /* Login page's backsplash */
 .titleImage{
-  width:80%;
+  width: 80%;
   position: relative;
   display: block;
   margin: 0 auto;
@@ -178,15 +267,8 @@ table, td {
   max-width: 500px;
 }
 
-/*.shortInputField{
-  height: 20px;
-  width: 100px;
-}*/
-
 /* Table on the dashboard */
 #table{
   display: block;
-  margin: 10px 25px 500px 25px;
-/*  margin-bottom: 250px;
-  margin-left: 20px;*/
+  margin-bottom: 500px;
 }

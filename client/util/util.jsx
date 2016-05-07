@@ -162,14 +162,14 @@ export function processGeneralTableData(inventory){
       "": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
-      "Title": cur.amzn_title && (cur.amzn_title.slice(0,35) + "..."),
+      "Title": cur.amzn_title && (cur.amzn_title.slice(0,100)),
       "QTY": cur.quantity,
       "Cost": cur.avg_purchase_price && Math.round(cur.avg_purchase_price*100)/100,
       "FBM Price": cur.amzn_price_fbm && Math.round(cur.amzn_price_fbm*100)/100,
       "FBA Price": cur.amzn_price_fba && Math.round(cur.amzn_price_fba*100)/100,
       "Tot Value": cur.amzn_price_fba ? Math.round(cur.amzn_price_fba * cur.quantity * 100)/100 : Math.round(cur.amzn_price_fbm * cur.quantity * 100)/100,
       "% Gain": Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100),
-      "Details": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
+      " ": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
   smartDispatch(UPDATE_TABLE_DATA, tableData)
