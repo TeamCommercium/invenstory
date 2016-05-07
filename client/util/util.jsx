@@ -2,13 +2,13 @@ import React from 'react'
 
 import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
-import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
-//Get rid of console.logs when not developing
+//Get rid of console.logs when not developing or testing
 //
-console.log("NODE ENVIRONMENT", process.env.NODE_ENV)
-if(process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== "development")
-  require('noconsole')
+// console.log(process.env.NODE_ENV, process.env.NODE_ENV==="development")
+// if(process.env.NODE_ENV !== "development" && process.env.NODE_ENV !== "test")
+//   require('noconsole')
 
 // // Used to test dispatching actions
 // setTimeout( function(){
@@ -51,9 +51,6 @@ export function subscribeTo(property, callback){
     detail: {
       UPDATE_DETAIL_DATA: true
     },
-    inventory: {
-      UPDATE_INVENTORY: true
-    },
     authenticated: {
       UPDATE_AUTHENTICATION: true
     },
@@ -92,18 +89,22 @@ export function subscribeTo(property, callback){
 
 export function processNewData(data){
   //Each of these functions return something for testing purposes, but don't need to. 
-  JSON.stringify(data)
-  JSON.stringify(processRawInventory(data))
 
   let withProfit = processRawInventory(data)
-  JSON.stringify(processGeneralGraphData(withProfit))
-  JSON.stringify(processGeneralTableData(withProfit))
-  JSON.stringify(processNotifications(withProfit))
+  
+  processGeneralGraphData(withProfit)
+  processGeneralTableData(withProfit)
+  processNotifications(withProfit)
+  
+  // console.log("raw", JSON.stringify(data) )
+  // console.log("processed", JSON.stringify(withProfit) )
+  // console.log("graph", JSON.stringify(processGeneralGraphData(withProfit)) )
+  // console.log("table",JSON.stringify(processGeneralTableData(withProfit)) )
+  // console.log("notif",JSON.stringify(processNotifications(withProfit)) )
 }
 
 
 export function processRawInventory(inventory){
-
   inventory = inventory.map(function(cur){
    cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
     Object.keys(cur).map(function(key){
@@ -113,7 +114,7 @@ export function processRawInventory(inventory){
     })
     return cur;
   })
-  smartDispatch(UPDATE_INVENTORY, inventory)
+
   return inventory
 }
 
@@ -156,10 +157,9 @@ export function processGeneralGraphData(inventory){
 }
 
 export function processGeneralTableData(inventory){
-
   let tableData = inventory.map(function(cur){
     return {
-      "": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
+      "Pic": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Title": cur.amzn_title && (cur.amzn_title.slice(0,100)),
@@ -172,6 +172,7 @@ export function processGeneralTableData(inventory){
       " ": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
+  console.log(tableData)
   smartDispatch(UPDATE_TABLE_DATA, tableData)
   return tableData
 }

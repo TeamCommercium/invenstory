@@ -1,6 +1,10 @@
 import { expect } from 'chai'
+import { spy } from 'sinon'
 import * as types from '../actionTypes'
 import { smartDispatch} from '../dispatcher'
+import { store } from '../store/initStore'
+
+store.subscribe(spy)
 
 describe('Client: actionTypes.jsx', function () {
   it('smartDispatch should exist and be a function', function () {

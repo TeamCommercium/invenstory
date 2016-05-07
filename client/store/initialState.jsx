@@ -1,5 +1,4 @@
 export default {
-  inventory: [],
   tableData: [],
   graphData: [],
   authenticated: false,

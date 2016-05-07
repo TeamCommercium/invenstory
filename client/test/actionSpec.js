@@ -2,13 +2,6 @@ import { expect } from 'chai'
 import * as types from '../actionTypes'
 
 describe('Client: actionTypes.jsx', function () {
-  it('UPDATE_INVENTORY should exist', function () {
-    expect(types.UPDATE_INVENTORY).to.exist;
-  });
-
-  it('UPDATE_INVENTORY should have a predictable value', function () {
-    expect(types.UPDATE_INVENTORY).to.equal('UPDATE_INVENTORY');
-  });
 
   it('UPDATE_GRAPH_DATA should exist', function () {
     expect(types.UPDATE_GRAPH_DATA).to.exist;

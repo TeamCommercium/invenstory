@@ -23,7 +23,6 @@ import Details from '../components/details'
   The reason we are using state is because of 2 main reasons.
   1) We are currently not using React-Redux and updating state to rerender seems less hacky than forceUpdate.
   2) There are input fields in one of the components rendered here and it 
-
  */
 
 let mounted = false;
