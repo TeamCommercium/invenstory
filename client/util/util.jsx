@@ -5,6 +5,8 @@ import { smartDispatch } from '../dispatcher'
 import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 //Get rid of console.logs when not developing
+//
+console.log("NODE ENVIRONMENT", process.env.NODE_ENV)
 if(process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== "development")
   require('noconsole')
 
@@ -90,13 +92,13 @@ export function subscribeTo(property, callback){
 
 export function processNewData(data){
   //Each of these functions return something for testing purposes, but don't need to. 
-  console.log(JSON.stringify(data))
-  console.log("raw", JSON.stringify(processRawInventory(data)))
+  JSON.stringify(data)
+  JSON.stringify(processRawInventory(data))
 
   let withProfit = processRawInventory(data)
-  console.log("graph", JSON.stringify(processGeneralGraphData(withProfit)))
-  console.log("table", JSON.stringify(processGeneralTableData(withProfit)))
-  console.log("notif", JSON.stringify(processNotifications(withProfit)))  
+  JSON.stringify(processGeneralGraphData(withProfit))
+  JSON.stringify(processGeneralTableData(withProfit))
+  JSON.stringify(processNotifications(withProfit))
 }
 
 
