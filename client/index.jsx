@@ -1,4 +1,3 @@
-import 'noconsole'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createHashHistory } from 'history'
