@@ -13,12 +13,13 @@ describe('Products model', function() {
       expect(Products.addProduct).to.exist;
     })
 
-    it('should return an integer (product id)', function() {
+    it('should resolve to an integer (product id) for a product not already in the database', function() {
       return Products.addProduct({'amzn_asin': 'B004QV6YMW'})
         .then(function(result) {
           expect(result).to.be.a('number')
         })
     })
+
   });
 
   describe('#getProductId', function () {
@@ -73,5 +74,27 @@ describe('Products model', function() {
           expect(result).to.be.an('array')
         })
     })
-  });
+  })
+
+  describe('#findOrCreate', function() {
+    let prodId;
+    it('should be a function', function() {
+      expect(Products.findOrCreate).to.exist
+      expect(Products.findOrCreate).to.be.a('function')
+    })
+    it('should create a product which is not in the database', function() {
+      return Products.findOrCreate('B006T3FMIW')
+        .then(result => {
+          prodId = result
+          expect(result).to.be.a('number')
+        })
+    })
+    it('should should retreive the product id for a product already in the database', function() {
+      return Products.findOrCreate('B006T3FMIW')
+        .then(result => {
+          expect(result).to.be.a('number')
+          assert(result === prodId, 'retreived the product id from the prior test')
+        })
+    })
+  })
 });
