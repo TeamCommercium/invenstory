@@ -11,31 +11,42 @@ html, body{
 
 td > input {
   width: 99%;
-  height: 150%;
+  height: 125%;
   font-size: 24px;
-  border: none;
 }
 
 table {
   display: block;
   border-collapse: collapse;
-  margin: 20px auto;
-  width: 80%;
+  overflow-x: hidden;
+  /*margin: 20px auto;*/
+  /*width: 80%;*/
 }
 
 th {
   padding: 10px;
+  background-color: #4CAF50;
+  color: white;
 }
 
 table, td {
   border: 0px;
-  padding: 10px;
-  white-space: nowrap;
+  padding: 5px;
+  /*white-space: nowrap;*/
+  /*overflow-x: hidden;*/
   text-align: right;
 }
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: yellow;
+}
+
+.tableDiv {
+  overflow-x: auto;
 }
 
 /*Makes the slidey thing white*/
@@ -66,7 +77,7 @@ tr:nth-child(even) {
 
 /* Login page's backsplash */
 .titleImage{
-  width:80%;
+  width: 80%;
   position: relative;
   display: block;
   margin: 0 auto;

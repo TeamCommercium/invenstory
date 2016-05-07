@@ -3,7 +3,7 @@ import { Table } from 'reactable'
 import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox'
 
 export default ({ columnNames, data }) =>
-<div>
+<div className="styles__tableDiv___bKZPU">
   <Table
     id="styles__table___1QENt" 
     data={data}
