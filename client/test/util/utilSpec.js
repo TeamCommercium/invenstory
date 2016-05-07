@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import { store } from '../../store/initStore'
+import initialState from '../../store/initialState'
 import { redirect, subscribeTo, processNewData, processRawInventory, processNotifications, processGeneralGraphData, processGeneralTableData } from '../../util/util'
     
 
@@ -85,13 +86,13 @@ describe('Client: util/util.jsx', function () {
     expect(fancySubscribeSpy.callCount).to.equal(2)
 
     //reset
-    store.dispatch({type: "UPDATE_LAST_CHANGED", data: null})
-    store.dispatch({type: "CHANGE_TAB", data: 0})
-    store.dispatch({type: "UPDATE_NOTIFICATIONS", data: []})
-    store.dispatch({type: "UPDATE_DETAIL_DATA", data: null})
-    store.dispatch({type: "UPDATE_TABLE_DATA", data: []})
-    store.dispatch({type: "UPDATE_GRAPH_DATA", data: []})
-    store.dispatch({type: "UPDATE_AUTHENTICATION", data: false})
+    store.dispatch({type: "UPDATE_LAST_CHANGED", data: initialState.lastChanged})
+    store.dispatch({type: "CHANGE_TAB", data: initialState.tab})
+    store.dispatch({type: "UPDATE_NOTIFICATIONS", data: initialState.notifications})
+    store.dispatch({type: "UPDATE_DETAIL_DATA", data: initialState.detail})
+    store.dispatch({type: "UPDATE_TABLE_DATA", data: initialState.tableData})
+    store.dispatch({type: "UPDATE_GRAPH_DATA", data: initialState.graphData})
+    store.dispatch({type: "UPDATE_AUTHENTICATION", data: initialState.authenticated})
   });
 
   it('function processNewData should exist', function () {

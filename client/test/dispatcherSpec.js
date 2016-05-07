@@ -3,6 +3,7 @@ import { spy } from 'sinon'
 import * as types from '../actionTypes'
 import { smartDispatch } from '../dispatcher'
 import { subscribeTo } from '../util/util'
+import initialState from '../store/initialState'
 import { store } from '../store/initStore'
 
 describe('Client: actionTypes.jsx', function () {
@@ -37,7 +38,7 @@ describe('Client: actionTypes.jsx', function () {
     expect(innactiveSpy.callCount).to.equal(0)
     expect(activeSpy.callCount).to.equal(2)
     //reset
-    store.dispatch({type: types.CHANGE_TAB, data:0})
-    store.dispatch({type: types.UPDATE_LAST_CHANGED, data:null})
+    store.dispatch({type: types.CHANGE_TAB, data: initialState.tab })
+    store.dispatch({type: types.UPDATE_LAST_CHANGED, data: initialState.lastChanged})
   });
 });
