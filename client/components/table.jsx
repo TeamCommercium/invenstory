@@ -10,16 +10,58 @@ export default ({ columnNames, data }) =>
     filterable={columnNames} 
     sortable={[
       {
+        column: "SKU",
+        sortFunction: "CaseInsensitive"
+      },
+      {
+        column: "ASIN",
+        sortFunction: "CaseInsensitive"
+      },
+      {
         column: "Title",
+        sortFunction: "CaseInsensitive"
+      },
+      {
+        column: "QTY",
         sortFunction: function(a, b){
           return b-a
         }
       },
-      ...columnNames
+      {
+        column: "Cost",
+        sortFunction: function (a, b) {
+          return Number(b.slice(1)) - Number(a.slice(1))
+        }
+      },
+      {
+        column: "FBM Price",
+        sortFunction: function (a, b) {
+          return Number(b.slice(1)) - Number(a.slice(1))
+        }
+      },
+      {
+        column: "FBA Price",
+        sortFunction: function (a, b) {
+          return Number(b.slice(1)) - Number(a.slice(1))
+        }
+      },
+      {
+        column: "Total Value",
+        sortFunction: function (a, b) {
+          return Number(b.slice(1)) - Number(a.slice(1))
+        }
+      },
+      {
+        column: "% Gain",
+        sortFunction: function (a, b) {
+          return Number(b.slice(0, b.length - 1)) - Number(a.slice(0, a.length - 1))
+        }
+      }
+      // ...columnNames
     ]}
     defaultSort={{
       column: "Title",
-      direction: 'desc'
+      direction: "desc"
     }}
   />
 </div>
