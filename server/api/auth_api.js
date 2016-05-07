@@ -45,7 +45,7 @@ function serialize(req, res, next) {
   User.findOrCreateUser(req.user)
     .then(function(result) {
       log('Serializing user', result)
-      var id = result[0] || result.id
+      var id = result.id
       req.user = {id: id}
       next()})
 }
@@ -118,7 +118,7 @@ var router = express.Router()
   * @apiUse restricted
   * @apiPermission user
   *
-  * @apiDescription Endpoint to cause user's credentials to expire.
+  * @apiDescription Endpoint clears the cookie with auth token.
   */
  .get('/logout', function(req, res) {
       res.clearCookie('Token')

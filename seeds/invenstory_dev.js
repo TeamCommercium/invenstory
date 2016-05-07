@@ -19,7 +19,7 @@ exports.seed = function(knex, Promise) {
         mws_auth_token: 'n0teyT0ken',
         seller_id: 'n0tAseller',
         mws_marketplace: 'ATVPDKIKX0DER',
-        amzn_profile_id: 'asfdsfdf',
+        amzn_profile_id: 'seedamzn1',
         amzn_username: 'fakeyJakey',
         amzn_email: "cakey@example.com",
         amzn_zip: "12345"
@@ -29,7 +29,7 @@ exports.seed = function(knex, Promise) {
           mws_auth_token: 'alson0T0ken',
           seller_id: 'n0tAceller',
           mws_marketplace: 'ATVPDKIKX0DER',
-          amzn_profile_id: process.env.InvenAMZN || 'asfdsfdf3',
+          amzn_profile_id: process.env.InvenAMZN || 'autoseedamzn',
           amzn_username: 'Hugh',
           amzn_email: "luvLegos@example.com",
           amzn_zip: "12354"

@@ -51,27 +51,7 @@ var createUser = function (params) {
 }
 
 /**
- * updateUser - Update a user record.
- *
- * @param {Object}    params            Properties to update.
- * @param {integer}   params.id         User to update.
- * @param {string}    params.mws_auth_token
- * @param {integer}   params.seller_id
- * @param {string}    params.mws_marketplace
- * @return {integer}  Resolves to user id from the newly created user.
- */
-exports.updateUser = function (params){
-  let id = params.id;
-  delete params.id;
-
-  return db('users')
-    .where({id:id})
-    .update(params)
-
-}
-
-/**
- * findOrCreateUser - Generator function yields results of userid, next user creation. Creates a new user if necessary.
+ * findOrCreateUser - Returns user.id for existing or new user (if necessary).
  *
  * @param  {Object} params                        User's amazon oauth profile information.
  * @param {string}  params.amazon_id              User's Amazon Oauth Profile id
@@ -97,25 +77,10 @@ exports.findOrCreateUser = function (params) {
           amzn_refreshToken: params.amazon_refreshToken
         }
         return createUser(params)
+                .then(result => { return {id:result[0]} })
       }
       return Promise.resolve({id: id})
     })
-
-  // let id = yield db('users')
-  //         .select('id')
-  //         .where({amzn_profile_id:amznId})
-  //         .limit(1)
-  //         .then(function(data) {
-  //           log('DB output for user lookup: ',data)
-  //           return data
-  //         })
-  //         .catch(function(err) {log('Error checking for user: ', err)})
-  //
-  // if(id.length === 0 ) id = yield db('users')
-  //         .returning('id')
-  //         .insert({amzn_profile_id:amznId})
-  //
-  // return id;
 }
 
 /**
