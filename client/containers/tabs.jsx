@@ -4,6 +4,7 @@ import { AppBar, Checkbox, IconButton, Button, Input, Layout, Navigation, NavDra
 
 import Dashboard from './dashboard'
 import Home from './home'
+import Settings from './usersettings'
 
 import { CHANGE_TAB } from '../actionTypes'
 import { smartDispatch } from '../dispatcher'
@@ -36,7 +37,7 @@ export default class TabsContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      tab: store.getState().tab,
+      tab: store.getState().tab
     }
 
     let component = this;
@@ -86,14 +87,15 @@ export default class TabsContainer extends React.Component{
 
   render(){
     return <Layout>
-    <Panel>
-      <Tabs index={this.state.tab} className="styles__tabContainer___1UKO5" onChange={this.handleTabChange.bind(this)} fixed >
-        <Tab label='Home' className="styles__tabsNames___EyUYr"><Home /></Tab>
-        <Tab label='Dashboard' className="styles__tabsNames___EyUYr"><Dashboard /></Tab>
-        <Tab label='Logout' className="styles__logout___3o2E6 styles__tabsNames___EyUYr" onActive={logout}><div/></Tab>
-      </Tabs>
-    </Panel>
-    </Layout>
+        <Panel>
+          <Tabs index={this.state.tab} className="styles__tabContainer___1UKO5" onChange={this.handleTabChange.bind(this)} fixed >
+            <Tab label='Home' className="styles__tabsNames___EyUYr"><Home /></Tab>
+            <Tab label='Dashboard' className="styles__tabsNames___EyUYr"><Dashboard /></Tab>
+            <Tab label='Logout' className="styles__logout___3o2E6 styles__tabsNames___EyUYr" onActive={logout}><div/></Tab>
+            <Tab label="Settings" className="settings"><Settings /></Tab> 
+          </Tabs>
+        </Panel>
+      </Layout>
   }
 }
   // <NavDrawer active={this.state.navDrawer}></NavDrawer>

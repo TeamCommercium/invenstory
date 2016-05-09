@@ -103,6 +103,16 @@ export function processNewData(data){
   // console.log("notif",JSON.stringify(processNotifications(withProfit)) )
 }
 
+export function processUserSettings(settings){
+  return {
+    username: settings.user.amzn_username,
+    email: settings.user.amzn_email,
+    zipcode: settings.user.amzn_zip
+  }
+
+
+}
+
 
 export function processRawInventory(inventory){
   inventory = inventory.map(function(cur){
@@ -176,4 +186,6 @@ export function processGeneralTableData(inventory){
   smartDispatch(UPDATE_TABLE_DATA, tableData)
   return tableData
 }
- 
+
+
+

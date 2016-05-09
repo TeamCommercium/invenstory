@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch'
 
 import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
-import { redirect, processNewData } from './util'
+import { redirect, processNewData, processUserSettings } from './util'
 import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 export function searchAmazonForASIN(searchString){
@@ -144,6 +144,16 @@ export function checkAuth(){
   })
 }
 
+export function getUserInfo(){
+
+  fetch('/user/about', {credentials: 'include'})
+  .then(function(result){
+    settings = processUserSettings(result)
+
+  }).catch(function(err){
+    console.log("Error Getting User Info: ", err)
+  })
+}
 
 /*
   function addUserInventory
