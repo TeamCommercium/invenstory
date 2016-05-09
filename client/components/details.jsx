@@ -7,7 +7,7 @@ export default ({historical, options, data, hideDetails, smartAdd, deleteAll, co
 <div className="styles__detailDisplay___2K0QU">
   <img className="styles__detailImage___3CFNO" src={data.amzn_thumb_url} />
   <h3 className="styles__detailTitle___2N12_"> {data.amzn_title} </h3>
-  <div className="styles__detailDescription___2v665"> {data.amzn_description && data.amzn_description.slice(0,292)} </div>
+  <div className="styles__detailDescription___2v665"> {data.amzn_description && data.amzn_description.slice(0,290)} </div>
   <div> Sales Rank: {data.amzn_sales_rank} </div>
   <div> Weight: {data.amzn_weight} lbs</div>
   <div className="styles__detailButtonsDiv___3qeKQ">
