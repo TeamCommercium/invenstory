@@ -159,7 +159,7 @@ export function processGeneralGraphData(inventory){
 export function processGeneralTableData(inventory){
   let tableData = inventory.map(function(cur){
     return {
-      "Pic": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
+      " ": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Title": cur.amzn_title && (cur.amzn_title.slice(0,100)),
@@ -169,7 +169,7 @@ export function processGeneralTableData(inventory){
       "FBA Price": cur.amzn_price_fba && "$" + (Math.round(cur.amzn_price_fba*100)/100).toFixed(2),
       "Total Value": cur.amzn_price_fba ? "$" + (Math.round(cur.amzn_price_fba * cur.quantity * 100)/100).toFixed(2) : "$" + (Math.round(cur.amzn_price_fbm * cur.quantity * 100)/100).toFixed(2),
       "% Gain": cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + "%",
-      " ": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
+      "  ": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
   console.log(tableData)

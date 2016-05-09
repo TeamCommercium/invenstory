@@ -107,20 +107,20 @@ tr > td:nth-child(10) {text-align: right}
 }
 
 /* Smartphones */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   body { 
     padding: 0; 
     margin: 0; 
     width: 320px; }
-}
+}*/
 
 /* iPads */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+/*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   body { 
-    width: 495px; 
+    width: 750px; 
   }
 }
-
+*/
 /*Makes the slidey thing white*/
 :global(.style__pointer___XKUds) {
   background-color: white;
@@ -134,6 +134,10 @@ tr > td:nth-child(10) {text-align: right}
   background: #3f51b6;
   width: 100%;
   /*height: 70px*/
+}
+
+:global(.style__label___V031b.style__active___lY_Ar) {
+  color: white;
 }
 
 /* Should hopefully make the tab thing fixed
@@ -188,6 +192,10 @@ tr > td:nth-child(10) {text-align: right}
 .loginBox>button {
   right:1%;
   width:19%;
+}
+
+.notificationsList{
+  color:red;
 }
 
 /* On the Dashboard page, displays all individual data*/
