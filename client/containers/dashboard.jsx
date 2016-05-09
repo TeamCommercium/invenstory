@@ -350,6 +350,7 @@ export default class DashboardContainer extends React.Component{
         active={this.state.showShipModal}
         data={this.state.detail}
         ship_quantity={this.state.ship_quantity}
+        err_quantity={this.state.err_ship_quantity}
         handleShipModal={this.handleShipModal.bind(this)}
         handleQuantityChange={this.handleQuantityChange.bind(this)}
         confirmShip={this.confirmShip.bind(this)}

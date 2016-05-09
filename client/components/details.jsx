@@ -11,11 +11,10 @@ export default ({historical, options, data, hideDetails, smartAdd, deleteAll, co
   <div> Sales Rank: {data.amzn_sales_rank} </div>
   <div> Weight: {data.amzn_weight} lbs</div>
   <div className="styles__detailButtonsDiv___3qeKQ">
-  <Button className="styles__detailButton___1aYnt" label='Close' raised floating inverse onMouseUp={hideDetails} />
-  <Button className="styles__detailButton___1aYnt" label='Add' raised floating primary onMouseUp={smartAdd.bind(null,data)} />
-  <Button className="styles__detailButton___1aYnt" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id, data.quantity, data.seller_sku)} />
-
-  <Button className="styles__detailButton___1aYnt" label='Ship' raised floating primary onMouseUp={handleShipModal.bind(this)} />
+    <Button className="styles__detailButton___1aYnt" label='Close' raised floating inverse onMouseUp={hideDetails} />
+    <Button className="styles__detailButton___1aYnt" label='Add' raised floating primary onMouseUp={smartAdd.bind(null,data)} />
+    <Button className="styles__detailButton___1aYnt" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id, data.quantity, data.seller_sku)} />
+    <Button className="styles__detailButton___1aYnt" label='Ship' raised floating primary onMouseUp={handleShipModal.bind(this)} />
   
   </div>  
 
