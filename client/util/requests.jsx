@@ -184,7 +184,7 @@ export function checkAuth(){
 processNewInventory()
 
 // Every hour check the database for data updates from Amazon
-setInterval(processNewInventory, 60*60*1000);
+setInterval(processNewInventory, 30*60*1000);
 export function processNewInventory(){
 
   fetch('/products/list', {credentials: 'include'})
