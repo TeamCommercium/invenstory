@@ -65,6 +65,9 @@ export function subscribeTo(property, callback){
     },
     notifications: {
       UPDATE_NOTIFICATIONS: true
+    },
+    userSettings: {
+      UPDATE_USER_SETTINGS: true
     }
   }
 
