@@ -1,4 +1,4 @@
-html, body{
+html, body {
   margin: 0;
   padding: 0;
   position: relative;
@@ -41,24 +41,21 @@ tr:hover {
   background-color: yellow;
 }
 
-/*set minimum width on title column of table*/
+/*set minimum width on title column*/
 tr > td:nth-child(4) {min-width: 150px;}
 
-/*right justify the numeric columns only*/
+/*center quantity column*/
 tr > td:nth-child(5) {text-align: center}
+
+/*right justify the numeric columns only*/
 tr > td:nth-child(6) {text-align: right} 
 tr > td:nth-child(7) {text-align: right} 
 tr > td:nth-child(8) {text-align: right} 
 tr > td:nth-child(9) {text-align: right} 
 tr > td:nth-child(10) {text-align: right} 
 
-@media 
-  only screen 
-  and (max-width: 760px), (min-device-width: 768px)
-  and (max-device-width: 1024px) {
-    table, thead, tbody, th, td, tr { 
-      display: block; 
-    }
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    table, thead, tbody, th, td, tr { display: block; }
 
     thead tr { 
       position: absolute;
@@ -110,33 +107,29 @@ tr > td:nth-child(10) {text-align: right}
 }
 
 /* Smartphones */
-@media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px) {
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   body { 
     padding: 0; 
     margin: 0; 
     width: 320px; }
-  }
+}
 
 /* iPads */
-@media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) {
-    body { 
-      width: 495px; 
-    }
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  body { 
+    width: 495px; 
   }
+}
 
 /*Makes the slidey thing white*/
-:global(.style__pointer___XKUds){
+:global(.style__pointer___XKUds) {
   background-color: white;
   height: 7px;
   margin-top: -7px;
 }
 
 /* Makes the navbar blue */
-:global(.style__navigation___VJ4pk){
+:global(.style__navigation___VJ4pk) {
   box-shadow: inset 0 -1px #eeeeee;
   background: #3f51b6;
   width: 100%;
@@ -150,7 +143,7 @@ and (max-device-width : 480px) {
 }*/
 
 /* Login page's backsplash */
-.titleImage{
+.titleImage {
   width: 80%;
   position: relative;
   display: block;
@@ -158,7 +151,7 @@ and (max-device-width : 480px) {
 }
 
 /* Add product button */
-.inlineButton{
+.inlineButton {
   display: block;
   margin: 30px auto;
   margin-bottom: 0px;
@@ -179,26 +172,26 @@ and (max-device-width : 480px) {
 }
 
 /* style for the parent div of the home page graph*/
-.centerGraph{
+.centerGraph {
   padding-left:10%;
   padding-right:10%;
 }
 
 /* Login button on the login page that is ontop of the image*/
-.loginBox{
+.loginBox {
   position: absolute;
   top:58%;
   left:40%;
   z-index:1000;
   width: 95%;
 }
-.loginBox>button{
+.loginBox>button {
   right:1%;
   width:19%;
 }
 
 /* On the Dashboard page, displays all individual data*/
-.detailDisplay{
+.detailDisplay {
   position: fixed;
   padding: 0px;
 
@@ -230,7 +223,7 @@ and (max-device-width : 480px) {
   border: blue;
 }
 
-.detailButtonsDiv{
+.detailButtonsDiv {
   margin-left: 100px;
 }
 
@@ -268,7 +261,7 @@ and (max-device-width : 480px) {
 }
 
 /* Table on the dashboard */
-#table{
+#table {
   display: block;
   margin-bottom: 500px;
 }
