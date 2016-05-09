@@ -54,8 +54,12 @@ tr > td:nth-child(8) {text-align: right}
 tr > td:nth-child(9) {text-align: right} 
 tr > td:nth-child(10) {text-align: right} 
 
-@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-    table, thead, tbody, th, td, tr { display: block; }
+@media only screen 
+and (max-width: 760px), (min-device-width: 768px)
+and (max-device-width: 1024px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
 
     thead tr { 
       position: absolute;
@@ -104,6 +108,68 @@ tr > td:nth-child(10) {text-align: right}
     td:nth-of-type(8):before { content: "FBM Price:"; }
     td:nth-of-type(9):before { content: "Total Value:"; }
     td:nth-of-type(10):before { content: "% Gain:"; }
+}
+
+ /*iPhone responsive variations*/
+
+/*iPhone 6 in landscape*/
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) 
+and (orientation : landscape) {
+  body { 
+    width: 657px; 
+  }
+}
+
+/*iPhone 6 in portrait*/
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) 
+and (orientation : portrait) {
+  body { 
+    width: 365px; 
+  }
+}
+
+/*iPhone 6 Plus in landscape*/
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) 
+and (orientation : landscape) {
+  body { 
+    width: 726px; 
+  }
+}
+
+/*iPhone 6 Plus in portrait*/
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) 
+and (orientation : portrait) {
+  body { 
+    width: 404px; 
+  }
+}
+
+/*iPhone 5 & 5S in landscape*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+and (orientation : landscape) {
+  body { 
+    width: 558px; 
+  }
+}
+
+/*iPhone 5 & 5S in portrait*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+and (orientation : portrait) {
+  body { 
+    width: 310px; 
+  }
 }
 
 /* Smartphones */
