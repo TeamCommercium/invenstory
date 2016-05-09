@@ -10,7 +10,7 @@ import { CHANGE_TAB } from '../actionTypes'
 import { smartDispatch } from '../dispatcher'
 import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
-import { checkAuth, processNewInventory, addUserInventory, logout } from '../util/requests'
+import { checkAuth, processNewInventory, addUserInventory, logout, getUserInfo } from '../util/requests'
 
 /*
   mounted tracks the mounting status of the container and is used to verify that the container
@@ -92,7 +92,7 @@ export default class TabsContainer extends React.Component{
             <Tab label='Home' className="styles__tabsNames___EyUYr"><Home /></Tab>
             <Tab label='Dashboard' className="styles__tabsNames___EyUYr"><Dashboard /></Tab>
             <Tab label='Logout' className="styles__logout___3o2E6 styles__tabsNames___EyUYr" onActive={logout}><div/></Tab>
-            <Tab label="Settings" className="settings"><Settings /></Tab> 
+            <Tab label="Settings" className="styles__tabsNames___EyUYr" onActive={getUserInfo}><Settings /></Tab> 
           </Tabs>
         </Panel>
       </Layout>

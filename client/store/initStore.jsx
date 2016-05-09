@@ -11,6 +11,7 @@ import graphDataReducer from '../reducers/graph'
 import authenticationReducer from '../reducers/authentication'
 import lastChangedReducer from '../reducers/lastChanged'
 import initialState from './initialState'
+import userSettingsReducer from '../reducers/usersettings'
 
 const middleware = routerMiddleware(browserHistory)
 
@@ -23,7 +24,8 @@ export const store = createStore(
     detail: detailReducer,
     routing: routerReducer,
     notifications: notificationReducer,
-    tab: tabReducer
+    tab: tabReducer,
+    userSettings: userSettingsReducer
   }),
   initialState,
   applyMiddleware(middleware)

@@ -146,10 +146,20 @@ export function checkAuth(){
 
 export function getUserInfo(){
 
-  fetch('/user/about', {credentials: 'include'})
-  .then(function(result){
-    settings = processUserSettings(result)
-
+  fetch('/user/about', 
+    {
+      credentials: 'include',
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+  ).then(function(response) {
+    return response.json()
+  })
+  .then(function(response){
+    return response
   }).catch(function(err){
     console.log("Error Getting User Info: ", err)
   })
