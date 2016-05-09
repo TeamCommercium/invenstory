@@ -66,10 +66,10 @@ export function deleteInventoryItem(params){
     }
   )
   .then(function(){
-    console.log("no error from delete inventory")
+    setTimeout(processNewInventory, 1000);
   })
   .catch(function(err){
-    console.log("adding inventory", err)
+    console.log("Error deleting inventory", err)
   })
 }
 
@@ -89,6 +89,7 @@ export function shipInventoryItems(params){
   )
   .then(function(){
     console.log("no error from ship inventory")
+    setTimeout(processNewInventory, 1000);
   })
   .catch(function(err){
     console.log("adding inventory", err)
@@ -162,6 +163,9 @@ export function checkAuth(){
       body: JSON.stringify(params)
     }
   )
+  .then(function(){
+    setTimeout(processNewInventory, 1000);
+  })
   .catch(function(err){
     console.log("adding inventory", err)
   })
@@ -176,9 +180,11 @@ export function checkAuth(){
    and updates the store with new inventory data.
  */
 
+//Get new data on launch
 processNewInventory()
-setInterval(processNewInventory, 4000);
 
+// Every hour check the database for data updates from Amazon
+setInterval(processNewInventory, 30*60*1000);
 export function processNewInventory(){
 
   fetch('/products/list', {credentials: 'include'})
