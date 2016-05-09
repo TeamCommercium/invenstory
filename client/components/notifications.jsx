@@ -2,7 +2,7 @@ import React from 'react'
 import { List, ListItem, ListSubHeader, Button } from 'react-toolbox'
 
 export default ({data, visitItem}) =>
-<List className="list" selectable>
+<List className="styles__notificationsList___30gPV" selectable>
   <ListSubHeader caption='Top Performing Items' />
   {Array.prototype.map.call(data, (cur, index)=>
     <ListItem

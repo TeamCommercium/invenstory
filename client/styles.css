@@ -190,6 +190,10 @@ tr > td:nth-child(10) {text-align: right}
   width:19%;
 }
 
+.notificationsList{
+  color:red;
+}
+
 /* On the Dashboard page, displays all individual data*/
 .detailDisplay {
   position: fixed;
