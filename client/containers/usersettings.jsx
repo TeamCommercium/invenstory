@@ -1,25 +1,42 @@
 import React from 'react'
-import { Button } from 'react-toolbox'
 import Settings from '../components/settings'
 import { subscribeTo } from '../util/util'
+import { getUserInfo } from '../util/requests'
+import { store } from '../store/initStore'
+
+let mounted = false;
+
+ let backlog = {
+   userSettings: {
+     pending: false,
+     payload: {}
+   }
+};
 
 export default class SettingsContainer extends React.Component{
 
   constructor(props){
     super(props)
-    let userSettings = store.getState().userSettings
-    
-    
+
     this.state = {
-      name: userSettings[0].name,
-      email: userSettings[0].email,
-      zipcode: userSettings[0].zipcode,
+      name: '',
+      email: '',
+      zipcode: '',
       mailNotifications: false
     }
-    subscribeTo('userSettings', function(newState){
-
-    })
   }
+
+  componentDidMount(){
+    let that = this
+    getUserInfo()
+      .then(function(response){
+        that.setState({ "name": response[0].amzn_username })
+        that.setState({ "email": response[0].amzn_email })
+        that.setState({ "zipcode": response[0].amzn_zip })
+      })
+
+  }
+
 
   handleSubmit(){
 

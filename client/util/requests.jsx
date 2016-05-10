@@ -146,7 +146,7 @@ export function checkAuth(){
 
 export function getUserInfo(){
 
-  fetch('/user/about', 
+  return fetch('/user/about', 
     {
       credentials: 'include',
       method: "GET",
@@ -158,9 +158,7 @@ export function getUserInfo(){
   ).then(function(response) {
     return response.json()
   })
-  .then(function(response){
-    return response
-  }).catch(function(err){
+  .catch(function(err){
     console.log("Error Getting User Info: ", err)
   })
 }

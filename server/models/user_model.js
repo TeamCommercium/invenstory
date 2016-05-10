@@ -97,3 +97,11 @@ exports.getUserProfileInfo = function(userId) {
       .then(function(result){ return result })
 
 }
+
+exports.updateUserInfo = function(userId, userInfo) {
+  return db('users')
+    .returning('id')
+    .where({id: userId})
+    .update( userInfo)
+}
+
