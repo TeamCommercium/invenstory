@@ -46,7 +46,7 @@ function amznPriceSvc() {
                 .then( resp => Products.editProduct({id: e.product_id, fetch_date:theBatch.batchTime}))
               )
           ).then(
-            (data) => log('whatthen', data)
+            (data) => log('Batch price update complete', data)
           )
           .catch(
             (err) => log('Error after details batch ', err)
