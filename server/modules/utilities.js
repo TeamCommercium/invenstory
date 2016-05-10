@@ -1,3 +1,5 @@
+'use strict'
+
 var env = require('./config.js').state.env;
 var jwt_config = require('./config.js').jwtConfig
 var expressJWT = require('express-jwt')
@@ -23,22 +25,22 @@ var log;
  */
 exports.cleanMatchingAsins = function(data) {
   var items = [];
-  var responseObj = data.GetMatchingProductResponse.GetMatchingProductResult;
+  var responseArr = data.GetMatchingProductResponse.GetMatchingProductResult;
 
   log('Starting to Clean Data')
-  for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
+  for (var i = 0, productsLen = responseArr.length; i < productsLen; i++) {
     var product = {};
-    var attrPath = responseObj[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
+    var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
     console.log('attrPath', JSON.stringify(attrPath))
 
-    product.amzn_asin = responseObj[i].$.ASIN;
+    product.amzn_asin = responseArr[i].$.ASIN;
     product.amzn_title = attrPath["ns2:Title"][0];
     product.amzn_description = attrPath["ns2:Feature"].join(". ");
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
     product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
     product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0];
     product.amzn_list_price = attrPath["ns2:ListPrice"] ? Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]) : null;
-    product.amzn_sales_rank = Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]);
+    product.amzn_sales_rank = Array.isArray(responseArr[i].Product[0].SalesRankings[0]) ? Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]) : null;
 
     items.push(product);
   }
@@ -70,9 +72,12 @@ exports.cleanAmznDetails = function(data) {
     }
 
     //Setup variable to point to price array. This is already ordered lowest to highest. We need to set the lowest product fba and fbm from this list.
-    var priceArr = responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing;
+    var priceArr = []
 
-    for (var j = 0; j < priceArr.length; j++) {
+    if(responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing)
+      priceArr = responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing
+
+    for (let j = 0; j < priceArr.length; j++) {
 
       var fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0]
       var price = priceArr[j].Price[0].LandedPrice[0].Amount[0]
@@ -123,7 +128,7 @@ exports.authenticate =
  * @param  {Object}   err  Error
  * @param  {Object}   req  Request
  * @param  {Object}   res  Response
- * @param  {Function} next 
+ * @param  {Function} next
  * @return {Object}        Response Object with error text and status
  */
 exports.jwtUnauth = function(err, req, res, next){
@@ -132,4 +137,3 @@ exports.jwtUnauth = function(err, req, res, next){
   }
 
 }
-
