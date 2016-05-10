@@ -1,6 +1,7 @@
 export default {
   tableData: [],
   graphData: [],
+  pieChartData: [],
   authenticated: false,
   lastChanged: null,
   detail: {},

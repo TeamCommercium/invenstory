@@ -1,9 +1,8 @@
 import fetch from 'isomorphic-fetch'
-
 import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
 import { redirect, processNewData, processUserSettings } from './util'
-import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_PIECHART_DATA,UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 export function searchAmazonForASIN(searchString){
 

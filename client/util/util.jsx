@@ -2,7 +2,7 @@ import React from 'react'
 
 import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
-import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_PIECHART_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 //Get rid of console.logs when not developing or testing
 //
@@ -60,6 +60,9 @@ export function subscribeTo(property, callback){
     graphData: {
       UPDATE_GRAPH_DATA: true
     },
+    pieChartData: {
+      UPDATE_PIECHART_DATA: true
+    },
     tab: {
       CHANGE_TAB: true
     },
@@ -96,6 +99,7 @@ export function processNewData(data){
   let withProfit = processRawInventory(data)
   
   processGeneralGraphData(withProfit)
+  processPieChartData(withProfit)
   processGeneralTableData(withProfit)
   processNotifications(withProfit)
   
@@ -166,6 +170,25 @@ export function processGeneralGraphData(inventory){
     )
   })
   smartDispatch(UPDATE_GRAPH_DATA, lineData)
+  return lineData
+}
+
+export function processPieChartData(inventory){
+
+  let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}, 'Current Value', {type: 'string', role: 'tooltip'}]]; 
+  let priceData = inventory.forEach(function(cur, ind){
+    const amznPrice = cur.amzn_price_fba || cur.amzn_price_fbm;
+    lineData.push(
+      [
+        cur.seller_sku,
+        Math.round(cur.avg_purchase_price*100) / 100,
+        cur.amzn_title && cur.amzn_title.slice(0,35) + ", QTY:" + cur.quantity + " COST: $" + cur.avg_purchase_price.toFixed(2) + " TOT COST: $" + (cur.avg_purchase_price * cur.quantity).toFixed(2),
+        Math.round(amznPrice * 100) / 100,
+        cur.amzn_title && cur.amzn_title.slice(0,35) + ", CUR VAL: $" + amznPrice.toFixed(2) + " TOT VAL: $" + (amznPrice * cur.quantity).toFixed(2) + " GAIN: " + ((amznPrice - cur.avg_purchase_price) / cur.avg_purchase_price * 100).toFixed(0) + "%"
+      ]
+    )
+  })
+  smartDispatch(UPDATE_PIECHART_DATA, lineData)
   return lineData
 }
 

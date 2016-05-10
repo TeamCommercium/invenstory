@@ -26,6 +26,10 @@ let backlog = {
     pending: false,
     payload: undefined
   },
+  pieChartData: {
+    pending: false,
+    payload: undefined
+  },
   notifications: {
     pending: false,
     payload: undefined
@@ -38,6 +42,7 @@ export default class HomeContainer extends React.Component{
     super(props)
     this.state = {
       graphData: store.getState().graphData,
+      pieChartData: store.getState().pieChartData,
       notifications: store.getState().notifications
     }
 
@@ -48,6 +53,15 @@ export default class HomeContainer extends React.Component{
       else{
         backlog.graphData.payload = newState.graphData
         backlog.graphData.pending = true
+      }
+    })
+
+    subscribeTo("pieChartData", function(newState){
+      if(mounted)
+        component.setState({ "pieChartData": newState.pieChartData })
+      else{
+        backlog.pieChartData.payload = newState.pieChartData
+        backlog.pieChartData.pending = true
       }
     })
 
@@ -71,6 +85,11 @@ export default class HomeContainer extends React.Component{
     if(backlog.graphData.pending){
       this.setState({ "graphData": backlog.graphData.payload })
       backlog.graphData.pending = false
+    }
+
+    if(backlog.pieChartData.pending){
+      this.setState({ "pieChartData": backlog.pieChartData.payload })
+      backlog.pieChartData.pending = false
     }
 
     if(backlog.notifications.pending){
@@ -127,9 +146,10 @@ export default class HomeContainer extends React.Component{
           <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.barGraphOptions} width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
         <div className="styles__centerGraph___PVBDK">
-          <Chart chartType = "PieChart" data = {this.state.graphData} options = {this.state.pieChartOptions} width={"100%"} height={"400px"}  legend_toggle={true} />
+          <Chart chartType = "PieChart" data = {this.state.pieChartData} options = {this.state.pieChartOptions} width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
-        <p>{JSON.stringify(this.state.graphData)}</p>
+        <p>BAR:{JSON.stringify(this.state.graphData)}</p>
+        <p>PIE:{JSON.stringify(this.state.pieChartData)}</p>
         { notifications }
       </div>
     else
