@@ -3,8 +3,8 @@ export default {
   graphData: [],
   authenticated: false,
   lastChanged: null,
-  detail: null,
-  notifications: null,
+  detail: {},
+  notifications: [],
   tab: 0,
   userSettings: []
 }
