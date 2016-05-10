@@ -21,16 +21,26 @@ exports.init = function() {
 }
 
 /**
+ * preBatch - Selects the ASIN to include in the batch
+ *
+ * @return {Promise}  Promise that resolves to array of 10 products with oldest fetch_date
+ */
+
+function preBatch() {
+  //Retreive the ASINs for this batch
+  return db('products')
+    .select('amzn_asin','id')
+    .limit(10)
+    .orderBy('fetch_date')
+}
+
+/**
  * amznPriceSvc - Runner fuction to execute the Amazon price service business logic.
  *
  */
 function amznPriceSvc() {
 
-  //Retreive the ASINs for this batch
-  db('products')
-    .select('amzn_asin','id')
-    .limit(10)
-    .orderBy('fetch_date')
+    preBatch()
     .then(function(batch) {
       let theBatch = new Batch(batch)
       let asins = theBatch.asins();
@@ -46,7 +56,7 @@ function amznPriceSvc() {
                 .then( resp => Products.editProduct({id: e.product_id, fetch_date:theBatch.batchTime}))
               )
           ).then(
-            (data) => log('whatthen', data)
+            (data) => log('Batch price update complete', data)
           )
           .catch(
             (err) => log('Error after details batch ', err)
