@@ -94,5 +94,14 @@ exports.getUserProfileInfo = function(userId) {
   return db('users')
     .where({id: userId})
     .select('amzn_username', 'amzn_email', 'amzn_zip')
+      .then(function(result){ return result })
 
 }
+
+exports.updateUserInfo = function(userId, userInfo) {
+  return db('users')
+    .returning('id')
+    .where({id: userId})
+    .update(userInfo)
+}
+

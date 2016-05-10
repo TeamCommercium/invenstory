@@ -65,6 +65,9 @@ export function subscribeTo(property, callback){
     },
     notifications: {
       UPDATE_NOTIFICATIONS: true
+    },
+    userSettings: {
+      UPDATE_USER_SETTINGS: true
     }
   }
 
@@ -101,6 +104,16 @@ export function processNewData(data){
   // console.log("graph", JSON.stringify(processGeneralGraphData(withProfit)) )
   // console.log("table",JSON.stringify(processGeneralTableData(withProfit)) )
   // console.log("notif",JSON.stringify(processNotifications(withProfit)) )
+}
+
+export function processUserSettings(settings){
+  return {
+    username: settings.user.amzn_username,
+    email: settings.user.amzn_email,
+    zipcode: settings.user.amzn_zip
+  }
+
+
 }
 
 
@@ -176,4 +189,11 @@ export function processGeneralTableData(inventory){
   smartDispatch(UPDATE_TABLE_DATA, tableData)
   return tableData
 }
- 
+
+export function simpleValidateEmail(email) 
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+

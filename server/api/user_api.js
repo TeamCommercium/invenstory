@@ -1,10 +1,12 @@
 var express = require('express')
 var User = require('../models/user_model.js')
 var log = require('../modules/utilities.js').log;
+var bodyParser = require('body-parser')
+
 
 var router = express.Router()
 
-
+.use(bodyParser.json())
 /**
  *  @api {get}  /user/me  Check User Authentication
  *
@@ -40,7 +42,36 @@ var router = express.Router()
   User.getUserProfileInfo(req.user.id)
     .then(function(result){
       log('user_api succesful /user/about', result)
-      res.status(200).send({user: result[0]})
+      res.status(200).send(result)
+    })
+    .catch(function(err) {
+      log('error in getting user profile ', err)
+      res.status(400).send('Bad Request')
+    })
+})
+
+/**
+ *  @api {put}  /user/update  Update User info in the database
+ *
+ *  @apiName UpdateUserInfo
+ *  @apiGroup user
+ *  @apiUse restricted
+ *
+ *  @apiSuccess {Object}  user                User info
+ *  @apiSuccess {string}  user.amzn_username  Username
+ *  @apiSuccess {string}  user.amzn_email     Email
+ *  @apiSuccess {string}  user.amzn_zip       Zipcode "XXXXX-XXXX"
+ *
+ *  @apiDescription Endpoint to update a users information. The server will update this information in the database.
+ *
+ *  @apiError (400 Bad Request) Request must a registered user.
+ */
+.put('/update', function(req, res) {
+  var params = req.body
+  User.updateUserInfo(req.user.id, params)
+    .then(function(result){
+      log('update user result ',result)
+      res.status(200).send(result)
     })
     .catch(function(err) {
       log('error in getting user profile ', err)

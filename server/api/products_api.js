@@ -40,7 +40,6 @@ var router = express.Router()
 
   let params = req.query || {}
   params.user_id = req.user.id
-  log("Web service request to list user's products: ", params)
   Products.getProducts(params.user_id, params.product_id)
     .then(function(data) {
         res.status(200).send(data)
