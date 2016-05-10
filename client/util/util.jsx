@@ -190,5 +190,10 @@ export function processGeneralTableData(inventory){
   return tableData
 }
 
+export function simpleValidateEmail(email) 
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
 
 

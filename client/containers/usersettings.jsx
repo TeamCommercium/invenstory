@@ -1,6 +1,6 @@
 import React from 'react'
 import Settings from '../components/settings'
-import { subscribeTo } from '../util/util'
+import { subscribeTo, simpleValidateEmail } from '../util/util'
 import { getUserInfo, updateUserInfo } from '../util/requests'
 import { store } from '../store/initStore'
 
@@ -22,7 +22,8 @@ export default class SettingsContainer extends React.Component{
       name: '',
       email: '',
       zipcode: '',
-      mailNotifications: false
+      mailNotifications: false,
+      err_email: ''
     }
   }
 
@@ -39,12 +40,20 @@ export default class SettingsContainer extends React.Component{
 
 
   handleSubmit(){
-    let userInfo = {}
-    userInfo.amzn_username = this.state.name
-    userInfo.amzn_email = this.state.email
-    userInfo.amzn_zip = this.state.zipcode
-    console.log(userInfo)
-    updateUserInfo(userInfo)
+    let settingError = 0
+    if(!simpleValidateEmail(this.state.email)) {
+      this.setState({err_email: "Must be valid email address"});
+      settingError++
+    }
+
+    if (!settingError) {
+      let userInfo = {}
+      userInfo.amzn_username = this.state.name
+      userInfo.amzn_email = this.state.email
+      userInfo.amzn_zip = this.state.zipcode
+      console.log(userInfo)
+      updateUserInfo(userInfo)
+    }
   }
 
   handleInput(name, value){
@@ -65,6 +74,7 @@ export default class SettingsContainer extends React.Component{
         handleInput={this.handleInput.bind(this)}
         handleSubmit={this.handleSubmit.bind(this)}
         handleToggle={this.handleToggle.bind(this)}
+        err_email={this.state.err_email}
       />
     </div>
   }
