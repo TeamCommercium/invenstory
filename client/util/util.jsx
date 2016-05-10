@@ -2,7 +2,7 @@ import React from 'react'
 
 import { store } from '../store/initStore'
 import { smartDispatch } from '../dispatcher'
-import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_PIECHART_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
 
 //Get rid of console.logs when not developing or testing
 //
@@ -60,6 +60,9 @@ export function subscribeTo(property, callback){
     graphData: {
       UPDATE_GRAPH_DATA: true
     },
+    pieChartData: {
+      UPDATE_PIECHART_DATA: true
+    },
     tab: {
       CHANGE_TAB: true
     },
@@ -96,6 +99,7 @@ export function processNewData(data){
   let withProfit = processRawInventory(data)
   
   processGeneralGraphData(withProfit)
+  processPieChartData(withProfit)
   processGeneralTableData(withProfit)
   processNotifications(withProfit)
   
@@ -166,6 +170,29 @@ export function processGeneralGraphData(inventory){
     )
   })
   smartDispatch(UPDATE_GRAPH_DATA, lineData)
+  return lineData
+}
+
+export function processPieChartData(inventory){
+
+  let totalValue = 0;
+  let totalCost = 0;
+  let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}]]; 
+  let priceData = inventory.forEach(function(cur, ind){
+    const amznPrice = cur.amzn_price_fba || cur.amzn_price_fbm;
+    totalValue += amznPrice * cur.quantity;
+    totalCost += cur.avg_purchase_price * cur.quantity;
+    lineData.push(
+      [
+        cur.seller_sku + ", Quantity: " + cur.quantity + ", Total Value: $" + (amznPrice * cur.quantity).toFixed(2),
+        Math.round(amznPrice * cur.quantity * 100) / 100,
+        cur.amzn_title && cur.amzn_title.slice(0,55) + " - Total Value: $" + (amznPrice * cur.quantity).toFixed(2),
+      ]
+    )
+  })
+  smartDispatch(UPDATE_PIECHART_DATA, lineData)
+  console.log("TOTAL COST:", totalCost);
+  console.log("TOTAL VALUE:", totalValue);
   return lineData
 }
 
