@@ -50,6 +50,22 @@ var router = express.Router()
     })
 })
 
+/**
+ *  @api {put}  /user/update  Return User Info from database
+ *
+ *  @apiName GetUserInfo
+ *  @apiGroup user
+ *  @apiUse restricted
+ *
+ *  @apiSuccess {Object}  user                User info
+ *  @apiSuccess {string}  user.amzn_username  Amazon username
+ *  @apiSuccess {string}  user.amzn_email     Amazon email
+ *  @apiSuccess {string}  user.amzn_zip       Amazon zipcode "XXXXX-XXXX"
+ *
+ *  @apiDescription Endpoint to pull a users information. The server will lookup current users information.
+ *
+ *  @apiError (400 Bad Request) Request must a registered user.
+ */
 .put('/update', function(req, res) {
   params = req.body
   console.log('server /update params: ', params)
