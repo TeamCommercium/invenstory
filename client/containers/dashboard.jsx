@@ -297,12 +297,8 @@ export default class DashboardContainer extends React.Component{
     if(this.state.detail && this.state.detail.amzn_asin)
      details = <Details
         smartAdd={this.smartAdd.bind(this)}
-        // handleQuantityChange={this.handleQuantityChange.bind(this)}
-        // quantity={this.state.ship_quantity}
         deleteAll={this.confirmDelete.bind(this)} 
-        // confirmShip={this.confirmShip.bind(this)} 
         hideDetails={this.handleBlur.bind(this)} 
-        // err_quantity={this.state.err_ship_quantity}
         data={this.state.detail}
         historical={this.state.historical.graphData}
         options={this.state.historical.options} 
