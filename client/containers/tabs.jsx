@@ -49,6 +49,17 @@ export default class TabsContainer extends React.Component{
       }
 
     })
+    // after window resize, redraw graph to fit
+    if(window){
+      function resizedw(){
+        component.forceUpdate();
+      }
+      var resizeEnd;
+      window.onresize = function(){
+        clearTimeout(resizeEnd);
+        resizeEnd = setTimeout(resizedw, 100);
+      }
+    }
   }
 
   handleTabChange(index){
