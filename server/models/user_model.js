@@ -102,6 +102,6 @@ exports.updateUserInfo = function(userId, userInfo) {
   return db('users')
     .returning('id')
     .where({id: userId})
-    .update( userInfo)
+    .update(userInfo)
 }
 

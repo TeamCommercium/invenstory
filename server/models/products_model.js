@@ -19,7 +19,7 @@ var amazonMWS = require('../api/amazonMWS.js');
   * @return {Promise}  Resolves an array of objects representing the product.
   */
  exports.getProducts = function (userId, productId) {
-     log('Getting products for user:', userId)
+     //log('Getting products for user:', userId)
 
     //Passing an undefined value to a where clause in knex seems to include the search term, so build the clause here.
     let whereClause = {"inventory.user_id":userId,
@@ -41,7 +41,7 @@ var amazonMWS = require('../api/amazonMWS.js');
               .count('inventory.product_id as quantity')
               .where(whereClause)
               .then(function(data){
-                log('Get products is complete.')
+                //log('Get products is complete.')
                 return data
               })
               .then(function(products) {

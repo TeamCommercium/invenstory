@@ -50,8 +50,9 @@ var router = express.Router()
     })
 })
 
-.post('/update', function(req, res) {
+.put('/update', function(req, res) {
   params = req.body
+  console.log('server /update params: ', params)
   User.updateUserInfo(req.user.id, params)
     .then(function(result){
       log('update user result ',result)

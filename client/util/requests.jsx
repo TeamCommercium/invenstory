@@ -155,11 +155,32 @@ export function getUserInfo(){
         'Content-Type': 'application/json'
       }
     }
-  ).then(function(response) {
+  )
+  .then(function(response) {
     return response.json()
   })
   .catch(function(err){
     console.log("Error Getting User Info: ", err)
+  })
+}
+
+export function updateUserInfo(params) {
+  fetch('/user/update',
+    {
+      credentials: 'include',
+      method: "PUT",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }
+  )
+  .then(function(result){
+    console.log("no error from update User Info:", result)
+  })
+  .catch(function(err){
+    console.log("updating user", err)
   })
 }
 

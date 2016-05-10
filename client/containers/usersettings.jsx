@@ -1,7 +1,7 @@
 import React from 'react'
 import Settings from '../components/settings'
 import { subscribeTo } from '../util/util'
-import { getUserInfo } from '../util/requests'
+import { getUserInfo, updateUserInfo } from '../util/requests'
 import { store } from '../store/initStore'
 
 let mounted = false;
@@ -39,7 +39,12 @@ export default class SettingsContainer extends React.Component{
 
 
   handleSubmit(){
-
+    let userInfo = {}
+    userInfo.amzn_username = this.state.name
+    userInfo.amzn_email = this.state.email
+    userInfo.amzn_zip = this.state.zipcode
+    console.log(userInfo)
+    updateUserInfo(userInfo)
   }
 
   handleInput(name, value){

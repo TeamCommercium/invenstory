@@ -30,6 +30,7 @@ export default (props) => <div>
   <Button
     className=""
     label='Save' raised floating
+    onMouseUp={props.handleSubmit.bind(this)}
   />
   <Button
     className=""
