@@ -6,6 +6,7 @@ node_modules
 docs
 *.sqlite3
 npm-debug.log
+coverage
 
 # Icon must end with two \r
 Icon
