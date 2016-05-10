@@ -87,21 +87,29 @@ exports.findOrCreateUser = function (params) {
  * getUserProfileInfo - Returns the signed in user's username, email, and zipcode
  *
  * @param {integer} userId unique user ID
- * @return {Promies}  Resolves to the user's username, email, and zipcode
+ * @return {Promies}  Resolves to an array containing an object with the user's username, email, and zipcode
  */
 exports.getUserProfileInfo = function(userId) {
 
   return db('users')
     .where({id: userId})
     .select('amzn_username', 'amzn_email', 'amzn_zip')
-      .then(function(result){ return result })
-
 }
 
+
+/**
+ * updateUserInfo - Updates user data in teh database
+ *
+ * @param  {integer} userId   Internal user.id
+ * @param  {Object} userInfo Object containing data to update
+ * @param {string}  userInfo.amzn_username Username
+ * @param {string}  userInfo.amzn_email email
+ * @param {string}  userInfo.amzn_zip zipcode
+ * @return {Promise}          Resolves to an array containing an object with the user id which was updated.
+ */
 exports.updateUserInfo = function(userId, userInfo) {
   return db('users')
     .returning('id')
     .where({id: userId})
     .update(userInfo)
 }
-
