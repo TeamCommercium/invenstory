@@ -107,12 +107,9 @@ export default class HomeContainer extends React.Component{
     };
 
     const pieChartOptions = {
-      title: 'Total Inventory Value',
-      hAxis: {title: 'SKU'},
-      vAxis: {title: 'Value'},
-      legend: { position: 'top', maxLines: 3 },
-      bar: { groupWidth: '75%' },
-      isStacked: false
+      title: 'Current Inventory Value',
+      legend: { position: 'right'},
+      is3D: false
     };
 
     this.setState({
@@ -146,10 +143,8 @@ export default class HomeContainer extends React.Component{
           <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.barGraphOptions} width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
         <div className="styles__centerGraph___PVBDK">
-          <Chart chartType = "PieChart" data = {this.state.pieChartData} options = {this.state.pieChartOptions} width={"100%"} height={"400px"}  legend_toggle={true} />
+          <Chart chartType = "PieChart" data = {this.state.pieChartData} options = {this.state.pieChartOptions} width={"100%"} height={"400px"}  legend_toggle={true}/>
         </div>
-        <p>BAR:{JSON.stringify(this.state.graphData)}</p>
-        <p>PIE:{JSON.stringify(this.state.pieChartData)}</p>
         { notifications }
       </div>
     else

@@ -175,20 +175,24 @@ export function processGeneralGraphData(inventory){
 
 export function processPieChartData(inventory){
 
-  let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}, 'Current Value', {type: 'string', role: 'tooltip'}]]; 
+  let totalValue = 0;
+  let totalCost = 0;
+  let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}]]; 
   let priceData = inventory.forEach(function(cur, ind){
     const amznPrice = cur.amzn_price_fba || cur.amzn_price_fbm;
+    totalValue += amznPrice * cur.quantity;
+    totalCost += cur.avg_purchase_price * cur.quantity;
     lineData.push(
       [
-        cur.seller_sku,
-        Math.round(cur.avg_purchase_price*100) / 100,
-        cur.amzn_title && cur.amzn_title.slice(0,35) + ", QTY:" + cur.quantity + " COST: $" + cur.avg_purchase_price.toFixed(2) + " TOT COST: $" + (cur.avg_purchase_price * cur.quantity).toFixed(2),
-        Math.round(amznPrice * 100) / 100,
-        cur.amzn_title && cur.amzn_title.slice(0,35) + ", CUR VAL: $" + amznPrice.toFixed(2) + " TOT VAL: $" + (amznPrice * cur.quantity).toFixed(2) + " GAIN: " + ((amznPrice - cur.avg_purchase_price) / cur.avg_purchase_price * 100).toFixed(0) + "%"
+        cur.seller_sku + ", Quantity: " + cur.quantity + ", Total Value: $" + (amznPrice * cur.quantity).toFixed(2),
+        Math.round(amznPrice * cur.quantity * 100) / 100,
+        cur.amzn_title && cur.amzn_title.slice(0,55) + " - Total Value: $" + (amznPrice * cur.quantity).toFixed(2),
       ]
     )
   })
   smartDispatch(UPDATE_PIECHART_DATA, lineData)
+  console.log("TOTAL COST:", totalCost);
+  console.log("TOTAL VALUE:", totalValue);
   return lineData
 }
 
