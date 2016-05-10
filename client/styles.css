@@ -270,7 +270,7 @@ and (orientation : portrait) {
   padding: 0px;
 
   width: 100%;
-  height: 500px;
+  height: 375px;
 
   left:0;
   bottom: 0;
@@ -326,6 +326,7 @@ and (orientation : portrait) {
 }
 
 .detailSliderInfo {
+  color: black;
   display: inline-block;
   margin: 20px 20px 0px 50px;
 }
@@ -337,5 +338,6 @@ and (orientation : portrait) {
 /* Table on the dashboard */
 #table {
   display: block;
-  margin-bottom: 500px;
+  margin: 0px auto 375px auto;
+  /*margin-bottom: 375px;*/
 }

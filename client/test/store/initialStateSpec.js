@@ -28,11 +28,11 @@ describe('Client: store/initialState.jsx', function () {
   });
 
   it('Should be have a property for detail that is an Array', function () {
-    expect(initialState.detail).to.equal(null)
+    expect(initialState.detail).to.deep.equal({})
   });
 
   it('Should be have a property for notifications that is null', function () {
-    expect(initialState.notifications).to.equal(null)
+    expect(initialState.notifications).to.deep.equal([])
   });
 
   it('Should be have a property for tab that is a number (0)', function () {

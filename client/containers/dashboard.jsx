@@ -6,6 +6,7 @@ import { store } from '../store/initStore'
 import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
 import Addproduct from '../components/addproduct'
+import Ship from '../components/ship'
 import Details from '../components/details'
 
 /*
@@ -65,6 +66,7 @@ export default class DashboardContainer extends React.Component{
       err_quantity: '',
       ship_quantity: '',
       err_ship_quantity: '',
+      showShipModal: false,
     };
 
     let component = this;
@@ -163,8 +165,6 @@ export default class DashboardContainer extends React.Component{
   handleModal(){
     this.setState({showModal: !this.state.showModal});
   }
-
-
 
   handleSubmit(){
     let inputErr = 0;
@@ -266,6 +266,10 @@ export default class DashboardContainer extends React.Component{
       deleteInventoryItem({id: id})
   }
 
+  handleShipModal(){
+    this.setState({showShipModal: !this.state.showShipModal});
+  }
+
   confirmShip(id, seller_sku, amzn_price_fba){
     if (!this.state.ship_quantity || this.state.ship_quantity < 1) {
       this.setState({err_ship_quantity: "Please enter valid quantity"});
@@ -293,16 +297,12 @@ export default class DashboardContainer extends React.Component{
     if(this.state.detail && this.state.detail.amzn_asin)
      details = <Details
         smartAdd={this.smartAdd.bind(this)}
-        handleQuantityChange={this.handleQuantityChange.bind(this)}
-        quantity={this.state.ship_quantity}
         deleteAll={this.confirmDelete.bind(this)} 
-        confirmShip={this.confirmShip.bind(this)} 
         hideDetails={this.handleBlur.bind(this)} 
-        err_quantity={this.state.err_ship_quantity}
-        quantity={this.state.ship_quantity}
         data={this.state.detail}
         historical={this.state.historical.graphData}
         options={this.state.historical.options} 
+        handleShipModal={this.handleShipModal.bind(this)}
        />
 
     if(this.state.tableData[0])
@@ -315,6 +315,7 @@ export default class DashboardContainer extends React.Component{
         label='Add Product' raised floating
         onMouseUp={this.handleModal.bind(this)}
       />
+
       <br/>
       {dashboard}
       {this.props.children}
@@ -341,6 +342,15 @@ export default class DashboardContainer extends React.Component{
         searchResults={this.state.searchResults}
         searchString={this.state.searchString}
       /> 
+      <Ship
+        active={this.state.showShipModal}
+        data={this.state.detail}
+        ship_quantity={this.state.ship_quantity}
+        err_quantity={this.state.err_ship_quantity}
+        handleShipModal={this.handleShipModal.bind(this)}
+        handleQuantityChange={this.handleQuantityChange.bind(this)}
+        confirmShip={this.confirmShip.bind(this)}
+      />
       {details}
     </div>
   }

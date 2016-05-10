@@ -99,7 +99,7 @@ export default class HomeContainer extends React.Component{
   visitItem(cur){
     if(typeof cur === 'object'){
       smartDispatch(CHANGE_TAB, 1)
-      setTimeout(smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 0)
+      setTimeout(smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 1)
     }
   }
 
@@ -110,6 +110,7 @@ export default class HomeContainer extends React.Component{
     if(this.state.notifications){
       notifications = <Notifications visitItem={this.visitItem} data={this.state.notifications}/>
     }
+
 
     if(this.state.graphData.length > 0 && this.state.graphData[1] && this.state.graphData[1].length > 0)
       dashboard = <div> 
