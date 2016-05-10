@@ -97,8 +97,6 @@ export default class HomeContainer extends React.Component{
   }
 
   visitItem(cur){
-    console.log("cur in visitItem:", cur);
-    console.log("cur is OBJ?", typeof cur === 'object');
     if(typeof cur === 'object'){
       smartDispatch(CHANGE_TAB, 1)
       setTimeout(smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 1)
@@ -119,7 +117,6 @@ export default class HomeContainer extends React.Component{
         <div className="styles__centerGraph___PVBDK">
           <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
-        {"NOTIFICATIONS:", JSON.stringify(this.state.notifications)}
         { notifications }
       </div>
     else
