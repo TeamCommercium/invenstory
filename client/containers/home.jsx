@@ -78,7 +78,7 @@ export default class HomeContainer extends React.Component{
       backlog.notifications.pending = false
     }
 
-    const options = {
+    const barGraphOptions = {
       title: 'Current Inventory Performance',
       hAxis: {title: 'SKU'},
       vAxis: {title: 'Value'},
@@ -87,8 +87,18 @@ export default class HomeContainer extends React.Component{
       isStacked: false
     };
 
+    const pieChartOptions = {
+      title: 'Total Inventory Value',
+      hAxis: {title: 'SKU'},
+      vAxis: {title: 'Value'},
+      legend: { position: 'top', maxLines: 3 },
+      bar: { groupWidth: '75%' },
+      isStacked: false
+    };
+
     this.setState({
-      'options' : options
+      'barGraphOptions' : barGraphOptions,
+      'pieChartOptions' : pieChartOptions
     });
   }
 
@@ -111,12 +121,15 @@ export default class HomeContainer extends React.Component{
       notifications = <Notifications visitItem={this.visitItem} data={this.state.notifications}/>
     }
 
-
     if(this.state.graphData.length > 0 && this.state.graphData[1] && this.state.graphData[1].length > 0)
       dashboard = <div> 
         <div className="styles__centerGraph___PVBDK">
-          <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.options} graph_id = "ScatterChart"  width={"100%"} height={"400px"}  legend_toggle={true} />
+          <Chart chartType = "ColumnChart" data = {this.state.graphData} options = {this.state.barGraphOptions} width={"100%"} height={"400px"}  legend_toggle={true} />
         </div>
+        <div className="styles__centerGraph___PVBDK">
+          <Chart chartType = "PieChart" data = {this.state.graphData} options = {this.state.pieChartOptions} width={"100%"} height={"400px"}  legend_toggle={true} />
+        </div>
+        <p>{JSON.stringify(this.state.graphData)}</p>
         { notifications }
       </div>
     else
