@@ -135,7 +135,7 @@ export function processPieChartData(inventory){
       ]
     )
   })
-  smartDispatch(UPDATE_PIECHART_DATA, lineData)
+  store.smartDispatch(actions.UPDATE_PIECHART_DATA, lineData)
   console.log("TOTAL COST:", totalCost);
   console.log("TOTAL VALUE:", totalValue);
   return lineData

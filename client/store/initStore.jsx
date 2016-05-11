@@ -29,7 +29,6 @@ const defaultStore = createStore(
     routing: routerReducer,
     notifications: notificationReducer,
     tab: tabReducer,
-    userSettings: userSettingsReducer
   }),
   initialState,
   applyMiddleware(middleware)

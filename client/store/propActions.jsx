@@ -28,5 +28,10 @@ export default {
     UPDATE_NOTIFICATIONS: true,
     pending: false,
     payload: undefined
+  },
+  pieChartData: {
+    UPDATE_PIECHART_DATA: true,
+    pending: false,
+    payload: undefined
   }
 }
