@@ -27,6 +27,7 @@ export default class TabsContainer extends React.Component{
     this.mounted = false;
     this.state = { tab: store.getState().tab }
     store.register("tabs", ["tab"], this)
+    let component = this;
 
     // after window resize, redraw graph to fit
     if(window){
