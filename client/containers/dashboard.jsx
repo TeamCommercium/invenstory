@@ -3,7 +3,6 @@ import { Button, Snackbar } from 'react-toolbox';
 
 import Table from '../components/table'
 import { store } from '../store/initStore'
-import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Ship from '../components/ship'
@@ -25,23 +24,6 @@ import Details from '../components/details'
   1) We are currently not using React-Redux and updating state to rerender seems less hacky than forceUpdate.
   2) There are input fields in one of the components rendered here and it 
  */
-
-let mounted = false;
-
-let backlog = {
-  detail: {
-    pending: false,
-    payload: undefined
-  },
-  tableData: {
-    pending: false,
-    payload: undefined
-  },
-  historical: {
-    pending: false,
-    payload: undefined
-  }
-};
 
 export default class DashboardContainer extends React.Component{
 
@@ -69,15 +51,9 @@ export default class DashboardContainer extends React.Component{
       showShipModal: false,
     };
 
+    this.mounted = false;
     let component = this;
-    subscribeTo("detail", function(newState){
-
-      if(mounted)
-        component.setState({ "detail": newState.detail })
-      else{
-        backlog.detail.payload = newState.detail
-        backlog.detail.pending = true
-      }
+    store.register("dashboard", ["detail","tableData"], this, function(newState){
 
       // Get historical data for this item.
       if(newState && newState.detail && typeof newState.detail.id === "number"){
@@ -102,11 +78,9 @@ export default class DashboardContainer extends React.Component{
             }
           }
 
-          console.log(historicalData.options.hAxis.ticks)
-
-          if(mounted)
+          if(component.mounted){
             component.setState({ "historical": historicalData })
-          else{
+          } else {
             backlog.historical.payload = historicalData
             backlog.historical.pending = true
           }
@@ -114,36 +88,16 @@ export default class DashboardContainer extends React.Component{
         .catch(function(err){
           console.log("error in catch from getHistoricalData in the DashboardContainer", err)
         })
-      }
-    })
-
-    subscribeTo("tableData", function(newState){
-      if(mounted)
-        component.setState({ "tableData": newState.tableData })
-      else{
-        backlog.tableData.payload = newState.tableData
-        backlog.tableData.pending = true
-      }
-    })
+      })
   }
 
   componentDidMount(){
-    mounted = true;
-
-    if(backlog.detail.pending){
-      this.setState({ "detail": backlog.detail.payload })
-      backlog.detail.pending = false
-    }
-
-    if(backlog.tableData.pending){
-      this.setState({ "tableData": backlog.tableData.payload })
-      backlog.tableData.pending = false
-    }
-
     if(backlog.tableData.pending){
       this.setState({ "historical": backlog.historical.payload })
       backlog.historical.pending = false
     }
+
+    store.syncWithStore("dashboard", ["detail","tableData"],this)
 
     if(document.getElementById("styles__table___1QENt") && document.getElementById("styles__table___1QENt").getElementsByTagName('input') && document.getElementById("styles__table___1QENt").getElementsByTagName('input')[0])
       document.getElementsByTagName('input')[0].placeholder = "Search Table . ."
@@ -155,7 +109,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   componentWillUnmount(){
-    mounted = false;
+    store.unMounting("tabs", this)
   }
 
   handleInput(name, value) {

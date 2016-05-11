@@ -7,9 +7,7 @@ import Home from './home'
 import Settings from './usersettings'
 
 import { CHANGE_TAB } from '../actionTypes'
-import { smartDispatch } from '../dispatcher'
 import { store } from '../store/initStore'
-import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory, addUserInventory, logout, getUserInfo } from '../util/requests'
 
 /*
@@ -22,34 +20,14 @@ import { checkAuth, processNewInventory, addUserInventory, logout, getUserInfo }
   Backlog is checked and set back to "not pending" whenever componentDidMount is called
  */
 
-
-let mounted = false;
-
-let backlog = {
-  tab: {
-    pending: false,
-    payload: undefined
-  }
-};
-
 export default class TabsContainer extends React.Component{
 
   constructor(props){
     super(props)
-    this.state = {
-      tab: store.getState().tab
-    }
+    this.mounted = false;
+    this.state = { tab: store.getState().tab }
+    store.register("tabs", ["tab"], this)
 
-    let component = this;
-    subscribeTo("tab", function(newState){
-      if(mounted)
-        component.setState({ "tab": newState.tab })
-      else{
-        backlog.tab.payload = newState.tab
-        backlog.tab.pending = true
-      }
-
-    })
     // after window resize, redraw graph to fit
     if(window){
       function resizedw(){
@@ -65,24 +43,19 @@ export default class TabsContainer extends React.Component{
 
   handleTabChange(index){
     checkAuth()
-    smartDispatch(CHANGE_TAB, index)
-  };
+    store.smartDispatch(CHANGE_TAB, index)
+  }
 
   componentWillMount(){
     checkAuth()
   }
 
   componentDidMount(){
-    mounted = true;
-
-    if(backlog.tab.pending){
-      this.setState({ "tab": backlog.tab.payload })
-      backlog.tab.pending = false
-    }
+    store.syncWithStore("tabs",["tab"], this)
   }
 
   componentWillUnmount(){
-    mounted = false;
+    store.unMounting("tabs", this)
   }
 
   render(){

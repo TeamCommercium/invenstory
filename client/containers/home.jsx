@@ -3,8 +3,6 @@ import { Chart } from 'react-google-charts'
 import { ProgressBar } from 'react-toolbox'
 
 import { UPDATE_DETAIL_DATA, CHANGE_TAB } from '../actionTypes'
-import { smartDispatch } from '../dispatcher'
-import { subscribeTo } from '../util/util'
 import { checkAuth, processNewInventory } from '../util/requests'
 import Notifications from '../components/notifications'
 import { store } from '../store/initStore'
@@ -19,60 +17,18 @@ import { store } from '../store/initStore'
   Backlog is checked and set back to "not pending" whenever componentDidMount is called
  */
 
-let mounted = false;
-
-let backlog = {
-  graphData: {
-    pending: false,
-    payload: undefined
-  },
-  pieChartData: {
-    pending: false,
-    payload: undefined
-  },
-  notifications: {
-    pending: false,
-    payload: undefined
-  }
-};
-
 export default class HomeContainer extends React.Component{
 
   constructor(props){
     super(props)
+    this.mounted = false;
     this.state = {
       graphData: store.getState().graphData,
       pieChartData: store.getState().pieChartData,
       notifications: store.getState().notifications
     }
 
-    let component = this;
-    subscribeTo("graphData", function(newState){
-      if(mounted)
-        component.setState({ "graphData": newState.graphData })
-      else{
-        backlog.graphData.payload = newState.graphData
-        backlog.graphData.pending = true
-      }
-    })
-
-    subscribeTo("pieChartData", function(newState){
-      if(mounted)
-        component.setState({ "pieChartData": newState.pieChartData })
-      else{
-        backlog.pieChartData.payload = newState.pieChartData
-        backlog.pieChartData.pending = true
-      }
-    })
-
-    subscribeTo("notifications", function(newState){
-      if(mounted)
-        component.setState({ "notifications": newState.notifications })
-      else{
-        backlog.notifications.payload = newState.notifications
-        backlog.notifications.pending = true
-      }
-    })
+    store.register("home", ["notifications", "graphData", "pieChartData"], this)
   }
 
   componentWillMount(){
@@ -80,22 +36,7 @@ export default class HomeContainer extends React.Component{
   }
 
   componentDidMount(){
-    mounted = true;
-
-    if(backlog.graphData.pending){
-      this.setState({ "graphData": backlog.graphData.payload })
-      backlog.graphData.pending = false
-    }
-
-    if(backlog.pieChartData.pending){
-      this.setState({ "pieChartData": backlog.pieChartData.payload })
-      backlog.pieChartData.pending = false
-    }
-
-    if(backlog.notifications.pending){
-      this.setState({ "notifications": backlog.notifications.payload })
-      backlog.notifications.pending = false
-    }
+    store.syncWithStore("home", ["notifications", "graphData", "pieChartData"], this)
 
     const barGraphOptions = {
       title: 'Current Inventory Performance',
@@ -119,13 +60,13 @@ export default class HomeContainer extends React.Component{
   }
 
   componentWillUnmount(){
-    mounted = false;
+    store.unMounting("home", this)
   }
 
   visitItem(cur){
     if(typeof cur === 'object'){
-      smartDispatch(CHANGE_TAB, 1)
-      setTimeout(smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 1)
+      store.smartDispatch(CHANGE_TAB, 1)
+      setTimeout(store.smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur), 0)
     }
   }
 

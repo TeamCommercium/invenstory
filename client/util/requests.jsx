@@ -1,8 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import { store } from '../store/initStore'
-import { smartDispatch } from '../dispatcher'
-import { redirect, processNewData, processUserSettings } from './util'
-import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_INVENTORY, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_PIECHART_DATA,UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import { redirect, processNewData } from './util'
+import { UPDATE_AUTHENTICATION } from '../actionTypes'
 
 export function searchAmazonForASIN(searchString){
 
@@ -20,7 +19,7 @@ export function searchAmazonForASIN(searchString){
     return response.json()
   })
   .catch(function(err){
-    console.log("searchAmazonForASIN error:", err)
+    console.log("Error searching Amazon for ASIN error:", err)
   })
 }
 
@@ -45,7 +44,7 @@ export function getHistoricalData(productId){
     return response.json()
   })
   .catch(function(err){
-    console.log("getHistoricalData error:", err)
+    console.log("Error getting Historical Data error:", err)
   })
 }
 
@@ -53,7 +52,7 @@ export function getHistoricalData(productId){
 
 export function deleteInventoryItem(params){
 
-  fetch('/inventory/delete',
+  return fetch('/inventory/delete',
     {
       credentials: 'include',
       method: "DELETE",
@@ -64,8 +63,9 @@ export function deleteInventoryItem(params){
       body: JSON.stringify(params)
     }
   )
-  .then(function(){
-    setTimeout(processNewInventory, 1000);
+  .then(function({status}){
+    if(status)
+      processNewInventory();
   })
   .catch(function(err){
     console.log("Error deleting inventory", err)
@@ -75,7 +75,7 @@ export function deleteInventoryItem(params){
  
 export function shipInventoryItems(params){
 
-  fetch('/inventory/ship',
+  return fetch('/inventory/ship',
     {
       credentials: 'include',
       method: "PUT",
@@ -86,12 +86,12 @@ export function shipInventoryItems(params){
       body: JSON.stringify(params)
     }
   )
-  .then(function(){
-    console.log("no error from ship inventory")
-    setTimeout(processNewInventory, 1000);
+  .then(function({status}){
+    if(status)
+      processNewInventory();
   })
   .catch(function(err){
-    console.log("adding inventory", err)
+    console.log("Error shipping inventory", err)
   })
 }
 
@@ -106,11 +106,10 @@ export function shipInventoryItems(params){
 
 export function logout() {
 
-  fetch('/auth/logout', {credentials: 'include'})
+  return fetch('/auth/logout', {credentials: 'include'})
     .then(function(response){
-      smartDispatch(UPDATE_AUTHENTICATION, false)
+      store.smartDispatch(UPDATE_AUTHENTICATION, false)
       redirect("/#/login")()
-      console.log("Logged out")
     })
     .catch(function(error){
       console.log("Error Logging Out: ", error)
@@ -132,13 +131,12 @@ export function checkAuth(){
   if(store.getState().authenticated)
     return;
 
-
-  fetch('/user/me', {credentials: 'include'})
+  return fetch('/user/me', {credentials: 'include'})
   .then(function(response) {
     if(response.status >= 400){
       redirect("/#/login")()
     } else {
-      smartDispatch(UPDATE_AUTHENTICATION, true)
+      store.smartDispatch(UPDATE_AUTHENTICATION, true)
     }
   })
 }
@@ -190,7 +188,7 @@ export function updateUserInfo(params) {
 
  export function addUserInventory(params){
 
-  fetch('/inventory/add',
+  return fetch('/inventory/add',
     {
       credentials: 'include',
       method: "POST",
@@ -201,8 +199,9 @@ export function updateUserInfo(params) {
       body: JSON.stringify(params)
     }
   )
-  .then(function(){
-    setTimeout(processNewInventory, 1000);
+  .then(function({status}){
+    if(status)
+      processNewInventory();
   })
   .catch(function(err){
     console.log("adding inventory", err)
@@ -225,7 +224,7 @@ processNewInventory()
 setInterval(processNewInventory, 30*60*1000);
 export function processNewInventory(){
 
-  fetch('/products/list', {credentials: 'include'})
+  return fetch('/products/list', {credentials: 'include'})
     .then(function(response) {
       if(response.status >= 400) redirect("/#/login")()
 
