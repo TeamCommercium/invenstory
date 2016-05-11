@@ -320,14 +320,16 @@ and (orientation : portrait) {
 }
 
 .detailSlider {
+  display: block;
+  align-items: center;
   width: 60%;
   margin: 0px 20px 20px 20px;
-
 }
 
 .detailSliderInfo {
+  /*text-align: center;*/
   color: black;
-  display: inline-block;
+  display: block;
   margin: 20px 20px 0px 50px;
 }
 
