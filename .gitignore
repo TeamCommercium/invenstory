@@ -4,6 +4,7 @@
 dist
 node_modules
 docs
+coverage
 *.sqlite3
 npm-debug.log
 coverage

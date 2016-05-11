@@ -1,5 +1,4 @@
-import { store } from './store/initStore'
-import * as actions from './actionTypes'
+import * as actions from '../actionTypes'
 
 /*
   function smartDispatch
@@ -15,10 +14,10 @@ import * as actions from './actionTypes'
   possible by keeping track of which properties have been changed.
 */
 
-export function smartDispatch(type, data){
+export default function smartDispatch(type, data){
   if(! actions[type])
     throw new Error("invalid action type sent to dispatcher.jsx")
 
-  store.dispatch({type: actions.UPDATE_LAST_CHANGED, data: type})
-  store.dispatch({type: type, data:data})
+  this.dispatch({type: actions.UPDATE_LAST_CHANGED, data: type})
+  this.dispatch({type: type, data:data})
 }

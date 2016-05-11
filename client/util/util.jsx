@@ -1,8 +1,7 @@
 import React from 'react'
-
 import { store } from '../store/initStore'
-import { smartDispatch } from '../dispatcher'
-import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_DETAIL_DATA, UPDATE_GRAPH_DATA, UPDATE_PIECHART_DATA, UPDATE_TABLE_DATA, UPDATE_AUTHENTICATION } from '../actionTypes'
+import * as actions from '../actionTypes'
+
 
 //Get rid of console.logs when not developing or testing
 //
@@ -16,7 +15,7 @@ import { UPDATE_LAST_CHANGED, UPDATE_NOTIFICATIONS, UPDATE_DETAIL_DATA, UPDATE_G
 // },100)
 
 // setTimeout( function(){
-//   smartDispatch(UPDATE_INVENTORY, null)
+//   store.smartDispatch(UPDATE_INVENTORY, null)
 // }, 2000);
 
 
@@ -33,60 +32,6 @@ export function redirect(address, _window = window){
     _window.location.href = address
   }.bind(null, address)
 }
-
-
-/*
-  function subscribeTo
-  Takes a string and a callback as parameters.
-  Return's nothing.
-  Wraps the store's subscribe method and only calls your callback when
-  the most recentlychanged value matches the string you enterred as a property.
-
-  This is intended to prevent unneeded re-renders by only triggering when relevant.
- */
-
-export function subscribeTo(property, callback){
-
-  let action = {
-    detail: {
-      UPDATE_DETAIL_DATA: true
-    },
-    authenticated: {
-      UPDATE_AUTHENTICATION: true
-    },
-    tableData: {
-      UPDATE_TABLE_DATA: true
-    },
-    graphData: {
-      UPDATE_GRAPH_DATA: true
-    },
-    pieChartData: {
-      UPDATE_PIECHART_DATA: true
-    },
-    tab: {
-      CHANGE_TAB: true
-    },
-    notifications: {
-      UPDATE_NOTIFICATIONS: true
-    },
-    userSettings: {
-      UPDATE_USER_SETTINGS: true
-    }
-  }
-
-  if( ! action[property])
-    throw new Error(`You tried to subscribe to ${property} but you may have meant on of the following: detail, inventory, authenticated, tableData, notifications, graphData, tab`)
-
-  store.subscribe(function(){
-
-    let tempState = store.getState();
-    let changed = tempState.lastChanged
-
-    if(action[property][changed])
-      callback(tempState)
-  })
-}
-
 
 /*
   Called whenever new data is recieved by requests: processNewInventory
@@ -144,7 +89,7 @@ export function processNotifications(inventory){
     return b.profit - a.profit
   })
 
-  smartDispatch(UPDATE_NOTIFICATIONS, notifications)
+  store.smartDispatch(actions.UPDATE_NOTIFICATIONS, notifications)
   return notifications
 }
 
@@ -169,7 +114,7 @@ export function processGeneralGraphData(inventory){
       ]
     )
   })
-  smartDispatch(UPDATE_GRAPH_DATA, lineData)
+  store.smartDispatch(actions.UPDATE_GRAPH_DATA, lineData)
   return lineData
 }
 
@@ -190,7 +135,7 @@ export function processPieChartData(inventory){
       ]
     )
   })
-  smartDispatch(UPDATE_PIECHART_DATA, lineData)
+  store.smartDispatch(actions.UPDATE_PIECHART_DATA, lineData)
   console.log("TOTAL COST:", totalCost);
   console.log("TOTAL VALUE:", totalValue);
   return lineData
@@ -209,11 +154,10 @@ export function processGeneralTableData(inventory){
       "FBA Price": cur.amzn_price_fba && "$" + (Math.round(cur.amzn_price_fba*100)/100).toFixed(2),
       "Total Value": cur.amzn_price_fba ? "$" + (Math.round(cur.amzn_price_fba * cur.quantity * 100)/100).toFixed(2) : "$" + (Math.round(cur.amzn_price_fbm * cur.quantity * 100)/100).toFixed(2),
       "% Gain": cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + "%",
-      "  ": <button onClick={smartDispatch.bind(null, UPDATE_DETAIL_DATA, cur)}> View Details </button>,
+      "  ": <button onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
-  console.log(tableData)
-  smartDispatch(UPDATE_TABLE_DATA, tableData)
+  store.smartDispatch(actions.UPDATE_TABLE_DATA, tableData)
   return tableData
 }
 

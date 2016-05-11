@@ -12,11 +12,13 @@ import pieChartDataReducer from '../reducers/pieChart'
 import authenticationReducer from '../reducers/authentication'
 import lastChangedReducer from '../reducers/lastChanged'
 import initialState from './initialState'
-import userSettingsReducer from '../reducers/usersettings'
+import { subscribeTo } from './subscribeTo'
+import smartDispatch from './dispatcher'
+import Backlog from './Backlog'
 
 const middleware = routerMiddleware(browserHistory)
 
-export const store = createStore(
+const defaultStore = createStore(
   combineReducers({
     tableData: tableDataReducer,
     graphData: graphDataReducer,
@@ -27,8 +29,14 @@ export const store = createStore(
     routing: routerReducer,
     notifications: notificationReducer,
     tab: tabReducer,
-    userSettings: userSettingsReducer
   }),
   initialState,
   applyMiddleware(middleware)
 )
+
+const backlog = new Backlog({ 
+  subscribeTo: subscribeTo.bind(defaultStore),
+  smartDispatch: smartDispatch.bind(defaultStore)
+});
+
+export const store = Object.assign({}, defaultStore, backlog)

@@ -7,5 +7,4 @@ export default {
   detail: {},
   notifications: [],
   tab: 0,
-  userSettings: []
 }
