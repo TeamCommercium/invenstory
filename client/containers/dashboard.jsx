@@ -185,8 +185,7 @@ export default class DashboardContainer extends React.Component{
       err_purchase_price: '',
       err_purchase_date: '',
       err_quantity: '',
-      ship_quantity: '',
-      err_ship_quantity: '',
+      quantity: '',
       showSearchOption: true,
       showModal: false
     });
@@ -251,6 +250,7 @@ export default class DashboardContainer extends React.Component{
       showSearchOption: false,
       asin: data.amzn_asin,
       seller_sku: data.seller_sku,
+      quantity: '',
       showModal: true,
     });
   }
