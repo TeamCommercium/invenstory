@@ -7,8 +7,8 @@ export default (props) =>
     <div>
       <h2 style={{"textAlign": "center", color:"black" }}>Shipping {props.data.seller_sku}</h2>
       <div className="styles__detailSliderInfo___V2gla">TOT Cost: ${(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}</div>
-      <div className="styles__detailSliderInfo___V2gla">TOT Value: ${(props.data.amzn_price_fba * props.ship_quantity).toFixed(2)}</div>
-      <div className="styles__detailSliderInfo___V2gla">NET Gain: ${((props.data.amzn_price_fba - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</div>
+      <div className="styles__detailSliderInfo___V2gla">TOT Value: ${(props.data.amzn_price_fba || props.data.amzn_price_fbm * props.ship_quantity).toFixed(2)}</div>
+      <div className="styles__detailSliderInfo___V2gla">NET Gain: ${((props.data.amzn_price_fba || props.data.amzn_price_fbm - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</div>
       <div className="styles__detailSliderInfo___V2gla">ROI: {props.ship_quantity ? props.data.profit : 0}%</div>
     </div>
     <Slider
