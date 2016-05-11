@@ -25,5 +25,3 @@ export function subscribeTo(property, callback){
       callback(tempState)
   })
 }
-
-
