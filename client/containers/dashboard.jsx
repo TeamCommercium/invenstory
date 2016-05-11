@@ -88,7 +88,8 @@ export default class DashboardContainer extends React.Component{
         .catch(function(err){
           console.log("error in catch from getHistoricalData in the DashboardContainer", err)
         })
-      })
+      }
+    })
   }
 
   componentDidMount(){
