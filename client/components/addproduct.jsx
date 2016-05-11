@@ -8,11 +8,11 @@ export default (props) =>
   <SearchModule inherit={props}/>
   <Input 
     className=""
+    disabled={true}
     type='text' 
     label='Product ASIN'
     name='asin'
     icon='local_offer'
-    maxLength={10}
     value={props.asin}
     error={props.err_asin}
     onChange={props.handleInput.bind(this, 'asin')} 

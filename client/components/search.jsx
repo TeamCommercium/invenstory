@@ -14,7 +14,7 @@ export default ({inherit}) =>
 
     <Button 
         className="styles__inlineButton___16AEc"
-        label='Go' raised floating
+        label='Search' raised floating
         onMouseUp={inherit.handleAmazonSearch}
       />
 
@@ -33,9 +33,4 @@ export default ({inherit}) =>
       </List>
      : null}
      </div>}
-   <Button 
-        className="styles__inlineButton___16AEc"
-        label='Search Amazon' raised floating
-        onMouseUp={inherit.handleSearchToggle}
-      />
 </div>

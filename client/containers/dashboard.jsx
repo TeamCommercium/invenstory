@@ -41,7 +41,7 @@ export default class DashboardContainer extends React.Component{
       detail: {},
       historical: { graphData: null, options: null},
       showModal: false,
-      showSearchOption: false,
+      showSearchOption: true,
       searchResults: [],
       searchString: '',
       asin: '',
@@ -185,8 +185,8 @@ export default class DashboardContainer extends React.Component{
       err_purchase_price: '',
       err_purchase_date: '',
       err_quantity: '',
-      ship_quantity: '',
-      err_ship_quantity: '',
+      quantity: '',
+      showSearchOption: true,
       showModal: false
     });
   }
@@ -211,7 +211,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleAmazonResultSelection(ASIN){
-    this.setState({ 
+    this.setState({
       asin: ASIN,
       searchResults: [],
       searchString: '',
@@ -247,8 +247,10 @@ export default class DashboardContainer extends React.Component{
 
   smartAdd(data){
     this.setState({
+      showSearchOption: false,
       asin: data.amzn_asin,
       seller_sku: data.seller_sku,
+      quantity: '',
       showModal: true,
     });
   }
