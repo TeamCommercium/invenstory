@@ -25,6 +25,13 @@ import Details from '../components/details'
   2) There are input fields in one of the components rendered here and it 
  */
 
+var backlog = {
+  historical: {
+    pending: false,
+    payload: null
+  }
+}
+
 export default class DashboardContainer extends React.Component{
 
   constructor(props){
@@ -93,7 +100,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   componentDidMount(){
-    if(backlog.tableData.pending){
+    if(backlog.historical.pending){
       this.setState({ "historical": backlog.historical.payload })
       backlog.historical.pending = false
     }
