@@ -229,20 +229,34 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleShipModal(){
-    this.setState({showShipModal: !this.state.showShipModal});
+    this.setState({
+      showShipModal: !this.state.showShipModal
+    });
+    this.resetShipQuantity();
   }
 
-  confirmShip(id, seller_sku, amzn_price_fba){
-    if (!this.state.ship_quantity || this.state.ship_quantity < 1) {
-      this.setState({err_ship_quantity: "Please enter valid quantity"});
-    } else if (confirm("Please confirm that you are shipping " + this.state.ship_quantity + (this.state.ship_quantity === 1 ? " unit of " : " units of ") + seller_sku + " valued at $" + (amzn_price_fba * this.state.ship_quantity).toFixed(2) + " from your inventory?")) {
+  confirmShip(id){
+    console.log("SHIP QTY:", this.state.ship_quantity);
+    if (isNaN(this.state.ship_quantity) || this.state.ship_quantity < 1) {
+      this.setState({ship_quantity: 0});
+    } else {
+        console.log("PASSED")
         this.setState({err_ship_quantity: ''});
         shipInventoryItems({id: id, quantity: this.state.ship_quantity})
-    } 
+        this.handleShipModal();
+        console.log("Confirmed Shipped:", this.state.ship_quantity)
+    }
   }
 
   handleQuantityChange(val){
     this.setState({ship_quantity: val})
+  }
+
+  resetShipQuantity(){
+    this.setState({
+      ship_quantity: '',
+      err_ship_quantity: '',
+    });
   }
 
   smartAdd(data){
