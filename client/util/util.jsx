@@ -4,27 +4,15 @@ import * as actions from '../actionTypes'
 
 
 //Get rid of console.logs when not developing or testing
-//
 // console.log(process.env.NODE_ENV, process.env.NODE_ENV==="development")
 // if(process.env.NODE_ENV !== "development" && process.env.NODE_ENV !== "test")
 //   require('noconsole')
 
-// // Used to test dispatching actions
-// setTimeout( function(){
-//   subscribeTo("detail", function(stuff){console.log("detail TRIGGERED", stuff)})
-// },100)
-
-// setTimeout( function(){
-//   store.smartDispatch(UPDATE_INVENTORY, null)
-// }, 2000);
-
-
-/*
-  function redirect:
-  Takes a URL as a parameter (relative or absolute)
-  Takes an optional parameter for the window object (used for testing)
-
-  return a function that will redirect to the given address when invoked
+/**
+ * @function redirect
+ * @param {string} address - URL to redirect to
+ * @param {object} _window - Optional parameter for window object (used in testing)
+ * @return a function that will redirect to the given address when invoked
  */
 
 export function redirect(address, _window = window){
@@ -33,9 +21,12 @@ export function redirect(address, _window = window){
   }.bind(null, address)
 }
 
-/*
-  Called whenever new data is recieved by requests: processNewInventory
-  All of the functions invoked within processNewData format the new data as needed and save it to the store.
+/**
+ * Called whenever new data is recieved by requests: processNewInventory
+ * All of the functions invoked within processNewData format the new data as needed and save it to the store.
+ * function processNewData
+ * @param  {Object[]} inventory - Inventory data from the server
+ * @return {Object[]} Validated object with a new profit propery
  */
 
 export function processNewData(data){
@@ -49,6 +40,11 @@ export function processNewData(data){
   processNotifications(withProfit)
 }
 
+/**
+ * @function processUserSettings 
+ * @param  {Object} settings - Object with deeply nested properties.
+ * @return {Object} formatted user settings
+ */
 export function processUserSettings(settings){
   return {
     username: settings.user.amzn_username,
@@ -57,7 +53,11 @@ export function processUserSettings(settings){
   }
 }
 
-
+/**
+ * function processRawInventory
+ * @param  {Object[]} inventory - Inventory data from the server
+ * @return {Object[]} Validated object with a new profit propery
+ */
 export function processRawInventory(inventory){
   inventory = inventory.map(function(cur){
    cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
@@ -72,6 +72,11 @@ export function processRawInventory(inventory){
   return inventory
 }
 
+/**
+ * @function processNotifications
+ * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
+ * @return {Object[]} Filtered by profit and sorted into descending order
+ */
 export function processNotifications(inventory){
 
   let notifications = inventory.filter(function(cur){
@@ -86,10 +91,10 @@ export function processNotifications(inventory){
 }
 
 /**
- * processGeneralGraphData - A function that processes the inventory data to a format usable by the bar graph
- *
- * @param  {Array}   inventory  An array of ojects containing product data
- * @return {Promise}
+ * A function that processes the inventory data to a format usable by the bar graph
+ * @function processGeneralGraphData
+ * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
+ * @return {Object[]} Formatted into data useful to Google Charts bar graph
  */
 export function processGeneralGraphData(inventory){
 
@@ -110,6 +115,12 @@ export function processGeneralGraphData(inventory){
   return lineData
 }
 
+/**
+ * A function that processes the inventory data to a format usable by the line graph
+ * @function processPieChartData
+ * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
+ * @return {Object[]} Formatted into data useful to Google Charts line graph
+ */
 export function processPieChartData(inventory){
 
   let totalValue = 0;
@@ -133,6 +144,12 @@ export function processPieChartData(inventory){
   return lineData
 }
 
+/**
+ * A function that processes the inventory data to a format usable by the line graph
+ * @function processGeneralTableData
+ * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
+ * @return {Object[]} Formatted into data useful to reactable's table
+ */
 export function processGeneralTableData(inventory){
   let tableData = inventory.map(function(cur){
     return {
@@ -153,9 +170,12 @@ export function processGeneralTableData(inventory){
   return tableData
 }
 
+/**
+ * @function simpleValidateEmail
+ * @param  {Object[]} email - String to be tested
+ * @return {bool} true if its an email, false otherwise
+ */
 export function simpleValidateEmail(email) {
   let re = /\S+@\S+\.\S+/;
   return re.test(email);
 }
-
-

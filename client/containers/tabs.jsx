@@ -9,6 +9,7 @@ import { CHANGE_TAB } from '../actionTypes'
 import { store } from '../store/initStore'
 import { checkAuth, processNewInventory, addUserInventory, logout, getUserInfo } from '../util/requests'
 
+// To prevent flicker when not authorized on initial page load
 checkAuth()
 
 export default class TabsContainer extends React.Component{
