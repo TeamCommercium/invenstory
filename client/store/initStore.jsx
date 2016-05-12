@@ -34,6 +34,8 @@ const defaultStore = createStore(
   applyMiddleware(middleware)
 )
 
+
+//We want to extend the store to have subscribeTo, smartDispatch, register, and syncWithStore 
 const backlog = new Backlog({ 
   subscribeTo: subscribeTo.bind(defaultStore),
   smartDispatch: smartDispatch.bind(defaultStore)

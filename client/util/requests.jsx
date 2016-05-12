@@ -16,6 +16,7 @@ export function searchAmazonForASIN(searchString){
     }
   )
   .then(function(response){
+    if(response.status >= 400 && response.status < 500) redirect("/#/login")()
     return response.json()
   })
   .catch(function(err){
@@ -41,6 +42,7 @@ export function getHistoricalData(productId){
     }
   )
   .then(function(response){
+    if(response.status >= 400 && response.status < 500) redirect("/#/login")()
     return response.json()
   })
   .catch(function(err){
@@ -64,7 +66,8 @@ export function deleteInventoryItem(params){
     }
   )
   .then(function({status}){
-    if(status)
+    if(status >= 400 && status < 500) redirect("/#/login")()
+    if(status === 200)
       processNewInventory();
   })
   .catch(function(err){
@@ -87,7 +90,8 @@ export function shipInventoryItems(params){
     }
   )
   .then(function({status}){
-    if(status)
+    if(status >= 400 && status < 500) redirect("/#/login")()
+    if(status === 200)
       processNewInventory();
   })
   .catch(function(err){
@@ -132,8 +136,8 @@ export function checkAuth(){
     return;
 
   return fetch('/user/me', {credentials: 'include'})
-  .then(function(response) {
-    if(response.status >= 400){
+  .then(function({status}) {
+    if(status >= 400 && status < 500){
       redirect("/#/login")()
     } else {
       store.smartDispatch(UPDATE_AUTHENTICATION, true)
@@ -154,6 +158,7 @@ export function getUserInfo(){
     }
   )
   .then(function(response) {
+    if(response.status >= 400 && response.status < 500) redirect("/#/login")()
     return response.json()
   })
   .catch(function(err){
@@ -174,6 +179,7 @@ export function updateUserInfo(params) {
     }
   )
   .then(function(result){
+    if(status >= 400 && status < 500) redirect("/#/login")()
     console.log("no error from update User Info:", result)
   })
   .catch(function(err){
@@ -200,7 +206,8 @@ export function updateUserInfo(params) {
     }
   )
   .then(function({status}){
-    if(status)
+    if(status >= 400 && status < 500) redirect("/#/login")()
+    if(status === 200)
       processNewInventory();
   })
   .catch(function(err){
@@ -226,7 +233,7 @@ export function processNewInventory(){
 
   return fetch('/products/list', {credentials: 'include'})
     .then(function(response) {
-      if(response.status >= 400) redirect("/#/login")()
+      if(response.status >= 400 && response.status < 500) redirect("/#/login")()
 
       return response.json()
     })
