@@ -59,7 +59,7 @@ exports.seed = function(knex, Promise) {
         amzn_list_price: 19.99,
         amzn_sales_rank: 23423,
         currency: 'USD',
-        fetch_date: '2016-04-23 19:33:57', //UTC
+        fetch_date: '2016-04-23 19:33:57 Z', //UTC
       }).then(
         function(result) {
           var product_id = result[0]
@@ -69,31 +69,31 @@ exports.seed = function(knex, Promise) {
               product_id: product_id,
               amzn_price_fba: 22.99,
               amzn_price_fbm: 20.99,
-              amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 19:33:57 Z', //UTC
               }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 31.89,
               amzn_price_fbm: 28.99,
-              amzn_fetch_date: '2016-04-22 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-22 19:33:57 Z', //UTC
               }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 54.76,
               amzn_price_fbm: 49.99,
-              amzn_fetch_date: '2016-04-23 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-23 19:33:57 Z', //UTC
               }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 78.19,
               amzn_price_fbm: 74.81,
-              amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 19:33:57 Z', //UTC
             }),
             knex('inventory').insert({
               user_id: 2,
               product_id: product_id,
               sku: "76039",
-              purchase_date: '2015-02-20 11:33:57',
+              purchase_date: '2015-02-20 11:33:57 Z',
               purchase_price: 21.64,
               shipped: false,
             }),
@@ -101,7 +101,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "76039",
-              purchase_date: '2015-02-20 11:33:57',
+              purchase_date: '2015-02-20 11:33:57 Z',
               purchase_price: 21.64,
               shipped: false,
             }),
@@ -109,7 +109,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "76039",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 21.64,
               shipped: false,
             }),
@@ -117,7 +117,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "76039",
-              purchase_date: '2015-02-23 11:33:57',
+              purchase_date: '2015-02-23 11:33:57 Z',
               purchase_price: 23.80,
               shipped: false,
             }),
@@ -125,7 +125,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "76039",
-              purchase_date: '2015-02-23 11:33:57',
+              purchase_date: '2015-02-23 11:33:57 Z',
               purchase_price: 23.80,
               shipped: false,
             }),
@@ -133,7 +133,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "76039",
-              purchase_date: '2015-02-23 11:33:57',
+              purchase_date: '2015-02-23 11:33:57 Z',
               purchase_price: 23.80,
               shipped: false,
             }),
@@ -141,7 +141,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "76039",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 20.56,
               shipped: false,
             })
@@ -160,7 +160,7 @@ exports.seed = function(knex, Promise) {
         amzn_list_price: 399.99,
         amzn_sales_rank: 23423,
         currency: 'USD',
-        fetch_date: '2016-04-21 19:33:57', //UTC
+        fetch_date: '2016-04-21 19:33:57 Z', //UTC
       }).then(
         function(result) {
           var product_id = result[0]
@@ -170,25 +170,25 @@ exports.seed = function(knex, Promise) {
               product_id: product_id,
               amzn_price_fba: 619.19,
               amzn_price_fbm: 599.81,
-              amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 849.99,
               amzn_price_fbm: 819.18,
-              amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-22 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 1298.95,
               amzn_price_fbm: 1001.99,
-              amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 19:33:57 Z', //UTC
             }),
             knex('inventory').insert({
               user_id: 2,
               product_id: product_id,
               sku: "10221",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 432.99,
               shipped: false,
             }),
@@ -196,7 +196,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "10221",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 432.99,
               shipped: false,
             })
@@ -215,7 +215,7 @@ exports.seed = function(knex, Promise) {
         amzn_list_price: 39.99,
         amzn_sales_rank: 23423,
         currency: 'USD',
-        fetch_date: '2016-04-21 19:33:57', //UTC
+        fetch_date: '2016-04-21 19:33:57 Z', //UTC
       }).then(
         function(result) {
           var product_id = result[0]
@@ -225,25 +225,25 @@ exports.seed = function(knex, Promise) {
               product_id: product_id,
               amzn_price_fba: 72.95,
               amzn_price_fbm: 65.99,
-              amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 148.95,
               amzn_price_fbm: 139.99,
-              amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-22 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 169.95,
               amzn_price_fbm: 165.18,
-              amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 19:33:57 Z', //UTC
             }),
             knex('inventory').insert({
               user_id: 2,
               product_id: product_id,
               sku: "21004",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 37.88,
               shipped: false,
             }),
@@ -251,7 +251,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "21004",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 37.88,
               shipped: false,
             }),
@@ -259,7 +259,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "21004",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 37.88,
               shipped: false,
             }),
@@ -267,7 +267,7 @@ exports.seed = function(knex, Promise) {
               user_id: 2,
               product_id: product_id,
               sku: "21004",
-              purchase_date: '2015-02-22 11:33:57',
+              purchase_date: '2015-02-22 11:33:57 Z',
               purchase_price: 37.88,
               shipped: false,
             })
@@ -286,7 +286,7 @@ exports.seed = function(knex, Promise) {
         amzn_list_price: 109.99,
         amzn_sales_rank: 23423,
         currency: 'USD',
-        fetch_date: '2016-04-21 19:33:57', //UTC
+        fetch_date: '2016-04-21 19:33:57 Z', //UTC
       }).then(
         function(result) {
           var product_id = result[0]
@@ -296,19 +296,19 @@ exports.seed = function(knex, Promise) {
               product_id: product_id,
               amzn_price_fba: 189.95,
               amzn_price_fbm: 176.18,
-              amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 169.95,
               amzn_price_fbm: 159.43,
-              amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-22 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 227.94,
               amzn_price_fbm: 224.98,
-              amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 19:33:57 Z', //UTC
             })
           )
         }
@@ -325,7 +325,7 @@ exports.seed = function(knex, Promise) {
         amzn_list_price: 34.99,
         amzn_sales_rank: 23423,
         currency: 'USD',
-        fetch_date: '2016-04-21 19:33:57', //UTC
+        fetch_date: '2016-04-21 19:33:57 Z', //UTC
       }).then(
         function(result) {
           var product_id = result[0]
@@ -335,19 +335,19 @@ exports.seed = function(knex, Promise) {
               product_id: product_id,
               amzn_price_fba: 79.94,
               amzn_price_fbm: 75.98,
-              amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 161.94,
               amzn_price_fbm: 159.98,
-              amzn_fetch_date: '2016-04-22 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-22 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 131.23,
               amzn_price_fbm: 123.66,
-              amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 19:33:57 Z', //UTC
             })
           )
         }
@@ -363,7 +363,7 @@ exports.seed = function(knex, Promise) {
           amzn_thumb_url: "",
           amzn_list_price: 35.12,
           currency: 'USD',
-          fetch_date: '2016-04-21 19:33:57', //UTC
+          fetch_date: '2016-04-21 19:33:57 Z', //UTC
         }).then(
           function(result) {
             var product_id = result[0]
@@ -373,13 +373,13 @@ exports.seed = function(knex, Promise) {
               product_id: product_id,
               amzn_price_fba: 22.99,
               amzn_price_fbm: 21.99,
-              amzn_fetch_date: '2016-04-21 18:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 18:33:57 Z', //UTC
             }),
             knex('product_details').insert({
               product_id: product_id,
               amzn_price_fba: 25.99,
               amzn_price_fbm: 23.99,
-              amzn_fetch_date: '2016-04-21 19:33:57', //UTC
+              amzn_fetch_date: '2016-04-21 19:33:57 Z', //UTC
             })
           )
         }
