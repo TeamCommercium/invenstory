@@ -77,7 +77,7 @@ exports.addProduct = function (asin) {
       return resp[0]
     })
     .then(function(id) {
-      amazonMWS.getAmznDetails([asin])
+      return amazonMWS.getAmznDetails([asin])
         .then(function(priceObj) {
           priceObj = priceObj[0]
           delete priceObj.amzn_asin
@@ -88,10 +88,12 @@ exports.addProduct = function (asin) {
               log('Error adding new product detail 1-', err)
             })
         })
+        .then(function(result) {
+          return id
+        })
         .catch(function(err) {
           log('Error adding new product detail 2-', err)
         })
-      return id
     })
 
 }
