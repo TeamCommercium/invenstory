@@ -1,5 +1,7 @@
 import action from './propActions'
 
+
+//TODO: Should I just have 1 place that handles "mounted"?
 /*
   constraints: localState must match store prop name
 */
@@ -10,13 +12,17 @@ export default class Backlog{
     this.subscribeTo = props.subscribeTo
     this.smartDispatch = props.smartDispatch
 
-    //This is necessary because I am using object.assign to extend 
-    //the store object with the keys of this class
+    // This is necessary because I need methods in the enumerable keys
+    // Same as this.unMounting = Backlog.prototype.unMounting
     this.unMounting = this.unMounting
     this.register = this.register
     this.syncWithStore = this.syncWithStore
   }
 
+
+  /*
+    Should only be used in componentWillUnmount
+   */
   unMounting(container, context){
 
     if( ! this.containers[container])
@@ -27,7 +33,9 @@ export default class Backlog{
 
     return context
   }
-
+  /*
+    Should only be used in constructors
+   */
   register(container, listenTo, context, callback){
     if(this.containers[container])
       console.log("it already existed but we told it to deal with it")
@@ -54,8 +62,10 @@ export default class Backlog{
     return context
   }
 
+  /*
+    Should only be called in componentDidMount()
+   */
   syncWithStore(container, listenTo, context){
-  // Should only be called when the component is mounted.
 
     if( ! this.containers[container])
       throw new Error("Recieved a container that isn't registered. Don't forget to add it to subscribeTo.jsx")

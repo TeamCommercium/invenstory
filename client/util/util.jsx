@@ -47,12 +47,6 @@ export function processNewData(data){
   processPieChartData(withProfit)
   processGeneralTableData(withProfit)
   processNotifications(withProfit)
-  
-  // console.log("raw", JSON.stringify(data) )
-  // console.log("processed", JSON.stringify(withProfit) )
-  // console.log("graph", JSON.stringify(processGeneralGraphData(withProfit)) )
-  // console.log("table",JSON.stringify(processGeneralTableData(withProfit)) )
-  // console.log("notif",JSON.stringify(processNotifications(withProfit)) )
 }
 
 export function processUserSettings(settings){
@@ -61,8 +55,6 @@ export function processUserSettings(settings){
     email: settings.user.amzn_email,
     zipcode: settings.user.amzn_zip
   }
-
-
 }
 
 
@@ -161,10 +153,9 @@ export function processGeneralTableData(inventory){
   return tableData
 }
 
-export function simpleValidateEmail(email) 
-{
-    var re = /\S+@\S+\.\S+/;
-    return re.test(email);
+export function simpleValidateEmail(email) {
+  let re = /\S+@\S+\.\S+/;
+  return re.test(email);
 }
 
 

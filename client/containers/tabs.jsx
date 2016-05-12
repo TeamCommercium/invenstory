@@ -10,16 +10,6 @@ import { CHANGE_TAB } from '../actionTypes'
 import { store } from '../store/initStore'
 import { checkAuth, processNewInventory, addUserInventory, logout, getUserInfo } from '../util/requests'
 
-/*
-  mounted tracks the mounting status of the container and is used to verify that the container
-  is mounted before using setState.
-
-  Backlog is used as storage and will store the updates that were ignored if the container wasn't mounted
-  when new information came in.
-
-  Backlog is checked and set back to "not pending" whenever componentDidMount is called
- */
-
 export default class TabsContainer extends React.Component{
 
   constructor(props){
