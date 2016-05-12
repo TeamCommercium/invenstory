@@ -8,6 +8,9 @@ html, body {
   overflow-x: hidden;
   overflow-x: scroll;
 }
+header {
+  text-align: center;
+}
 
 td > input {
   width: 99%;
@@ -375,15 +378,13 @@ and (orientation : portrait) {
 
 /* Login button on the login page that is ontop of the image*/
 .loginBox {
-  position: absolute;
-  top:58%;
-  left:40%;
-  z-index:1000;
-  width: 95%;
+  padding-bottom: 75px;
 }
 .loginBox>button {
-  right:1%;
-  width:19%;
+  height: 2.4em;
+  width:25%;
+  font-weight: 900;
+  font-size: 2em;
 }
 
 .notificationsList{
@@ -468,4 +469,105 @@ and (orientation : portrait) {
   display: block;
   margin: 0px auto 375px auto;
   /*margin-bottom: 375px;*/
+}
+.titleBackground {
+  width: 100%;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+
+.titleLogo {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 150px;
+  padding-bottom: 125px;
+  font-family: 'Economica';
+  font-size: 5em;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+.loginHeader {
+  text-align: center;
+  background-image: url("/assets/6.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.instructions {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.loginBox > .loginButton.neutral {
+  color: white;
+  background-color: #20B2AA;
+  border-radius: 40px;
+
+}
+
+.logoImgTitle{
+  margin-bottom: 15px;
+}
+
+.footer {
+  margin-top: 40px;
+  border-top: solid 3px;
+  border-color: #20B2AA;
+}
+
+.footerOptions {
+  padding: 15px;
+}
+
+.boxShadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.amazonPrimeLogo {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.instructionTitle {
+  margin-bottom: 20px;
+}
+
+.introBlock {
+  padding: 10px;
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+hr {
+  border-width: 3px;
+  border-color: #20B2AA;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  max-width: 700px;
+}
+
+.githubLogo {
+  max-height: 50px;
+}
+
+.teamCommercium {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.productsTable {
+  margin-top: 60px;  
+}
+
+.productsTableCont {
+  padding-bottom: 20px;
+}
+
+@media (max-width: 991px) {
+    .addMargin {
+        margin-top:75px;
+    }
 }
