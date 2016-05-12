@@ -274,6 +274,7 @@ export default class DashboardContainer extends React.Component{
 
   confirmDelete(id){
       deleteInventoryItem({id: id});
+      this.handleBlur();
       this.handleDeleteModal();
   }
 
@@ -289,6 +290,7 @@ export default class DashboardContainer extends React.Component{
         historical={this.state.historical.graphData}
         options={this.state.historical.options} 
         handleShipModal={this.handleShipModal.bind(this)}
+        handleDeleteModal={this.handleDeleteModal.bind(this)}
        />
 
     if(this.state.tableData[0])
