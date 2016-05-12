@@ -8,6 +8,9 @@ html, body {
   overflow-x: hidden;
   overflow-x: scroll;
 }
+header {
+  text-align: center;
+}
 
 td > input {
   width: 99%;
@@ -375,11 +378,7 @@ and (orientation : portrait) {
 
 /* Login button on the login page that is ontop of the image*/
 .loginBox {
-  position: absolute;
-  top:58%;
-  left:40%;
-  z-index:1000;
-  width: 95%;
+  padding-bottom: 75px;
 }
 .loginBox>button {
   right:1%;
@@ -469,3 +468,46 @@ and (orientation : portrait) {
   margin: 0px auto 375px auto;
   /*margin-bottom: 375px;*/
 }
+.titleBackground {
+  width: 100%;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+
+.titleLogo {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 150px;
+  padding-bottom: 125px;
+  font-family: 'Economica';
+  font-size: 5em;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+.loginHeader {
+  text-align: center;
+  background-image: url("/assets/6.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.instructions {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.loginBox > .loginButton.neutral {
+  color: white;
+  background-color: #20B2AA;
+  border-radius: 20px;
+
+}
+
+.logoImgTitle{
+  margin-bottom: 15px;
+}
+
+
