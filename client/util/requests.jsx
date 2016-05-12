@@ -64,7 +64,7 @@ export function deleteInventoryItem(params){
     }
   )
   .then(function({status}){
-    if(status)
+    if(status === 200)
       processNewInventory();
   })
   .catch(function(err){
@@ -87,7 +87,7 @@ export function shipInventoryItems(params){
     }
   )
   .then(function({status}){
-    if(status)
+    if(status === 200)
       processNewInventory();
   })
   .catch(function(err){
@@ -132,8 +132,8 @@ export function checkAuth(){
     return;
 
   return fetch('/user/me', {credentials: 'include'})
-  .then(function(response) {
-    if(response.status >= 400){
+  .then(function({status}) {
+    if(status >= 400){
       redirect("/#/login")()
     } else {
       store.smartDispatch(UPDATE_AUTHENTICATION, true)
@@ -200,7 +200,7 @@ export function updateUserInfo(params) {
     }
   )
   .then(function({status}){
-    if(status)
+    if(status === 200)
       processNewInventory();
   })
   .catch(function(err){
