@@ -3,7 +3,7 @@ import { Button, Snackbar } from 'react-toolbox';
 
 import Table from '../components/table'
 import { store } from '../store/initStore'
-import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
+import * as api from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Ship from '../components/ship'
 import DeleteProduct from '../components/deleteproduct'
@@ -18,12 +18,11 @@ import Details from '../components/details'
 
   Backlog is checked and set back to "not pending" whenever componentDidMount is called
 
-
-
   A lot of state is being used in this container and this seems very un-redux-like at first glance.
   The reason we are using state is because of 2 main reasons.
   1) We are currently not using React-Redux and updating state to rerender seems less hacky than forceUpdate.
-  2) There are input fields in one of the components rendered here and it 
+  2) There are input fields in one of the components rendered here and it seems less efficient to dispatch 
+      and recieve subscription events for each keystroke
  */
 
 var backlog = {
@@ -66,7 +65,7 @@ export default class DashboardContainer extends React.Component{
 
       // Get historical data for this item.
       if(newState && newState.detail && typeof newState.detail.id === "number"){
-        getHistoricalData(newState.detail.id)
+        api.getHistoricalData(newState.detail.id)
         .then(function(data){
            
           let historicalData = {
@@ -95,7 +94,7 @@ export default class DashboardContainer extends React.Component{
           }
         })
         .catch(function(err){
-          console.log("error in catch from getHistoricalData in the DashboardContainer", err)
+          console.log("error in catch from api.getHistoricalData in the DashboardContainer", err)
         })
       }
     })
@@ -115,7 +114,7 @@ export default class DashboardContainer extends React.Component{
 
 
   componentWillMount(){
-    checkAuth()
+    api.checkAuth()
   }
 
   componentWillUnmount(){
@@ -161,18 +160,16 @@ export default class DashboardContainer extends React.Component{
     } else this.setState({err_purchase_date: ''});
 
     if (!inputErr) {
-        let inventory = {};
-        // standardize user sku & asin inputs to all caps
-        inventory.seller_sku = this.state.seller_sku.toUpperCase();
-        inventory.asin = this.state.asin.toUpperCase();
-        // round purchase price to 2 decimals
-        inventory.purchase_price = Math.round(this.state.purchase_price * 100) / 100;
-        inventory.purchase_date = this.state.purchase_date;
-        inventory.quantity = this.state.quantity;
-        addUserInventory(inventory);
-
-        this.resetModal();
-      console.log("INVENTORY OBJ SENT:", inventory);
+      let inventory = {};
+      // standardize user sku & asin inputs to all caps
+      inventory.seller_sku = this.state.seller_sku.toUpperCase();
+      inventory.asin = this.state.asin.toUpperCase();
+      // round purchase price to 2 decimals
+      inventory.purchase_price = Math.round(this.state.purchase_price * 100) / 100;
+      inventory.purchase_date = this.state.purchase_date;
+      inventory.quantity = this.state.quantity;
+      api.addUserInventory(inventory)
+      this.resetModal()
     }
   }
 
@@ -203,7 +200,7 @@ export default class DashboardContainer extends React.Component{
 
   handleAmazonSearch(){
     let component = this;
-    searchAmazonForASIN(this.state.searchString)
+    api.searchAmazonForASIN(this.state.searchString)
     .then(function(data){
       component.setState({searchResults: data})
     })
@@ -239,7 +236,7 @@ export default class DashboardContainer extends React.Component{
     } else {
         console.log("PASSED")
         this.setState({err_ship_quantity: ''});
-        shipInventoryItems({id: id, quantity: this.state.ship_quantity})
+        api.shipInventoryItems({id: id, quantity: this.state.ship_quantity})
         this.handleShipModal();
         console.log("Confirmed Shipped:", this.state.ship_quantity)
     }
@@ -273,7 +270,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   confirmDelete(id){
-      deleteInventoryItem({id: id});
+      api.deleteInventoryItem({id: id});
       this.handleBlur();
       this.handleDeleteModal();
   }
