@@ -70,13 +70,14 @@ and (max-device-width: 1024px) {
       border: none;
       border-bottom: 1px solid #eee; 
       position: relative;
-      padding-left: 50%; 
+      padding-left: 35%; 
     }
     td:before { 
       position: absolute;
       top: 6px;
       left: 6px;
-      width: 45%; 
+      /*width: 45%; */
+      width: 30%; 
       padding-right: 10px; 
       white-space: nowrap;
     }
@@ -97,12 +98,33 @@ and (max-device-width: 1024px) {
       content: "Quantity:";
       text-align: right;
     }
-    tr > td:nth-child(5) {text-align: right}
-    td:nth-of-type(6):before { content: "Cost:"; }
-    td:nth-of-type(7):before { content: "FBM Price:"; }
-    td:nth-of-type(8):before { content: "FBM Price:"; }
-    td:nth-of-type(9):before { content: "Total Value:"; }
-    td:nth-of-type(10):before { content: "% Gain:"; }
+    tr > td:nth-child(5) {text-align: left}
+    tr > td:nth-child(6) {text-align: left}
+    tr > td:nth-child(7) {text-align: left}
+    tr > td:nth-child(8) {text-align: left}
+    tr > td:nth-child(9) {text-align: left}
+    tr > td:nth-child(10) {text-align: left}
+
+    td:nth-of-type(6):before { 
+      content: "Cost:"; 
+      text-align: right;
+    }
+    td:nth-of-type(7):before {
+      content: "FBM Price:";
+      text-align: right;
+    }
+    td:nth-of-type(8):before {
+      content: "FBM Price:"; 
+      text-align: right;
+    }
+    td:nth-of-type(9):before {
+      content: "Total Value:";
+      text-align: right;
+    }
+    td:nth-of-type(10):before {
+      content: "% Gain:"; 
+      text-align: right;
+  }
 }
 
 /*iPhone responsive variations*/
@@ -121,52 +143,74 @@ and (orientation : landscape) {
 and (min-device-width : 375px) 
 and (max-device-width : 667px) 
 and (orientation : portrait) {
-  table, thead, tbody, th, td, tr {
-    display: block;
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    tr { border: 1px solid #ccc; }
+    td { 
+      border: none;
+      border-bottom: 1px solid #eee; 
+      position: relative;
+      padding-left: 35%; 
+    }
+    td:before { 
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      /*width: 45%; */
+      width: 30%; 
+      padding-right: 10px; 
+      white-space: nowrap;
+    }
+    /* Label the data and change alignment when appropriate */
+    td:nth-of-type(2):before {
+      content: "SKU:";
+      text-align: right;
+    }
+    td:nth-of-type(3):before {
+      content: "ASIN:";
+      text-align: right;
+    }
+    td:nth-of-type(4):before {
+      content: "Title:";
+      text-align: right;
+    }
+    td:nth-of-type(5):before {
+      content: "Quantity:";
+      text-align: right;
+    }
+    tr > td:nth-child(5) {text-align: left}
+    tr > td:nth-child(6) {text-align: left}
+    tr > td:nth-child(7) {text-align: left}
+    tr > td:nth-child(8) {text-align: left}
+    tr > td:nth-child(9) {text-align: left}
+    tr > td:nth-child(10) {text-align: left}
+
+    td:nth-of-type(6):before { 
+      content: "Cost:"; 
+      text-align: right;
+    }
+    td:nth-of-type(7):before {
+      content: "FBM Price:";
+      text-align: right;
+    }
+    td:nth-of-type(8):before {
+      content: "FBM Price:"; 
+      text-align: right;
+    }
+    td:nth-of-type(9):before {
+      content: "Total Value:";
+      text-align: right;
+    }
+    td:nth-of-type(10):before {
+      content: "% Gain:"; 
+      text-align: right;
   }
-  thead tr { 
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  tr { border: 1px solid #ccc; }
-  td { 
-    border: none;
-    border-bottom: 1px solid #eee; 
-    position: relative;
-    padding-left: 50%; 
-  }
-  td:before { 
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 45%; 
-    padding-right: 10px; 
-    white-space: nowrap;
-  }
-  /* Label the data and change alignment when appropriate */
-  td:nth-of-type(2):before {
-    content: "SKU:";
-    text-align: right;
-  }
-  td:nth-of-type(3):before {
-    content: "ASIN:";
-    text-align: right;
-  }
-  td:nth-of-type(4):before {
-    content: "Title:";
-    text-align: right;
-  }
-  td:nth-of-type(5):before {
-    content: "Quantity:";
-    text-align: right;
-  }
-  tr > td:nth-child(5) {text-align: right}
-  td:nth-of-type(6):before { content: "Cost:"; }
-  td:nth-of-type(7):before { content: "FBM Price:"; }
-  td:nth-of-type(8):before { content: "FBM Price:"; }
-  td:nth-of-type(9):before { content: "Total Value:"; }
-  td:nth-of-type(10):before { content: "% Gain:"; }
 }
 
 /*iPhone 5 & 5S in landscape*/
@@ -184,52 +228,74 @@ and (orientation : landscape) {
 and (min-device-width : 320px) 
 and (max-device-width : 568px) 
 and (orientation : portrait) {
-  table, thead, tbody, th, td, tr {
-    display: block;
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    tr { border: 1px solid #ccc; }
+    td { 
+      border: none;
+      border-bottom: 1px solid #eee; 
+      position: relative;
+      padding-left: 35%; 
+    }
+    td:before { 
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      /*width: 45%; */
+      width: 30%; 
+      padding-right: 10px; 
+      white-space: nowrap;
+    }
+    /* Label the data and change alignment when appropriate */
+    td:nth-of-type(2):before {
+      content: "SKU:";
+      text-align: right;
+    }
+    td:nth-of-type(3):before {
+      content: "ASIN:";
+      text-align: right;
+    }
+    td:nth-of-type(4):before {
+      content: "Title:";
+      text-align: right;
+    }
+    td:nth-of-type(5):before {
+      content: "Quantity:";
+      text-align: right;
+    }
+    tr > td:nth-child(5) {text-align: left}
+    tr > td:nth-child(6) {text-align: left}
+    tr > td:nth-child(7) {text-align: left}
+    tr > td:nth-child(8) {text-align: left}
+    tr > td:nth-child(9) {text-align: left}
+    tr > td:nth-child(10) {text-align: left}
+
+    td:nth-of-type(6):before { 
+      content: "Cost:"; 
+      text-align: right;
+    }
+    td:nth-of-type(7):before {
+      content: "FBM Price:";
+      text-align: right;
+    }
+    td:nth-of-type(8):before {
+      content: "FBM Price:"; 
+      text-align: right;
+    }
+    td:nth-of-type(9):before {
+      content: "Total Value:";
+      text-align: right;
+    }
+    td:nth-of-type(10):before {
+      content: "% Gain:"; 
+      text-align: right;
   }
-  thead tr { 
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  tr { border: 1px solid #ccc; }
-  td { 
-    border: none;
-    border-bottom: 1px solid #eee; 
-    position: relative;
-    padding-left: 50%; 
-  }
-  td:before { 
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 45%; 
-    padding-right: 10px; 
-    white-space: nowrap;
-  }
-  /* Label the data and change alignment when appropriate */
-  td:nth-of-type(2):before {
-    content: "SKU:";
-    text-align: right;
-  }
-  td:nth-of-type(3):before {
-    content: "ASIN:";
-    text-align: right;
-  }
-  td:nth-of-type(4):before {
-    content: "Title:";
-    text-align: right;
-  }
-  td:nth-of-type(5):before {
-    content: "Quantity:";
-    text-align: right;
-  }
-  tr > td:nth-child(5) {text-align: right}
-  td:nth-of-type(6):before { content: "Cost:"; }
-  td:nth-of-type(7):before { content: "FBM Price:"; }
-  td:nth-of-type(8):before { content: "FBM Price:"; }
-  td:nth-of-type(9):before { content: "Total Value:"; }
-  td:nth-of-type(10):before { content: "% Gain:"; }
 }
 
 /* Smartphones */
