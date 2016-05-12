@@ -78,9 +78,9 @@ export default class Backlog{
 
 
     //find all relevant properties that have pending data and grab payload.
-    var pending = this.containers[container].association
+    this.containers[container].association
       .filter(cur=>action[cur].pending)
-      .forEach(function(cur){
+      .map(cur=>{
         context.setState({[cur]: action[cur].payload})
         action[cur].pending = false
       })
