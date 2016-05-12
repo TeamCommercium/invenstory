@@ -3,7 +3,7 @@ import { Button, Snackbar } from 'react-toolbox';
 
 import Table from '../components/table'
 import { store } from '../store/initStore'
-import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
+import * as api from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Ship from '../components/ship'
 import DeleteProduct from '../components/deleteproduct'
@@ -65,7 +65,7 @@ export default class DashboardContainer extends React.Component{
 
       // Get historical data for this item.
       if(newState && newState.detail && typeof newState.detail.id === "number"){
-        getHistoricalData(newState.detail.id)
+        api.getHistoricalData(newState.detail.id)
         .then(function(data){
            
           let historicalData = {
@@ -94,7 +94,7 @@ export default class DashboardContainer extends React.Component{
           }
         })
         .catch(function(err){
-          console.log("error in catch from getHistoricalData in the DashboardContainer", err)
+          console.log("error in catch from api.getHistoricalData in the DashboardContainer", err)
         })
       }
     })
@@ -114,7 +114,7 @@ export default class DashboardContainer extends React.Component{
 
 
   componentWillMount(){
-    checkAuth()
+    api.checkAuth()
   }
 
   componentWillUnmount(){
@@ -168,7 +168,7 @@ export default class DashboardContainer extends React.Component{
       inventory.purchase_price = Math.round(this.state.purchase_price * 100) / 100;
       inventory.purchase_date = this.state.purchase_date;
       inventory.quantity = this.state.quantity;
-      addUserInventory(inventory)
+      api.addUserInventory(inventory)
       this.resetModal()
     }
   }
@@ -200,7 +200,7 @@ export default class DashboardContainer extends React.Component{
 
   handleAmazonSearch(){
     let component = this;
-    searchAmazonForASIN(this.state.searchString)
+    api.searchAmazonForASIN(this.state.searchString)
     .then(function(data){
       component.setState({searchResults: data})
     })
@@ -236,7 +236,7 @@ export default class DashboardContainer extends React.Component{
     } else {
         console.log("PASSED")
         this.setState({err_ship_quantity: ''});
-        shipInventoryItems({id: id, quantity: this.state.ship_quantity})
+        api.shipInventoryItems({id: id, quantity: this.state.ship_quantity})
         this.handleShipModal();
         console.log("Confirmed Shipped:", this.state.ship_quantity)
     }
@@ -270,7 +270,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   confirmDelete(id){
-      deleteInventoryItem({id: id});
+      api.deleteInventoryItem({id: id});
       this.handleBlur();
       this.handleDeleteModal();
   }

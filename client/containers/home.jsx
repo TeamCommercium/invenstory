@@ -1,6 +1,5 @@
 import React from 'react'
 import { Chart } from 'react-google-charts'
-import { ProgressBar } from 'react-toolbox'
 
 import { UPDATE_DETAIL_DATA, CHANGE_TAB } from '../actionTypes'
 import { checkAuth, processNewInventory } from '../util/requests'
