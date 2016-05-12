@@ -1,3 +1,11 @@
+/*
+
+  associates action names with store property names
+  stores the recent payload and pending status. 
+  Used when the action is dispatched when a component isn't mounted yet
+
+ */
+
 export default {
   detail: {
     UPDATE_DETAIL_DATA: true,
