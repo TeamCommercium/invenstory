@@ -60,22 +60,18 @@ and (max-device-width: 1024px) {
     table, thead, tbody, th, td, tr {
       display: block;
     }
-
     thead tr { 
       position: absolute;
       top: -9999px;
       left: -9999px;
     }
-    
     tr { border: 1px solid #ccc; }
-    
     td { 
       border: none;
       border-bottom: 1px solid #eee; 
       position: relative;
       padding-left: 50%; 
     }
-    
     td:before { 
       position: absolute;
       top: 6px;
@@ -84,7 +80,6 @@ and (max-device-width: 1024px) {
       padding-right: 10px; 
       white-space: nowrap;
     }
-    
     /* Label the data and change alignment when appropriate */
     td:nth-of-type(2):before {
       content: "SKU:";
@@ -110,8 +105,7 @@ and (max-device-width: 1024px) {
     td:nth-of-type(10):before { content: "% Gain:"; }
 }
 
- /*iPhone responsive variations*/
-
+/*iPhone responsive variations*/
 /*iPhone 6 in landscape*/
 @media only screen 
 and (min-device-width : 375px) 
@@ -122,7 +116,6 @@ and (orientation : landscape) {
   }
 }
 
-
 /*iPhone 6 in portrait*/
 @media only screen 
 and (min-device-width : 375px) 
@@ -131,22 +124,18 @@ and (orientation : portrait) {
   table, thead, tbody, th, td, tr {
     display: block;
   }
-
   thead tr { 
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
-  
   tr { border: 1px solid #ccc; }
-  
   td { 
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
     padding-left: 50%; 
   }
-  
   td:before { 
     position: absolute;
     top: 6px;
@@ -155,7 +144,6 @@ and (orientation : portrait) {
     padding-right: 10px; 
     white-space: nowrap;
   }
-  
   /* Label the data and change alignment when appropriate */
   td:nth-of-type(2):before {
     content: "SKU:";
@@ -199,22 +187,18 @@ and (orientation : portrait) {
   table, thead, tbody, th, td, tr {
     display: block;
   }
-
   thead tr { 
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
-  
   tr { border: 1px solid #ccc; }
-  
   td { 
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
     padding-left: 50%; 
   }
-  
   td:before { 
     position: absolute;
     top: 6px;
@@ -223,7 +207,6 @@ and (orientation : portrait) {
     padding-right: 10px; 
     white-space: nowrap;
   }
-  
   /* Label the data and change alignment when appropriate */
   td:nth-of-type(2):before {
     content: "SKU:";
@@ -249,7 +232,6 @@ and (orientation : portrait) {
   td:nth-of-type(10):before { content: "% Gain:"; }
 }
 
-
 /* Smartphones */
 /*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   body { 
@@ -261,10 +243,10 @@ and (orientation : portrait) {
 /* iPads */
 /*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   body { 
-    width: 750px; 
+    width: 778px; 
   }
-}
-*/
+}*/
+
 /*Makes the slidey thing white*/
 :global(.style__pointer___XKUds) {
   background-color: white;
