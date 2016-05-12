@@ -16,7 +16,7 @@ const history = syncHistoryWithStore(appHistory, store)
 
   render the routes, only have 2. Refreshing the page will move you to home. 
   The Tabs container has a navbar and handles tab changes.
-  Should probably be changed to allow specific routes for UX purposes
+  Should probably be changed to allow specific routes for usability
  */
 
 
