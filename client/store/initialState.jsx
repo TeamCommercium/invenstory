@@ -1,3 +1,7 @@
+/**
+ * @description Initial value of the store
+ */
+
 export default {
   tableData: [],
   graphData: [],
