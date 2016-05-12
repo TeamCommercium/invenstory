@@ -6,6 +6,7 @@ import { store } from '../store/initStore'
 import { checkAuth, processNewInventory, searchAmazonForASIN, addUserInventory, shipInventoryItems, deleteInventoryItem, getHistoricalData } from '../util/requests'
 import Addproduct from '../components/addproduct'
 import Ship from '../components/ship'
+import DeleteProduct from '../components/deleteproduct'
 import Details from '../components/details'
 
 /*
@@ -56,6 +57,7 @@ export default class DashboardContainer extends React.Component{
       ship_quantity: '',
       err_ship_quantity: '',
       showShipModal: false,
+      showDeleteModal: false,
     };
 
     this.mounted = false;
@@ -223,11 +225,6 @@ export default class DashboardContainer extends React.Component{
     this.setState({detail: {}});
   }
 
-  confirmDelete(id, quantity, seller_sku){
-    if(confirm("Are you sure you want to delete all " + quantity + (quantity === 1 ? " unit of " : " units of ") + seller_sku + " from your inventory?"))
-      deleteInventoryItem({id: id})
-  }
-
   handleShipModal(){
     this.setState({
       showShipModal: !this.state.showShipModal
@@ -269,6 +266,17 @@ export default class DashboardContainer extends React.Component{
     });
   }
 
+  handleDeleteModal(){
+    this.setState({
+      showDeleteModal: !this.state.showDeleteModal
+    });
+  }
+
+  confirmDelete(id){
+      deleteInventoryItem({id: id});
+      this.handleDeleteModal();
+  }
+
   render(){
     var details, dashboard;
 
@@ -285,7 +293,6 @@ export default class DashboardContainer extends React.Component{
 
     if(this.state.tableData[0])
       dashboard = <Table data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
-
 
     return <div>
       <Button 
@@ -328,6 +335,12 @@ export default class DashboardContainer extends React.Component{
         handleShipModal={this.handleShipModal.bind(this)}
         handleQuantityChange={this.handleQuantityChange.bind(this)}
         confirmShip={this.confirmShip.bind(this)}
+      />
+      <DeleteProduct
+        active={this.state.showDeleteModal}
+        data={this.state.detail}
+        handleDeleteModal={this.handleDeleteModal.bind(this)}
+        confirmDelete={this.confirmDelete.bind(this)}
       />
       {details}
     </div>
