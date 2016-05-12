@@ -3,7 +3,7 @@ import { Table } from 'reactable'
 import { Button, Input, Slider } from 'react-toolbox'
 import { Chart } from 'react-google-charts'
 
-export default ({historical, options, data, hideDetails, smartAdd, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity, handleShipModal }) =>
+export default ({historical, options, data, hideDetails, smartAdd, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity, handleShipModal, handleDeleteModal}) =>
 <div className="styles__detailDisplay___2K0QU">
   <img className="styles__detailImage___3CFNO" src={data.amzn_thumb_url} />
   <h3 className="styles__detailTitle___2N12_"> {data.amzn_title} </h3>
@@ -13,7 +13,7 @@ export default ({historical, options, data, hideDetails, smartAdd, deleteAll, co
   <div className="styles__detailButtonsDiv___3qeKQ">
     <Button className="styles__detailButton___1aYnt" label='Close' raised floating inverse onMouseUp={hideDetails} />
     <Button className="styles__detailButton___1aYnt" label='Add' raised floating primary onMouseUp={smartAdd.bind(null,data)} />
-    <Button className="styles__detailButton___1aYnt" label='Delete all' raised floating primary onMouseUp={deleteAll.bind(null, data.id, data.quantity, data.seller_sku)} />
+    <Button className="styles__detailButton___1aYnt" label='Delete all' raised floating primary onMouseUp={handleDeleteModal.bind(this)} />
     <Button className="styles__detailButton___1aYnt" label='Ship' raised floating primary onMouseUp={handleShipModal.bind(this)} />
   
   </div>  
