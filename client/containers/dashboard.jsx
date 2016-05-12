@@ -72,7 +72,7 @@ export default class DashboardContainer extends React.Component{
             graphData: [ 
               ["Date", "Price"], 
               ...data[0].history.map((cur)=>
-                [ new Date(cur.amzn_fetch_date).getTime(), cur.amzn_price_fba || cur.amzn_price_fbm ])
+                [ new Date(cur.amzn_fetch_date+" UTC"), cur.amzn_price_fba || cur.amzn_price_fbm ])
             ],
 
             options: {
@@ -80,8 +80,9 @@ export default class DashboardContainer extends React.Component{
               curveType: 'function',
               bar: { groupWidth: '75%' },
               isStacked: true,
+              pointSize: 3,
               hAxis: {
-                ticks: data[0].history.map((cur)=> new Date(cur.amzn_fetch_date))
+                format:'MMM d, y'
               }
             }
           }
