@@ -77,10 +77,13 @@ export default class Backlog{
     context.mounted = true
 
 
+    //find all relevant properties that have pending data and grab payload.
     var pending = this.containers[container].association
-    var filtered = pending.filter(cur=>action[cur].pending)
-
-    console.log("pending", pending, "filtered", filtered)
+      .filter(cur=>action[cur].pending)
+      .forEach(function(cur){
+        context.setState({[cur]: action[cur].payload})
+        action[cur].pending = false
+      })
 
     return context
   }

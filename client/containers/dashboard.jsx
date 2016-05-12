@@ -160,18 +160,16 @@ export default class DashboardContainer extends React.Component{
     } else this.setState({err_purchase_date: ''});
 
     if (!inputErr) {
-        let inventory = {};
-        // standardize user sku & asin inputs to all caps
-        inventory.seller_sku = this.state.seller_sku.toUpperCase();
-        inventory.asin = this.state.asin.toUpperCase();
-        // round purchase price to 2 decimals
-        inventory.purchase_price = Math.round(this.state.purchase_price * 100) / 100;
-        inventory.purchase_date = this.state.purchase_date;
-        inventory.quantity = this.state.quantity;
-        addUserInventory(inventory);
-
-        this.resetModal();
-      console.log("INVENTORY OBJ SENT:", inventory);
+      let inventory = {};
+      // standardize user sku & asin inputs to all caps
+      inventory.seller_sku = this.state.seller_sku.toUpperCase();
+      inventory.asin = this.state.asin.toUpperCase();
+      // round purchase price to 2 decimals
+      inventory.purchase_price = Math.round(this.state.purchase_price * 100) / 100;
+      inventory.purchase_date = this.state.purchase_date;
+      inventory.quantity = this.state.quantity;
+      addUserInventory(inventory)
+      this.resetModal()
     }
   }
 
