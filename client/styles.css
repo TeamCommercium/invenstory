@@ -510,4 +510,24 @@ and (orientation : portrait) {
   margin-bottom: 15px;
 }
 
+.footer {
+  margin-top: 40px;
+  border-top: solid 1px;
+}
 
+.footerOptions {
+  padding: 15px;
+}
+
+.boxShadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.amazonPrimeLogo {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.instructionTitle {
+  margin-bottom: 20px;
+}
