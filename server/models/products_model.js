@@ -67,7 +67,7 @@ var amazonMWS = require('../api/amazonMWS.js');
  */
 exports.addProduct = function (asin) {
   let now = new Date()
-  let insertDate = dateFormat(now, 'yyyy-mm-dd HH:MM:ss', true)
+  let insertDate = dateFormat(now, 'yyyy-mm-dd HH:MM:ss Z', true)
   log('Create product with ASIN:', asin)
   return db('products')
     .returning('id')

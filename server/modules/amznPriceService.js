@@ -77,7 +77,7 @@ function amznPriceSvc() {
 function Batch (arrayObjs) {
   var storage = {};
 
-  let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss', true);
+  let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss Z', true);
   this.asins = asins;
   this.prepareInsert = prepareInsert;
 
