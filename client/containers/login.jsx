@@ -82,7 +82,7 @@ export default () =><div>
       <div className='row styles__footerOptions___3a1Gp'>
         <div className='col-md-4 text-center'>
           <a href='https://github.com/TeamCommercium/invenstory'>
-            <img className='styles__githubLogo___2ajiE' src='./assets/github_logo.png' />
+            <img className='styles__githubLogo___2ajiE' src='./assets/GitHub_Logo.png' />
           </a>
         </div>
         <div className='col-md-4'></div>
