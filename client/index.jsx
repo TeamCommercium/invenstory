@@ -19,7 +19,6 @@ const history = syncHistoryWithStore(appHistory, store)
   Should probably be changed to allow specific routes for usability
  */
 
-
 ReactDOM.render(
   <Router history={history}> 
     <Route path='/'component={Tabs}/>
