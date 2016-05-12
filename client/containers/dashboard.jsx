@@ -72,7 +72,7 @@ export default class DashboardContainer extends React.Component{
             graphData: [ 
               ["Date", "Price"], 
               ...data[0].history.map((cur)=>
-                [ new Date(cur.amzn_fetch_date+" UTC"), cur.amzn_price_fba || cur.amzn_price_fbm ])
+                [ new Date(cur.amzn_fetch_date), cur.amzn_price_fba || cur.amzn_price_fbm ])
             ],
 
             options: {
