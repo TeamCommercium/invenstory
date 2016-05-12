@@ -3,7 +3,7 @@ import { Button, Input, Dialog, Slider } from 'react-toolbox'
 
 export default (props) =>
 
-  <Dialog active={props.active}>
+  <Dialog active={props.active} onOverlayClick={props.handleShipModal}>
     <div>
       <h1 style={{"textAlign": "center", color:"black" }}>Shipping {props.data.seller_sku}</h1>
       <h3 style={{"textAlign": "center", color:"black" }}>Current Unit Value: ${props.data.amzn_price_fba || props.data.amzn_price_fbm}</h3>
