@@ -14,7 +14,7 @@ describe('Products model', function() {
     })
 
     it('should resolve to an integer (product id) for a product not already in the database', function() {
-      return Products.addProduct({'amzn_asin': 'B004QV6YMW'})
+      return Products.addProduct('B004QV6YMW')
         .then(function(result) {
           expect(result).to.be.a('number')
         })
