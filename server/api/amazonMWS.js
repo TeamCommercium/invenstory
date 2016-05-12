@@ -64,7 +64,7 @@ exports.getAmznDetails = function(asins) {
  * @return {Promise}
  */
 exports.getMatchingProductByAsin = function(asin) {
-  log('ASIN', asin)
+  log('getMatchingProductByAsin', asin)
   return getMatchingProductsByAsin(client, {
     MarketplaceId: amazonEnv.marketplaceId,
     ASINList: [asin]

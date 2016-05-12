@@ -83,16 +83,13 @@ exports.addProduct = function (asin) {
           delete priceObj.amzn_asin
           priceObj.product_id = id
           priceObj.amzn_fetch_date = insertDate
-          exports.addProductDetail(priceObj)
+          return exports.addProductDetail(priceObj)
+            .then(function() {
+              return id
+            })
             .catch(function(err) {
               log('Error adding new product detail 1-', err)
             })
-        })
-        .then(function(result) {
-          return id
-        })
-        .catch(function(err) {
-          log('Error adding new product detail 2-', err)
         })
     })
 
