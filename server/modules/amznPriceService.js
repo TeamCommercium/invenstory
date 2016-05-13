@@ -31,7 +31,7 @@ function preBatch() {
   //Retreive the ASINs for this batch
   return db('products')
     .select('amzn_asin','id')
-    .where('fetch_date', '<', dateFormat(new Date(new Date().getTime()-config.minimumProdFreq), 'yyyy-mm-dd HH:MM:ss Z', true))
+    .where('fetch_date', '<', dateFormat(new Date(new Date().getTime()-config.maxProdFreq), 'yyyy-mm-dd HH:MM:ss Z', true))
     .limit(10)
     .orderBy('fetch_date')
 }

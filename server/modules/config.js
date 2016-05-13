@@ -31,7 +31,7 @@ exports.jwtConfig = {
 }
 
 exports.service   = {
-                    svcFreq:         1000*60,
-                    minimumProdFreq: 1000*60*60
+                    svcFreq:         process.env.FETCH_SVC_FREQ || 1000*60*10,
+                    mxProdFreq: process.env.FETCH_PROD_MAX || 1000*60*60
 }
  exports.db = require('knex')(require('../../knexfile.js')[exports.state.env])
