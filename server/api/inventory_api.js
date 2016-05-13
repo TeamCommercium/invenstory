@@ -123,11 +123,7 @@ var router = express.Router()
    Inventory.shipInventory(params.id, req.user.id, params.quantity)
      .then(function(resp) {
         log('Shipped inventory', resp)
-        Products.getProducts(req.user.id, params.id)
-          .then( function(resp) {
-            log('Retreived product after update')
-            res.status(200).send(resp[0])
-          })
+        res.status(200).send(resp[0])
      })
      .catch(function(err) {
        log("An error occurred shipping inventory: ", err)
