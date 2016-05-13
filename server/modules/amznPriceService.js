@@ -31,10 +31,10 @@ function preBatch() {
   //Retreive the ASINs for this batch
   return db('products')
     .select('amzn_asin','id')
+    .where('fetch_date', '<', dateFormat(new Date(new Date().getTime()-config.minimumProdFreq), 'yyyy-mm-dd HH:MM:ss Z', true))
     .limit(10)
     .orderBy('fetch_date')
 }
-
 /**
  * amznPriceSvc - Runner fuction to execute the Amazon price service business logic.
  *
@@ -45,7 +45,6 @@ function amznPriceSvc() {
     .then(function(batch) {
       let theBatch = new Batch(batch)
       let asins = theBatch.asins();
-
       log('Preparing to retreive prices for batch.')
       amznUtil.getAmznDetails(asins)
         .then((details) => {
