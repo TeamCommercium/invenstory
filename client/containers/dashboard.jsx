@@ -207,6 +207,10 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleAmazonSearch(){
+
+    if(!this.state.showSearchOption)
+      this.setState({showSearchOption: !this.state.showSearchOption})
+
     let component = this;
     api.searchAmazonForASIN(this.state.searchString)
     .then(function(data){

@@ -6,18 +6,12 @@ export default ({inherit}) =>
   {inherit.showSearch
    && <div>
      <Input 
-      label='Search Amazon'
+      label='Search Amazon by ASIN or name'
       name='Search Amazon'
       icon='search'
       value={inherit.searchString}
       onChange={inherit.handleSearchStringChange}
     />
-
-    <Button 
-        className="styles__inlineButton___16AEc"
-        label='Search' raised floating
-        onMouseUp={inherit.handleAmazonSearch}
-      />
 
     { inherit.searchResults && inherit.searchResults.length > 0
      ? <List className="list" selectable>
@@ -34,4 +28,9 @@ export default ({inherit}) =>
       </List>
      : null}
      </div>}
+         <Button 
+        className="styles__inlineButton___16AEc"
+        label='Search' raised floating
+        onMouseUp={inherit.handleAmazonSearch}
+      />
 </div>
