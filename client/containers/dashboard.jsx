@@ -37,11 +37,18 @@ export default class DashboardContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      // toggle visibility
+      showModal: false,
+      showSearchOption: true,
+      showShipModal: false,
+      showDeleteModal: false,
+      
+      // related to store
       tableData: store.getState().tableData,
       detail: {},
       historical: { graphData: null, options: null},
-      showModal: false,
-      showSearchOption: true,
+      
+      // form inputs
       searchResults: [],
       searchString: '',
       asin: '',
@@ -49,14 +56,14 @@ export default class DashboardContainer extends React.Component{
       purchase_price: '',
       purchase_date: '',
       quantity: '',
+      ship_quantity: '',
+
+      // form validation
       err_asin: '',
       err_purchase_price: '',
       err_purchase_date: '',
       err_quantity: '',
-      ship_quantity: '',
       err_ship_quantity: '',
-      showShipModal: false,
-      showDeleteModal: false,
     };
 
     this.mounted = false;
@@ -220,14 +227,14 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleBlur(){
-    this.setState({detail: {}});
+    this.setState({ detail: {} });
   }
 
   handleShipModal(){
+    this.resetShipQuantity();
     this.setState({
       showShipModal: !this.state.showShipModal
     });
-    this.resetShipQuantity();
   }
 
   confirmShip(id){
@@ -271,9 +278,9 @@ export default class DashboardContainer extends React.Component{
   }
 
   confirmDelete(id){
-      api.deleteInventoryItem({id: id});
-      this.handleBlur();
-      this.handleDeleteModal();
+    api.deleteInventoryItem({id: id});
+    this.handleBlur();
+    this.handleDeleteModal();
   }
 
   render(){

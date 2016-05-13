@@ -2,12 +2,6 @@ import React from 'react'
 import { store } from '../store/initStore'
 import * as actions from '../actionTypes'
 
-
-//Get rid of console.logs when not developing or testing
-// console.log(process.env.NODE_ENV, process.env.NODE_ENV==="development")
-// if(process.env.NODE_ENV !== "development" && process.env.NODE_ENV !== "test")
-//   require('noconsole')
-
 /**
  * @function redirect
  * @param {string} address - URL to redirect to
@@ -139,8 +133,6 @@ export function processPieChartData(inventory){
     )
   })
   store.smartDispatch(actions.UPDATE_PIECHART_DATA, lineData)
-  console.log("TOTAL COST:", totalCost);
-  console.log("TOTAL VALUE:", totalValue);
   return lineData
 }
 
