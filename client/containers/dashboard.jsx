@@ -289,17 +289,15 @@ export default class DashboardContainer extends React.Component{
     this.handleDeleteModal();
   }
 
-  calculateTotalValue(data){
-    let totalValue, totalCost;
-    console.log("DATA:", data[0]);
+  calculateTotals(data){
+    let totalValue = 0; 
+    let totalCost = 0;
     data.forEach(function(item){
-      console.log("VAL:",  item["Total Value"]);
-      const tot = item["Total Value"]
+      totalValue += Number((item["Total Value"]).slice(1))
+      totalCost += Number((item["Total Cost"]).slice(1))
     })
-
+    return {totalCost: totalCost, totalValue: totalValue}
   }
-
-
 
   render(){
     var details, dashboard;
@@ -320,9 +318,8 @@ export default class DashboardContainer extends React.Component{
       dashboard = <Table data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
 
     return <div>
-      <h4 style={{"display": "inline", color: "red"}}>Total Inventory Value:</h4>
-      <h4 style={{"display": "inline", color: "blue"}}>Total Inventory Cost:</h4>
-      <p>{this.calculateTotalValue(this.state.tableData)}</p>
+      <h3 style={{color: "green"}}>Total Inventory Value: ${(this.calculateTotals(this.state.tableData).totalValue).toFixed(2)}</h3>
+      <h4 style={{color: "blue"}}>Total Inventory Cost: ${(this.calculateTotals(this.state.tableData).totalCost).toFixed(2)}</h4>
       <Button
         style={{"display": "inline", "marginLeft": "86%"}}
         label='Add Product' raised floating primary
