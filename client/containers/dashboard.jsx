@@ -289,6 +289,18 @@ export default class DashboardContainer extends React.Component{
     this.handleDeleteModal();
   }
 
+  calculateTotalValue(data){
+    let totalValue, totalCost;
+    console.log("DATA:", data[0]);
+    data.forEach(function(item){
+      console.log("VAL:",  item["Total Value"]);
+      const tot = item["Total Value"]
+    })
+
+  }
+
+
+
   render(){
     var details, dashboard;
 
@@ -308,9 +320,12 @@ export default class DashboardContainer extends React.Component{
       dashboard = <Table data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
 
     return <div>
-      <Button 
-        className="styles__inlineButton___16AEc"
-        label='Add Product' raised floating
+      <h4 style={{"display": "inline", color: "red"}}>Total Inventory Value:</h4>
+      <h4 style={{"display": "inline", color: "blue"}}>Total Inventory Cost:</h4>
+      <p>{this.calculateTotalValue(this.state.tableData)}</p>
+      <Button
+        style={{"display": "inline", "marginLeft": "86%"}}
+        label='Add Product' raised floating primary
         onMouseUp={this.handleModal.bind(this)}
       />
 
