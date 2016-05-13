@@ -5,7 +5,7 @@
 //                   }
 exports.webServer = {
                     port: process.env.PORT || 8080,
-                    httpsPort: process.env.HTTPS_PORT || 8443 
+                    httpsPort: process.env.HTTPS_PORT || 8443
 }
 
 exports.state = {
@@ -30,4 +30,8 @@ exports.jwtConfig = {
                     secret: process.env.JWT_SECRET || "dp4L2lRayDn4RvN4tr3hziqb5Df/3IR/L9TrrGhm+Em"
 }
 
+exports.service   = {
+                    svcFreq:         process.env.FETCH_SVC_FREQ || 1000*60*10,
+                    mxProdFreq: process.env.FETCH_PROD_MAX || 1000*60*60
+}
  exports.db = require('knex')(require('../../knexfile.js')[exports.state.env])

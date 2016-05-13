@@ -8,6 +8,7 @@ var log        = require('./utilities.js').log
 var amazonEnv  = require ('./config.js').amazonEnv
 var utilities  = require ('./utilities.js')
 var Products   = require('../models/products_model.js')
+var config     = require('./config.js').service
 var db         = require('./config.js').db
 var amznUtil   = require('../api/amazonMWS.js')
 var dateFormat = require('dateformat')
@@ -17,7 +18,7 @@ var dateFormat = require('dateformat')
 */
 exports.init = function() {
 
-  setInterval(amznPriceSvc, 7200000)
+  setInterval(amznPriceSvc, config.svcFreq)
 }
 
 /**
@@ -30,10 +31,10 @@ function preBatch() {
   //Retreive the ASINs for this batch
   return db('products')
     .select('amzn_asin','id')
+    .where('fetch_date', '<', dateFormat(new Date(new Date().getTime()-config.maxProdFreq), 'yyyy-mm-dd HH:MM:ss Z', true))
     .limit(10)
     .orderBy('fetch_date')
 }
-
 /**
  * amznPriceSvc - Runner fuction to execute the Amazon price service business logic.
  *
@@ -44,7 +45,6 @@ function amznPriceSvc() {
     .then(function(batch) {
       let theBatch = new Batch(batch)
       let asins = theBatch.asins();
-
       log('Preparing to retreive prices for batch.')
       amznUtil.getAmznDetails(asins)
         .then((details) => {
