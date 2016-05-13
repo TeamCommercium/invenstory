@@ -8,6 +8,7 @@ var log        = require('./utilities.js').log
 var amazonEnv  = require ('./config.js').amazonEnv
 var utilities  = require ('./utilities.js')
 var Products   = require('../models/products_model.js')
+var config     = require('./config.js').service
 var db         = require('./config.js').db
 var amznUtil   = require('../api/amazonMWS.js')
 var dateFormat = require('dateformat')
@@ -17,7 +18,7 @@ var dateFormat = require('dateformat')
 */
 exports.init = function() {
 
-  setInterval(amznPriceSvc, 7200000)
+  setInterval(amznPriceSvc, config.svcFreq)
 }
 
 /**
