@@ -46,6 +46,12 @@ export default ({ columnNames, data }) =>
         }
       },
       {
+        column: "Total Cost",
+        sortFunction: function (a, b) {
+          return Number(b.slice(1)) - Number(a.slice(1))
+        }
+      },
+      {
         column: "Total Value",
         sortFunction: function (a, b) {
           return Number(b.slice(1)) - Number(a.slice(1))
