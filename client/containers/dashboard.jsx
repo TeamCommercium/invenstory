@@ -240,7 +240,6 @@ export default class DashboardContainer extends React.Component{
     this.setState({
       showShipModal: !this.state.showShipModal
     });
-    this.handleBlur();
   }
 
   confirmShip(id){
@@ -248,11 +247,12 @@ export default class DashboardContainer extends React.Component{
     if (isNaN(this.state.ship_quantity) || this.state.ship_quantity < 1) {
       this.setState({ship_quantity: 0});
     } else {
-        console.log("PASSED")
-        this.setState({err_ship_quantity: ''});
-        api.shipInventoryItems({id: id, quantity: this.state.ship_quantity})
-        this.handleShipModal();
-        console.log("Confirmed Shipped:", this.state.ship_quantity)
+      console.log("PASSED")
+      this.setState({err_ship_quantity: ''});
+      api.shipInventoryItems({id: id, quantity: this.state.ship_quantity})
+      this.handleShipModal();
+      console.log("Confirmed Shipped:", this.state.ship_quantity)
+      this.handleBlur();
     }
   }
 
@@ -281,7 +281,6 @@ export default class DashboardContainer extends React.Component{
     this.setState({
       showDeleteModal: !this.state.showDeleteModal
     });
-    this.handleBlur();
   }
 
   confirmDelete(id){
