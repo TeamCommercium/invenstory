@@ -156,7 +156,7 @@ export function processGeneralTableData(inventory){
       "Total Cost": "$" + (Math.round(cur.avg_purchase_price * cur.quantity * 100) / 100).toFixed(2),
       "Total Value": cur.amzn_price_fba ? "$" + (Math.round(cur.amzn_price_fba * cur.quantity * 100) / 100).toFixed(2) : "$" + (Math.round(cur.amzn_price_fbm * cur.quantity * 100) / 100).toFixed(2),
       "% Gain": cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + "%",
-      "  ": <button onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)}> View Details </button>,
+      "  ": <button className='btn btn-default styles__viewDeetsButton___2bXs1' onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)}> View Details </button>,
     }
   })
   store.smartDispatch(actions.UPDATE_TABLE_DATA, tableData)

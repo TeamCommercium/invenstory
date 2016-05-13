@@ -29,6 +29,10 @@ th {
   background-color: #4CAF50;
   color: white;
   text-align: center;
+  border-right-width: 2px;
+  border-style: solid;
+  border-right-color: blue;
+
 }
 
 table, td {
@@ -36,12 +40,18 @@ table, td {
   padding: 5px;
 }
 
+td {
+  border-right-width: 2px;
+  border-style: solid;
+  border-right-color: blue;
+}
+
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
 tr:hover {
-  background-color: yellow;
+  background-color: lightgrey;
 }
 
 /*set minimum width on title column*/
@@ -55,7 +65,10 @@ tr > td:nth-child(6) {text-align: right}
 tr > td:nth-child(7) {text-align: right} 
 tr > td:nth-child(8) {text-align: right} 
 tr > td:nth-child(9) {text-align: right} 
-tr > td:nth-child(10) {text-align: right} 
+tr > td:nth-child(11) {
+  text-align: right;
+  border-right-width: 0px;
+} 
 
 /*Makes the slidey thing white*/
 :global(.style__pointer___XKUds) {
@@ -322,6 +335,16 @@ hr {
     .addMargin {
         margin-top:75px;
     }
+}
+
+.viewDeetsButton {
+  color: white;
+  background-color: #20B2AA;
+}
+
+.viewDeetsButton:hover {
+  color: white;
+  background-color: #20BFB6;
 }
 
 /*show table in block format when screen width is small*/
