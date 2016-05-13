@@ -39,9 +39,8 @@ export default class Backlog{
    * @return context of the container that invoked function
    */
   register(container, listenTo, context, callback){
-    if(this.containers[container])
-      console.log("it already existed but we told it to deal with it")
-      // throw new Error("Can't register it already exists.")
+    // if(this.containers[container])
+    //   console.log("Container already exists.")
 
     if(Array.isArray(listenTo) === false)
       throw new Error("Register expected an array in the second parameter")
