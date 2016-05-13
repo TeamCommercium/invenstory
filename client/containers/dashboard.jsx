@@ -178,6 +178,7 @@ export default class DashboardContainer extends React.Component{
       inventory.quantity = this.state.quantity;
       api.addUserInventory(inventory)
       this.resetModal()
+      this.handleBlur();
     }
   }
 
@@ -239,6 +240,7 @@ export default class DashboardContainer extends React.Component{
     this.setState({
       showShipModal: !this.state.showShipModal
     });
+    this.handleBlur();
   }
 
   confirmShip(id){
@@ -279,6 +281,7 @@ export default class DashboardContainer extends React.Component{
     this.setState({
       showDeleteModal: !this.state.showDeleteModal
     });
+    this.handleBlur();
   }
 
   confirmDelete(id){
