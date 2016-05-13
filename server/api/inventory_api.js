@@ -154,7 +154,7 @@ var router = express.Router()
   log("Web service request to delete inventory: ", params)
   Inventory.deleteInventory(params.id, req.user.id)
     .then(function(data) {
-        res.status(200).send(data)
+        res.status(200).send(JSON.stringify(data))
     })
     .catch(function(err) {
       log("An error occurred deleting inventory: ", err)
