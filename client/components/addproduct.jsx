@@ -4,7 +4,7 @@ import SearchModule from '../components/search'
 
 export default (props) =>
 <Dialog active={props.active} onOverlayClick={props.resetModal}>
-  <h3 style={{color: "black", fontSize: 32, textAlign: "center"}}> Add Product</h3>
+  <h3 style={{color: "black", fontSize: 32, textAlign: "center"}}>Add Product</h3>
   <SearchModule inherit={props}/>
   <Input 
     className=""
@@ -58,14 +58,16 @@ export default (props) =>
     error={props.err_purchase_date}
     onChange={props.handleInput.bind(this, 'purchase_date')} 
   />
-  <Button
-    className=""
-    label='Submit' raised floating
-    onMouseUp={props.handleSubmit.bind(this)}
-  />
-  <Button
-    className=""
-    label='Cancel' raised floating
-    onMouseUp={props.resetModal.bind(this)}
-  />
+  <div>
+    <Button
+      className="styles__inlineButton___16AEc"
+      label='Submit' raised floating primary accent
+      onMouseUp={props.handleSubmit.bind(this)}
+    />
+    <Button
+      className="styles__inlineButton___16AEc"
+      label='Cancel' raised floating
+      onMouseUp={props.resetModal.bind(this)}
+    />
+  </div>
 </Dialog>
