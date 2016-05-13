@@ -25,7 +25,7 @@ table {
 }
 
 th {
-  padding: 10px;
+  padding: 5px;
   background-color: #4CAF50;
   color: white;
   text-align: center;
@@ -203,6 +203,16 @@ tr > td:nth-child(10) {text-align: right}
 
 .detailChart {
   max-width: 500px;
+}
+
+.centerBlack {
+  color: black;
+  text-align: center;
+}
+
+.shipInfo {
+  color: black;
+  margin-left: 30px;
 }
 
 /* Table on the dashboard */

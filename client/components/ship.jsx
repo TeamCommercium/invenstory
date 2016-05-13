@@ -5,13 +5,22 @@ export default (props) =>
 
   <Dialog active={props.active} onOverlayClick={props.handleShipModal}>
     <div>
-      <h2 style={{"textAlign": "center", color:"black" }}>Shipping {props.data.seller_sku}</h2>
-      <h3 style={{"textAlign": "center", color:"black" }}>Current Unit Value: ${props.data.amzn_price_fba || props.data.amzn_price_fbm}</h3>
-      <h3 style={{"textAlign": "center", color:"black" }}>Current Quantity: {props.data.quantity}</h3>
-      <h3 style={{"textAlign": "center", color:"black" }}>ROI: {props.data.profit}%</h3>
-      <div className="styles__detailSliderInfo___V2gla">TOT Cost: ${(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}</div>
-      <div className="styles__detailSliderInfo___V2gla">TOT Value: ${((props.data.amzn_price_fba || props.data.amzn_price_fbm) * props.ship_quantity).toFixed(2)}</div>
-      <div className="styles__detailSliderInfo___V2gla">NET Gain: ${(((props.data.amzn_price_fba || props.data.amzn_price_fbm) - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</div>
+      <h3 className="styles__centerBlack___2j9F5">Please select <span style={{color: "red"}}>SHIP QUANTITY</span> for:</h3>
+      <h4 style={{"textAlign": "center"}}>{props.data.amzn_title}</h4>
+      <img 
+        src={props.data.amzn_thumb_url} 
+        style={{width: 100, height:100, padding:0, display:"block", margin:"auto"}}
+      />
+
+
+      <h4 className="styles__centerBlack___2j9F5">SKU: {props.data.seller_sku}</h4>
+      <h4 className="styles__centerBlack___2j9F5">Current Unit Value: ${props.data.amzn_price_fba || props.data.amzn_price_fbm}</h4>
+      <h4 className="styles__centerBlack___2j9F5">Current Quantity: {props.data.quantity}</h4>
+      <h4 className="styles__centerBlack___2j9F5">
+      Gain: <span style={{color: "green"}}>{props.data.profit}%</span></h4>
+      <h5 className="styles__shipInfo___1FFPQ">TOT Cost: ${(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}</h5>
+      <h5 className="styles__shipInfo___1FFPQ">TOT Value: ${((props.data.amzn_price_fba || props.data.amzn_price_fbm) * props.ship_quantity).toFixed(2)}</h5>
+      <h5 className="styles__shipInfo___1FFPQ">NET Gain: ${(((props.data.amzn_price_fba || props.data.amzn_price_fbm) - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</h5>
     </div>
     <Slider
       className="styles__detailSlider___317hh"
