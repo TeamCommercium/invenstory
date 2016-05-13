@@ -5,13 +5,13 @@ export default (props) =>
 
   <Dialog active={props.active} onOverlayClick={props.handleShipModal}>
     <div>
-      <h1 style={{"textAlign": "center", color:"black" }}>Shipping {props.data.seller_sku}</h1>
+      <h2 style={{"textAlign": "center", color:"black" }}>Shipping {props.data.seller_sku}</h2>
       <h3 style={{"textAlign": "center", color:"black" }}>Current Unit Value: ${props.data.amzn_price_fba || props.data.amzn_price_fbm}</h3>
       <h3 style={{"textAlign": "center", color:"black" }}>Current Quantity: {props.data.quantity}</h3>
       <h3 style={{"textAlign": "center", color:"black" }}>ROI: {props.data.profit}%</h3>
       <div className="styles__detailSliderInfo___V2gla">TOT Cost: ${(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}</div>
       <div className="styles__detailSliderInfo___V2gla">TOT Value: ${((props.data.amzn_price_fba || props.data.amzn_price_fbm) * props.ship_quantity).toFixed(2)}</div>
-      <div className="styles__detailSliderInfo___V2gla">NET Gain: ${((props.data.amzn_price_fba || props.data.amzn_price_fbm - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</div>
+      <div className="styles__detailSliderInfo___V2gla">NET Gain: ${(((props.data.amzn_price_fba || props.data.amzn_price_fbm) - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</div>
     </div>
     <Slider
       className="styles__detailSlider___317hh"
