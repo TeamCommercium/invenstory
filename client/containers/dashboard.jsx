@@ -243,16 +243,13 @@ export default class DashboardContainer extends React.Component{
   }
 
   confirmShip(id){
-    console.log("SHIP QTY:", this.state.ship_quantity);
     if (isNaN(this.state.ship_quantity) || this.state.ship_quantity < 1) {
       this.setState({ship_quantity: 0});
     } else {
-      console.log("PASSED")
-      this.setState({err_ship_quantity: ''});
-      api.shipInventoryItems({id: id, quantity: this.state.ship_quantity})
-      this.handleShipModal();
-      console.log("Confirmed Shipped:", this.state.ship_quantity)
-      this.handleBlur();
+        this.setState({err_ship_quantity: ''});
+        api.shipInventoryItems({id: id, quantity: this.state.ship_quantity})
+        this.handleShipModal();
+        console.log("Confirmed Shipped:", this.state.ship_quantity)
     }
   }
 
@@ -289,11 +286,21 @@ export default class DashboardContainer extends React.Component{
     this.handleDeleteModal();
   }
 
+  calculateTotals(data){
+    let totalValue = 0; 
+    let totalCost = 0;
+    data.forEach(function(item){
+      totalValue += Number((item["Total Value"]).slice(1))
+      totalCost += Number((item["Total Cost"]).slice(1))
+    })
+    return {totalCost: totalCost, totalValue: totalValue}
+  }
+
   render(){
     var details, dashboard;
 
     if(this.state.detail && this.state.detail.amzn_asin)
-     details = <Details
+      details = <Details
         smartAdd={this.smartAdd.bind(this)}
         deleteAll={this.confirmDelete.bind(this)} 
         hideDetails={this.handleBlur.bind(this)} 
@@ -302,17 +309,21 @@ export default class DashboardContainer extends React.Component{
         options={this.state.historical.options} 
         handleShipModal={this.handleShipModal.bind(this)}
         handleDeleteModal={this.handleDeleteModal.bind(this)}
-       />
+      />
 
     if(this.state.tableData[0])
       dashboard = <Table data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
 
     return <div>
-      <Button 
-        className="styles__inlineButton___16AEc"
-        label='Add Product' raised floating
-        onMouseUp={this.handleModal.bind(this)}
-      />
+      <div style={{"display": "inline"}}>
+        <h3 style={{"display": "inline", color: "green", 'fontWeight': 900}}>Total Inventory Value: ${(this.calculateTotals(this.state.tableData).totalValue).toFixed(2)}</h3>
+        <Button
+          style={{"display": "inline", float:"right"}}
+          label='Add Product' raised floating primary
+          onMouseUp={this.handleModal.bind(this)}
+        />
+      </div>
+      <h4 style={{color: "blue"}}>Total Inventory Cost: ${(this.calculateTotals(this.state.tableData).totalCost).toFixed(2)}</h4>
 
       <br/>
       {dashboard}
