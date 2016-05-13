@@ -21,7 +21,7 @@ export default (props) =>
       max={props.data.quantity}
       step={1}
       editable={true}
-      value={props.ship_quantity <= props.data.quantity ? Number(props.ship_quantity) : 0}
+      value={Number(props.ship_quantity) || 0}
       onChange={props.handleQuantityChange.bind(this)}
     />
     <div>
