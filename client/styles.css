@@ -172,8 +172,8 @@ tr > th:last-child {
 }
 
 .detailImage {
-  height: 150;
-  width: 150;
+  height: 125px;
+  width: 125px;
   z-index: -1;
   display: inline;
   float: left;

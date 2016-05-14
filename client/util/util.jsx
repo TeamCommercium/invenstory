@@ -146,7 +146,7 @@ export function processPieChartData(inventory){
 export function processGeneralTableData(inventory){
   let tableData = inventory.map(function(cur){
     return {
-      " ": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
+      " ": <img src={cur.amzn_thumb_url} style={{width: 35, height:35, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Title": cur.amzn_title && (cur.amzn_title.slice(0,100)),
