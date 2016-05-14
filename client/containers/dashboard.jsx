@@ -198,6 +198,7 @@ export default class DashboardContainer extends React.Component{
       purchase_quantity: '',
       purchase_date: '',
       err_asin: '',
+      err_seller_sku: '',
       err_purchase_price: '',
       err_purchase_date: '',
       err_quantity: '',
