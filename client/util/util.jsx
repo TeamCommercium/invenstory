@@ -60,6 +60,8 @@ export function processRawInventory(inventory){
       if(cur[key] === null || cur[key] === undefined){
         if(key === 'amzn_thumb_url')
           cur[key] = '/assets/defaultImage.png'
+        else if(key === 'amzn_title')
+          cur[key] = 'Title not provided.'
         else
           cur[key] = 0
       }
