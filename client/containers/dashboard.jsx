@@ -327,7 +327,7 @@ export default class DashboardContainer extends React.Component{
           onMouseUp={this.handleModal.bind(this)}
         />
       </div>
-      <h3 style={{color: "#264653", 'fontWeight': 900, "margin-top":'5px'}}>
+      <h3 style={{color: "#264653", 'fontWeight': 900, "marginTop":'5px'}}>
         Current Return:   {
           ((((this.calculateTotals(this.state.tableData).totalValue))/((this.calculateTotals(this.state.tableData).totalCost))-1)*100).toFixed(1)
         }%</h3>
