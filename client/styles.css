@@ -655,8 +655,8 @@ and (orientation : portrait) {
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
-    padding-left: 35%; 
-    font-size: 20px;
+    padding-left: 30%; 
+    font-size: 15px;
   }
   td:before { 
     position: absolute;
@@ -716,6 +716,6 @@ and (orientation : portrait) {
   tr > td:nth-child(11) {text-align: left}
   tr > td:nth-child(12) {text-align: left}
   tr > td:last-child > button {
-    font-size: 30px;
+    font-size: 18px;
   }
 }
