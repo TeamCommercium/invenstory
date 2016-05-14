@@ -295,7 +295,7 @@ tr > th:last-child {
   color: white;
   background-color: #20B2AA;
   border-radius: 40px;
-
+  min-width: 200px;
 }
 
 .logoImgTitle{
