@@ -1,12 +1,12 @@
 import React from 'react'
-import { List, ListItem, ListSubHeader, Button, Input } from 'react-toolbox'
+import { List, ListItem, ListSubHeader, Button, Input, Avatar } from 'react-toolbox'
 
 export default ({inherit}) =>
 <div>
   {inherit.showSearch
    && <div>
      <Input 
-      label='Search Amazon by title or ASIN'
+      label='Search Amazon by Title or ASIN'
       name='Search Amazon'
       icon='search'
       value={inherit.searchString}
@@ -19,7 +19,7 @@ export default ({inherit}) =>
         {Array.prototype.map.call(inherit.searchResults, (cur, index)=>
           <ListItem
             key={index}
-            avatar={cur.amzn_thumb_url}
+            leftIcon={<Avatar style={{"borderRadius": 0, "background": "white"}}><img src={cur.amzn_thumb_url}/></Avatar>}
             caption={cur.amzn_title && cur.amzn_title.slice(0,50)}
             legend=""
             onClick={function(){inherit.handleAmazonResultSelection(cur.amzn_asin)}}
