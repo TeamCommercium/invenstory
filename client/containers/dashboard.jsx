@@ -117,8 +117,15 @@ export default class DashboardContainer extends React.Component{
 
     store.syncWithStore("dashboard", ["detail","tableData"],this)
 
-    if(document.getElementById("styles__table___1QENt") && document.getElementById("styles__table___1QENt").getElementsByTagName('input') && document.getElementById("styles__table___1QENt").getElementsByTagName('input')[0])
-      document.getElementsByTagName('input')[0].placeholder = "Search Table . ."
+    if(document.getElementById("styles__table___1QENt") && document.getElementById("styles__table___1QENt").getElementsByTagName('input') && document.getElementById("styles__table___1QENt").getElementsByTagName('input')[0]) {
+      document.getElementsByTagName('input')[0].placeholder = " Search Table ..."
+      let element = document.getElementsByClassName('reactable-filterer')[0]
+      let iconElement = document.createElement('span')
+      iconElement.className += 'material-icons md-dark'
+      iconElement.innerHTML += 'search'
+
+      element.insertBefore(iconElement, element.firstChild)
+    }
   }
 
 
