@@ -6,7 +6,7 @@ export default ({inherit}) =>
   {inherit.showSearch
    && <div>
      <Input 
-      label='Search Amazon by ASIN or name'
+      label='Search Amazon by title or ASIN'
       name='Search Amazon'
       icon='search'
       value={inherit.searchString}
@@ -20,8 +20,8 @@ export default ({inherit}) =>
           <ListItem
             key={index}
             avatar={cur.amzn_thumb_url}
-            caption={cur.amzn_title && cur.amzn_title.slice(0,35)}
-            legend={cur.amzn_description && cur.amzn_description.slice(0,35)}
+            caption={cur.amzn_title && cur.amzn_title.slice(0,50)}
+            legend=""
             onClick={function(){inherit.handleAmazonResultSelection(cur.amzn_asin)}}
           />
         )}
