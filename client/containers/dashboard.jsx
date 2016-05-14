@@ -42,6 +42,7 @@ export default class DashboardContainer extends React.Component{
       showSearchOption: true,
       showShipModal: false,
       showDeleteModal: false,
+      lock_sku: false,
       
       // related to store
       tableData: store.getState().tableData,
@@ -195,7 +196,8 @@ export default class DashboardContainer extends React.Component{
       err_quantity: '',
       quantity: '',
       showSearchOption: true,
-      showModal: false
+      showModal: false,
+      lock_sku: false,
     });
   }
   
@@ -266,6 +268,7 @@ export default class DashboardContainer extends React.Component{
 
   smartAdd(data){
     this.setState({
+      lock_sku: true,
       showSearchOption: false,
       asin: data.amzn_asin,
       seller_sku: data.seller_sku,
@@ -341,6 +344,7 @@ export default class DashboardContainer extends React.Component{
         resetModal={this.resetModal.bind(this)}
         asin={this.state.asin}
         seller_sku={this.state.seller_sku}
+        lock_sku={this.state.lock_sku}
         purchase_price={this.state.purchase_price}
         quantity={this.state.quantity}
         purchase_date={this.state.purchase_date}
