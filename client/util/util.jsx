@@ -55,11 +55,15 @@ export function processUserSettings(settings){
  */
 export function processRawInventory(inventory){
   inventory = inventory.map(function(cur){
-   cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
+    cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
     Object.keys(cur).map(function(key){
-      return (cur[key] === null || cur[key] === undefined)
-       ? cur[key] = 0
-       : cur[key]
+      if(cur[key] === null || cur[key] === undefined){
+        if(key === 'amzn_thumb_url')
+          cur[key] = '/assets/defaultImage.png'
+        else
+          cur[key] = 0
+      }
+
     })
     return cur;
   })
