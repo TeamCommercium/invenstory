@@ -319,7 +319,7 @@ export default class DashboardContainer extends React.Component{
 
     return <div>
       <div style={{"display": "inline"}}>
-        <h3 style={{"display": "inline", color: "#264653", 'fontWeight': 900}}>Total Inventory Value: ${(this.calculateTotals(this.state.tableData).totalValue).toFixed(2)}</h3>
+        <h3 style={{"display": "inline", color: "#264653", 'fontWeight': 900}}>Total Inventory Value: <span style={{color: "green"}}>${(this.calculateTotals(this.state.tableData).totalValue).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span></h3>
         <Button
           className="styles__inlineButton___16AEc"
           style={{"display": "inline", float:"right"}}
@@ -327,14 +327,13 @@ export default class DashboardContainer extends React.Component{
           onMouseUp={this.handleModal.bind(this)}
         />
       </div>
-      <h3 style={{color: "#264653", 'fontWeight': 900, "marginTop":'5px'}}>
-        Current Return:   {
+      <h5 style={{color: "#264653", "marginTop":'5px', "marginBottom":'5px'}}>Original Cost: ${(this.calculateTotals(this.state.tableData).totalCost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</h5>
+      <h5 style={{color: "#264653", "marginTop":'5px', "marginBottom":'5px'}}>
+        Current ROI:   {
           this.calculateTotals(this.state.tableData).totalValue
           ? ((((this.calculateTotals(this.state.tableData).totalValue))/((this.calculateTotals(this.state.tableData).totalCost))-1)*100).toFixed(1)
           : 0
-        }%</h3>
-      <h4 style={{color: "#E76F51"}}>Total Inventory Cost: ${((this.calculateTotals(this.state.tableData).totalCost).toFixed(2))}</h4>
-      
+        }%</h5>
 
       <br/>
       {dashboard}
