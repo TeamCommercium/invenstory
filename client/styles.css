@@ -51,11 +51,15 @@ tbody > tr:hover {
   background-color: lightgrey;
 }
 
+tr > td:nth-child(2) {
+  min-width: 150px;
+  width: 15%;
+}
 
 /*set minimum width on title column*/
 tr > td:nth-child(4) {
-  min-width: 150px;
-  width: 100%;
+  min-width: 175px;
+  width: 85%;
 }
 
 tr > th:nth-child(4) {
