@@ -1,9 +1,9 @@
 'use strict'
 
-var env = require('./config.js').state.env;
-var jwt_config = require('./config.js').jwtConfig
-var expressJWT = require('express-jwt')
-var log;
+const env = require('./config').state.env
+const jwt_config = require('./config').jwtConfig
+const expressJWT = require('express-jwt')
+var log
 /**
  * module
  * @module Utilities
@@ -24,17 +24,16 @@ var log;
  * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanMatchingAsins = function(data) {
-  var items = [];
-  var responseArr = data.GetMatchingProductResponse.GetMatchingProductResult;
+  const items = []
+  const responseArr = data.GetMatchingProductResponse.GetMatchingProductResult
 
   log('Starting to Clean Data')
-  for (var i = 0, productsLen = responseArr.length; i < productsLen; i++) {
-    var product = {};
-    var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
-    console.log('attrPath', JSON.stringify(attrPath))
+  for (let i = 0, productsLen = responseArr.length; i < productsLen; i++) {
+    const product = {}
+    const attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0]
 
     product.amzn_asin = responseArr[i].$.ASIN
-    product.amzn_title = attrPath["ns2:Title"][0];
+    product.amzn_title = attrPath["ns2:Title"][0]
     product.amzn_description = attrPath["ns2:Feature"] ? attrPath["ns2:Feature"].join(". ") : ''
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"] ? attrPath["ns2:Manufacturer"][0] : null
     product.amzn_weight = attrPath["ns2:PackageDimensions"] && attrPath["ns2:PackageDimensions"][0]["ns2:Weight"] ? Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._) : ''
@@ -42,9 +41,9 @@ exports.cleanMatchingAsins = function(data) {
     product.amzn_list_price = attrPath["ns2:ListPrice"] ? Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]) : null
     product.amzn_sales_rank = Array.isArray(responseArr[i].Product[0].SalesRankings[0]) ? Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]) : null
 
-    items.push(product);
+    items.push(product)
   }
-  return items;
+  return items
 }
 
 /**
@@ -57,13 +56,13 @@ exports.cleanMatchingAsins = function(data) {
  * @return {Array}    items   Array of objects containing culled pricing data for multiple items
  */
 exports.cleanAmznDetails = function(data) {
-  var list = [];
-  var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
+  const list = []
+  const responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult
   log('Preparing to clean price data')
-  for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
+  for (let i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     //Initialize product object, to be inserted into results
-    var product = {};
-    product.amzn_asin = responseObj[i].$.ASIN;
+    const product = {}
+    product.amzn_asin = responseObj[i].$.ASIN
 
     //Bail if data fetch fails
     if(responseObj[i].$.status === 'ClientError') {
@@ -72,26 +71,26 @@ exports.cleanAmznDetails = function(data) {
     }
 
     //Setup variable to point to price array. This is already ordered lowest to highest. We need to set the lowest product fba and fbm from this list.
-    var priceArr = []
+    let priceArr = []
 
     if(responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing)
       priceArr = responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing
 
     for (let j = 0; j < priceArr.length; j++) {
 
-      var fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0]
-      var price = priceArr[j].Price[0].LandedPrice[0].Amount[0]
+      const fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0]
+      const price = priceArr[j].Price[0].LandedPrice[0].Amount[0]
 
       if (fulfillmentChannel === "Amazon" && !product.amzn_price_fba) {
-          product.amzn_price_fba = Number(price);
+          product.amzn_price_fba = Number(price)
       } else if (!product.amzn_price_fbm) {
-        product.amzn_price_fbm = Number(price);
+        product.amzn_price_fbm = Number(price)
       }
     }
-    list.push(product);
+    list.push(product)
   }
   log('Cleaned product price information', list)
-  return list;
+  return list
 }
 
 /**

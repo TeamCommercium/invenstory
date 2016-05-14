@@ -1,10 +1,9 @@
-var express = require('express')
-var User = require('../models/user_model.js')
-var log = require('../modules/utilities.js').log;
-var bodyParser = require('body-parser')
+const express = require('express')
+const User = require('../models/user_model')
+const log = require('../modules/utilities').log
+const bodyParser = require('body-parser')
 
-
-var router = express.Router()
+const router = express.Router()
 
 .use(bodyParser.json())
 /**
@@ -20,7 +19,6 @@ var router = express.Router()
 .get('/me', function(req, res) {
   res.sendStatus(200)
 })
-
 
 /**
  *  @api {get}  /user/about  Return User Info from database
@@ -40,11 +38,11 @@ var router = express.Router()
  */
 .get('/about', function(req, res) {
   User.getUserProfileInfo(req.user.id)
-    .then(function(result){
+    .then(result => {
       log('user_api succesful /user/about', result)
       res.status(200).send(result)
     })
-    .catch(function(err) {
+    .catch( err => {
       log('error in getting user profile ', err)
       res.status(400).send('Bad Request')
     })
@@ -67,17 +65,16 @@ var router = express.Router()
  *  @apiError (400 Bad Request) Request must a registered user.
  */
 .put('/update', function(req, res) {
-  var params = req.body
+  let params = req.body
   User.updateUserInfo(req.user.id, params)
-    .then(function(result){
+    .then(result => {
       log('update user result ',result)
       res.status(200).send(result)
     })
-    .catch(function(err) {
+    .catch( err => {
       log('error in getting user profile ', err)
       res.status(400).send('Bad Request')
     })
 })
-
 
 module.exports = router

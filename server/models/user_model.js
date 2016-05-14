@@ -3,10 +3,9 @@
  * module
  * @module User
  */
- var env = require('../modules/config.js').state.env
- var config = require('../../knexfile.js')[env]
- var db = require('knex')(config)
- var log = require('../modules/utilities.js').log;
+ let env = require('../modules/config').state.env
+ let db = require('../modules/config').db
+ let log = require('../modules/utilities').log
 
 /**
  * getUserFromAmznId - Retreive userid based on the amazon Oauth userid.
@@ -15,15 +14,15 @@
  * @return {Promise}       Resolves to userId from users table
  */
 
-var getUserFromAmznId = function (amznId) {
+const getUserFromAmznId = function (amznId) {
   log('Looking up user with amzn id: ', amznId)
    return db('users')
             .where({amzn_profile_id:amznId})
             .select('id')
-            .then(function(result){
+            .then(result => {
               log('Found user: ', result[0])
               if (result[0])
-                return result[0].id;
+                return result[0].id
               return null
             })
 }
@@ -42,7 +41,7 @@ var getUserFromAmznId = function (amznId) {
  * @param {string}    params.amzn_refreshToken
  * @return {Promise}  Resolves to user id from the newly created user.
  */
-var createUser = function (params) {
+const createUser = function (params) {
   log('Creating user: ',params)
   return db()
           .table('users')
@@ -65,7 +64,7 @@ var createUser = function (params) {
 exports.findOrCreateUser = function (params) {
 
   return getUserFromAmznId(params.amazon_id)
-    .then(function(id) {
+    .then(id => {
       log('Searched for user, result:', id)
       if(!id) {
         params = {

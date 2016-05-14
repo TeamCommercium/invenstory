@@ -15,7 +15,7 @@ describe('Products model', function() {
 
     it('should resolve to an integer (product id) for a product not already in the database', function() {
       return Products.addProduct('B004QV6YMW')
-        .then(function(result) {
+        .then(result => {
           expect(result).to.be.a('number')
         })
     })
@@ -30,7 +30,7 @@ describe('Products model', function() {
 
     it('should return an array containing object with id property', function() {
       return Products.getProductId('B00UYNAGTI')
-        .then(function(result) {
+        .then(result => {
           expect(result[0]).to.be.an('object')
         })
     })
@@ -56,7 +56,7 @@ describe('Products model', function() {
     xit('should return new detail id', function() {
       return Products.addProductDetail({product_id:3,amzn_price_fbm:23.99, amzn_price_fba:24.99,
         amzn_fetch_date:'2016-01-01 12:00'})
-        .then(function(result) {
+        .then(result => {
           expect(result).is.a('number')
         })
     })
@@ -70,7 +70,7 @@ describe('Products model', function() {
     it('should resolve to an array', function() {
       let uid = 2;
       return Products.getProducts(uid)
-        .then(function(result){
+        .then(result => {
           expect(result).to.be.an('array')
         })
     })

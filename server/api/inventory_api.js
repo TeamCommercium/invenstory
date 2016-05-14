@@ -1,12 +1,12 @@
 'use strict'
 
-var express = require('express')
-var bodyParser = require('body-parser')
-var log = require('../modules/utilities.js').log;
-var env = require('../modules/config.js').state.env
-var Inventory = require('../models/inventory_model.js')
-var Products = require('../models/products_model.js')
-var router = express.Router()
+const express = require('express')
+const bodyParser = require('body-parser')
+const log = require('../modules/utilities.js').log
+const env = require('../modules/config.js').state.env
+const Inventory = require('../models/inventory_model')
+const Products = require('../models/products_model')
+const router = express.Router()
 
 .use(bodyParser.json())
 
@@ -40,14 +40,14 @@ var router = express.Router()
   log("Web service request to add inventory: ", params)
   if(!params.product_id) {
     Products.findOrCreate(params.asin)
-      .then(function(productId) {
+      .then(productId => {
         params.product_id = productId
         Inventory.addInventory(params)
-          .then(function(resp) {
+          .then(resp => {
               log('Inventory id', resp[0], 'added')
               res.status(200).send({id:resp[0]})
           })
-          .catch(function(err) {
+          .catch( err => {
             log("An error occurred adding inventory: ", err)
             res.status(400).send("Bad request")
           })
@@ -56,53 +56,13 @@ var router = express.Router()
   } else {
 
   Inventory.addInventory(params)
-    .then(function(data) {
-        res.status(200).send(data[0])
-    })
-    .catch(function(err) {
+    .then(data => res.status(200).send(data[0]))
+    .catch( err => {
       log("An error occurred adding inventory: ", err)
       res.status(400).send("Bad request")
     })
   }
 })
- /**
-  * @api {get} /inventory/list List User's Products
-  *
-  * @apiName GetProducts
-  * @apiGroup product
-  * @apiUse restricted
-  *
-  * @apiParam {string} [id] Product to list. If omitted, all users products are returned.
-  *
-  * @apiSuccess {Object[]} products Returns user's product listings.
-  * @apiSuccess {String} products.product_id id of new product listing.
-  * @apiSuccess {number} products.quantity Quantity of product listing in inventory.
-  * @apiSuccess {number} products.purchase_price Average purchase price of in stock inventory.
-  * @apiSuccess {string} products.amzn_title Name of product.
-  * @apiSuccess {string} products.amzn_description Description of product listing.
-  * @apiSuccess {number} products.amzn_price_fbm Current price of product on Amazon (fulfilled by merchant).
-  * @apiSuccess {number} products.amzn_price_fba Current price of product on Amazon (fulfilled by Amazon).
-  * @apiSuccess {number} products.amzn_rank Current sales rank of product on Amazon.
-  * @apiSuccess {number} products.amzn_weight Shipping weight of product in pounds.
-  * @apiSuccess {string} products.amzn_manuf Product manufacturer.
-  * @apiSuccess {timestamp} products.amzn_price_time Timestamp of when sale price was last checked.
-  *
-  * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
-  */
-
-  .get('/list', function(req, res) {
-   let params = req.query || {}
-   params.user_id = req.user.id
-   log("Web service request to list inventory: ", params)
-   Inventory.getInventory(params)
-     .then(function(data) {
-         res.status(200).send(data)
-     })
-     .catch(function(err) {
-       log("An error occurred getting inventory: ", err)
-       res.status(400).send("Bad request")
-     })
-  })
   /**
   * @api {put} /inventory/ship Set inventory status to shipped
   * @apiName UpdateProduct
@@ -121,11 +81,11 @@ var router = express.Router()
    let params = req.body
    log("Web service request to ship inventory: ", params)
    Inventory.shipInventory(params.id, req.user.id, params.quantity)
-     .then(function(resp) {
+     .then(resp => {
         log('Shipped inventory', resp)
         res.status(200).send(resp[0])
      })
-     .catch(function(err) {
+     .catch( err => {
        log("An error occurred shipping inventory: ", err)
        res.status(400).send("Bad request")
      })
@@ -149,13 +109,13 @@ var router = express.Router()
   let params = req.body
   log("Web service request to delete inventory: ", params)
   Inventory.deleteInventory(params.id, req.user.id)
-    .then(function(data) {
+    .then(data => {
         res.status(200).send(JSON.stringify(data))
     })
-    .catch(function(err) {
+    .catch( err => {
       log("An error occurred deleting inventory: ", err)
       res.status(400).send("Bad request")
     })
  })
 
- module.exports = router;
+ module.exports = router

@@ -1,12 +1,13 @@
-var express = require('express')
-var passport = require('passport')
-var JWT = require('jsonwebtoken')
-var AmazonStrategy = require('passport-amazon').Strategy
-var amazonAuth_config = require('../modules/config.js').amazonAuth
-var jwt_config = require('../modules/config.js').jwtConfig
-var User = require('../models/user_model.js')
-var log = require('../modules/utilities.js').log
-var webConfig = require('../modules/config.js').webServer
+const express = require('express')
+const passport = require('passport')
+const JWT = require('jsonwebtoken')
+const AmazonStrategy = require('passport-amazon').Strategy
+const amazonAuth_config = require('../modules/config').amazonAuth
+const jwt_config = require('../modules/config').jwtConfig
+const User = require('../models/user_model')
+const log = require('../modules/utilities').log
+const webConfig = require('../modules/config').webServer
+
 
 passport.use(new AmazonStrategy({
     clientID: amazonAuth_config.clientId,
@@ -14,7 +15,7 @@ passport.use(new AmazonStrategy({
     callbackURL: amazonAuth_config.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    var userObj = {
+    const userObj = {
       amazon_id: profile.id,
       username: profile.displayName,
       email: profile.emails[0].value,
@@ -26,44 +27,7 @@ passport.use(new AmazonStrategy({
   }
 ))
 
-
-/**
- * serialize - Express/Passport middleware serializes user data in request token. Relies on findOrCreateUser generator function.
- *
- * @private
- * @param  {Object} req  Express request object.
- * @param  {Object} res  Express response object
- * @param  {Function} next go to next middleware
- */
-function serialize(req, res, next) {
-  //change req.user to desired with db call
-  // let getUserId = User.findOrCreateUser(req.user.amazon_id)
-  // let userId = getUserId.next().value
-  // log('Searched for user, result:', userId)
-  // if (!userId[0]) getUserId.next().value
-  // log('Searched for user, result:', userId)
-  User.findOrCreateUser(req.user)
-    .then(function(result) {
-      log('Serializing user', result)
-      var id = result.id
-      req.user = {id: id}
-      next()})
-}
-
-function generateToken(req, res, next) {
-  req.token = JWT.sign({
-      id: req.user.id
-    }, jwt_config.secret, {
-      expiresIn: 3600
-    })
-
-  next()
-}
-
-var router = express.Router()
-
-
-
+const router = express.Router()
 .use(passport.initialize())
 
 /**
@@ -127,4 +91,37 @@ var router = express.Router()
   )
 
 
- module.exports = router ;
+  /**
+  * serialize - Express/Passport middleware serializes user data in request token. Relies on findOrCreateUser generator function.
+  *
+  * @private
+  * @param  {Object} req  Express request object.
+  * @param  {Object} res  Express response object
+  * @param  {Function} next go to next middleware
+  */
+  function serialize(req, res, next) {
+    //change req.user to desired with db call
+    // let getUserId = User.findOrCreateUser(req.user.amazon_id)
+    // let userId = getUserId.next().value
+    // log('Searched for user, result:', userId)
+    // if (!userId[0]) getUserId.next().value
+    // log('Searched for user, result:', userId)
+    User.findOrCreateUser(req.user)
+    .then(result => {
+      log('Serializing user', result)
+      const id = result.id
+      req.user = {id: id}
+      next()})
+    }
+
+    function generateToken(req, res, next) {
+      req.token = JWT.sign({
+        id: req.user.id
+      }, jwt_config.secret, {
+        expiresIn: 3600
+      })
+
+      next()
+    }
+
+ module.exports = router

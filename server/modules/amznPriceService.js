@@ -4,14 +4,14 @@
  * @module Amazon Price Service Module
  */
 
-var log        = require('./utilities.js').log
-var amazonEnv  = require ('./config.js').amazonEnv
-var utilities  = require ('./utilities.js')
-var Products   = require('../models/products_model.js')
-var config     = require('./config.js').service
-var db         = require('./config.js').db
-var amznUtil   = require('../api/amazonMWS.js')
-var dateFormat = require('dateformat')
+const log        = require('./utilities').log
+const amazonEnv  = require ('./config').amazonEnv
+const utilities  = require ('./utilities')
+const Products   = require('../models/products_model')
+const config     = require('./config').service
+const db         = require('./config').db
+const amznUtil   = require('../api/amazonMWS')
+const dateFormat = require('dateformat')
 
 /**
 * init - Initialization function sets interval to run the service
@@ -19,6 +19,7 @@ var dateFormat = require('dateformat')
 exports.init = function() {
 
   setInterval(amznPriceSvc, config.svcFreq)
+
 }
 
 /**
@@ -42,9 +43,9 @@ function preBatch() {
 function amznPriceSvc() {
 
     preBatch()
-    .then(function(batch) {
+    .then(batch => {
       let theBatch = new Batch(batch)
-      let asins = theBatch.asins();
+      let asins = theBatch.asins()
       log('Preparing to retreive prices for batch.')
       amznUtil.getAmznDetails(asins)
         .then((details) => {
@@ -55,14 +56,10 @@ function amznPriceSvc() {
               Products.addProductDetail(e)
                 .then( resp => Products.editProduct({id: e.product_id, fetch_date:theBatch.batchTime}))
               )
-          ).then(
-            (data) => log('Batch price update complete', data)
-          )
-          .catch(
-            (err) => log('Error after details batch ', err)
-          )
+          ).then( data => log('Batch price update complete', data))
+          .catch( err => log('Error after details batch ', err))
         })
-        .catch(err => log('Error retrieving details for batch', err))
+        .catch( err => log('Error retrieving details for batch', err))
     })
 }
 
@@ -75,23 +72,23 @@ function amznPriceSvc() {
  */
 
 function Batch (arrayObjs) {
-  var storage = {};
+  const storage = {}
 
-  let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss Z', true);
-  this.asins = asins;
-  this.prepareInsert = prepareInsert;
+  let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss Z', true)
+  this.asins = asins
+  this.prepareInsert = prepareInsert
 
-  arrayObjs.forEach((e) => {storage[e.amzn_asin] = e.id})
+  arrayObjs.forEach(e => {storage[e.amzn_asin] = e.id})
   log('Initialized batch storage object', storage)
   function asins() {
-    return arrayObjs.map((e) => e.amzn_asin)
+    return arrayObjs.map(e => e.amzn_asin)
   }
 
   function prepareInsert(details) {
     details.forEach(e => {
       e.product_id = storage[e.amzn_asin]
       delete e.amzn_asin
-      e.amzn_fetch_date = batchTime;
+      e.amzn_fetch_date = batchTime
     })
   }
 }

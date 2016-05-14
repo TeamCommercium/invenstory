@@ -1,8 +1,10 @@
-var expect = require('chai').expect;
-var assert = require('chai').assert;
-var rewire = require('rewire');
-var APS = rewire(__dirname + '/../../modules/amznPriceService.js')
-var Product = rewire(__dirname + '/../../models/products_model.js')
+'use strict'
+
+const expect = require('chai').expect;
+const assert = require('chai').assert;
+const rewire = require('rewire');
+const APS = rewire(__dirname + '/../../modules/amznPriceService.js')
+const Product = rewire(__dirname + '/../../models/products_model.js')
 
 describe('Amazon Price Service module', function() {
 
@@ -24,7 +26,7 @@ describe('Amazon Price Service module', function() {
 
     it('should return an array', function() {
       return preBatch()
-        .then(function(result){
+        .then(result => {
           expect(result).is.an('array')
         })
     })
@@ -46,7 +48,7 @@ describe('Amazon Price Service module', function() {
         Product.getProductId('B00UYNAGTI'),
         Product.getProductId('B0050R0YB8')
       ])
-      .then(function(results){
+      .then(results => {
         console.log('Retreive ASINs for batch testing:', results)
         let first = {id:results[0][0].id, amzn_asin:'B00UYNAGTI'}
         let second = {id:results[1][0].id, amzn_asin: 'B0050R0YB8'}

@@ -1,15 +1,14 @@
 'use strict'
-
-var dateFormat = require('dateformat')
-var env = require('../modules/config.js').state.env
-var config = require('../../knexfile.js')[env]
-var db = require('knex')(config)
-var log = require('../modules/utilities.js').log;
-var amazonMWS = require('../api/amazonMWS.js');
 /**
- * module
- * @module Products
- */
+* module
+* @module Products
+*/
+
+const dateFormat = require('dateformat')
+const env = require('../modules/config').state.env
+const db = require('../modules/config').db
+const log = require('../modules/utilities').log
+const amazonMWS = require('../api/amazonMWS')
 
  /**
   * getProducts - Retreive summary data for product(s).
@@ -23,8 +22,8 @@ var amazonMWS = require('../api/amazonMWS.js');
 
     //Passing an undefined value to a where clause in knex seems to include the search term, so build the clause here.
     let whereClause = {"inventory.user_id":userId,
-                        "shipped":false};
-    if(productId) whereClause['inventory.product_id'] = productId;
+                        "shipped":false}
+    if(productId) whereClause['inventory.product_id'] = productId
 
     return db('products')
               .join('inventory', 'inventory.product_id', 'products.id')
@@ -40,15 +39,15 @@ var amazonMWS = require('../api/amazonMWS.js');
               .avg('purchase_price as avg_purchase_price')
               .count('inventory.product_id as quantity')
               .where(whereClause)
-              .then(function(data){
+              .then(data => {
                 //log('Get products is complete.')
                 return data
               })
-              .then(function(products) {
+              .then(products => {
                 if(productId) {
                   log('Retrieving detail history for product ', productId)
                   return getDetailHistory(productId)
-                          .then(function(detail) {
+                          .then(detail => {
                             log('Retreived history ', detail)
                             products[0].history = detail
                             return products
@@ -72,22 +71,20 @@ exports.addProduct = function (asin) {
   return db('products')
     .returning('id')
     .insert({amzn_asin: asin, fetch_date: insertDate})
-    .then(function(resp) {
+    .then(resp => {
       amazonMWS.getMatchingProductByAsin(asin)
       return resp[0]
     })
-    .then(function(id) {
+    .then(id => {
       return amazonMWS.getAmznDetails([asin])
-        .then(function(priceObj) {
+        .then(priceObj => {
           priceObj = priceObj[0]
           delete priceObj.amzn_asin
           priceObj.product_id = id
           priceObj.amzn_fetch_date = insertDate
           return exports.addProductDetail(priceObj)
-            .then(function() {
-              return id
-            })
-            .catch(function(err) {
+            .then(resp => id)
+            .catch( err => {
               log('Error adding new product detail 1-', err)
             })
         })
@@ -103,7 +100,7 @@ exports.addProduct = function (asin) {
 exports.findOrCreate = function(asin) {
   log('Find or create product with ASIN:', asin)
   return exports.getProductId(asin)
-    .then(function(resp) {
+    .then(resp => {
       if(resp[0]) {
         log("Product found, returning id ", resp[0].id)
         return resp[0].id
@@ -119,7 +116,7 @@ exports.findOrCreate = function(asin) {
  * @return {Promise}  Resolves to an array with an object containing the id of the product record.
  */
 exports.getProductId = function (asin) {
-   return db('products').select('id').where({amzn_asin:asin});
+   return db('products').select('id').where({amzn_asin:asin})
 }
 
 /**
@@ -138,16 +135,16 @@ exports.getProductId = function (asin) {
  * @return {Promise}  Resolves to 1 if updates are successful.
  */
 exports.editProduct = function(params) {
-  var id = params.id;
-  var asin = params.amzn_asin;
-  var where = {};
+  let id = params.id
+  let asin = params.amzn_asin
+  let where = {}
   if (id) {
-    where.id = id;
+    where.id = id
   } else {
     where.amzn_asin = asin
   }
-  delete params.id;
-  delete params.amzn_asin;
+  delete params.id
+  delete params.amzn_asin
   log('Going to update product ', id, 'asin ', asin,' with params ', params)
    return db('products')
             .where(where)
@@ -167,13 +164,11 @@ exports.editProduct = function(params) {
 exports.addProductDetail = function(params) {
   log('Adding product Detail', params)
   return db('product_details').returning('id').insert(params)
-  .then(function(data) {
+  .then(data => {
     log('Added product_details', data)
     return data[0]
   })
-  .catch( function(err) {
-    log("Error while adding product details", err)
-  })
+  .catch(err => log("Error while adding product details", err))
 }
 
 

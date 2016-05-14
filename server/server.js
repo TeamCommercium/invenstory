@@ -1,25 +1,25 @@
-var express = require('express')
-var path = require('path')
-var webConfig = require('./modules/config.js').webServer
-var authAPI = require('./api/auth_api.js')
-var inventoryAPI = require('./api/inventory_api.js')
-var productsAPI = require('./api/products_api.js')
-var amazonMWS = require('./api/amazonMWS.js')
-var userAPI = require('./api/user_api.js')
-var cookieParser = require('cookie-parser')
-var authenticate = require('./modules/utilities').authenticate
-var jwtUnauth = require('./modules/utilities').jwtUnauth
-var fs = require('fs');
-var http = require('http')
-var https = require('https')
+const express = require('express')
+const path = require('path')
+const webConfig = require('./modules/config.js').webServer
+const authAPI = require('./api/auth_api.js')
+const inventoryAPI = require('./api/inventory_api.js')
+const productsAPI = require('./api/products_api.js')
+const amazonMWS = require('./api/amazonMWS.js')
+const userAPI = require('./api/user_api.js')
+const cookieParser = require('cookie-parser')
+const authenticate = require('./modules/utilities').authenticate
+const jwtUnauth = require('./modules/utilities').jwtUnauth
+const fs = require('fs');
+const http = require('http')
+const https = require('https')
 
 
 require('./modules/amznPriceService.js').init()
 
-var privateKey  = fs.readFileSync('../sslcert/domain.key', 'utf8');
-var certificate = fs.readFileSync('../sslcert/domain.crt', 'utf8');
+const privateKey  = fs.readFileSync('../sslcert/domain.key', 'utf8');
+const certificate = fs.readFileSync('../sslcert/domain.crt', 'utf8');
 
-var credentials = {key: privateKey, cert: certificate}
+const credentials = {key: privateKey, cert: certificate}
 const app = express()
 
 app.use(express.static(path.join(__dirname, '../dist')))
@@ -39,8 +39,8 @@ app.all('*', function(req, res){
 
 app.use(jwtUnauth)
 
-var httpServer = http.createServer(app)
-var httpsServer = https.createServer(credentials, app)
+const httpServer = http.createServer(app)
+const httpsServer = https.createServer(credentials, app)
 
 httpServer.listen(webConfig.port, ()=>{console.log("Listening on:", webConfig.port)})
 httpsServer.listen(webConfig.httpsPort, ()=>{console.log("Https listening on:", webConfig.httpsPort)})

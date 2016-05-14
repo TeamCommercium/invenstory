@@ -1,10 +1,10 @@
-var MWS       = require ('mws-sdk-promises')
-var amazonEnv = require ('../modules/config.js').amazonEnv
-var utilities = require ('../modules/utilities.js')
-var log       = require('../modules/utilities.js').log;
-var Products  = require('../models/products_model.js')
+const MWS       = require ('mws-sdk-promises')
+const amazonEnv = require ('../modules/config').amazonEnv
+const utilities = require ('../modules/utilities')
+const log       = require('../modules/utilities').log
+const Products  = require('../models/products_model')
 
-var client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, amazonEnv.merchantId, {})
+const client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, amazonEnv.merchantId, {})
 
 /**
  * @param  {Object}   client    Client object with specific access keys
@@ -12,9 +12,9 @@ var client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, am
  * @return {Promise}            Returns a promise that resolves into list of lowest offerings from AmazonMWS API
  */
 function getLowestOfferListingsForAsin(client, args) {
-  var req = MWS.Products.requests.GetLowestOfferListingsForASIN()
-  req.set(args);
-  return client.invoke(req);
+  const req = MWS.Products.requests.GetLowestOfferListingsForASIN()
+  req.set(args)
+  return client.invoke(req)
 }
 
 /**
@@ -23,9 +23,9 @@ function getLowestOfferListingsForAsin(client, args) {
  * @return {Promise}            Returns a promise that resolves into a product AmazonMWS API
  */
 function getMatchingProductsByAsin(client, args) {
-  var req = MWS.Products.requests.GetMatchingProduct();
-  req.set(args);
-  return client.invoke(req);
+  const req = MWS.Products.requests.GetMatchingProduct()
+  req.set(args)
+  return client.invoke(req)
 }
 
 /**
@@ -43,14 +43,12 @@ exports.getAmznDetails = function(asins) {
     ItemCondition: 'NEW',
     ASINList: asins,
   })
-    .then(function(result) {
+    .then(result => {
       log("Retreived price data for,", result)
       if(result.ErrorResponse) log(result.ErrorResponse.Error)
-      return utilities.cleanAmznDetails(result);
+      return utilities.cleanAmznDetails(result)
     })
-    .catch(function(error) {
-      log('Error retreiving price data:', error)
-    })
+    .catch(error => log('Error retreiving price data:', error))
 }
 
 /**
@@ -70,11 +68,9 @@ exports.getMatchingProductByAsin = function(asin) {
     ASINList: [asin]
 
   })
-    .then(function(result){
+    .then(result => {
       log('Result of AmazonApi product fetch ', result)
       return Products.editProduct(utilities.cleanMatchingAsins(result)[0])
     })
-    .catch(function(error) {
-      log('Error of AmazonApi product fetch', error);
-    })
+    .catch(error => log('Error of AmazonApi product fetch', error))
 }

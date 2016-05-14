@@ -1,13 +1,13 @@
 'use strict'
 
-var express = require('express')
-var bodyParser = require('body-parser')
-var log = require('../modules/utilities.js').log;
-var env = require('../modules/config.js').state.env
-var Inventory = require('../models/inventory_model.js')
-var Products = require('../models/products_model.js')
-var amznSearch = require('../modules/amznSearchSvc.js')
-var router = express.Router()
+const express = require('express')
+const bodyParser = require('body-parser')
+const log = require('../modules/utilities').log
+const env = require('../modules/config').state.env
+const Inventory = require('../models/inventory_model')
+const Products = require('../models/products_model')
+const amznSearch = require('../modules/amznSearchSvc')
+const router = express.Router()
 
 .use(bodyParser.json())
 
@@ -41,10 +41,10 @@ var router = express.Router()
   let params = req.query || {}
   params.user_id = req.user.id
   Products.getProducts(params.user_id, params.product_id)
-    .then(function(data) {
+    .then(data => {
         res.status(200).send(data)
     })
-    .catch(function(err) {
+    .catch( err => {
       log("An error occurred getting products: ", err)
       res.status(400).send("Bad request")
     })
@@ -70,7 +70,7 @@ var router = express.Router()
   *
   * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
   */
- 
+
  .get('/search', (req, res) => {
 
    let query = req.query.q
@@ -88,4 +88,4 @@ var router = express.Router()
     })
  })
 
-module.exports = router;
+module.exports = router
