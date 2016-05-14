@@ -33,7 +33,7 @@ export default (props) =>
       value={Number(props.ship_quantity) || 0}
       onChange={props.handleQuantityChange.bind(this)}
     />
-    <div>
+    <div className='text-center'>
       <Button
         className="styles__inlineButton___16AEc"
         label='Ship'

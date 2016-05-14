@@ -58,16 +58,19 @@ export default (props) =>
     error={props.err_purchase_date}
     onChange={props.handleInput.bind(this, 'purchase_date')} 
   />
-  <div>
-    <Button
-      className="styles__inlineButton___16AEc"
-      label='Submit' raised floating primary accent
-      onMouseUp={props.handleSubmit.bind(this)}
-    />
-    <Button
-      className="styles__inlineButton___16AEc"
-      label='Cancel' raised floating
-      onMouseUp={props.resetModal.bind(this)}
-    />
+  <div className='addProductButtons text-center'>
+
+        <Button
+          className="styles__inlineButton___16AEc"
+          label='Submit' raised floating primary
+          onMouseUp={props.handleSubmit.bind(this)}
+        />
+        <Button
+          className="styles__inlineButton___16AEc"
+          label='Cancel' raised floating
+          onMouseUp={props.resetModal.bind(this)}
+        />
+      
+    
   </div>
 </Dialog>

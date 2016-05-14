@@ -12,7 +12,7 @@ export default (props) =>
     />
     <h4 className="styles__centerBlack___2j9F5">SKU: {props.data.seller_sku}</h4>
     <h4 className="styles__centerBlack___2j9F5">Quantity: {props.data.quantity}</h4>
-    <div>
+    <div className='text-center'>
       <Button
         className="styles__inlineButton___16AEc"
         label='CONFIRM DELETE'

@@ -33,13 +33,15 @@ export default class HomeContainer extends React.Component{
       vAxis: {title: 'Value'},
       legend: { position: 'top', maxLines: 3 },
       bar: { groupWidth: '75%' },
-      isStacked: false
+      isStacked: false,
+      colors: ['#F4A261', '#20B2AA']
     };
 
     const pieChartOptions = {
       title: 'Current Inventory Value',
       legend: { position: 'right'},
-      is3D: false
+      is3D: false,
+      colors: ['#264653', '#2A9D8F', '#E9C46A', '#F4A261', '#E76F51']
     };
 
     this.setState({
