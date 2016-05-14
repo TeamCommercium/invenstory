@@ -1,9 +1,9 @@
 'use strict'
 
-var env = require('./config').state.env;
+var env = require('./config').state.env
 var jwt_config = require('./config').jwtConfig
 var expressJWT = require('express-jwt')
-var log;
+var log
 /**
  * module
  * @module Utilities

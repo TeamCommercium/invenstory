@@ -2,11 +2,11 @@ var express = require('express')
 var passport = require('passport')
 var JWT = require('jsonwebtoken')
 var AmazonStrategy = require('passport-amazon').Strategy
-var amazonAuth_config = require('../modules/config.js').amazonAuth
-var jwt_config = require('../modules/config.js').jwtConfig
-var User = require('../models/user_model.js')
-var log = require('../modules/utilities.js').log
-var webConfig = require('../modules/config.js').webServer
+var amazonAuth_config = require('../modules/config').amazonAuth
+var jwt_config = require('../modules/config').jwtConfig
+var User = require('../models/user_model')
+var log = require('../modules/utilities').log
+var webConfig = require('../modules/config').webServer
 
 passport.use(new AmazonStrategy({
     clientID: amazonAuth_config.clientId,

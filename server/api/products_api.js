@@ -2,11 +2,11 @@
 
 var express = require('express')
 var bodyParser = require('body-parser')
-var log = require('../modules/utilities.js').log;
-var env = require('../modules/config.js').state.env
-var Inventory = require('../models/inventory_model.js')
-var Products = require('../models/products_model.js')
-var amznSearch = require('../modules/amznSearchSvc.js')
+var log = require('../modules/utilities').log;
+var env = require('../modules/config').state.env
+var Inventory = require('../models/inventory_model')
+var Products = require('../models/products_model')
+var amznSearch = require('../modules/amznSearchSvc')
 var router = express.Router()
 
 .use(bodyParser.json())
@@ -70,7 +70,7 @@ var router = express.Router()
   *
   * @apiDescription Endpoint to add a new product. Response parameters with the "amzn" prefix represent data retreived from the Amazon API.
   */
- 
+
  .get('/search', (req, res) => {
 
    let query = req.query.q

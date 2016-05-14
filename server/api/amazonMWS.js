@@ -1,8 +1,8 @@
 var MWS       = require ('mws-sdk-promises')
-var amazonEnv = require ('../modules/config.js').amazonEnv
-var utilities = require ('../modules/utilities.js')
-var log       = require('../modules/utilities.js').log;
-var Products  = require('../models/products_model.js')
+var amazonEnv = require ('../modules/config').amazonEnv
+var utilities = require ('../modules/utilities')
+var log       = require('../modules/utilities').log;
+var Products  = require('../models/products_model')
 
 var client = new MWS.Client(amazonEnv.accessKeyId, amazonEnv.secretAccessKey, amazonEnv.merchantId, {})
 

@@ -1,14 +1,14 @@
 'use strict'
+/**
+* module
+* @module Products
+*/
 
 var dateFormat = require('dateformat')
 var env = require('../modules/config').state.env
 var db = require('../modules/config').db
 var log = require('../modules/utilities').log;
 var amazonMWS = require('../api/amazonMWS');
-/**
- * module
- * @module Products
- */
 
  /**
   * getProducts - Retreive summary data for product(s).

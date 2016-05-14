@@ -4,13 +4,13 @@
  * @module Amazon Price Service Module
  */
 
-var log        = require('./utilities.js').log
-var amazonEnv  = require ('./config.js').amazonEnv
-var utilities  = require ('./utilities.js')
-var Products   = require('../models/products_model.js')
-var config     = require('./config.js').service
-var db         = require('./config.js').db
-var amznUtil   = require('../api/amazonMWS.js')
+var log        = require('./utilities').log
+var amazonEnv  = require ('./config').amazonEnv
+var utilities  = require ('./utilities')
+var Products   = require('../models/products_model')
+var config     = require('./config').service
+var db         = require('./config').db
+var amznUtil   = require('../api/amazonMWS')
 var dateFormat = require('dateformat')
 
 /**

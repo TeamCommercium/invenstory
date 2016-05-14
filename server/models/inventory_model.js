@@ -5,7 +5,7 @@
 */
 
 var db = require('../modules/config').db
-var log = require('../modules/utilities.js').log;
+var log = require('../modules/utilities').log
 
 
 /**
