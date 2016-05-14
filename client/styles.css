@@ -69,6 +69,10 @@ tr > th:last-child {
   border-right-width: 0px;
 }
 
+tr:hover {
+  background-color: lightgrey;
+}
+
 /*Makes the slidey thing white*/
 :global(.style__pointer___XKUds) {
   background-color: white;
