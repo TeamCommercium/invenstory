@@ -336,7 +336,9 @@ export default class DashboardContainer extends React.Component{
         }%</h5>
 
       <br/>
-      {dashboard}
+      <div className='text-center'>
+        {dashboard}
+      </div>
       {this.props.children}
       <Addproduct 
         active={this.state.showModal}
