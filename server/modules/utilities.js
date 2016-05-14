@@ -1,8 +1,8 @@
 'use strict'
 
-var env = require('./config').state.env
-var jwt_config = require('./config').jwtConfig
-var expressJWT = require('express-jwt')
+const env = require('./config').state.env
+const jwt_config = require('./config').jwtConfig
+const expressJWT = require('express-jwt')
 var log
 /**
  * module
@@ -24,13 +24,13 @@ var log
  * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanMatchingAsins = function(data) {
-  var items = []
-  var responseArr = data.GetMatchingProductResponse.GetMatchingProductResult
+  const items = []
+  const responseArr = data.GetMatchingProductResponse.GetMatchingProductResult
 
   log('Starting to Clean Data')
-  for (var i = 0, productsLen = responseArr.length; i < productsLen; i++) {
-    var product = {}
-    var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0]
+  for (let i = 0, productsLen = responseArr.length; i < productsLen; i++) {
+    const product = {}
+    const attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0]
 
     product.amzn_asin = responseArr[i].$.ASIN
     product.amzn_title = attrPath["ns2:Title"][0]
@@ -56,12 +56,12 @@ exports.cleanMatchingAsins = function(data) {
  * @return {Array}    items   Array of objects containing culled pricing data for multiple items
  */
 exports.cleanAmznDetails = function(data) {
-  var list = []
-  var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult
+  const list = []
+  const responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult
   log('Preparing to clean price data')
-  for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
+  for (let i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     //Initialize product object, to be inserted into results
-    var product = {}
+    const product = {}
     product.amzn_asin = responseObj[i].$.ASIN
 
     //Bail if data fetch fails
@@ -71,15 +71,15 @@ exports.cleanAmznDetails = function(data) {
     }
 
     //Setup variable to point to price array. This is already ordered lowest to highest. We need to set the lowest product fba and fbm from this list.
-    var priceArr = []
+    let priceArr = []
 
     if(responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing)
       priceArr = responseObj[i].Product[0].LowestOfferListings[0].LowestOfferListing
 
     for (let j = 0; j < priceArr.length; j++) {
 
-      var fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0]
-      var price = priceArr[j].Price[0].LandedPrice[0].Amount[0]
+      const fulfillmentChannel = priceArr[j].Qualifiers[0].FulfillmentChannel[0]
+      const price = priceArr[j].Price[0].LandedPrice[0].Amount[0]
 
       if (fulfillmentChannel === "Amazon" && !product.amzn_price_fba) {
           product.amzn_price_fba = Number(price)

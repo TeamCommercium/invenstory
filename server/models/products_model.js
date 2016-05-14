@@ -4,11 +4,11 @@
 * @module Products
 */
 
-var dateFormat = require('dateformat')
-var env = require('../modules/config').state.env
-var db = require('../modules/config').db
-var log = require('../modules/utilities').log
-var amazonMWS = require('../api/amazonMWS')
+const dateFormat = require('dateformat')
+const env = require('../modules/config').state.env
+const db = require('../modules/config').db
+const log = require('../modules/utilities').log
+const amazonMWS = require('../api/amazonMWS')
 
  /**
   * getProducts - Retreive summary data for product(s).
@@ -137,9 +137,9 @@ exports.getProductId = function (asin) {
  * @return {Promise}  Resolves to 1 if updates are successful.
  */
 exports.editProduct = function(params) {
-  var id = params.id
-  var asin = params.amzn_asin
-  var where = {}
+  let id = params.id
+  let asin = params.amzn_asin
+  let where = {}
   if (id) {
     where.id = id
   } else {

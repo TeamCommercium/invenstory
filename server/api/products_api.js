@@ -1,13 +1,13 @@
 'use strict'
 
-var express = require('express')
-var bodyParser = require('body-parser')
-var log = require('../modules/utilities').log
-var env = require('../modules/config').state.env
-var Inventory = require('../models/inventory_model')
-var Products = require('../models/products_model')
-var amznSearch = require('../modules/amznSearchSvc')
-var router = express.Router()
+const express = require('express')
+const bodyParser = require('body-parser')
+const log = require('../modules/utilities').log
+const env = require('../modules/config').state.env
+const Inventory = require('../models/inventory_model')
+const Products = require('../models/products_model')
+const amznSearch = require('../modules/amznSearchSvc')
+const router = express.Router()
 
 .use(bodyParser.json())
 

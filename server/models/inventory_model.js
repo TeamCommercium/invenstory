@@ -4,8 +4,8 @@
 * @module Inventory
 */
 
-var db = require('../modules/config').db
-var log = require('../modules/utilities').log
+const db = require('../modules/config').db
+const log = require('../modules/utilities').log
 
 
 /**
@@ -23,15 +23,15 @@ var log = require('../modules/utilities').log
  */
 function addInventory(params) {
   log('Adding inventory: ', params)
-  var qty = params.quantity
-  var insertParams = {
+  let qty = params.quantity
+  let insertParams = {
     product_id:params.product_id,
     purchase_date:params.purchase_date,
     purchase_price:params.purchase_price,
     sku:params.seller_sku,
     user_id:params.user_id
   }
-  var insert = []
+  let insert = []
   for(let i=0;i<qty;i++) {
       insert.push(Object.assign({},insertParams))
   }

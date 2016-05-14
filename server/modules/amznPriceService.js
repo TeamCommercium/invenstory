@@ -4,14 +4,14 @@
  * @module Amazon Price Service Module
  */
 
-var log        = require('./utilities').log
-var amazonEnv  = require ('./config').amazonEnv
-var utilities  = require ('./utilities')
-var Products   = require('../models/products_model')
-var config     = require('./config').service
-var db         = require('./config').db
-var amznUtil   = require('../api/amazonMWS')
-var dateFormat = require('dateformat')
+const log        = require('./utilities').log
+const amazonEnv  = require ('./config').amazonEnv
+const utilities  = require ('./utilities')
+const Products   = require('../models/products_model')
+const config     = require('./config').service
+const db         = require('./config').db
+const amznUtil   = require('../api/amazonMWS')
+const dateFormat = require('dateformat')
 
 /**
 * init - Initialization function sets interval to run the service
@@ -19,6 +19,7 @@ var dateFormat = require('dateformat')
 exports.init = function() {
 
   setInterval(amznPriceSvc, config.svcFreq)
+
 }
 
 /**
@@ -75,7 +76,7 @@ function amznPriceSvc() {
  */
 
 function Batch (arrayObjs) {
-  var storage = {}
+  const storage = {}
 
   let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss Z', true)
   this.asins = asins

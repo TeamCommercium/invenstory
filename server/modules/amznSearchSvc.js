@@ -5,11 +5,11 @@
  * @module Amazon Search service
  */
 
- var MWS       = require ('mws-sdk-promises')
- var amazonEnv = require ('./config').amazonEnv
- var utilities = require ('./utilities')
- var log       = require('./utilities').log
- var Products  = require('../models/products_model')
+ const MWS       = require ('mws-sdk-promises')
+ const amazonEnv = require ('./config').amazonEnv
+ const utilities = require ('./utilities')
+ const log       = require('./utilities').log
+ const Products  = require('../models/products_model')
 
 
  /**

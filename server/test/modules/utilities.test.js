@@ -1,6 +1,7 @@
-var expect = require('chai').expect;
+'use strict'
 
-var Util = require(__dirname + '/../../modules/utilities.js')
+const expect = require('chai').expect;
+const Util = require(__dirname + '/../../modules/utilities.js')
 
 describe('Utilities module', function() {
 

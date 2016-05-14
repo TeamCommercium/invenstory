@@ -1,8 +1,10 @@
-var expect = require('chai').expect;
-var assert = require('chai').assert;
-var rewire = require('rewire');
-var APS = rewire(__dirname + '/../../modules/amznPriceService.js')
-var Product = rewire(__dirname + '/../../models/products_model.js')
+'use strict'
+
+const expect = require('chai').expect;
+const assert = require('chai').assert;
+const rewire = require('rewire');
+const APS = rewire(__dirname + '/../../modules/amznPriceService.js')
+const Product = rewire(__dirname + '/../../models/products_model.js')
 
 describe('Amazon Price Service module', function() {
 

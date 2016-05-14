@@ -1,6 +1,6 @@
-var expect = require('chai').expect;
-
-var User = require(__dirname + '/../../models/user_model.js')
+'use strict'
+const expect = require('chai').expect
+const User = require(__dirname + '/../../models/user_model')
 
 describe('User model', function() {
 

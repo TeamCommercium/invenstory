@@ -3,9 +3,9 @@
  * module
  * @module User
  */
- var env = require('../modules/config').state.env
- var db = require('../modules/config').db
- var log = require('../modules/utilities').log
+ let env = require('../modules/config').state.env
+ let db = require('../modules/config').db
+ let log = require('../modules/utilities').log
 
 /**
  * getUserFromAmznId - Retreive userid based on the amazon Oauth userid.
@@ -14,7 +14,7 @@
  * @return {Promise}       Resolves to userId from users table
  */
 
-var getUserFromAmznId = function (amznId) {
+const getUserFromAmznId = function (amznId) {
   log('Looking up user with amzn id: ', amznId)
    return db('users')
             .where({amzn_profile_id:amznId})
@@ -41,7 +41,7 @@ var getUserFromAmznId = function (amznId) {
  * @param {string}    params.amzn_refreshToken
  * @return {Promise}  Resolves to user id from the newly created user.
  */
-var createUser = function (params) {
+const createUser = function (params) {
   log('Creating user: ',params)
   return db()
           .table('users')
