@@ -63,6 +63,8 @@ tr > td:nth-child(6) {text-align: right}
 tr > td:nth-child(7) {text-align: right} 
 tr > td:nth-child(8) {text-align: right} 
 tr > td:nth-child(9) {text-align: right} 
+tr > td:nth-child(10) {text-align: right} 
+tr > td:nth-child(11) {text-align: right} 
 tr > td:last-child {
   text-align: right;
   border-right-width: 0px;
