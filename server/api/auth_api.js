@@ -30,10 +30,6 @@ passport.use(new AmazonStrategy({
 const router = express.Router()
 .use(passport.initialize())
 
-
-
-
-
 /**
  * @apiDefine restricted Restricted content
  *  Restricts access to authorized users.
@@ -111,7 +107,7 @@ const router = express.Router()
     // if (!userId[0]) getUserId.next().value
     // log('Searched for user, result:', userId)
     User.findOrCreateUser(req.user)
-    .then(result =>  {
+    .then(result => {
       log('Serializing user', result)
       const id = result.id
       req.user = {id: id}

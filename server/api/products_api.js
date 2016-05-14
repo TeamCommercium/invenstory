@@ -41,7 +41,7 @@ const router = express.Router()
   let params = req.query || {}
   params.user_id = req.user.id
   Products.getProducts(params.user_id, params.product_id)
-    .then(data =>  {
+    .then(data => {
         res.status(200).send(data)
     })
     .catch( err => {

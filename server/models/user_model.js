@@ -64,7 +64,7 @@ const createUser = function (params) {
 exports.findOrCreateUser = function (params) {
 
   return getUserFromAmznId(params.amazon_id)
-    .then(id =>  {
+    .then(id => {
       log('Searched for user, result:', id)
       if(!id) {
         params = {

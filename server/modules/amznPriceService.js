@@ -43,7 +43,7 @@ function preBatch() {
 function amznPriceSvc() {
 
     preBatch()
-    .then(batch =>  {
+    .then(batch => {
       let theBatch = new Batch(batch)
       let asins = theBatch.asins()
       log('Preparing to retreive prices for batch.')
@@ -56,14 +56,10 @@ function amznPriceSvc() {
               Products.addProductDetail(e)
                 .then( resp => Products.editProduct({id: e.product_id, fetch_date:theBatch.batchTime}))
               )
-          ).then(
-            (data) => log('Batch price update complete', data)
-          )
-          .catch(
-            (err) => log('Error after details batch ', err)
-          )
+          ).then( data => log('Batch price update complete', data))
+          .catch( err => log('Error after details batch ', err))
         })
-        .catch(err => log('Error retrieving details for batch', err))
+        .catch( err => log('Error retrieving details for batch', err))
     })
 }
 
@@ -82,10 +78,10 @@ function Batch (arrayObjs) {
   this.asins = asins
   this.prepareInsert = prepareInsert
 
-  arrayObjs.forEach((e) => {storage[e.amzn_asin] = e.id})
+  arrayObjs.forEach(e => {storage[e.amzn_asin] = e.id})
   log('Initialized batch storage object', storage)
   function asins() {
-    return arrayObjs.map((e) => e.amzn_asin)
+    return arrayObjs.map(e => e.amzn_asin)
   }
 
   function prepareInsert(details) {

@@ -48,9 +48,7 @@ exports.getAmznDetails = function(asins) {
       if(result.ErrorResponse) log(result.ErrorResponse.Error)
       return utilities.cleanAmznDetails(result)
     })
-    .catch(error => {
-      log('Error retreiving price data:', error)
-    })
+    .catch(error => log('Error retreiving price data:', error))
 }
 
 /**
@@ -74,7 +72,5 @@ exports.getMatchingProductByAsin = function(asin) {
       log('Result of AmazonApi product fetch ', result)
       return Products.editProduct(utilities.cleanMatchingAsins(result)[0])
     })
-    .catch(error => {
-      log('Error of AmazonApi product fetch', error)
-    })
+    .catch(error => log('Error of AmazonApi product fetch', error))
 }

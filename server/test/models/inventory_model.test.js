@@ -14,7 +14,7 @@ describe('Inventory model', function() {
     it('should add inventory for an existing product', function() {
       let tAsin = 'B00UYNAGTI'
       return Product.getProductId(tAsin)
-       .then(result =>  {
+       .then(result => {
          let params = {}
          params.product_id = result[0].id
          params.quantity = 2
@@ -24,7 +24,7 @@ describe('Inventory model', function() {
          //This only works because user seed data is hardcoded, which needs to change.
          params.user_id = 2
          return Inventory.addInventory(params)
-          .then(result =>  {
+          .then(result => {
             console.log('inventory test result', result)
             expect(result[0]).to.be.a('number')
           })
@@ -50,9 +50,9 @@ describe('Inventory model', function() {
       //this only works because user ids are hardcoded in the seed data. they shouldn't be.
       let userId = 2
       return Product.getProductId(tAsin)
-        .then(productId =>  {
+        .then(productId => {
           Inventory.shipInventory(productId, userId, 2)
-            .then(result =>  {
+            .then(result => {
               console.info('shipping test result:', result)
               expect(result).to.be.an('number')
             })

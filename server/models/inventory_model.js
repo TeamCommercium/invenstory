@@ -55,7 +55,6 @@ function deleteInventory(productId, userId) {
           .del()
 }
 
-
 /**
  * shipInventory - Changes shipped status the oldest quantity inventories of a given product.
  *

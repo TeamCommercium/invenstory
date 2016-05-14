@@ -43,11 +43,11 @@ const amazonMWS = require('../api/amazonMWS')
                 //log('Get products is complete.')
                 return data
               })
-              .then(products =>  {
+              .then(products => {
                 if(productId) {
                   log('Retrieving detail history for product ', productId)
                   return getDetailHistory(productId)
-                          .then(detail =>  {
+                          .then(detail => {
                             log('Retreived history ', detail)
                             products[0].history = detail
                             return products
@@ -71,13 +71,13 @@ exports.addProduct = function (asin) {
   return db('products')
     .returning('id')
     .insert({amzn_asin: asin, fetch_date: insertDate})
-    .then(resp =>  {
+    .then(resp => {
       amazonMWS.getMatchingProductByAsin(asin)
       return resp[0]
     })
-    .then(id =>  {
+    .then(id => {
       return amazonMWS.getAmznDetails([asin])
-        .then(priceObj =>  {
+        .then(priceObj => {
           priceObj = priceObj[0]
           delete priceObj.amzn_asin
           priceObj.product_id = id
@@ -100,7 +100,7 @@ exports.addProduct = function (asin) {
 exports.findOrCreate = function(asin) {
   log('Find or create product with ASIN:', asin)
   return exports.getProductId(asin)
-    .then(resp =>  {
+    .then(resp => {
       if(resp[0]) {
         log("Product found, returning id ", resp[0].id)
         return resp[0].id
@@ -164,13 +164,11 @@ exports.editProduct = function(params) {
 exports.addProductDetail = function(params) {
   log('Adding product Detail', params)
   return db('product_details').returning('id').insert(params)
-  .then(data =>  {
+  .then(data => {
     log('Added product_details', data)
     return data[0]
   })
-  .catch( function(err) {
-    log("Error while adding product details", err)
-  })
+  .catch(err => log("Error while adding product details", err))
 }
 
 
