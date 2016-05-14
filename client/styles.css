@@ -48,7 +48,10 @@ tr:nth-child(even) {
 }
 
 /*set minimum width on title column*/
-tr > td:nth-child(4) {min-width: 150px;}
+tr > td:nth-child(4) {
+  min-width: 150px;
+  width: 100%;
+}
 
 /*center quantity column*/
 tr > td:nth-child(5) {text-align: center}

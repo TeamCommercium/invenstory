@@ -118,7 +118,7 @@ export default class DashboardContainer extends React.Component{
     store.syncWithStore("dashboard", ["detail","tableData"],this)
 
     if(document.getElementById("styles__table___1QENt") && document.getElementById("styles__table___1QENt").getElementsByTagName('input') && document.getElementById("styles__table___1QENt").getElementsByTagName('input')[0])
-      document.getElementsByTagName('input')[0].placeholder = "Search Table . ."
+      document.getElementsByTagName('input')[0].placeholder = " Search Table ..."
   }
 
 
