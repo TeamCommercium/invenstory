@@ -19,7 +19,6 @@ td > input {
 }
 
 table {
-  display: block;
   border-collapse: collapse;
   overflow-x: hidden;
 }
@@ -46,10 +45,6 @@ td {
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: lightgrey;
 }
 
 /*set minimum width on title column*/
@@ -234,7 +229,6 @@ tr > th:last-child {
 
 /* Table on the dashboard */
 #table {
-  display: block;
   margin: 0px auto 385px auto;
   /*margin-bottom: 375px;*/
 }
