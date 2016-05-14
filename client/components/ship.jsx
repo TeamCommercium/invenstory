@@ -4,7 +4,7 @@ import { Button, Input, Dialog, Slider } from 'react-toolbox'
 export default (props) =>
 
   <Dialog active={props.active} onOverlayClick={props.handleShipModal}>
-    <div>
+    <div className=''>
       <h3 className="styles__centerBlack___2j9F5">Please select <span style={{color: "red"}}>SHIP QUANTITY</span> for:</h3>
       <h4 style={{"textAlign": "center"}}>{props.data.amzn_title}</h4>
       <img 
@@ -18,9 +18,26 @@ export default (props) =>
       <h4 className="styles__centerBlack___2j9F5">Current Quantity: {props.data.quantity}</h4>
       <h4 className="styles__centerBlack___2j9F5">
       Gain: <span style={{color: "green"}}>{props.data.profit}%</span></h4>
-      <h5 className="styles__shipInfo___1FFPQ">TOT Cost: ${(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}</h5>
-      <h5 className="styles__shipInfo___1FFPQ">TOT Value: ${((props.data.amzn_price_fba || props.data.amzn_price_fbm) * props.ship_quantity).toFixed(2)}</h5>
-      <h5 className="styles__shipInfo___1FFPQ">NET Gain: ${(((props.data.amzn_price_fba || props.data.amzn_price_fbm) - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</h5>
+      <div className='contianer'>
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className="styles__shipInfo___1FFPQ col-md-4 col-xs-6">Total Cost: </div>
+            <div className='col-md-1 text-left'>{'$'+(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}</div>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className="styles__shipInfo___1FFPQ col-md-4 col-xs-6">Total Value: </div>
+            <div className='col-md-1 text-left'>${((props.data.amzn_price_fba || props.data.amzn_price_fbm) * props.ship_quantity).toFixed(2)}</div>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className="styles__shipInfo___1FFPQ col-md-4 col-xs-6">Net Gain: </div>
+            <div className='col-md-1 text-left'>${(((props.data.amzn_price_fba || props.data.amzn_price_fbm) - props.data.avg_purchase_price) * props.ship_quantity).toFixed(2)}</div>
+          </div>
+        </div>
+      </div>
     </div>
     <Slider
       className="styles__detailSlider___317hh"
