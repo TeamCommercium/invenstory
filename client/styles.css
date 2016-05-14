@@ -217,6 +217,15 @@ tr > th:last-child {
   max-width: 500px;
 }
 
+.detailCancel{
+  display: inline;
+  float: right;
+  padding: 0px;
+  margin: 15px;
+  color: #264653;
+  background: #264653;
+}
+
 .centerBlack {
   color: black;
   text-align: center;
