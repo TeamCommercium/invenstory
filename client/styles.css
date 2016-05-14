@@ -416,10 +416,14 @@ and (max-device-width: 1024px) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -429,15 +433,14 @@ and (max-device-width: 1024px) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
+  }
 }
 
 /*iPhone responsive variations*/
-/*iPhone 6 in landscape*/
-/*@media only screen 
-and (min-device-width : 375px) 
-and (max-device-width : 667px) 
-and (orientation : landscape) {
-}*/
 
 /*iPhone 6 Plus in portrait*/
 @media only screen 
@@ -464,7 +467,6 @@ and (orientation : portrait) {
     position: absolute;
     top: 6px;
     left: 6px;
-    /*width: 45%; */
     width: 30%; 
     padding-right: 10px; 
     white-space: nowrap;
@@ -499,10 +501,14 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -512,7 +518,11 @@ and (orientation : portrait) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
-  tr > td:nth-child(11) > button {font-size: 50px}
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
+  }
 }
 
 /*iPhone 6 in portrait*/
@@ -540,7 +550,6 @@ and (orientation : portrait) {
     position: absolute;
     top: 6px;
     left: 6px;
-    /*width: 45%; */
     width: 30%; 
     padding-right: 10px; 
     white-space: nowrap;
@@ -575,10 +584,14 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -588,15 +601,12 @@ and (orientation : portrait) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
-  tr > td:nth-child(11) > button {font-size: 50px}
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
+  }
 }
-
-/*iPhone 5 & 5S in landscape*/
-/*@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 568px) 
-and (orientation : landscape) {
-}*/
 
 /*iPhone 5 & 5S in portrait*/
 @media only screen 
@@ -657,10 +667,14 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -670,21 +684,9 @@ and (orientation : portrait) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
-  tr > td:nth-child(11) > button {font-size: 50px}
-}
-
-/* Smartphones */
-/*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-  body { 
-    padding: 0; 
-    margin: 0; 
-    width: 320px; }
-}*/
-
-/* iPads */
-/*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  body { 
-    width: 1024px; 
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
   }
-}*/
-
+}
