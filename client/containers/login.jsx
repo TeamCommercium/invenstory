@@ -27,6 +27,7 @@ export default () =><div>
         <p>Up-to-date Amazon prices to help you decide when to list your products</p>
         <div className=''>
           <img className='styles__productsTable___QHKgG img-responsive center-block styles__boxShadow___g0vg-' src='./assets/products_table.png' />
+          <img className='img-responsive center-block styles__boxShadow___g0vg-' src='./assets/products_history.png' />
         </div>
       </div>
       <div className='col-md-6'>  
