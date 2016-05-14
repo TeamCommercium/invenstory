@@ -195,6 +195,7 @@ tr > th:last-child {
 .detailTitle {
   margin: 10px 0px 0px 10px;
   font-size: 18px;
+  font-weight: 900;
 }
 
 .detailDescription {
