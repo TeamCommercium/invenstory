@@ -1,7 +1,7 @@
 'use strict'
 
-var env = require('./config.js').state.env;
-var jwt_config = require('./config.js').jwtConfig
+var env = require('./config').state.env;
+var jwt_config = require('./config').jwtConfig
 var expressJWT = require('express-jwt')
 var log;
 /**
@@ -31,7 +31,6 @@ exports.cleanMatchingAsins = function(data) {
   for (var i = 0, productsLen = responseArr.length; i < productsLen; i++) {
     var product = {};
     var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
-    console.log('attrPath', JSON.stringify(attrPath))
 
     product.amzn_asin = responseArr[i].$.ASIN
     product.amzn_title = attrPath["ns2:Title"][0];
