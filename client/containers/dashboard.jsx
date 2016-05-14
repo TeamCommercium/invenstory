@@ -329,7 +329,9 @@ export default class DashboardContainer extends React.Component{
       </div>
       <h3 style={{color: "#264653", 'fontWeight': 900, "marginTop":'5px'}}>
         Current Return:   {
-          ((((this.calculateTotals(this.state.tableData).totalValue))/((this.calculateTotals(this.state.tableData).totalCost))-1)*100).toFixed(1)
+          this.calculateTotals(this.state.tableData).totalValue
+          ? ((((this.calculateTotals(this.state.tableData).totalValue))/((this.calculateTotals(this.state.tableData).totalCost))-1)*100).toFixed(1)
+          : 0
         }%</h3>
       <h4 style={{color: "#E76F51"}}>Total Inventory Cost: ${((this.calculateTotals(this.state.tableData).totalCost).toFixed(2))}</h4>
       
