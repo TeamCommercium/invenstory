@@ -6,10 +6,11 @@ export default ({data, visitItem}) =>
   <ListSubHeader caption='Top Performing Items' />
   {Array.prototype.map.call(data, (cur, index)=>
     <ListItem
+      style={{borderRadius: 0}}
       key={index}
       avatar={cur.amzn_thumb_url}
       caption={cur.amzn_title}
-      legend={"Profit is at " + cur.profit + "%"}
+      legend={"Current ROI: " + cur.profit + "%"}
       onClick={visitItem.bind(null, cur)}
     />
   )}
