@@ -1,5 +1,6 @@
 'use strict'
 const expect = require('chai').expect
+const supertest = require('supertest')
 const api = supertest(require('../../server'));
 
 describe('User API Tests', function() {
