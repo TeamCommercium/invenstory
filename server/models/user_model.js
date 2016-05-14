@@ -19,7 +19,7 @@ const getUserFromAmznId = function (amznId) {
    return db('users')
             .where({amzn_profile_id:amznId})
             .select('id')
-            .then(function(result){
+            .then(result => {
               log('Found user: ', result[0])
               if (result[0])
                 return result[0].id
@@ -64,7 +64,7 @@ const createUser = function (params) {
 exports.findOrCreateUser = function (params) {
 
   return getUserFromAmznId(params.amazon_id)
-    .then(function(id) {
+    .then(id =>  {
       log('Searched for user, result:', id)
       if(!id) {
         params = {

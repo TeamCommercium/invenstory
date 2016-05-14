@@ -26,7 +26,7 @@ describe('Amazon Price Service module', function() {
 
     it('should return an array', function() {
       return preBatch()
-        .then(function(result){
+        .then(result => {
           expect(result).is.an('array')
         })
     })
@@ -48,7 +48,7 @@ describe('Amazon Price Service module', function() {
         Product.getProductId('B00UYNAGTI'),
         Product.getProductId('B0050R0YB8')
       ])
-      .then(function(results){
+      .then(results => {
         console.log('Retreive ASINs for batch testing:', results)
         let first = {id:results[0][0].id, amzn_asin:'B00UYNAGTI'}
         let second = {id:results[1][0].id, amzn_asin: 'B0050R0YB8'}

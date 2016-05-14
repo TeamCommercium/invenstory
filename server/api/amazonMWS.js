@@ -43,12 +43,12 @@ exports.getAmznDetails = function(asins) {
     ItemCondition: 'NEW',
     ASINList: asins,
   })
-    .then(function(result) {
+    .then(result => {
       log("Retreived price data for,", result)
       if(result.ErrorResponse) log(result.ErrorResponse.Error)
       return utilities.cleanAmznDetails(result)
     })
-    .catch(function(error) {
+    .catch(error => {
       log('Error retreiving price data:', error)
     })
 }
@@ -70,11 +70,11 @@ exports.getMatchingProductByAsin = function(asin) {
     ASINList: [asin]
 
   })
-    .then(function(result){
+    .then(result => {
       log('Result of AmazonApi product fetch ', result)
       return Products.editProduct(utilities.cleanMatchingAsins(result)[0])
     })
-    .catch(function(error) {
+    .catch(error => {
       log('Error of AmazonApi product fetch', error)
     })
 }

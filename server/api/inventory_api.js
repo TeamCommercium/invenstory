@@ -40,14 +40,14 @@ const router = express.Router()
   log("Web service request to add inventory: ", params)
   if(!params.product_id) {
     Products.findOrCreate(params.asin)
-      .then(function(productId) {
+      .then(productId =>  {
         params.product_id = productId
         Inventory.addInventory(params)
-          .then(function(resp) {
+          .then(resp =>  {
               log('Inventory id', resp[0], 'added')
               res.status(200).send({id:resp[0]})
           })
-          .catch(function(err) {
+          .catch( err => {
             log("An error occurred adding inventory: ", err)
             res.status(400).send("Bad request")
           })
@@ -56,10 +56,10 @@ const router = express.Router()
   } else {
 
   Inventory.addInventory(params)
-    .then(function(data) {
+    .then(data =>  {
         res.status(200).send(data[0])
     })
-    .catch(function(err) {
+    .catch( err => {
       log("An error occurred adding inventory: ", err)
       res.status(400).send("Bad request")
     })
@@ -83,11 +83,11 @@ const router = express.Router()
    let params = req.body
    log("Web service request to ship inventory: ", params)
    Inventory.shipInventory(params.id, req.user.id, params.quantity)
-     .then(function(resp) {
+     .then(resp =>  {
         log('Shipped inventory', resp)
         res.status(200).send(resp[0])
      })
-     .catch(function(err) {
+     .catch( err => {
        log("An error occurred shipping inventory: ", err)
        res.status(400).send("Bad request")
      })
@@ -111,10 +111,10 @@ const router = express.Router()
   let params = req.body
   log("Web service request to delete inventory: ", params)
   Inventory.deleteInventory(params.id, req.user.id)
-    .then(function(data) {
+    .then(data =>  {
         res.status(200).send(JSON.stringify(data))
     })
-    .catch(function(err) {
+    .catch( err => {
       log("An error occurred deleting inventory: ", err)
       res.status(400).send("Bad request")
     })

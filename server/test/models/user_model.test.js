@@ -12,14 +12,14 @@ describe('User model', function() {
 
     it('should should return an array with id for a new user', function () {
       return User.findOrCreateUser({amazon_id:'fakeamznprofile'})
-        .then(function(result) {
+        .then(result =>  {
           expect(result.id).is.an('number')
         })
     });
 
     it('should should return an array with id for an existing user', function () {
       return User.findOrCreateUser({amazon_id:'seedamzn1'})
-        .then(function(result) {
+        .then(result =>  {
           expect(result.id).is.an('number')
         })
     });

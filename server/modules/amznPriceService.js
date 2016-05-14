@@ -43,7 +43,7 @@ function preBatch() {
 function amznPriceSvc() {
 
     preBatch()
-    .then(function(batch) {
+    .then(batch =>  {
       let theBatch = new Batch(batch)
       let asins = theBatch.asins()
       log('Preparing to retreive prices for batch.')

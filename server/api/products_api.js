@@ -41,10 +41,10 @@ const router = express.Router()
   let params = req.query || {}
   params.user_id = req.user.id
   Products.getProducts(params.user_id, params.product_id)
-    .then(function(data) {
+    .then(data =>  {
         res.status(200).send(data)
     })
-    .catch(function(err) {
+    .catch( err => {
       log("An error occurred getting products: ", err)
       res.status(400).send("Bad request")
     })

@@ -32,10 +32,10 @@
    reqObj.set(params)
 
    return client.invoke(reqObj)
-          .then(function(result) {
+          .then(result =>  {
                return cleanListProductSearch(result)
             })
-          .catch(function(error) {
+          .catch( err => {
                log(error)
                return error
             })

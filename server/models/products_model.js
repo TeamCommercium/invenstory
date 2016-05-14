@@ -39,15 +39,15 @@ const amazonMWS = require('../api/amazonMWS')
               .avg('purchase_price as avg_purchase_price')
               .count('inventory.product_id as quantity')
               .where(whereClause)
-              .then(function(data){
+              .then(data => {
                 //log('Get products is complete.')
                 return data
               })
-              .then(function(products) {
+              .then(products =>  {
                 if(productId) {
                   log('Retrieving detail history for product ', productId)
                   return getDetailHistory(productId)
-                          .then(function(detail) {
+                          .then(detail =>  {
                             log('Retreived history ', detail)
                             products[0].history = detail
                             return products
@@ -71,22 +71,20 @@ exports.addProduct = function (asin) {
   return db('products')
     .returning('id')
     .insert({amzn_asin: asin, fetch_date: insertDate})
-    .then(function(resp) {
+    .then(resp =>  {
       amazonMWS.getMatchingProductByAsin(asin)
       return resp[0]
     })
-    .then(function(id) {
+    .then(id =>  {
       return amazonMWS.getAmznDetails([asin])
-        .then(function(priceObj) {
+        .then(priceObj =>  {
           priceObj = priceObj[0]
           delete priceObj.amzn_asin
           priceObj.product_id = id
           priceObj.amzn_fetch_date = insertDate
           return exports.addProductDetail(priceObj)
-            .then(function() {
-              return id
-            })
-            .catch(function(err) {
+            .then(resp => id)
+            .catch( err => {
               log('Error adding new product detail 1-', err)
             })
         })
@@ -102,7 +100,7 @@ exports.addProduct = function (asin) {
 exports.findOrCreate = function(asin) {
   log('Find or create product with ASIN:', asin)
   return exports.getProductId(asin)
-    .then(function(resp) {
+    .then(resp =>  {
       if(resp[0]) {
         log("Product found, returning id ", resp[0].id)
         return resp[0].id
@@ -166,7 +164,7 @@ exports.editProduct = function(params) {
 exports.addProductDetail = function(params) {
   log('Adding product Detail', params)
   return db('product_details').returning('id').insert(params)
-  .then(function(data) {
+  .then(data =>  {
     log('Added product_details', data)
     return data[0]
   })

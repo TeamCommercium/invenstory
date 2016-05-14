@@ -38,11 +38,11 @@ const router = express.Router()
  */
 .get('/about', function(req, res) {
   User.getUserProfileInfo(req.user.id)
-    .then(function(result){
+    .then(result => {
       log('user_api succesful /user/about', result)
       res.status(200).send(result)
     })
-    .catch(function(err) {
+    .catch( err => {
       log('error in getting user profile ', err)
       res.status(400).send('Bad Request')
     })
@@ -67,11 +67,11 @@ const router = express.Router()
 .put('/update', function(req, res) {
   let params = req.body
   User.updateUserInfo(req.user.id, params)
-    .then(function(result){
+    .then(result => {
       log('update user result ',result)
       res.status(200).send(result)
     })
-    .catch(function(err) {
+    .catch( err => {
       log('error in getting user profile ', err)
       res.status(400).send('Bad Request')
     })

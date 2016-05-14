@@ -111,7 +111,7 @@ const router = express.Router()
     // if (!userId[0]) getUserId.next().value
     // log('Searched for user, result:', userId)
     User.findOrCreateUser(req.user)
-    .then(function(result) {
+    .then(result =>  {
       log('Serializing user', result)
       const id = result.id
       req.user = {id: id}
@@ -127,5 +127,5 @@ const router = express.Router()
 
       next()
     }
-    
+
  module.exports = router
