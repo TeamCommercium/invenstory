@@ -80,7 +80,7 @@ export default class HomeContainer extends React.Component{
         { notifications }
       </div>
     else
-      dashboard = <h1 className="styles__centerGraph___PVBDK"> You don't have any inventory! Add items in the Dashboard </h1>
+      dashboard = <h4 className="styles__centerGraph___PVBDK" style={{}}> Welcome to InvenStory! Please Add Items to your Inventory.</h4>
 
     return <div>{dashboard}</div>
   }

@@ -56,7 +56,7 @@ export default class TabsContainer extends React.Component{
       <Panel>
         <Tabs index={this.state.tab} className="styles__tabContainer___1UKO5" onChange={this.handleTabChange.bind(this)} fixed >
           <Tab label='Home' className="styles__tabsNames___EyUYr"><Home /></Tab>
-          <Tab label='Dashboard' className="styles__tabsNames___EyUYr"><Dashboard /></Tab>
+          <Tab label='Inventory' className="styles__tabsNames___EyUYr"><Dashboard /></Tab>
           <Tab label='Logout' className="styles__logout___3o2E6 styles__tabsNames___EyUYr" onActive={logout}><div/></Tab>
           <Tab label="Settings" className="styles__tabsNames___EyUYr"><Settings /></Tab> 
         </Tabs>

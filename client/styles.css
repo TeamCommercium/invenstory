@@ -63,6 +63,8 @@ tr > td:nth-child(6) {text-align: right}
 tr > td:nth-child(7) {text-align: right} 
 tr > td:nth-child(8) {text-align: right} 
 tr > td:nth-child(9) {text-align: right} 
+tr > td:nth-child(10) {text-align: right} 
+tr > td:nth-child(11) {text-align: right} 
 tr > td:last-child {
   text-align: right;
   border-right-width: 0px;
@@ -152,7 +154,7 @@ tr > th:last-child {
   padding: 0px;
 
   width: 100%;
-  height: 375px;
+  height: 385px;
 
   left:0;
   bottom: 0;
@@ -170,8 +172,8 @@ tr > th:last-child {
 }
 
 .detailImage {
-  height: 150;
-  width: 150;
+  height: 125px;
+  width: 125px;
   z-index: -1;
   display: inline;
   float: left;
@@ -193,6 +195,7 @@ tr > th:last-child {
 .detailTitle {
   margin: 10px 0px 0px 10px;
   font-size: 18px;
+  font-weight: 900;
 }
 
 .detailDescription {
@@ -232,7 +235,7 @@ tr > th:last-child {
 /* Table on the dashboard */
 #table {
   display: block;
-  margin: 0px auto 375px auto;
+  margin: 0px auto 385px auto;
   /*margin-bottom: 375px;*/
 }
 
@@ -413,10 +416,14 @@ and (max-device-width: 1024px) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -426,15 +433,14 @@ and (max-device-width: 1024px) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
+  }
 }
 
 /*iPhone responsive variations*/
-/*iPhone 6 in landscape*/
-/*@media only screen 
-and (min-device-width : 375px) 
-and (max-device-width : 667px) 
-and (orientation : landscape) {
-}*/
 
 /*iPhone 6 Plus in portrait*/
 @media only screen 
@@ -461,7 +467,6 @@ and (orientation : portrait) {
     position: absolute;
     top: 6px;
     left: 6px;
-    /*width: 45%; */
     width: 30%; 
     padding-right: 10px; 
     white-space: nowrap;
@@ -496,10 +501,14 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -509,7 +518,11 @@ and (orientation : portrait) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
-  tr > td:nth-child(11) > button {font-size: 50px}
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
+  }
 }
 
 /*iPhone 6 in portrait*/
@@ -537,7 +550,6 @@ and (orientation : portrait) {
     position: absolute;
     top: 6px;
     left: 6px;
-    /*width: 45%; */
     width: 30%; 
     padding-right: 10px; 
     white-space: nowrap;
@@ -572,10 +584,14 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -585,15 +601,12 @@ and (orientation : portrait) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
-  tr > td:nth-child(11) > button {font-size: 50px}
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
+  }
 }
-
-/*iPhone 5 & 5S in landscape*/
-/*@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 568px) 
-and (orientation : landscape) {
-}*/
 
 /*iPhone 5 & 5S in portrait*/
 @media only screen 
@@ -654,10 +667,14 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(9):before {
-    content: "Total Value:";
+    content: "Total Cost:";
     text-align: right;
   }
   td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
   }
@@ -667,21 +684,9 @@ and (orientation : portrait) {
   tr > td:nth-child(8) {text-align: left}
   tr > td:nth-child(9) {text-align: left}
   tr > td:nth-child(10) {text-align: left}
-  tr > td:nth-child(11) > button {font-size: 50px}
-}
-
-/* Smartphones */
-/*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-  body { 
-    padding: 0; 
-    margin: 0; 
-    width: 320px; }
-}*/
-
-/* iPads */
-/*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  body { 
-    width: 1024px; 
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 30px;
   }
-}*/
-
+}

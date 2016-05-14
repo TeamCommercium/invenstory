@@ -118,16 +118,12 @@ export function processGeneralGraphData(inventory){
  */
 export function processPieChartData(inventory){
 
-  let totalValue = 0;
-  let totalCost = 0;
   let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}]]; 
   let priceData = inventory.forEach(function(cur, ind){
     const amznPrice = cur.amzn_price_fba || cur.amzn_price_fbm;
-    totalValue += amznPrice * cur.quantity;
-    totalCost += cur.avg_purchase_price * cur.quantity;
     lineData.push(
       [
-        cur.seller_sku + ", Quantity: " + cur.quantity + ", Total Value: $" + (amznPrice * cur.quantity).toFixed(2),
+        cur.seller_sku + ", QTY:" + cur.quantity,
         Math.round(amznPrice * cur.quantity * 100) / 100,
         cur.amzn_title && cur.amzn_title.slice(0,55) + " - Total Value: $" + (amznPrice * cur.quantity).toFixed(2),
       ]
@@ -146,7 +142,7 @@ export function processPieChartData(inventory){
 export function processGeneralTableData(inventory){
   let tableData = inventory.map(function(cur){
     return {
-      " ": <img src={cur.amzn_thumb_url} style={{width: 50, height:50, padding:0, margin:0}} />,
+      " ": <img src={cur.amzn_thumb_url} style={{width: 35, height:35, padding:0, margin:0}} />,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Title": cur.amzn_title && (cur.amzn_title.slice(0,100)),
