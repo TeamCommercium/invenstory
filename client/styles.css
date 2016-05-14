@@ -87,10 +87,6 @@ tr > th:last-child {
   border-right-width: 0px;
 }
 
-tr:hover {
-  background-color: lightgrey;
-}
-
 /*Makes the slidey thing white*/
 :global(.style__pointer___XKUds) {
   background-color: white;
@@ -299,7 +295,7 @@ tr:hover {
   color: white;
   background-color: #20B2AA;
   border-radius: 40px;
-
+  min-width: 200px;
 }
 
 .logoImgTitle{
