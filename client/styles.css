@@ -26,7 +26,7 @@ table {
 
 th {
   padding: 5px;
-  background-color: #2A9D8F;
+  background-color: rgba(42, 157, 143, 0.72);
   color: white;
   text-align: center;
   border-right-color: white;
@@ -343,8 +343,17 @@ hr {
 }
 
 :global(.style__primary___2QrZv.styles__inlineButton___16AEc.style__raised___1YO8U) {
-  background-color: #2A9D8F;
+  background-color: #264653;
 }
+
+:global(.style__primary___2QrZv.styles__inlineButton___16AEc.style__raised___1YO8U.detailBut) {
+  background-color: #264653;
+}
+
+:global(.style__primary___2QrZv.styles__inlineButton___16AEc.style__raised___1YO8U.detailBut.closeButton) {
+  background-color: #E76F51;
+}
+
 
 
 /*show table in block format when screen width is small*/

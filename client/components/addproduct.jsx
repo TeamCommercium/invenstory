@@ -62,7 +62,7 @@ export default (props) =>
 
         <Button
           className="styles__inlineButton___16AEc"
-          label='Submit' raised floating primary accent
+          label='Submit' raised floating primary
           onMouseUp={props.handleSubmit.bind(this)}
         />
         <Button

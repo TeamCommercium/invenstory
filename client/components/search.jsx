@@ -28,9 +28,11 @@ export default ({inherit}) =>
       </List>
      : null}
      </div>}
-         <Button 
-        className="styles__inlineButton___16AEc"
-        label='Search' raised floating
-        onMouseUp={inherit.handleAmazonSearch}
-      />
+      <div className='text-center'>
+        <Button 
+          className="styles__inlineButton___16AEc"
+          label='Search' raised floating
+          onMouseUp={inherit.handleAmazonSearch}
+        />
+      </div>
 </div>

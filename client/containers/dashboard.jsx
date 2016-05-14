@@ -316,14 +316,20 @@ export default class DashboardContainer extends React.Component{
 
     return <div>
       <div style={{"display": "inline"}}>
-        <h3 style={{"display": "inline", color: "green", 'fontWeight': 900}}>Total Inventory Value: ${(this.calculateTotals(this.state.tableData).totalValue).toFixed(2)}</h3>
+        <h3 style={{"display": "inline", color: "#264653", 'fontWeight': 900}}>Total Inventory Value: ${(this.calculateTotals(this.state.tableData).totalValue).toFixed(2)}</h3>
         <Button
+          className="styles__inlineButton___16AEc"
           style={{"display": "inline", float:"right"}}
-          label='Add Product' raised floating primary
+          label='Add Product' raised floating
           onMouseUp={this.handleModal.bind(this)}
         />
       </div>
-      <h4 style={{color: "blue"}}>Total Inventory Cost: ${(this.calculateTotals(this.state.tableData).totalCost).toFixed(2)}</h4>
+      <h3 style={{color: "#264653", 'fontWeight': 900, "margin-top":'5px'}}>
+        Current Return:   {
+          ((((this.calculateTotals(this.state.tableData).totalValue))/((this.calculateTotals(this.state.tableData).totalCost))-1)*100).toFixed(1)
+        }%</h3>
+      <h4 style={{color: "#E76F51"}}>Total Inventory Cost: ${((this.calculateTotals(this.state.tableData).totalCost).toFixed(2))}</h4>
+      
 
       <br/>
       {dashboard}
