@@ -19,6 +19,7 @@ export default (props) =>
   />
   <Input 
     className=""
+    disabled={props.lock_sku}
     type='text' 
     label='Seller SKU'
     name='seller_sku'
