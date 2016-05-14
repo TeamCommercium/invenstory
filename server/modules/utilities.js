@@ -33,14 +33,14 @@ exports.cleanMatchingAsins = function(data) {
     var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
     console.log('attrPath', JSON.stringify(attrPath))
 
-    product.amzn_asin = responseArr[i].$.ASIN;
+    product.amzn_asin = responseArr[i].$.ASIN
     product.amzn_title = attrPath["ns2:Title"][0];
-    product.amzn_description = attrPath["ns2:Feature"].join(". ");
-    product.amzn_manufacturer = attrPath["ns2:Manufacturer"][0];
-    product.amzn_weight = Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._);
-    product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0].replace('http://ecx.images-amazon.com','https://images-na.ssl-images-amazon.com');
-    product.amzn_list_price = attrPath["ns2:ListPrice"] ? Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]) : null;
-    product.amzn_sales_rank = Array.isArray(responseArr[i].Product[0].SalesRankings[0]) ? Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]) : null;
+    product.amzn_description = attrPath["ns2:Feature"] ? attrPath["ns2:Feature"].join(". ") : ''
+    product.amzn_manufacturer = attrPath["ns2:Manufacturer"] ? attrPath["ns2:Manufacturer"][0] : null
+    product.amzn_weight = attrPath["ns2:PackageDimensions"] && attrPath["ns2:PackageDimensions"][0]["ns2:Weight"] ? Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._) : ''
+    product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0].replace('http://ecx.images-amazon.com','https://images-na.ssl-images-amazon.com')
+    product.amzn_list_price = attrPath["ns2:ListPrice"] ? Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]) : null
+    product.amzn_sales_rank = Array.isArray(responseArr[i].Product[0].SalesRankings[0]) ? Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]) : null
 
     items.push(product);
   }
