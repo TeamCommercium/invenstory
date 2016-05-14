@@ -7,8 +7,8 @@
 var dateFormat = require('dateformat')
 var env = require('../modules/config').state.env
 var db = require('../modules/config').db
-var log = require('../modules/utilities').log;
-var amazonMWS = require('../api/amazonMWS');
+var log = require('../modules/utilities').log
+var amazonMWS = require('../api/amazonMWS')
 
  /**
   * getProducts - Retreive summary data for product(s).
@@ -22,8 +22,8 @@ var amazonMWS = require('../api/amazonMWS');
 
     //Passing an undefined value to a where clause in knex seems to include the search term, so build the clause here.
     let whereClause = {"inventory.user_id":userId,
-                        "shipped":false};
-    if(productId) whereClause['inventory.product_id'] = productId;
+                        "shipped":false}
+    if(productId) whereClause['inventory.product_id'] = productId
 
     return db('products')
               .join('inventory', 'inventory.product_id', 'products.id')
@@ -118,7 +118,7 @@ exports.findOrCreate = function(asin) {
  * @return {Promise}  Resolves to an array with an object containing the id of the product record.
  */
 exports.getProductId = function (asin) {
-   return db('products').select('id').where({amzn_asin:asin});
+   return db('products').select('id').where({amzn_asin:asin})
 }
 
 /**
@@ -137,16 +137,16 @@ exports.getProductId = function (asin) {
  * @return {Promise}  Resolves to 1 if updates are successful.
  */
 exports.editProduct = function(params) {
-  var id = params.id;
-  var asin = params.amzn_asin;
-  var where = {};
+  var id = params.id
+  var asin = params.amzn_asin
+  var where = {}
   if (id) {
-    where.id = id;
+    where.id = id
   } else {
     where.amzn_asin = asin
   }
-  delete params.id;
-  delete params.amzn_asin;
+  delete params.id
+  delete params.amzn_asin
   log('Going to update product ', id, 'asin ', asin,' with params ', params)
    return db('products')
             .where(where)

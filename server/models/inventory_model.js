@@ -23,7 +23,7 @@ var log = require('../modules/utilities').log
  */
 function addInventory(params) {
   log('Adding inventory: ', params)
-  var qty = params.quantity;
+  var qty = params.quantity
   var insertParams = {
     product_id:params.product_id,
     purchase_date:params.purchase_date,
@@ -31,7 +31,7 @@ function addInventory(params) {
     sku:params.seller_sku,
     user_id:params.user_id
   }
-  var insert = [];
+  var insert = []
   for(let i=0;i<qty;i++) {
       insert.push(Object.assign({},insertParams))
   }
@@ -71,7 +71,7 @@ function shipInventory(productId, userId, quantity) {
   let shipIds = db.from('inventory').select('id')
   .where({shipped:0, product_id:productId, user_id:userId})
   .orderBy('purchase_date')
-  .limit(quantity);
+  .limit(quantity)
 
   return db('inventory')
             .whereIn('id', shipIds)

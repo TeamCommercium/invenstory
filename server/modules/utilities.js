@@ -24,16 +24,16 @@ var log
  * @return {Array}    items  Array of objects containing culled product data for multiple items
  */
 exports.cleanMatchingAsins = function(data) {
-  var items = [];
-  var responseArr = data.GetMatchingProductResponse.GetMatchingProductResult;
+  var items = []
+  var responseArr = data.GetMatchingProductResponse.GetMatchingProductResult
 
   log('Starting to Clean Data')
   for (var i = 0, productsLen = responseArr.length; i < productsLen; i++) {
-    var product = {};
-    var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0];
+    var product = {}
+    var attrPath = responseArr[i].Product[0].AttributeSets[0]["ns2:ItemAttributes"][0]
 
     product.amzn_asin = responseArr[i].$.ASIN
-    product.amzn_title = attrPath["ns2:Title"][0];
+    product.amzn_title = attrPath["ns2:Title"][0]
     product.amzn_description = attrPath["ns2:Feature"] ? attrPath["ns2:Feature"].join(". ") : ''
     product.amzn_manufacturer = attrPath["ns2:Manufacturer"] ? attrPath["ns2:Manufacturer"][0] : null
     product.amzn_weight = attrPath["ns2:PackageDimensions"] && attrPath["ns2:PackageDimensions"][0]["ns2:Weight"] ? Number(attrPath["ns2:PackageDimensions"][0]["ns2:Weight"][0]._) : ''
@@ -41,9 +41,9 @@ exports.cleanMatchingAsins = function(data) {
     product.amzn_list_price = attrPath["ns2:ListPrice"] ? Number(attrPath["ns2:ListPrice"][0]["ns2:Amount"][0]) : null
     product.amzn_sales_rank = Array.isArray(responseArr[i].Product[0].SalesRankings[0]) ? Number(responseObj[i].Product[0].SalesRankings[0].SalesRank[0].Rank[0]) : null
 
-    items.push(product);
+    items.push(product)
   }
-  return items;
+  return items
 }
 
 /**
@@ -56,13 +56,13 @@ exports.cleanMatchingAsins = function(data) {
  * @return {Array}    items   Array of objects containing culled pricing data for multiple items
  */
 exports.cleanAmznDetails = function(data) {
-  var list = [];
-  var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult;
+  var list = []
+  var responseObj = data.GetLowestOfferListingsForASINResponse.GetLowestOfferListingsForASINResult
   log('Preparing to clean price data')
   for (var i = 0, productsLen = responseObj.length; i < productsLen; i++) {
     //Initialize product object, to be inserted into results
-    var product = {};
-    product.amzn_asin = responseObj[i].$.ASIN;
+    var product = {}
+    product.amzn_asin = responseObj[i].$.ASIN
 
     //Bail if data fetch fails
     if(responseObj[i].$.status === 'ClientError') {
@@ -82,15 +82,15 @@ exports.cleanAmznDetails = function(data) {
       var price = priceArr[j].Price[0].LandedPrice[0].Amount[0]
 
       if (fulfillmentChannel === "Amazon" && !product.amzn_price_fba) {
-          product.amzn_price_fba = Number(price);
+          product.amzn_price_fba = Number(price)
       } else if (!product.amzn_price_fbm) {
-        product.amzn_price_fbm = Number(price);
+        product.amzn_price_fbm = Number(price)
       }
     }
-    list.push(product);
+    list.push(product)
   }
   log('Cleaned product price information', list)
-  return list;
+  return list
 }
 
 /**

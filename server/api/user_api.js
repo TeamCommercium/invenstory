@@ -1,6 +1,6 @@
 var express = require('express')
 var User = require('../models/user_model')
-var log = require('../modules/utilities').log;
+var log = require('../modules/utilities').log
 var bodyParser = require('body-parser')
 
 

@@ -2,7 +2,7 @@
 
 var express = require('express')
 var bodyParser = require('body-parser')
-var log = require('../modules/utilities.js').log;
+var log = require('../modules/utilities.js').log
 var env = require('../modules/config.js').state.env
 var Inventory = require('../models/inventory_model')
 var Products = require('../models/products_model')
@@ -120,4 +120,4 @@ var router = express.Router()
     })
  })
 
- module.exports = router;
+ module.exports = router

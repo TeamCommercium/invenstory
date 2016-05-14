@@ -5,7 +5,7 @@
  */
  var env = require('../modules/config').state.env
  var db = require('../modules/config').db
- var log = require('../modules/utilities').log;
+ var log = require('../modules/utilities').log
 
 /**
  * getUserFromAmznId - Retreive userid based on the amazon Oauth userid.
@@ -22,7 +22,7 @@ var getUserFromAmznId = function (amznId) {
             .then(function(result){
               log('Found user: ', result[0])
               if (result[0])
-                return result[0].id;
+                return result[0].id
               return null
             })
 }

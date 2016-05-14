@@ -44,7 +44,7 @@ function amznPriceSvc() {
     preBatch()
     .then(function(batch) {
       let theBatch = new Batch(batch)
-      let asins = theBatch.asins();
+      let asins = theBatch.asins()
       log('Preparing to retreive prices for batch.')
       amznUtil.getAmznDetails(asins)
         .then((details) => {
@@ -75,11 +75,11 @@ function amznPriceSvc() {
  */
 
 function Batch (arrayObjs) {
-  var storage = {};
+  var storage = {}
 
-  let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss Z', true);
-  this.asins = asins;
-  this.prepareInsert = prepareInsert;
+  let batchTime = this.batchTime = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss Z', true)
+  this.asins = asins
+  this.prepareInsert = prepareInsert
 
   arrayObjs.forEach((e) => {storage[e.amzn_asin] = e.id})
   log('Initialized batch storage object', storage)
@@ -91,7 +91,7 @@ function Batch (arrayObjs) {
     details.forEach(e => {
       e.product_id = storage[e.amzn_asin]
       delete e.amzn_asin
-      e.amzn_fetch_date = batchTime;
+      e.amzn_fetch_date = batchTime
     })
   }
 }

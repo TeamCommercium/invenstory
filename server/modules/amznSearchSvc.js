@@ -8,7 +8,7 @@
  var MWS       = require ('mws-sdk-promises')
  var amazonEnv = require ('./config').amazonEnv
  var utilities = require ('./utilities')
- var log       = require('./utilities').log;
+ var log       = require('./utilities').log
  var Products  = require('../models/products_model')
 
 
@@ -33,10 +33,10 @@
 
    return client.invoke(reqObj)
           .then(function(result) {
-               return cleanListProductSearch(result);
+               return cleanListProductSearch(result)
             })
           .catch(function(error) {
-               log(error);
+               log(error)
                return error
             })
   }
@@ -55,15 +55,15 @@
   * @return {integer}     product.amzn_sales_rank     Amazon sales rank of item
   */
   function cleanListProductSearch(data) {
-   let items = [];
-   let responseArr = data.ListMatchingProductsResponse.ListMatchingProductsResult[0].Products[0].Product;
+   let items = []
+   let responseArr = data.ListMatchingProductsResponse.ListMatchingProductsResult[0].Products[0].Product
 
    for(let i = 0; i < responseArr.length; i++) {
 
-     let product = {};
-     let attrPath = responseArr[i].AttributeSets[0]["ns2:ItemAttributes"][0];
+     let product = {}
+     let attrPath = responseArr[i].AttributeSets[0]["ns2:ItemAttributes"][0]
 
-     product.amzn_asin = responseArr[i].Identifiers[0].MarketplaceASIN[0].ASIN[0];
+     product.amzn_asin = responseArr[i].Identifiers[0].MarketplaceASIN[0].ASIN[0]
      product.amzn_title = attrPath["ns2:Title"][0]
      product.amzn_description = attrPath["ns2:Feature"] ? attrPath["ns2:Feature"].join(". ") : ''
      product.amzn_manufacturer = attrPath["ns2:Manufacturer"] ? attrPath["ns2:Manufacturer"][0] : ''
@@ -71,7 +71,7 @@
      product.amzn_thumb_url = attrPath["ns2:SmallImage"][0]["ns2:URL"][0].replace('http://ecx.images-amazon.com','https://images-na.ssl-images-amazon.com') || ''
      product.amzn_sales_rank = typeof responseArr[i].SalesRankings[0] === 'object' ? Number(responseArr[i].SalesRankings[0].SalesRank[0].Rank[0]) : ''
 
-     items.push(product);
+     items.push(product)
    }
-   return items;
+   return items
  }
