@@ -10,6 +10,7 @@ Node
 ##Installation
 1. Clone the repo
 2. Run `npm install` in the terminal
+3. Set the necessary [environment variables](https://github.com/TeamCommercium/invenstory/wiki/Environment-Variables).
 3. Run `npm start` in the terminal
 
 ## NPM scripts
@@ -18,7 +19,6 @@ Node
 * `npm run front` will run webpack and rebundle the front end on changes.
 * `npm run back` will run babel-watch (similar to nodemon) and restart the server on changes.
 * `npm run hot` will run webpack's dev server and hot reload changes for the client side
-* `npm run jake` will bundle the front end once and then start babel-watch.
 
 ## Git Workflow
 1. Clone this repo.
@@ -33,3 +33,7 @@ Node
 Want to help? Create a new issue, fork this repo and submit a pull request from a feature branch in your fork to dev in [this repo](https://github.com/TeamCommercium/invenstory) which references the issue you've solved.
 
 ## Credits
+* [Chris Hummel] (https://github.com/chrishummel)
+* [Jake Lambert] (https://github.com/djake)
+* [Nathan Schwartz] (https://github.com/Nathan-Schwartz)
+* [Hugh Suh] (https://github.com/flickerbits)
