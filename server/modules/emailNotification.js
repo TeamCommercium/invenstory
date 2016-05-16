@@ -50,7 +50,7 @@ exports.sendEmails = function() {
     })
     .then(function(result){
       result.forEach(function(emailObj){
-        sendEmail(emailObj.email, emailObj.text, transporter)
+        sendEmail(emailObj.email, emailObj.text, transporter, "InvenStory Daily Update")
       })
     })
 
@@ -100,12 +100,12 @@ function formatEmail(emailObj) {
  * @param  {[type]} formattedData [description]
  * @return {[type]}               [description]
  */
-function sendEmail(email, formattedData, transporter) {
+function sendEmail(email, formattedData, transporter, subject) {
 
   const mailOpts = {
     from: config.emailAccount,
     to: email,
-    subject: 'Test Email',
+    subject: subject,
     text: formattedData
   }
 

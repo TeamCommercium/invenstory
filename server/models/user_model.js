@@ -92,12 +92,12 @@ exports.getUserProfileInfo = function(userId) {
 
   return db('users')
     .where({id: userId})
-    .select('amzn_username', 'amzn_email', 'amzn_zip')
+    .select('amzn_username', 'amzn_email', 'amzn_zip', 'emailNotify')
 }
 
 
 /**
- * updateUserInfo - Updates user data in teh database
+ * updateUserInfo - Updates user data in the database
  *
  * @param  {integer} userId   Internal user.id
  * @param  {Object} userInfo Object containing data to update
