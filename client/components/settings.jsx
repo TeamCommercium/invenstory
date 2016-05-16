@@ -27,13 +27,11 @@ export default (props) => <div>
     onChange={props.handleInput.bind(this, 'email')} 
   />
   {
-  /*
   <Switch 
     checked={props.mailNotifications}
     label='Email Notifications'
     onChange={props.handleToggle}
   />
-  */
   }
   <br></br>
   <Button
