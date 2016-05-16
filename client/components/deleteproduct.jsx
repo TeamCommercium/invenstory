@@ -3,7 +3,7 @@ import { Button, Dialog} from 'react-toolbox'
 
 export default (props) =>
 
-  <Dialog active={props.active} onOverlayClick={props.handleDeleteModal}>
+  <Dialog active={props.active} type={props.modalSize} onOverlayClick={props.handleDeleteModal}>
     <h3 className="styles__centerBlack___2j9F5">You are about to <span style={{color: "red"}}>DELETE ALL</span> inventory for:</h3>
     <h4 style={{"textAlign": "center"}}>{props.data.amzn_title}</h4>
     <img 

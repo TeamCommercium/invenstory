@@ -212,7 +212,7 @@ export default class DashboardContainer extends React.Component{
   }
   //detect mobile screen and set modal size
   setModalSize(){
-    if(window.innerWidth <= 569 && window.innerHeight <= 750) {
+    if(window.innerWidth <= 569) {
       this.setState({modalSize: "large"});
     } else {
       this.setState({modalSize: "normal"});
@@ -256,6 +256,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleShipModal(){
+    this.setModalSize();
     this.resetShipQuantity();
     this.setState({
       showShipModal: !this.state.showShipModal
@@ -296,6 +297,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleDeleteModal(){
+    this.setModalSize();
     this.setState({
       showDeleteModal: !this.state.showDeleteModal
     });
@@ -383,6 +385,7 @@ export default class DashboardContainer extends React.Component{
       /> 
       <Ship
         active={this.state.showShipModal}
+        modalSize={this.state.modalSize}
         data={this.state.detail}
         ship_quantity={this.state.ship_quantity}
         err_quantity={this.state.err_ship_quantity}
@@ -392,6 +395,7 @@ export default class DashboardContainer extends React.Component{
       />
       <DeleteProduct
         active={this.state.showDeleteModal}
+        modalSize={this.state.modalSize}
         data={this.state.detail}
         handleDeleteModal={this.handleDeleteModal.bind(this)}
         confirmDelete={this.confirmDelete.bind(this)}

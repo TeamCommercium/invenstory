@@ -3,9 +3,9 @@ import { Button, Input, Dialog, Slider } from 'react-toolbox'
 
 export default (props) =>
 
-  <Dialog active={props.active} onOverlayClick={props.handleShipModal}>
+  <Dialog active={props.active} type={props.modalSize} onOverlayClick={props.handleShipModal}>
     <div className=''>
-      <h3 className="styles__centerBlack___2j9F5">Please select <span style={{color: "red"}}>SHIP QUANTITY</span> for:</h3>
+      <h3 className="styles__centerBlack___2j9F5">Select <span style={{color: "red"}}>SHIP QUANTITY</span></h3>
       <h4 style={{"textAlign": "center"}}>{props.data.amzn_title}</h4>
       <img 
         src={props.data.amzn_thumb_url} 
