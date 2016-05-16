@@ -38,14 +38,20 @@ exports.sendEmails = function() {
         emails.map(function(userObj) {       
           return Products.getProducts(userObj.id)
             .then(function(products) {
-              return Object.assign(userObj, {products: products})
+              return Object.assign({email: userObj.amzn_email}, {products: products})
             })
-          
         })
       )
     })
-    .then(result => {
-      console.log('email objects2: ',result)
+    .then(function(result) {
+      return result.map(function(emailObj) {
+        return formatEmail(emailObj)
+      })
+    })
+    .then(function(result){
+      result.forEach(function(emailObj){
+        sendEmail(emailObj.email, emailObj.text, transporter)
+      })
     })
 
 }
@@ -64,33 +70,29 @@ function findEmailsAndIDs() {
 }
 
 /**
- * [getDataByEmail description]
- * @param  {[type]} email [description]
- * @return {[type]}       [description]
+ * [formatEmail description]
+ * @param  {[type]} emailObj [description]
+ * @return {[type]}          [description]
  */
-function getDataByEmail(email) {
-  
-  return getUserIDFromEmail(email)
-    .then(userID => {
-      conole.log('getuserIdfrom email resp', userID)
-      return Products.getProducts(userID)
-    })
-    .then(result => {
-      console.log('result of get product by email', result)
-    })
-}
+function formatEmail(emailObj) {
+  let d = new Date();
+  let currentDate = d.getDate() + '/' + d.getMonth()+1 + '/' + d.getFullYear()
 
-/**
- * [getUserIDFromEmail description]
- * @param  {[type]} email [description]
- * @return {[type]}       [description]
- */
-function getUserIDFromEmail(email) {
-  return db('users')
-    .select('id')
-    .where({amzn_email: email})
-}
+  let textEmail = "InvenStory Daily Email\r\n\r\nHere is the summary of your current inventory for " + currentDate + " : \r\n"
 
+  emailObj.products.forEach(function(product){
+    textEmail += "\r\nTitle: "+ product.amzn_title + "\r\n"
+    textEmail += "SKU: "+ product.seller_sku + "\r\n"
+    textEmail += "Quantity: "+ product.quantity + "\r\n"
+    textEmail += "FBA Price: $"+ product.amzn_price_fba + "\r\n"
+    textEmail += "FBM Price: $"+ product.amzn_price_fbm + "\r\n"
+    textEmail += "AVG Purchase Price: $"+ product.avg_purchase_price + "\r\n\r\n"
+  })
+
+  let formattedEmailObj = {email: emailObj.email, text: textEmail}
+
+  return formattedEmailObj
+}
 
 /**
  * [sendEmail description]
