@@ -6,7 +6,7 @@ export default ({inherit}) =>
   {inherit.showSearch
    && <div>
      <Input 
-      label='Search Amazon by Title or ASIN'
+      label='Product Search'
       name='Search Amazon'
       icon='search'
       value={inherit.searchString}
