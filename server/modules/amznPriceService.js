@@ -1,6 +1,7 @@
 'use strict'
 
-/* Amazon Price Service Modules
+/**
+ *  Amazon Price Service Modules
  * @module Amazon Price Service Module
  */
 

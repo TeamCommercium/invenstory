@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * Email Notification Module
+ * @module Email Notification Module
+ */
+
 const log        = require('./utilities').log
 const db         = require('./config').db
 const nodemailer = require('nodemailer')
@@ -7,8 +12,7 @@ const config     = require('./config').email
 const Products   = require('../models/products_model')
 
 /**
- * [init description]
- * @return {[type]} [description]
+ *  init - Initialize function set interval to run the service
  */
 exports.init = function(){
 
@@ -17,8 +21,8 @@ exports.init = function(){
 }
 
 /**
- * [sendEmails description]
- * @return {[type]} [description]
+ * sendEmails - Function that sends Daily Inventory Update Emails
+ * 
  */
 function sendAllEmails() {
 
@@ -59,8 +63,8 @@ function sendAllEmails() {
 }
 
 /**
- * [findEmails description]
- * @return {[type]} [description]
+ * findEmails - Finds the User emails and IDs that have signed up for notification emails
+ * @return {Promise} Promise that resolves into userIDs and Emails who want to updates
  */
 function findEmailsAndIDs() {
 
@@ -72,9 +76,9 @@ function findEmailsAndIDs() {
 }
 
 /**
- * [formatEmail description]
- * @param  {[type]} emailObj [description]
- * @return {[type]}          [description]
+ * formatEmail - Formats each users inventory into and updated email
+ * @param  {Object} emailObj  Object containing id, email address, user's products 
+ * @return {String} formattedEmailObj Returns the user's inventory email in text form          
  */
 function formatEmail(emailObj) {
   let d = new Date();
@@ -97,10 +101,12 @@ function formatEmail(emailObj) {
 }
 
 /**
- * [sendEmail description]
- * @param  {[type]} address       [description]
- * @param  {[type]} formattedData [description]
- * @return {[type]}               [description]
+ * sendEmail - Module to send various emails
+ * @param  {String} email         Email Address
+ * @param  {String} formattedData Text Body for email
+ * @param  {Object} transporter   Transporter Object
+ * @param  {String} subject       Email Subject
+ * 
  */
 function sendEmail(email, formattedData, transporter, subject) {
 
