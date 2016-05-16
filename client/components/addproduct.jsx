@@ -3,8 +3,8 @@ import { Button, Input, Dialog } from 'react-toolbox'
 import SearchModule from '../components/search'
 
 export default (props) =>
-<Dialog active={props.active} onOverlayClick={props.resetModal}>
-  <h3 style={{color: "black", fontSize: 32, textAlign: "center"}}>Add Product</h3>
+<Dialog className="styles__dialogModal___2q57r" type={props.modalSize} active={props.active} onOverlayClick={props.resetModal}>
+  <h3 style={{color: "black", textAlign: "center"}}>Add Product</h3>
   <SearchModule inherit={props}/>
   <Input 
     className=""
@@ -32,7 +32,7 @@ export default (props) =>
   <Input 
     className=""
     type='number' 
-    label='Purchase price per unit'
+    label='Cost Per Unit'
     name='purchase_price'
     icon={<span>$</span>}
     value={props.purchase_price}

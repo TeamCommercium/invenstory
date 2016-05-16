@@ -8,6 +8,7 @@ import Addproduct from '../components/addproduct'
 import Ship from '../components/ship'
 import DeleteProduct from '../components/deleteproduct'
 import Details from '../components/details'
+import detectMobile from '../util/util'
 
 /*
   mounted tracks the mounting status of the container and is used to verify that the container
@@ -43,6 +44,7 @@ export default class DashboardContainer extends React.Component{
       showShipModal: false,
       showDeleteModal: false,
       lock_sku: false,
+      modalSize: "",
       
       // related to store
       tableData: store.getState().tableData,
@@ -128,7 +130,6 @@ export default class DashboardContainer extends React.Component{
     }
   }
 
-
   componentWillMount(){
     api.checkAuth()
   }
@@ -142,6 +143,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleModal(){
+    this.setModalSize();
     this.setState({showModal: !this.state.showModal});
   }
 
@@ -208,6 +210,14 @@ export default class DashboardContainer extends React.Component{
       lock_sku: false,
     });
   }
+  //detect mobile screen and set modal size
+  setModalSize(){
+    if(window.innerWidth <= 569) {
+      this.setState({modalSize: "large"});
+    } else {
+      this.setState({modalSize: "normal"});
+    }
+  }
   
   handleSearchToggle(){
     this.setState({showSearchOption: !this.state.showSearchOption})
@@ -246,6 +256,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleShipModal(){
+    this.setModalSize();
     this.resetShipQuantity();
     this.setState({
       showShipModal: !this.state.showShipModal
@@ -286,6 +297,7 @@ export default class DashboardContainer extends React.Component{
   }
 
   handleDeleteModal(){
+    this.setModalSize();
     this.setState({
       showDeleteModal: !this.state.showDeleteModal
     });
@@ -348,6 +360,7 @@ export default class DashboardContainer extends React.Component{
       {this.props.children}
       <Addproduct 
         active={this.state.showModal}
+        modalSize={this.state.modalSize}
         handleSubmit={this.handleSubmit.bind(this)}
         handleInput={this.handleInput.bind(this)}
         resetModal={this.resetModal.bind(this)}
@@ -372,6 +385,7 @@ export default class DashboardContainer extends React.Component{
       /> 
       <Ship
         active={this.state.showShipModal}
+        modalSize={this.state.modalSize}
         data={this.state.detail}
         ship_quantity={this.state.ship_quantity}
         err_quantity={this.state.err_ship_quantity}
@@ -381,6 +395,7 @@ export default class DashboardContainer extends React.Component{
       />
       <DeleteProduct
         active={this.state.showDeleteModal}
+        modalSize={this.state.modalSize}
         data={this.state.detail}
         handleDeleteModal={this.handleDeleteModal.bind(this)}
         confirmDelete={this.confirmDelete.bind(this)}

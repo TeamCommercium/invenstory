@@ -108,7 +108,7 @@ export function processGeneralGraphData(inventory){
         Math.round(cur.avg_purchase_price*100) / 100,
         cur.amzn_title && cur.amzn_title.slice(0,35) + ", QTY:" + cur.quantity + " COST: $" + cur.avg_purchase_price.toFixed(2) + " TOT COST: $" + (cur.avg_purchase_price * cur.quantity).toFixed(2),
         Math.round(amznPrice * 100) / 100,
-        cur.amzn_title && cur.amzn_title.slice(0,35) + ", CUR VAL: $" + amznPrice.toFixed(2) + " TOT VAL: $" + (amznPrice * cur.quantity).toFixed(2) + " GAIN: " + ((amznPrice - cur.avg_purchase_price) / cur.avg_purchase_price * 100).toFixed(0) + "%"
+        cur.amzn_title && cur.amzn_title.slice(0,35) + ", CUR VAL: $" + amznPrice.toFixed(2) + " TOT VAL: $" + (amznPrice * cur.quantity).toFixed(2) + " ROI: " + ((amznPrice - cur.avg_purchase_price) / cur.avg_purchase_price * 100).toFixed(0) + "%"
       ]
     )
   })
@@ -148,7 +148,7 @@ export function processPieChartData(inventory){
 export function processGeneralTableData(inventory){
   let tableData = inventory.map(function(cur){
     return {
-      " ": <img src={cur.amzn_thumb_url} style={{width: 35, height:35, padding:0, margin:0}} />,
+      " ": <img src={cur.amzn_thumb_url}/>,
       "SKU": cur.seller_sku,
       "ASIN": cur.amzn_asin,
       "Title": cur.amzn_title && (cur.amzn_title.slice(0,100)),
@@ -158,7 +158,7 @@ export function processGeneralTableData(inventory){
       "FBA Price": cur.amzn_price_fba && "$" + (Math.round(cur.amzn_price_fba * 100) / 100).toFixed(2),
       "Total Cost": "$" + (Math.round(cur.avg_purchase_price * cur.quantity * 100) / 100).toFixed(2),
       "Total Value": cur.amzn_price_fba ? "$" + (Math.round(cur.amzn_price_fba * cur.quantity * 100) / 100).toFixed(2) : "$" + (Math.round(cur.amzn_price_fbm * cur.quantity * 100) / 100).toFixed(2),
-      "% Gain": cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + "%",
+      "ROI": cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + "%",
       "  ": <Button className='styles__viewDetailsButton___sBKyW' onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)} floating raised> View Details </Button>,
     }
   })

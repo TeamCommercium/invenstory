@@ -26,11 +26,14 @@ export default (props) => <div>
     icon='email'
     onChange={props.handleInput.bind(this, 'email')} 
   />
+  {
   <Switch 
     checked={props.mailNotifications}
     label='Email Notifications'
     onChange={props.handleToggle}
   />
+  }
+  <br></br>
   <Button
     className=""
     label='Save' raised floating

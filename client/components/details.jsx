@@ -3,7 +3,7 @@ import { Table } from 'reactable'
 import { Button, Input, Slider } from 'react-toolbox'
 import { Chart } from 'react-google-charts'
 
-export default ({historical, options, data, hideDetails, smartAdd, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity, handleShipModal, handleDeleteModal}) =>
+export default ({historical, options, data, hideDetails, smartAdd, deleteAll, confirmShip, err_quantity, handleQuantityChange, quantity, handleShipModal, handleDeleteModal, setModalSize}) =>
 <div className="styles__detailDisplay___2K0QU">
   <img className="styles__detailImage___3CFNO" src={data.amzn_thumb_url} />
   <h3 className="styles__detailTitle___2N12_" style={{display: "inline", "margin": "10px"}}> {data.amzn_title} </h3>
