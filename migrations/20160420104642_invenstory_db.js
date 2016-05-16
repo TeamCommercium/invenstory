@@ -5,14 +5,15 @@ exports.up = function(knex, Promise) {
       table.increments('id'); // integer id
       table.string("mws_auth_token").unique()
       table.string("seller_id").unique()
-      table.string("mws_marketplace") // in app, default to us, which is:  ATVPDKIKX0DER
+      table.string("mws_marketplace") // in app, default to US, which is:  ATVPDKIKX0DER
       table.string("amzn_profile_id").unique()
       table.string("amzn_username")
       table.string("amzn_email")
       table.string("amzn_zip")
       table.string("amzn_accessToken")
       table.string("amzn_refreshToken")
-      table.timestamps();
+      table.timestamps()
+      table.boolean('emailNotify').defaultTo(false);
     }),
 
     knex.schema.createTable("products", function (table) {

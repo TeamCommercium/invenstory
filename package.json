@@ -40,6 +40,7 @@
     "knex": "^0.10.0",
     "mws-sdk-promises": "^0.9.16",
     "noconsole": "^1.0.2",
+    "nodemailer": "^2.4.1",
     "passport": "^0.3.2",
     "passport-amazon": "^1.0.0",
     "path": "^0.12.7",

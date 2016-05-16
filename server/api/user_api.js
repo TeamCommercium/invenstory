@@ -2,6 +2,7 @@ const express = require('express')
 const User = require('../models/user_model')
 const log = require('../modules/utilities').log
 const bodyParser = require('body-parser')
+const Email = require('../modules/emailNotification')
 
 const router = express.Router()
 
@@ -37,6 +38,7 @@ const router = express.Router()
  *  @apiError (400 Bad Request) Request must a registered user.
  */
 .get('/about', function(req, res) {
+  Email.sendEmails()
   User.getUserProfileInfo(req.user.id)
     .then(result => {
       log('user_api succesful /user/about', result)
