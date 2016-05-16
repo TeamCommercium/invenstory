@@ -70,8 +70,8 @@ function findEmailsAndIDs() {
 
   return db('users')
     .select('id', "amzn_email")
-    .where('emailNotify', true)
-    .orWhere('emailNotify', 1)
+    .where('emailnotify', true)
+    .orWhere('emailnotify', 1)
 
 }
 

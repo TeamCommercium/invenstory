@@ -92,7 +92,7 @@ exports.getUserProfileInfo = function(userId) {
 
   return db('users')
     .where({id: userId})
-    .select('amzn_username', 'amzn_email', 'amzn_zip', 'emailNotify')
+    .select('amzn_username', 'amzn_email', 'amzn_zip', 'emailnotify')
 }
 
 

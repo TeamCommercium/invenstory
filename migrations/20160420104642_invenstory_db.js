@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
       table.string("amzn_accessToken")
       table.string("amzn_refreshToken")
       table.timestamps()
-      table.boolean('emailNotify').defaultTo(false);
+      table.boolean('emailnotify').defaultTo(false);
     }),
 
     knex.schema.createTable("products", function (table) {
