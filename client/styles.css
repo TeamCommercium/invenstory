@@ -106,6 +106,30 @@ tr > th:last-child {
   color: white;
 }
 
+:global(.style__on___1OboZ .style__thumb___lijTz) {
+  background-color: #264653;
+};
+
+:global(.style__on___1OboZ) {
+  background-color: rgba(38, 70, 83, 0.5);
+};
+
+:global(.style__input___8M-pT:focus ~ .style__icon___2xbZ0) {
+  color: #264653;
+}
+
+:global(.style__bar___AKK7v:before) {
+  background-color: #264653;
+};
+
+:global(.style__bar___AKK7v:after) {
+  background-color: #264653;
+};
+
+:global(.style__input___8M-pT:focus ~ .style__label___2yfix:not(.style__fixed___3wvEH)){
+  color: #20B2AA;
+};
+
 /* Should hopefully make the tab thing fixed
 :global(.style__navigation___VJ4pk){
   position: fixed;

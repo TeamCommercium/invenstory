@@ -92,7 +92,7 @@ function formatEmail(emailObj) {
     textEmail += "Quantity: "+ product.quantity + "\r\n"
     textEmail += "FBA Price: $"+ product.amzn_price_fba + "\r\n"
     textEmail += "FBM Price: $"+ product.amzn_price_fbm + "\r\n"
-    textEmail += "AVG Purchase Price: $"+ product.avg_purchase_price + "\r\n\r\n"
+    textEmail += "AVG Purchase Price: $"+ product.avg_purchase_price.toFixed(2) + "\r\n\r\n"
   })
 
   let formattedEmailObj = {email: emailObj.email, text: textEmail}
