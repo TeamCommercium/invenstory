@@ -27,7 +27,13 @@ exports.jwtConfig = {
                     }
 
 exports.service   = {
-                      svcFreq:         process.env.FETCH_SVC_FREQ || 1000*60*10,
-                      maxProdFreq: process.env.FETCH_PROD_MAX || 1000*60*60
+                      svcFreq:          process.env.FETCH_SVC_FREQ || 1000*60*10,
+                      maxProdFreq:      process.env.FETCH_PROD_MAX || 1000*60*60
                     }
+exports.email     = {
+                      emailFreq:        process.env.EMAIL_FREQ || 1000*60*60,
+                      emailAccount:     process.env.GMAIL_ACCOUNT || null,
+                      emailPassword:    process.env.GMAIL_PASSWORD || null 
+                    }
+
  exports.db       = require('knex')(require('../../knexfile.js')[exports.state.env])

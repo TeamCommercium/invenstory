@@ -34,6 +34,8 @@ export default class SettingsContainer extends React.Component{
         that.setState({ "name": response[0].amzn_username })
         that.setState({ "email": response[0].amzn_email })
         that.setState({ "zipcode": response[0].amzn_zip })
+        if(!!response[0].emailNotify)
+          that.setState({ "mailNotifications": true})
       })
 
   }
@@ -51,7 +53,7 @@ export default class SettingsContainer extends React.Component{
       userInfo.amzn_username = this.state.name
       userInfo.amzn_email = this.state.email
       userInfo.amzn_zip = this.state.zipcode
-      console.log(userInfo)
+      userInfo.emailNotify = this.state.mailNotifications
       updateUserInfo(userInfo)
     }
   }
