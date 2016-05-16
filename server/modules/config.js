@@ -31,7 +31,7 @@ exports.service   = {
                       maxProdFreq:      process.env.FETCH_PROD_MAX || 1000*60*60
                     }
 exports.email     = {
-                      emailFreq:        process.env.EMAIL_FREQ || 1000*60*60*24,
+                      emailFreq:        process.env.EMAIL_FREQ || 1000*60*60,
                       emailAccount:     process.env.GMAIL_ACCOUNT || null,
                       emailPassword:    process.env.GMAIL_PASSWORD || null 
                     }

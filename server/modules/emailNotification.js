@@ -12,7 +12,7 @@ const Products   = require('../models/products_model')
  */
 exports.init = function(){
 
-  setInterval(sendEmails, config.emailFreq)
+  setInterval(sendAllEmails, config.emailFreq)
 
 }
 
@@ -20,7 +20,7 @@ exports.init = function(){
  * [sendEmails description]
  * @return {[type]} [description]
  */
-exports.sendEmails = function() {
+function sendAllEmails() {
 
   let emailObj = []
 
@@ -50,7 +50,9 @@ exports.sendEmails = function() {
     })
     .then(function(result){
       result.forEach(function(emailObj){
-        sendEmail(emailObj.email, emailObj.text, transporter, "InvenStory Daily Update")
+        let date = new Date()
+        let currentDate = date.getMonth()+1 + '/' + date.getDate() + '/' + date.getFullYear()
+        sendEmail(emailObj.email, emailObj.text, transporter, "InvenStory Daily Update " + currentDate)
       })
     })
 
@@ -76,7 +78,7 @@ function findEmailsAndIDs() {
  */
 function formatEmail(emailObj) {
   let d = new Date();
-  let currentDate = d.getDate() + '/' + d.getMonth()+1 + '/' + d.getFullYear()
+  let currentDate = d.getMonth()+1 + '/' + d.getDate() + '/' + d.getFullYear()
 
   let textEmail = "InvenStory Daily Email\r\n\r\nHere is the summary of your current inventory for " + currentDate + " : \r\n"
 

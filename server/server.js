@@ -15,6 +15,7 @@ const https = require('https')
 
 
 require('./modules/amznPriceService.js').init()
+require('./modules/emailNotification.js').init()
 
 const privateKey  = fs.readFileSync('../sslcert/domain.key', 'utf8');
 const certificate = fs.readFileSync('../sslcert/domain.crt', 'utf8');
