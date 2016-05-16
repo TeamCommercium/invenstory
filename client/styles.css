@@ -688,12 +688,11 @@ and (orientation : portrait) {
     font-size: 15px;
   }
   td:before { 
-    font-weight: 700;
+    font-weight: 900;
     position: absolute;
     top: 6px;
     left: 6px;
-    /*width: 45%; */
-    width: 40%; 
+    width: 37%; 
     padding-right: 10px; 
     white-space: nowrap;
   }
@@ -739,8 +738,9 @@ and (orientation : portrait) {
     text-align: right;
   }
   tr > td:nth-child(1) > img {
-    height: 75px;
-    width: auto;
+    height: auto;
+    width: 125px;
+    margin-top: 10px;
   }
   tr > td:nth-child(5) {text-align: left}
   tr > td:nth-child(6) {text-align: left}
