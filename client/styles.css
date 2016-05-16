@@ -66,6 +66,10 @@ tr > th:nth-child(4) {
   width: 100%;
 }
 
+tr > th:last-child {
+  border-right-width: 0px;
+}
+
 /*center quantity column*/
 tr > td:nth-child(5) {text-align: center}
 
@@ -81,10 +85,9 @@ tr > td:last-child {
   border-right-width: 0px;
 } 
 
-
-
-tr > th:last-child {
-  border-right-width: 0px;
+tr > td:nth-child(1) > img {
+  width: 35px;
+  height: 35px;
 }
 
 /*Makes the slidey thing white*/
@@ -209,12 +212,12 @@ tr > th:last-child {
 }
 
 .detailImage {
-  height: 125px;
+  height: auto;
   width: 125px;
   z-index: -1;
   display: inline;
   float: left;
-  margin: 30px;
+  margin: 10px 30px;
   border: blue;
 }
 
@@ -424,7 +427,9 @@ and (max-device-width: 1024px) {
     top: -9999px;
     left: -9999px;
   }
-  tr { border: 1px solid #ccc; }
+  tr {
+    border: 1px solid #ccc;
+  }
   td { 
     border: none;
     border-bottom: 1px solid #eee; 
@@ -574,7 +579,7 @@ and (orientation : portrait) {
   tr > td:nth-child(11) {text-align: left}
   tr > td:nth-child(12) {text-align: left}
   tr > td:last-child > button {
-    font-size: 30px;
+    font-size: 18px;
   }
 }
 
@@ -657,7 +662,7 @@ and (orientation : portrait) {
   tr > td:nth-child(11) {text-align: left}
   tr > td:nth-child(12) {text-align: left}
   tr > td:last-child > button {
-    font-size: 30px;
+    font-size: 18px;
   }
 }
 
@@ -679,15 +684,16 @@ and (orientation : portrait) {
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
-    padding-left: 30%; 
+    padding-left: 40%; 
     font-size: 15px;
   }
   td:before { 
+    font-weight: 700;
     position: absolute;
     top: 6px;
     left: 6px;
     /*width: 45%; */
-    width: 30%; 
+    width: 40%; 
     padding-right: 10px; 
     white-space: nowrap;
   }
@@ -695,7 +701,8 @@ and (orientation : portrait) {
   td:nth-of-type(2):before {
     content: "SKU:";
     text-align: right;
-  }  td:nth-of-type(3):before {
+  }
+  td:nth-of-type(3):before {
     content: "ASIN:";
     text-align: right;
   }
@@ -716,7 +723,7 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(8):before {
-    content: "FBM Price:"; 
+    content: "FBA Price:"; 
     text-align: right;
   }
   td:nth-of-type(9):before {
@@ -730,6 +737,10 @@ and (orientation : portrait) {
   td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
+  }
+  tr > td:nth-child(1) > img {
+    height: 75px;
+    width: auto;
   }
   tr > td:nth-child(5) {text-align: left}
   tr > td:nth-child(6) {text-align: left}
