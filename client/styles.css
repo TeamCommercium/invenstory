@@ -428,19 +428,22 @@ and (max-device-width: 1024px) {
     left: -9999px;
   }
   tr {
+    background: #f2f2f2;
     border: 1px solid #ccc;
   }
   td { 
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
-    padding-left: 35%; 
+    padding-left: 40%; 
+    font-size: 15px;
   }
   td:before { 
+    font-weight: 900;
     position: absolute;
     top: 6px;
     left: 6px;
-    width: 30%; 
+    width: 37%; 
     padding-right: 10px; 
     white-space: nowrap;
   }
@@ -485,6 +488,12 @@ and (max-device-width: 1024px) {
     content: "% Gain:"; 
     text-align: right;
   }
+  tr > td:nth-child(1) > img {
+    height: auto;
+    width: 125px;
+    margin-top: 10px;
+  }
+  tr > td:nth-child(1) {background: white}
   tr > td:nth-child(5) {text-align: left}
   tr > td:nth-child(6) {text-align: left}
   tr > td:nth-child(7) {text-align: left}
@@ -494,7 +503,7 @@ and (max-device-width: 1024px) {
   tr > td:nth-child(11) {text-align: left}
   tr > td:nth-child(12) {text-align: left}
   tr > td:last-child > button {
-    font-size: 30px;
+    font-size: 18px;
   }
 }
 
@@ -518,14 +527,15 @@ and (orientation : portrait) {
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
-    padding-left: 35%; 
-    font-size: 20px;
+    padding-left: 40%; 
+    font-size: 15px;
   }
   td:before { 
+    font-weight: 900;
     position: absolute;
     top: 6px;
     left: 6px;
-    width: 30%; 
+    width: 37%; 
     padding-right: 10px; 
     white-space: nowrap;
   }
@@ -555,7 +565,7 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(8):before {
-    content: "FBM Price:"; 
+    content: "FBA Price:"; 
     text-align: right;
   }
   td:nth-of-type(9):before {
@@ -569,6 +579,11 @@ and (orientation : portrait) {
   td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
+  }
+  tr > td:nth-child(1) > img {
+    height: auto;
+    width: 125px;
+    margin-top: 10px;
   }
   tr > td:nth-child(5) {text-align: left}
   tr > td:nth-child(6) {text-align: left}
@@ -601,14 +616,15 @@ and (orientation : portrait) {
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
-    padding-left: 35%; 
-    font-size: 20px;
+    padding-left: 40%; 
+    font-size: 15px;
   }
   td:before { 
+    font-weight: 900;
     position: absolute;
     top: 6px;
     left: 6px;
-    width: 30%; 
+    width: 37%; 
     padding-right: 10px; 
     white-space: nowrap;
   }
@@ -638,7 +654,7 @@ and (orientation : portrait) {
     text-align: right;
   }
   td:nth-of-type(8):before {
-    content: "FBM Price:"; 
+    content: "FBA Price:"; 
     text-align: right;
   }
   td:nth-of-type(9):before {
@@ -652,6 +668,100 @@ and (orientation : portrait) {
   td:nth-of-type(11):before {
     content: "% Gain:"; 
     text-align: right;
+  }
+  tr > td:nth-child(1) > img {
+    height: auto;
+    width: 125px;
+    margin-top: 10px;
+  }
+  tr > td:nth-child(5) {text-align: left}
+  tr > td:nth-child(6) {text-align: left}
+  tr > td:nth-child(7) {text-align: left}
+  tr > td:nth-child(8) {text-align: left}
+  tr > td:nth-child(9) {text-align: left}
+  tr > td:nth-child(10) {text-align: left}
+  tr > td:nth-child(11) {text-align: left}
+  tr > td:nth-child(12) {text-align: left}
+  tr > td:last-child > button {
+    font-size: 18px;
+  }
+}
+
+/*iPhone 5 & 5S in landscape*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+and (orientation : landscape) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tr { border: 1px solid #ccc; }
+  td { 
+    border: none;
+    border-bottom: 1px solid #eee; 
+    position: relative;
+    padding-left: 40%; 
+    font-size: 15px;
+  }
+  td:before { 
+    font-weight: 900;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 37%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+  }
+  /* Label the data and change alignment when appropriate */
+  td:nth-of-type(2):before {
+    content: "SKU:";
+    text-align: right;
+  }
+  td:nth-of-type(3):before {
+    content: "ASIN:";
+    text-align: right;
+  }
+  td:nth-of-type(4):before {
+    content: "Title:";
+    text-align: right;
+  }
+  td:nth-of-type(5):before {
+    content: "Quantity:";
+    text-align: right;
+  }
+  td:nth-of-type(6):before { 
+    content: "Cost:"; 
+    text-align: right;
+  }
+  td:nth-of-type(7):before {
+    content: "FBM Price:";
+    text-align: right;
+  }
+  td:nth-of-type(8):before {
+    content: "FBA Price:"; 
+    text-align: right;
+  }
+  td:nth-of-type(9):before {
+    content: "Total Cost:";
+    text-align: right;
+  }
+  td:nth-of-type(10):before {
+    content: "Total Value:";
+    text-align: right;
+  }
+  td:nth-of-type(11):before {
+    content: "% Gain:"; 
+    text-align: right;
+  }
+  tr > td:nth-child(1) > img {
+    height: auto;
+    width: 125px;
+    margin-top: 10px;
   }
   tr > td:nth-child(5) {text-align: left}
   tr > td:nth-child(6) {text-align: left}
