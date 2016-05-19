@@ -58,7 +58,7 @@ export default ({ columnNames, data }) =>
         }
       },
       {
-        column: "% Gain",
+        column: "ROI",
         sortFunction: function (a, b) {
           return Number(b.slice(0, b.length - 1)) - Number(a.slice(0, a.length - 1))
         }
