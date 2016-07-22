@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Snackbar } from 'react-toolbox';
+import { connect } from 'react-redux'
 
 import Table from '../components/table'
 import { store } from '../store/initStore'
@@ -33,7 +34,7 @@ var backlog = {
   }
 }
 
-export default class DashboardContainer extends React.Component{
+class DashboardContainer extends React.Component{
 
   constructor(props){
     super(props)
@@ -47,7 +48,7 @@ export default class DashboardContainer extends React.Component{
       modalSize: "",
       
       // related to store
-      tableData: store.getState().tableData,
+      // tableData: store.getState().tableData,
       detail: {},
       historical: { graphData: null, options: null},
       
@@ -134,9 +135,9 @@ export default class DashboardContainer extends React.Component{
     api.checkAuth()
   }
 
-  componentWillUnmount(){
-    store.unMounting("tabs", this)
-  }
+  // componentWillUnmount(){
+  //   store.unMounting("tabs", this)
+  // }
 
   handleInput(name, value) {
     this.setState({[name]: value});
@@ -334,12 +335,12 @@ export default class DashboardContainer extends React.Component{
         handleDeleteModal={this.handleDeleteModal.bind(this)}
       />
 
-    if(this.state.tableData[0])
-      dashboard = <Table data={this.state.tableData} columnNames={Object.keys(this.state.tableData[0])}/>
+    if(this.props.tableData[0])
+      dashboard = <Table data={this.props.tableData} columnNames={Object.keys(this.props.tableData[0])}/>
 
     return <div>
       <div style={{"display": "inline"}}>
-        <h3 style={{"display": "inline", color: "#264653", 'fontWeight': 900}}>Total Inventory Value: <span style={{color: "green"}}>${(this.calculateTotals(this.state.tableData).totalValue).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span></h3>
+        <h3 style={{"display": "inline", color: "#264653", 'fontWeight': 900}}>Total Inventory Value: <span style={{color: "green"}}>${(this.calculateTotals(this.props.tableData).totalValue).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</span></h3>
         <Button
           className="styles__inlineButton___16AEc"
           style={{"display": "inline", float:"right"}}
@@ -347,11 +348,11 @@ export default class DashboardContainer extends React.Component{
           onMouseUp={this.handleModal.bind(this)}
         />
       </div>
-      <h5 style={{color: "#264653", "marginTop":'5px', "marginBottom":'5px'}}>Original Cost: ${(this.calculateTotals(this.state.tableData).totalCost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</h5>
+      <h5 style={{color: "#264653", "marginTop":'5px', "marginBottom":'5px'}}>Original Cost: ${(this.calculateTotals(this.props.tableData).totalCost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</h5>
       <h5 style={{color: "#264653", "marginTop":'5px', "marginBottom":'5px'}}>
         Current ROI:   {
-          this.calculateTotals(this.state.tableData).totalValue
-          ? ((((this.calculateTotals(this.state.tableData).totalValue))/((this.calculateTotals(this.state.tableData).totalCost))-1)*100).toFixed(1)
+          this.calculateTotals(this.props.tableData).totalValue
+          ? ((((this.calculateTotals(this.props.tableData).totalValue))/((this.calculateTotals(this.props.tableData).totalCost))-1)*100).toFixed(1)
           : 0
         }%</h5>
 
@@ -404,3 +405,11 @@ export default class DashboardContainer extends React.Component{
     </div>
   }
 }
+
+function mapState(state){
+  return {
+    tableData: state.tableData
+  }
+}
+
+export default connect(mapState)(DashboardContainer)

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { createHashHistory } from 'history'
 import { Router, Route, Redirect, IndexRoute, useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+import { Provider } from 'react-redux'
 
 import Tabs from './containers/tabs'
 import Login from './containers/login'
@@ -20,9 +21,11 @@ const history = syncHistoryWithStore(appHistory, store)
  */
 
 ReactDOM.render(
-  <Router history={history}> 
-    <Route path='/'component={Tabs}/>
-    <Route path='/login' component={Login} />
-  </Router>,
+  <Provider store={store}>
+    <Router history={history}> 
+      <Route path='/'component={Tabs}/>
+      <Route path='/login' component={Login} />
+    </Router>
+  </Provider>,
   document.getElementById('app')
 )

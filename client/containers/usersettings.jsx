@@ -1,17 +1,8 @@
 import React from 'react'
 import Settings from '../components/settings'
-import { subscribeTo, simpleValidateEmail } from '../util/util'
+import { simpleValidateEmail } from '../util/util'
 import { getUserInfo, updateUserInfo } from '../util/requests'
-import { store } from '../store/initStore'
 
-let mounted = false;
-
- let backlog = {
-   userSettings: {
-     pending: false,
-     payload: {}
-   }
-};
 
 export default class SettingsContainer extends React.Component{
 
@@ -34,6 +25,7 @@ export default class SettingsContainer extends React.Component{
         that.setState({ "name": response[0].amzn_username })
         that.setState({ "email": response[0].amzn_email })
         that.setState({ "zipcode": response[0].amzn_zip })
+
         if(!!response[0].emailnotify)
           that.setState({ "mailNotifications": true})
       })
@@ -73,12 +65,12 @@ export default class SettingsContainer extends React.Component{
         email={this.state.email}
         zipcode={this.state.zipcode}
         mailNotifications={this.state.mailNotifications} 
+        err_email={this.state.err_email}
+
         handleInput={this.handleInput.bind(this)}
         handleSubmit={this.handleSubmit.bind(this)}
         handleToggle={this.handleToggle.bind(this)}
-        err_email={this.state.err_email}
       />
     </div>
   }
-
 }
