@@ -1,17 +1,17 @@
 import initialState from '../store/initialState'
-import { UPDATE_DETAIL_DATA } from '../actionTypes'
+import { UPDATE_NOTIFICATIONS } from '../actionTypes'
 
 /**
- * Reducer for detailed item data
- * @function detailReducer
+ * Reducer for notifications
+ * @function notificationReducer
  * @param {Object} state
  * @param {string} action
  * @return new value for this store property or default state
  */
-export default function(state = initialState, action) {
+export default function(state = initialState.notifications, action) {
 
   switch(action.type){
-    case UPDATE_DETAIL_DATA:
+    case UPDATE_NOTIFICATIONS:
       return action.data
       break
 

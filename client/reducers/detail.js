@@ -1,18 +1,17 @@
 import initialState from '../store/initialState'
-import { UPDATE_LAST_CHANGED } from '../actionTypes'
+import { UPDATE_DETAIL_DATA } from '../actionTypes'
 
 /**
- * Reducer for last changed property in the store
- * @function lastChangedReducer
+ * Reducer for detailed item data
+ * @function detailReducer
  * @param {Object} state
  * @param {string} action
  * @return new value for this store property or default state
  */
-
-export default function(state = initialState, action) {
+export default function(state = initialState.detail, action) {
 
   switch(action.type){
-    case UPDATE_LAST_CHANGED:
+    case UPDATE_DETAIL_DATA:
       return action.data
       break
 

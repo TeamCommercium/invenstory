@@ -8,7 +8,8 @@ import { UPDATE_PIECHART_DATA } from '../actionTypes'
  * @param {string} action
  * @return new value for this store property or default state
  */
-export default function(state = initialState, action) {
+
+export default function(state = initialState.pieChartData, action) {
 
   switch(action.type){
     case UPDATE_PIECHART_DATA:

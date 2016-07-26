@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import Settings from '../components/settings'
 import { simpleValidateEmail } from '../util/util'
 import { getUserInfo, updateUserInfo } from '../util/requests'
@@ -74,3 +76,6 @@ export default class SettingsContainer extends React.Component{
     </div>
   }
 }
+
+
+

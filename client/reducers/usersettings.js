@@ -8,7 +8,7 @@ import { UPDATE_USER_SETTINGS } from '../actionTypes'
  * @param {string} action
  * @return new value for this store property or default state
  */
-export default function(state = initialState, action) {
+export default function(state = initialState.userSettings, action) {
 
   switch(action.type){
     case UPDATE_USER_SETTINGS:
