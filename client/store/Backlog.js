@@ -18,7 +18,7 @@ export default class Backlog {
     this.unMounting = this.unMounting;
     this.register = this.register;
     this.syncWithStore = this.syncWithStore;
-  };
+  }
 
 
   /**
@@ -45,12 +45,11 @@ export default class Backlog {
 
     this.containers[container] = {
       association: listenTo,
-      mounted: context.mounted 
+      mounted: context.mounted
     };
 
     listenTo.forEach((key) =>
-      this.subscribeTo(key, function(newState) {
-
+      this.subscribeTo(key, (newState) => {
         if (context.mounted) {
           context.setState({ [key]: newState[key] });
           if(typeof callback === 'function') callback(newState);
@@ -59,9 +58,9 @@ export default class Backlog {
           action[key].payload = newState[key];
         }
       })
-    )
+    );
     return context;
-  };
+  }
 
   /**
    * Should only be used in componentWillUnmount
@@ -73,7 +72,7 @@ export default class Backlog {
    * @return context of the container that invoked function
    */
   unMounting(container, context) {
-    if ( ! this.containers[container]) {
+    if (! this.containers[container]) {
       throw new Error(`Recieved a container that isn't registered. Don't forget to add it to subscribeTo.jsx`);
     }
 
@@ -94,7 +93,6 @@ export default class Backlog {
    * @return context of the container that invoked function
    */
   syncWithStore(container, listenTo, context) {
-
     if (! this.containers[container]) {
       throw new Error(`Recieved a container that isn't registered. Don't forget to add it to subscribeTo.jsx`);
     }
@@ -106,8 +104,7 @@ export default class Backlog {
     this.containers[container].mounted = true;
     context.mounted = true;
 
-
-    //find all relevant properties that have pending data and grab payload.
+    // Find all relevant properties that have pending data and grab payload.
     this.containers[container].association
       .filter(cur => action[cur].pending)
       .map(cur => {
@@ -116,5 +113,5 @@ export default class Backlog {
       });
 
     return context;
-  };
-};
+  }
+}

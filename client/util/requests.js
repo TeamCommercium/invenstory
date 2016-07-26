@@ -22,7 +22,7 @@ export function searchAmazonForASIN(searchString) {
     return response.json();
   })
   .catch(err => {
-    console.log('Error searching Amazon for ASIN error:', err)
+    console.log('Error searching Amazon for ASIN error:', err);
   });
 }
 
@@ -31,13 +31,13 @@ export function searchAmazonForASIN(searchString) {
   function getHistoricalData:
  */
 
-export function getHistoricalData(productId){
+export function getHistoricalData(productId) {
   return fetch(`/products/list?product_id=${productId}`,
     {
       credentials: 'include',
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     }
@@ -50,19 +50,18 @@ export function getHistoricalData(productId){
     return response.json();
   })
   .catch(err => {
-    console.log('Error getting Historical Data error:', err)
+    console.log('Error getting Historical Data error:', err);
   });
 }
 
 
-
-export function deleteInventoryItem(params){
+export function deleteInventoryItem(params) {
   return fetch('/inventory/delete',
     {
       credentials: 'include',
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(params)
@@ -89,7 +88,7 @@ export function shipInventoryItems(params){
       credentials: 'include',
       method: 'PUT',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(params)
@@ -119,15 +118,14 @@ export function shipInventoryItems(params){
  */
 
 export function logout() {
-
   return fetch('/auth/logout', {credentials: 'include'})
-    .then(response => {
+    .then(() => {
       store.smartDispatch(UPDATE_AUTHENTICATION, false);
       redirect('/#/login')();
     })
     .catch(error => {
       console.log('Error Logging Out: ', error);
-    })
+    });
 }
 
 /*
@@ -141,35 +139,34 @@ export function logout() {
   will do an ajax call to check if they have logged in yet.
  */
 
-export function checkAuth(){
+export function checkAuth() {
   if (store.getState().authenticated) {
     return;
   }
 
   return fetch('/user/me', {credentials: 'include'})
-  .then(({status}) => {
-    if (status > 400 && status < 500) {
-      redirect('/#/login')();
-    } else {
-      store.smartDispatch(UPDATE_AUTHENTICATION, true);
-    }
-  })
+    .then(({status}) => {
+      if (status > 400 && status < 500) {
+        redirect('/#/login')();
+      } else {
+        store.smartDispatch(UPDATE_AUTHENTICATION, true);
+      }
+    });
 }
 
-export function getUserInfo(){
-
+export function getUserInfo() {
   return fetch('/user/about', 
     {
       credentials: 'include',
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     }
   )
   .then(response => {
-    if(response.status > 400 && response.status < 500) {
+    if (response.status > 400 && response.status < 500) {
       redirect('/#/login')();
     }
 
@@ -177,7 +174,7 @@ export function getUserInfo(){
   })
   .catch(err => {
     console.log('Error Getting User Info: ', err);
-  })
+  });
 }
 
 export function updateUserInfo(params) {
@@ -186,14 +183,14 @@ export function updateUserInfo(params) {
       credentials: 'include',
       method: 'PUT',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(params)
     }
   )
   .then(result => {
-    if(status > 400 && status < 500) {
+    if (status > 400 && status < 500) {
       redirect('/#/login')();
     }
 
@@ -210,13 +207,12 @@ export function updateUserInfo(params) {
  */
 
 export function addUserInventory(params){
-
   return fetch('/inventory/add',
     {
       credentials: 'include',
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(params)
@@ -233,7 +229,7 @@ export function addUserInventory(params){
   })
   .catch(err => {
     console.log('adding inventory', err);
-  })
+  });
 }
 
 
@@ -245,11 +241,11 @@ export function addUserInventory(params){
    and updates the store with new inventory data.
  */
 
-//Get new data on launch
+// Get new data on launch
 processNewInventory();
 
 // Every hour check the database for data updates from Amazon
-setInterval(processNewInventory, 30*60*1000);
+setInterval(processNewInventory, 30 * 60 * 1000);
 export function processNewInventory(){
   return fetch('/products/list', {credentials: 'include'})
     .then(response => {
