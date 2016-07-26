@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Input, Dialog, Slider } from 'react-toolbox';
+import { Button, Dialog, Slider } from 'react-toolbox';
 
-export default (props) => (
+const ShipComponent = (props) => (
   <Dialog
     active={props.active}
     type={props.modalSize}
@@ -11,22 +11,24 @@ export default (props) => (
       <h3 className='styles__centerBlack___2j9F5'>
         Select <span style={{color: 'red'}}>SHIP QUANTITY</span>
       </h3>
-      <h4 style={{'textAlign': 'center'}}>{props.data.amzn_title}</h4>
+      <h4 style={{textAlign: 'center'}}>{props.data.amzn_title}</h4>
       <img
+        alt='thumbnail'
         src={props.data.amzn_thumb_url}
-        style={{width: 'auto', height:100, padding:0, display:'block', margin:'auto'}}
+        style={{width: 'auto', height: 100, padding: 0, display: 'block', margin: 'auto'}}
       />
 
       <h4 className='styles__centerBlack___2j9F5'>SKU: {props.data.seller_sku}</h4>
       <h4 className='styles__centerBlack___2j9F5'>Current Unit Value: ${props.data.amzn_price_fba || props.data.amzn_price_fbm}</h4>
       <h4 className='styles__centerBlack___2j9F5'>Current Quantity: {props.data.quantity}</h4>
       <h4 className='styles__centerBlack___2j9F5'>
-      Gain: <span style={{color: 'green'}}>{props.data.profit}%</span></h4>
+        Gain: <span style={{color: 'green'}}>{props.data.profit}%</span>
+      </h4>
       <div className='contianer'>
         <div className='row'>
           <div className='col-md-12'>
             <div className='styles__shipInfo___1FFPQ col-md-4 col-xs-6'>Total Cost: </div>
-            <div className='col-md-1 text-left'>{'$'+(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}</div>
+            <div className='col-md-1 text-left'>{`$${(props.data.avg_purchase_price * props.ship_quantity).toFixed(2)}`}</div>
           </div>
         </div>
         <div className='row'>
@@ -70,3 +72,17 @@ export default (props) => (
     </div>
   </Dialog>
 );
+
+ShipComponent.propTypes = {
+  data: React.PropTypes.object,
+  active: React.PropTypes.bool,
+  modalSize: React.PropTypes.string,
+  ship_quantity: React.PropTypes.number,
+  columnNames: React.PropTypes.array,
+  handleShipModal: React.PropTypes.func,
+  confirmShip: React.PropTypes.func,
+  handleQuantityChange: React.PropTypes.func
+};
+
+export default ShipComponent;
+

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Table } from 'reactable';
-import { Switch, Dropdown, Button, Input, RadioGroup, RadioButton } from 'react-toolbox';
 
-export default ({ columnNames, data }) => (
+const TableComponent = ({ columnNames, data }) => (
   <div className='styles__tableDiv___bKZPU'>
     <Table
       id='styles__table___1QENt'
       data={data}
-      filterable={columnNames} 
+      filterable={columnNames}
       sortable={[
         {
           column: 'SKU',
@@ -23,7 +22,7 @@ export default ({ columnNames, data }) => (
         },
         {
           column: 'QTY',
-          sortFunction: (a, b) => b-a
+          sortFunction: (a, b) => b - a
         },
         {
           column: 'Cost',
@@ -58,3 +57,10 @@ export default ({ columnNames, data }) => (
     />
   </div>
 );
+
+TableComponent.propTypes = {
+  columnNames: React.PropTypes.array,
+  data: React.PropTypes.object
+};
+
+export default TableComponent;
