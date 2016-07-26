@@ -1,6 +1,6 @@
+var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var webpack = require("webpack");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -8,6 +8,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   filename: 'index.html',
   inject: 'body'
 });
+
 module.exports = {
   entry: [
     './client/index.jsx',
@@ -26,21 +27,24 @@ module.exports = {
   },
   module: {
     loaders: [
-      { 
+      {
         test: /(\.jsx|\.js)$/,
         loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015'],
         exclude: /node_modules/
       },
       {
         test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap')
+        loader: ExtractTextPlugin.extract(
+          'style', 
+          'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap'
+        )
       }
     ]
   },
   plugins: [
-    HTMLWebpackPluginConfig, 
-    new ExtractTextPlugin("/bundle.css"), 
-  ]
+    HTMLWebpackPluginConfig,
+    new ExtractTextPlugin('/bundle.css'),
+  ];
 }
 
 // new webpack.optimize.UglifyJsPlugin({
@@ -48,4 +52,4 @@ module.exports = {
 //     warnings: false
 //   }
 // })
-// 
+//

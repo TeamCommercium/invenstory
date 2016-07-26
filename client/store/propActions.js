@@ -1,6 +1,7 @@
 /**
- * @description Associates action names with store property names stores the recent payload and pending status. 
- *  Used when a dispatched action is associated with an unmounted component
+ * @description Associates action names with store property names stores the
+ * recent payload and pending status.
+ * Used when a dispatched action is associated with an unmounted component
  */
 
 export default {
@@ -39,4 +40,4 @@ export default {
     pending: false,
     payload: undefined
   }
-}
+};

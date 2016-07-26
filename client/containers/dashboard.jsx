@@ -406,10 +406,12 @@ class DashboardContainer extends React.Component{
   }
 }
 
-function mapState(state){
-  return {
-    tableData: state.tableData
-  }
-}
+const mapState = (state) => ({
+  tableData: state.tableData
+})
 
-export default connect(mapState)(DashboardContainer)
+const mapDispatch = (dispatch) => ({
+
+})
+
+export default connect(mapState, mapDispatch)(DashboardContainer)

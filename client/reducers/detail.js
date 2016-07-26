@@ -1,5 +1,5 @@
-import initialState from '../store/initialState'
-import { UPDATE_DETAIL_DATA } from '../actionTypes'
+import initialState from '../store/initialState';
+import { UPDATE_DETAIL_DATA } from '../actionTypes';
 
 /**
  * Reducer for detailed item data
@@ -9,13 +9,11 @@ import { UPDATE_DETAIL_DATA } from '../actionTypes'
  * @return new value for this store property or default state
  */
 export default function(state = initialState.detail, action) {
-
-  switch(action.type){
+  switch (action.type) {
     case UPDATE_DETAIL_DATA:
-      return action.data
-      break
+      return action.data;
 
     default:
-      return state
+      return state;
   }
 }

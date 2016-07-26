@@ -1,16 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { createHashHistory } from 'history'
-import { Router, Route, Redirect, IndexRoute, useRouterHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import { Provider } from 'react-redux'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createHashHistory } from 'history';
+import { Router, Route, Redirect, IndexRoute, useRouterHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { Provider } from 'react-redux';
 
-import Tabs from './containers/tabs'
-import Login from './containers/login'
-import { store } from './store/initStore'
+import Tabs from './containers/tabs';
+import Login from './containers/login';
+import { store } from './store/initStore';
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
-const history = syncHistoryWithStore(appHistory, store)
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+const history = syncHistoryWithStore(appHistory, store);
 
 /*
   Create Hash history with clean url and pass into render
@@ -28,4 +28,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('app')
-)
+);

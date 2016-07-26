@@ -1,5 +1,5 @@
-import initialState from '../store/initialState'
-import { UPDATE_TABLE_DATA } from '../actionTypes'
+import initialState from '../store/initialState';
+import { UPDATE_TABLE_DATA } from '../actionTypes';
 
 /**
  * Reducer for table data
@@ -8,14 +8,13 @@ import { UPDATE_TABLE_DATA } from '../actionTypes'
  * @param {string} action
  * @return new value for this store property or default state
  */
-export default function(state = initialState.tableData, action) {
 
-  switch(action.type){
+export default function(state = initialState.tableData, action) {
+  switch (action.type) {
     case UPDATE_TABLE_DATA:
-      return action.data
-      break
+      return action.data;
 
     default:
-      return state
+      return state;
   }
 }

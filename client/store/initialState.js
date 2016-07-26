@@ -12,4 +12,4 @@ export default {
   notifications: [],
   tab: 0,
   userSettings: {}
-}
+};

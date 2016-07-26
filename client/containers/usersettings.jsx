@@ -6,9 +6,9 @@ import { simpleValidateEmail } from '../util/util'
 import { getUserInfo, updateUserInfo } from '../util/requests'
 
 
-export default class SettingsContainer extends React.Component{
+class SettingsContainer extends React.Component{
 
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -20,7 +20,7 @@ export default class SettingsContainer extends React.Component{
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     let that = this
     getUserInfo()
       .then(function(response){
@@ -77,5 +77,13 @@ export default class SettingsContainer extends React.Component{
   }
 }
 
+const mapState = (store) => ({
+  ...store.settings
+})
 
+const mapDispatch = (dispatch) => ({
+
+})
+
+export default connect(mapState, mapDispatch)(SettingsContainer)
 

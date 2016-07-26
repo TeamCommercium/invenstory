@@ -1,5 +1,5 @@
-import initialState from '../store/initialState'
-import { UPDATE_PIECHART_DATA } from '../actionTypes'
+import initialState from '../store/initialState';
+import { UPDATE_PIECHART_DATA } from '../actionTypes';
 
 /**
  * Reducer for pie chart data
@@ -10,13 +10,11 @@ import { UPDATE_PIECHART_DATA } from '../actionTypes'
  */
 
 export default function(state = initialState.pieChartData, action) {
-
-  switch(action.type){
+  switch (action.type) {
     case UPDATE_PIECHART_DATA:
-      return action.data
-      break
+      return action.data;
 
     default:
-      return state
+      return state;
   }
 }

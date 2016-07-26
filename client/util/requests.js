@@ -1,27 +1,29 @@
-import fetch from 'isomorphic-fetch'
-import { store } from '../store/initStore'
-import { redirect, processNewData } from './util'
-import { UPDATE_AUTHENTICATION } from '../actionTypes'
+import fetch from 'isomorphic-fetch';
+import { store } from '../store/initStore';
+import { redirect, processNewData } from './util';
+import { UPDATE_AUTHENTICATION } from '../actionTypes';
 
-export function searchAmazonForASIN(searchString){
-
+export function searchAmazonForASIN(searchString) {
   return fetch(`/products/search?q=${searchString}`,
     {
       credentials: 'include',
-      method: "GET",
+      method: 'GET',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     }
   )
-  .then(function(response){
-    if(response.status > 400 && response.status < 500) redirect("/#/login")()
-    return response.json()
+  .then(response => {
+    if (response.status > 400 && response.status < 500) {
+      redirect('/#/login')();
+    }
+
+    return response.json();
   })
-  .catch(function(err){
-    console.log("Error searching Amazon for ASIN error:", err)
-  })
+  .catch(err => {
+    console.log('Error searching Amazon for ASIN error:', err)
+  });
 }
 
 
@@ -30,34 +32,35 @@ export function searchAmazonForASIN(searchString){
  */
 
 export function getHistoricalData(productId){
-
   return fetch(`/products/list?product_id=${productId}`,
     {
       credentials: 'include',
-      method: "GET",
+      method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }
   )
-  .then(function(response){
-    if(response.status > 400 && response.status < 500) redirect("/#/login")()
-    return response.json()
+  .then(response => {
+    if (response.status > 400 && response.status < 500) {
+      redirect('/#/login')();
+    }
+
+    return response.json();
   })
-  .catch(function(err){
-    console.log("Error getting Historical Data error:", err)
-  })
+  .catch(err => {
+    console.log('Error getting Historical Data error:', err)
+  });
 }
 
 
 
 export function deleteInventoryItem(params){
-
   return fetch('/inventory/delete',
     {
       credentials: 'include',
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -65,23 +68,26 @@ export function deleteInventoryItem(params){
       body: JSON.stringify(params)
     }
   )
-  .then(function({status}){
-    if(status > 400 && status < 500) redirect("/#/login")()
-    if(status === 200)
+  .then(({status}) => {
+    if (status > 400 && status < 500) {
+      redirect('/#/login')();
+    }
+
+    if (status === 200) {
       processNewInventory();
+    }
   })
-  .catch(function(err){
-    console.log("Error deleting inventory", err)
-  })
+  .catch(err => {
+    console.log('Error deleting inventory', err);
+  });
 }
 
  
 export function shipInventoryItems(params){
-
   return fetch('/inventory/ship',
     {
       credentials: 'include',
-      method: "PUT",
+      method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -89,13 +95,17 @@ export function shipInventoryItems(params){
       body: JSON.stringify(params)
     }
   )
-  .then(function({status}){
-    if(status > 400 && status < 500) redirect("/#/login")()
-    if(status === 200)
+  .then(({status}) => {
+    if (status > 400 && status < 500) {
+      redirect('/#/login')();
+    }
+    
+    if (status === 200) {
       processNewInventory();
+    }
   })
-  .catch(function(err){
-    console.log("Error shipping inventory", err)
+  .catch(err => {
+    console.log('Error shipping inventory', err);
   })
 }
 
@@ -111,12 +121,12 @@ export function shipInventoryItems(params){
 export function logout() {
 
   return fetch('/auth/logout', {credentials: 'include'})
-    .then(function(response){
-      store.smartDispatch(UPDATE_AUTHENTICATION, false)
-      redirect("/#/login")()
+    .then(response => {
+      store.smartDispatch(UPDATE_AUTHENTICATION, false);
+      redirect('/#/login')();
     })
-    .catch(function(error){
-      console.log("Error Logging Out: ", error)
+    .catch(error => {
+      console.log('Error Logging Out: ', error);
     })
 }
 
@@ -132,15 +142,16 @@ export function logout() {
  */
 
 export function checkAuth(){
-  if(store.getState().authenticated)
+  if (store.getState().authenticated) {
     return;
+  }
 
   return fetch('/user/me', {credentials: 'include'})
-  .then(function({status}) {
-    if(status > 400 && status < 500){
-      redirect("/#/login")()
+  .then(({status}) => {
+    if (status > 400 && status < 500) {
+      redirect('/#/login')();
     } else {
-      store.smartDispatch(UPDATE_AUTHENTICATION, true)
+      store.smartDispatch(UPDATE_AUTHENTICATION, true);
     }
   })
 }
@@ -150,19 +161,22 @@ export function getUserInfo(){
   return fetch('/user/about', 
     {
       credentials: 'include',
-      method: "GET",
+      method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }
   )
-  .then(function(response) {
-    if(response.status > 400 && response.status < 500) redirect("/#/login")()
-    return response.json()
+  .then(response => {
+    if(response.status > 400 && response.status < 500) {
+      redirect('/#/login')();
+    }
+
+    return response.json();
   })
-  .catch(function(err){
-    console.log("Error Getting User Info: ", err)
+  .catch(err => {
+    console.log('Error Getting User Info: ', err);
   })
 }
 
@@ -170,7 +184,7 @@ export function updateUserInfo(params) {
   fetch('/user/update',
     {
       credentials: 'include',
-      method: "PUT",
+      method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -178,13 +192,16 @@ export function updateUserInfo(params) {
       body: JSON.stringify(params)
     }
   )
-  .then(function(result){
-    if(status > 400 && status < 500) redirect("/#/login")()
-    console.log("no error from update User Info:", result)
+  .then(result => {
+    if(status > 400 && status < 500) {
+      redirect('/#/login')();
+    }
+
+    console.log('no error from update User Info:', result);
   })
-  .catch(function(err){
-    console.log("updating user", err)
-  })
+  .catch(err => {
+    console.log('updating user', err);
+  });
 }
 
 /*
@@ -192,12 +209,12 @@ export function updateUserInfo(params) {
   Takes 1 parameter. Its an object that should have all the properties expected by inventory_api /add
  */
 
- export function addUserInventory(params){
+export function addUserInventory(params){
 
   return fetch('/inventory/add',
     {
       credentials: 'include',
-      method: "POST",
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -205,13 +222,17 @@ export function updateUserInfo(params) {
       body: JSON.stringify(params)
     }
   )
-  .then(function({status}){
-    if(status > 400 && status < 500) redirect("/#/login")()
-    if(status === 200)
+  .then(({status}) => {
+    if(status > 400 && status < 500) {
+      redirect('/#/login')();
+    }
+    
+    if(status === 200) {
       processNewInventory();
+    }
   })
-  .catch(function(err){
-    console.log("adding inventory", err)
+  .catch(err => {
+    console.log('adding inventory', err);
   })
 }
 
@@ -225,20 +246,21 @@ export function updateUserInfo(params) {
  */
 
 //Get new data on launch
-processNewInventory()
+processNewInventory();
 
 // Every hour check the database for data updates from Amazon
 setInterval(processNewInventory, 30*60*1000);
 export function processNewInventory(){
-
   return fetch('/products/list', {credentials: 'include'})
-    .then(function(response) {
-      if(response.status > 400 && response.status < 500) redirect("/#/login")()
+    .then(response => {
+      if (response.status > 400 && response.status < 500) {
+        redirect('/#/login')();
+      }
 
-      return response.json()
+      return response.json();
     })
-    .then(function(data){
-      processNewData(data)
-    })
+    .then(data => {
+      processNewData(data);
+    });
 }
 

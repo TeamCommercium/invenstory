@@ -1,5 +1,5 @@
-import initialState from '../store/initialState'
-import { UPDATE_AUTHENTICATION } from '../actionTypes'
+import initialState from '../store/initialState';
+import { UPDATE_AUTHENTICATION } from '../actionTypes';
 
 /**
  * Reducer for checking authentication status
@@ -9,13 +9,11 @@ import { UPDATE_AUTHENTICATION } from '../actionTypes'
  * @return new value for this store property or default state
  */
 export default function(state = initialState.authenticated, action) {
-
-  switch(action.type){
+  switch (action.type) {
     case UPDATE_AUTHENTICATION:
-      return action.data
-      break
+      return action.data;
 
     default:
-      return state
+      return state;
   }
 }

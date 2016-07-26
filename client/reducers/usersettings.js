@@ -1,5 +1,5 @@
-import initialState from '../store/initialState'
-import { UPDATE_USER_SETTINGS } from '../actionTypes'
+import initialState from '../store/initialState';
+import { UPDATE_USER_SETTINGS } from '../actionTypes';
 
 /**
  * Reducer for user settings
@@ -8,14 +8,13 @@ import { UPDATE_USER_SETTINGS } from '../actionTypes'
  * @param {string} action
  * @return new value for this store property or default state
  */
-export default function(state = initialState.userSettings, action) {
 
-  switch(action.type){
+export default function(state = initialState.userSettings, action) {
+  switch (action.type) {
     case UPDATE_USER_SETTINGS:
-      return action.data
-      break
+      return action.data;
 
     default:
-      return state
+      return state;
   }
 }

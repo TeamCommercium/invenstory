@@ -1,7 +1,7 @@
-import React from 'react'
-import { store } from '../store/initStore'
-import * as actions from '../actionTypes'
-import { Button } from 'react-toolbox'
+import React from 'react';
+import { store } from '../store/initStore';
+import * as actions from '../actionTypes';
+import { Button } from 'react-toolbox';
 
 /**
  * @function redirect
@@ -10,10 +10,10 @@ import { Button } from 'react-toolbox'
  * @return a function that will redirect to the given address when invoked
  */
 
-export function redirect(address, _window = window){
-  return function (address){
-    _window.location.href = address
-  }.bind(null, address)
+export function redirect(address, _window = window) {
+  return () => {
+    _window.location.href = address;
+  };
 }
 
 /**
@@ -24,28 +24,28 @@ export function redirect(address, _window = window){
  * @return {Object[]} Validated object with a new profit propery
  */
 
-export function processNewData(data){
-  //Each of these functions return something for testing purposes, but don't need to. 
+export function processNewData(data) {
+  // Each of these functions return something for testing purposes, but don't need to.
 
-  let withProfit = processRawInventory(data)
+  const withProfit = processRawInventory(data);
   
-  processGeneralGraphData(withProfit)
-  processPieChartData(withProfit)
-  processGeneralTableData(withProfit)
-  processNotifications(withProfit)
+  processGeneralGraphData(withProfit);
+  processPieChartData(withProfit);
+  processGeneralTableData(withProfit);
+  processNotifications(withProfit);
 }
 
 /**
- * @function processUserSettings 
+ * @function processUserSettings
  * @param  {Object} settings - Object with deeply nested properties.
  * @return {Object} formatted user settings
  */
-export function processUserSettings(settings){
+export function processUserSettings(settings) {
   return {
     username: settings.user.amzn_username,
     email: settings.user.amzn_email,
     zipcode: settings.user.amzn_zip
-  }
+  };
 }
 
 /**
@@ -53,24 +53,22 @@ export function processUserSettings(settings){
  * @param  {Object[]} inventory - Inventory data from the server
  * @return {Object[]} Validated object with a new profit propery
  */
-export function processRawInventory(inventory){
-  inventory = inventory.map(function(cur){
-    cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price*100)
-    Object.keys(cur).map(function(key){
-      if(cur[key] === null || cur[key] === undefined){
-        if(key === 'amzn_thumb_url')
-          cur[key] = '/assets/defaultImage.png'
-        else if(key === 'amzn_title')
-          cur[key] = 'Title not provided.'
-        else
-          cur[key] = 0
+export function processRawInventory(inventory) {
+  return inventory.map(cur => {
+    cur.profit = cur.avg_purchase_price && cur.amzn_price_fba && Math.round((cur.amzn_price_fba - cur.avg_purchase_price) / cur.avg_purchase_price * 100);
+    Object.keys(cur).forEach(key => {
+      if (cur[key] === null || cur[key] === undefined) {
+        if (key === 'amzn_thumb_url') {
+          cur[key] = '/assets/defaultImage.png';
+        } else if (key === 'amzn_title') {
+          cur[key] = 'Title not provided.';
+        } else {
+          cur[key] = 0;
+        }
       }
-
-    })
+    });
     return cur;
-  })
-
-  return inventory
+  });
 }
 
 /**
@@ -78,17 +76,14 @@ export function processRawInventory(inventory){
  * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
  * @return {Object[]} Filtered by profit and sorted into descending order
  */
-export function processNotifications(inventory){
+export function processNotifications(inventory) {
+  // Could build in settings here
+  const notifications = inventory
+    .filter(cur => cur.profit > 150)
+    .sort((a, b) => b.profit - a.profit);
 
-  let notifications = inventory.filter(function(cur){
-    return cur.profit > 150 //could build in setting here
-  })
-  .sort(function(a, b){
-    return b.profit - a.profit
-  })
-
-  store.smartDispatch(actions.UPDATE_NOTIFICATIONS, notifications)
-  return notifications
+  store.smartDispatch(actions.UPDATE_NOTIFICATIONS, notifications);
+  return notifications;
 }
 
 /**
@@ -97,23 +92,24 @@ export function processNotifications(inventory){
  * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
  * @return {Object[]} Formatted into data useful to Google Charts bar graph
  */
-export function processGeneralGraphData(inventory){
-
-  let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}, 'Current Value', {type: 'string', role: 'tooltip'}]]; 
-  let priceData = inventory.forEach(function(cur, ind){
+export function processGeneralGraphData(inventory) {
+  const lineData = [['SKU', 'Cost', {type: 'string', role: 'tooltip'}, 'Current Value', {type: 'string', role: 'tooltip'}]];
+  
+  inventory.forEach(cur => {
     const amznPrice = cur.amzn_price_fba || cur.amzn_price_fbm;
     lineData.push(
       [
         cur.seller_sku,
-        Math.round(cur.avg_purchase_price*100) / 100,
-        cur.amzn_title && cur.amzn_title.slice(0,35) + ", QTY:" + cur.quantity + " COST: $" + cur.avg_purchase_price.toFixed(2) + " TOT COST: $" + (cur.avg_purchase_price * cur.quantity).toFixed(2),
+        Math.round(cur.avg_purchase_price * 100) / 100,
+        `${cur.amzn_title && cur.amzn_title.slice(0, 35)}, QTY: ${cur.quantity} COST: $${cur.avg_purchase_price.toFixed(2)} TOT COST: $${(cur.avg_purchase_price * cur.quantity).toFixed(2)}`,
         Math.round(amznPrice * 100) / 100,
-        cur.amzn_title && cur.amzn_title.slice(0,35) + ", CUR VAL: $" + amznPrice.toFixed(2) + " TOT VAL: $" + (amznPrice * cur.quantity).toFixed(2) + " ROI: " + ((amznPrice - cur.avg_purchase_price) / cur.avg_purchase_price * 100).toFixed(0) + "%"
+        `${cur.amzn_title && cur.amzn_title.slice(0, 35)}, CUR VAL: $${amznPrice.toFixed(2)} TOT VAL: $${(amznPrice * cur.quantity).toFixed(2)} ROI: ${((amznPrice - cur.avg_purchase_price) / cur.avg_purchase_price * 100).toFixed(0)}%`
       ]
-    )
-  })
-  store.smartDispatch(actions.UPDATE_GRAPH_DATA, lineData)
-  return lineData
+    );
+  });
+
+  store.smartDispatch(actions.UPDATE_GRAPH_DATA, lineData);
+  return lineData;
 }
 
 /**
@@ -122,21 +118,21 @@ export function processGeneralGraphData(inventory){
  * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
  * @return {Object[]} Formatted into data useful to Google Charts line graph
  */
-export function processPieChartData(inventory){
-
-  let lineData =  [['SKU', 'Cost', {type: 'string', role: 'tooltip'}]]; 
-  let priceData = inventory.forEach(function(cur, ind){
+export function processPieChartData(inventory) {
+  const lineData = [['SKU', 'Cost', {type: 'string', role: 'tooltip'}]];
+  
+  inventory.forEach(cur => {
     const amznPrice = cur.amzn_price_fba || cur.amzn_price_fbm;
     lineData.push(
       [
-        cur.seller_sku + ", QTY:" + cur.quantity,
+        `${cur.seller_sku}, QTY: ${cur.quantity}`,
         Math.round(amznPrice * cur.quantity * 100) / 100,
-        cur.amzn_title && cur.amzn_title.slice(0,55) + " - Total Value: $" + (amznPrice * cur.quantity).toFixed(2),
+        `${cur.amzn_title && cur.amzn_title.slice(0, 55)} - Total Value: $${(amznPrice * cur.quantity).toFixed(2)}`
       ]
-    )
-  })
-  store.smartDispatch(actions.UPDATE_PIECHART_DATA, lineData)
-  return lineData
+    );
+  });
+  store.smartDispatch(actions.UPDATE_PIECHART_DATA, lineData);
+  return lineData;
 }
 
 /**
@@ -145,25 +141,31 @@ export function processPieChartData(inventory){
  * @param  {Object[]} inventory - Processed inventory that was returned by processRawInventory
  * @return {Object[]} Formatted into data useful to reactable's table
  */
-export function processGeneralTableData(inventory){
-  let tableData = inventory.map(function(cur){
+export function processGeneralTableData(inventory) {
+  const tableData = inventory.map(cur => {
     return {
-      " ": <img src={cur.amzn_thumb_url}/>,
-      "SKU": cur.seller_sku,
-      "ASIN": cur.amzn_asin,
-      "Title": cur.amzn_title && (cur.amzn_title.slice(0,100)),
-      "QTY": cur.quantity,
-      "Cost": cur.avg_purchase_price && "$" + (Math.round(cur.avg_purchase_price * 100) / 100).toFixed(2),
-      "FBM Price": cur.amzn_price_fbm && "$" + (Math.round(cur.amzn_price_fbm * 100) / 100).toFixed(2),
-      "FBA Price": cur.amzn_price_fba && "$" + (Math.round(cur.amzn_price_fba * 100) / 100).toFixed(2),
-      "Total Cost": "$" + (Math.round(cur.avg_purchase_price * cur.quantity * 100) / 100).toFixed(2),
-      "Total Value": cur.amzn_price_fba ? "$" + (Math.round(cur.amzn_price_fba * cur.quantity * 100) / 100).toFixed(2) : "$" + (Math.round(cur.amzn_price_fbm * cur.quantity * 100) / 100).toFixed(2),
-      "ROI": cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + "%",
-      "  ": <Button className='styles__viewDetailsButton___sBKyW' onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)} floating raised> View Details </Button>,
-    }
-  })
-  store.smartDispatch(actions.UPDATE_TABLE_DATA, tableData)
-  return tableData
+      ' ': <img alt='thumbnail' src={cur.amzn_thumb_url} />,
+      SKU: cur.seller_sku,
+      ASIN: cur.amzn_asin,
+      Title: cur.amzn_title && (cur.amzn_title.slice(0, 100)),
+      QTY: cur.quantity,
+      Cost: cur.avg_purchase_price && '$' + (Math.round(cur.avg_purchase_price * 100) / 100).toFixed(2),
+      'FBM Price': cur.amzn_price_fbm && '$' + (Math.round(cur.amzn_price_fbm * 100) / 100).toFixed(2),
+      'FBA Price': cur.amzn_price_fba && '$' + (Math.round(cur.amzn_price_fba * 100) / 100).toFixed(2),
+      'Total Cost': '$' + (Math.round(cur.avg_purchase_price * cur.quantity * 100) / 100).toFixed(2),
+      'Total Value': cur.amzn_price_fba ? '$' + (Math.round(cur.amzn_price_fba * cur.quantity * 100) / 100).toFixed(2) : '$' + (Math.round(cur.amzn_price_fbm * cur.quantity * 100) / 100).toFixed(2),
+      ROI: cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + '%',
+      '  ': <Button
+        className='styles__viewDetailsButton___sBKyW'
+        onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)}
+        floating
+        raised
+      > View Details
+      </Button>
+    };
+  });
+  store.smartDispatch(actions.UPDATE_TABLE_DATA, tableData);
+  return tableData;
 }
 
 /**
@@ -172,6 +174,6 @@ export function processGeneralTableData(inventory){
  * @return {bool} true if its an email, false otherwise
  */
 export function simpleValidateEmail(email) {
-  let re = /\S+@\S+\.\S+/;
+  const re = /\S+@\S+\.\S+/;
   return re.test(email);
 }
