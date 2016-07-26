@@ -16,10 +16,10 @@ const DeleteProductComponent = ({
   >
     <h3 className='styles__centerBlack___2j9F5'>
       You are about to
-      <span style={{color: 'red'}}>DELETE ALL</span>
+      <span style={{color: 'red'}}> DELETE ALL </span>
       inventory for:
     </h3>
-    <h4 style={{textAlign: 'center'}}>{data.amzn_title}</h4>
+    <h4 style={{textAlign: 'center'}}> {data.amzn_title} </h4>
     <img
       alt='thumbnail'
       src={data.amzn_thumb_url}

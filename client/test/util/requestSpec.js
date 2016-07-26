@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import supertest from 'supertest'

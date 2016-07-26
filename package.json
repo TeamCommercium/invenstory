@@ -4,7 +4,7 @@
   "description": "Invenstory provides Amazon sellers with a useful information dashboard.",
   "main": "server.js",
   "scripts": {
-    "lint": "eslint ./client/components",
+    "lint": "node ./node_modules/eslint/bin/eslint ./client --ignore ./client/test",
     "postinstall": "mkdir -p dist && cp favicon.ico dist/; cp -R assets dist/",
     "pretest": "./node_modules/.bin/knex seed:run",
     "test": "./node_modules/.bin/mocha --compilers .:client/test/compiler.js,.:babel-core/register server/test client/test/ --recursive",

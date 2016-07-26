@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import reducer from '../../reducers/authentication'
@@ -11,7 +12,7 @@ describe('Client: reducers/authentication.jsx', function () {
   });
 
   it('function reducer should return original state if action isn\'t recognized', function () {
-    expect(reducer(undefined, {type:""})).to.deep.equal(initialState)
+    expect(reducer(undefined, {type:""})).to.deep.equal(initialState.authenticated)
   });
 
   it('function reducer should update the store', function () {

@@ -219,11 +219,11 @@ export function addUserInventory(params){
     }
   )
   .then(({status}) => {
-    if(status > 400 && status < 500) {
+    if (status > 400 && status < 500) {
       redirect('/#/login')();
     }
     
-    if(status === 200) {
+    if (status === 200) {
       processNewInventory();
     }
   })

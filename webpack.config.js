@@ -11,7 +11,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 
 module.exports = {
   entry: [
-    './client/index.jsx',
+    './client/index.js',
     './client/styles.css'
   ],
   output: {
@@ -34,17 +34,14 @@ module.exports = {
       },
       {
         test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract(
-          'style', 
-          'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap'
-        )
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap')
       }
     ]
   },
   plugins: [
     HTMLWebpackPluginConfig,
     new ExtractTextPlugin('/bundle.css'),
-  ];
+  ]
 }
 
 // new webpack.optimize.UglifyJsPlugin({

@@ -101,7 +101,7 @@ export function processGeneralGraphData(inventory) {
       [
         cur.seller_sku,
         Math.round(cur.avg_purchase_price * 100) / 100,
-        `${cur.amzn_title && cur.amzn_title.slice(0, 35)}, QTY: ${cur.quantity} COST: $${cur.avg_purchase_price.toFixed(2)} TOT COST: $${(cur.avg_purchase_price * cur.quantity).toFixed(2)}`,
+        `${cur.amzn_title && cur.amzn_title.slice(0, 35)}, QTY:${cur.quantity} COST: $${cur.avg_purchase_price.toFixed(2)} TOT COST: $${(cur.avg_purchase_price * cur.quantity).toFixed(2)}`,
         Math.round(amznPrice * 100) / 100,
         `${cur.amzn_title && cur.amzn_title.slice(0, 35)}, CUR VAL: $${amznPrice.toFixed(2)} TOT VAL: $${(amznPrice * cur.quantity).toFixed(2)} ROI: ${((amznPrice - cur.avg_purchase_price) / cur.avg_purchase_price * 100).toFixed(0)}%`
       ]

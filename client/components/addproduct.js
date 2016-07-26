@@ -81,7 +81,6 @@ AddProductComponent.propTypes = {
   err_purchase_date: React.PropTypes.string,
   purchase_price: React.PropTypes.string,
   err_purchase_price: React.PropTypes.string,
-
   modalSize: React.PropTypes.string,
   active: React.PropTypes.bool,
   handleInput: React.PropTypes.func,
@@ -90,4 +89,3 @@ AddProductComponent.propTypes = {
 };
 
 export default AddProductComponent;
-
