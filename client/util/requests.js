@@ -55,61 +55,6 @@ export function getHistoricalData(productId) {
 }
 
 
-export function deleteInventoryItem(params) {
-  return fetch('/inventory/delete',
-    {
-      credentials: 'include',
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-    }
-  )
-  .then(({status}) => {
-    if (status > 400 && status < 500) {
-      redirect('/#/login')();
-    }
-
-    if (status === 200) {
-      processNewInventory();
-    }
-  })
-  .catch(err => {
-    console.log('Error deleting inventory', err);
-  });
-}
-
- 
-export function shipInventoryItems(params){
-  return fetch('/inventory/ship',
-    {
-      credentials: 'include',
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-    }
-  )
-  .then(({status}) => {
-    if (status > 400 && status < 500) {
-      redirect('/#/login')();
-    }
-    
-    if (status === 200) {
-      processNewInventory();
-    }
-  })
-  .catch(err => {
-    console.log('Error shipping inventory', err);
-  })
-}
-
-
-
 /*
   function logout:
   Takes no parameters
@@ -155,7 +100,7 @@ export function checkAuth() {
 }
 
 export function getUserInfo() {
-  return fetch('/user/about', 
+  return fetch('/user/about',
     {
       credentials: 'include',
       method: 'GET',
@@ -201,12 +146,97 @@ export function updateUserInfo(params) {
   });
 }
 
+
 /*
-  function addUserInventory
-  Takes 1 parameter. Its an object that should have all the properties expected by inventory_api /add
+  function getUserInventoryList:
+  Takes no parameters
+  return nothing
+  Fetches the current user's inventory from the server's database
+   and updates the store with new inventory data.
  */
 
-export function addUserInventory(params){
+export function processNewInventory() {
+  return fetch('/products/list', {credentials: 'include'})
+    .then(response => {
+      if (response.status > 400 && response.status < 500) {
+        redirect('/#/login')();
+      }
+
+      return response.json();
+    })
+    .then(data => {
+      processNewData(data);
+    });
+}
+
+// Get new data on launch
+processNewInventory();
+
+// Every hour check the database for data updates from Amazon
+setInterval(processNewInventory, 30 * 60 * 1000);
+
+
+export function deleteInventoryItem(params) {
+  return fetch('/inventory/delete',
+    {
+      credentials: 'include',
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }
+  )
+  .then(({status}) => {
+    if (status > 400 && status < 500) {
+      redirect('/#/login')();
+    }
+
+    if (status === 200) {
+      processNewInventory();
+    }
+  })
+  .catch(err => {
+    console.log('Error deleting inventory', err);
+  });
+}
+
+
+export function shipInventoryItems(params) {
+  return fetch('/inventory/ship',
+    {
+      credentials: 'include',
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }
+  )
+  .then(({status}) => {
+    if (status > 400 && status < 500) {
+      redirect('/#/login')();
+    }
+    
+    if (status === 200) {
+      processNewInventory();
+    }
+  })
+  .catch(err => {
+    console.log('Error shipping inventory', err);
+  });
+}
+
+
+/*
+  function addUserInventory
+  Takes 1 parameter. Its an object that should have all the properties expected by
+  inventory_api /add
+ */
+
+export function addUserInventory(params) {
   return fetch('/inventory/add',
     {
       credentials: 'include',
@@ -231,32 +261,3 @@ export function addUserInventory(params){
     console.log('adding inventory', err);
   });
 }
-
-
-/*
-  function getUserInventoryList:
-  Takes no parameters
-  return nothing
-  Fetches the current user's inventory from the server's database
-   and updates the store with new inventory data.
- */
-
-// Get new data on launch
-processNewInventory();
-
-// Every hour check the database for data updates from Amazon
-setInterval(processNewInventory, 30 * 60 * 1000);
-export function processNewInventory(){
-  return fetch('/products/list', {credentials: 'include'})
-    .then(response => {
-      if (response.status > 400 && response.status < 500) {
-        redirect('/#/login')();
-      }
-
-      return response.json();
-    })
-    .then(data => {
-      processNewData(data);
-    });
-}
-

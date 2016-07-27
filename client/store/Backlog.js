@@ -52,7 +52,9 @@ export default class Backlog {
       this.subscribeTo(key, (newState) => {
         if (context.mounted) {
           context.setState({ [key]: newState[key] });
-          if(typeof callback === 'function') callback(newState);
+          if (typeof callback === 'function') {
+            callback(newState);
+          }
         } else {
           action[key].pending = true;
           action[key].payload = newState[key];
@@ -107,7 +109,7 @@ export default class Backlog {
     // Find all relevant properties that have pending data and grab payload.
     this.containers[container].association
       .filter(cur => action[cur].pending)
-      .map(cur => {
+      .forEach(cur => {
         context.setState({[cur]: action[cur].payload});
         action[cur].pending = false;
       });

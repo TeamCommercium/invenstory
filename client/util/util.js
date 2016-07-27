@@ -17,25 +17,6 @@ export function redirect(address, _window = window) {
 }
 
 /**
- * Called whenever new data is recieved by requests: processNewInventory
- * All of the functions invoked within processNewData format the new data as needed and save it to the store.
- * function processNewData
- * @param  {Object[]} inventory - Inventory data from the server
- * @return {Object[]} Validated object with a new profit propery
- */
-
-export function processNewData(data) {
-  // Each of these functions return something for testing purposes, but don't need to.
-
-  const withProfit = processRawInventory(data);
-  
-  processGeneralGraphData(withProfit);
-  processPieChartData(withProfit);
-  processGeneralTableData(withProfit);
-  processNotifications(withProfit);
-}
-
-/**
  * @function processUserSettings
  * @param  {Object} settings - Object with deeply nested properties.
  * @return {Object} formatted user settings
@@ -142,28 +123,26 @@ export function processPieChartData(inventory) {
  * @return {Object[]} Formatted into data useful to reactable's table
  */
 export function processGeneralTableData(inventory) {
-  const tableData = inventory.map(cur => {
-    return {
-      ' ': <img alt='thumbnail' src={cur.amzn_thumb_url} />,
-      SKU: cur.seller_sku,
-      ASIN: cur.amzn_asin,
-      Title: cur.amzn_title && (cur.amzn_title.slice(0, 100)),
-      QTY: cur.quantity,
-      Cost: cur.avg_purchase_price && '$' + (Math.round(cur.avg_purchase_price * 100) / 100).toFixed(2),
-      'FBM Price': cur.amzn_price_fbm && '$' + (Math.round(cur.amzn_price_fbm * 100) / 100).toFixed(2),
-      'FBA Price': cur.amzn_price_fba && '$' + (Math.round(cur.amzn_price_fba * 100) / 100).toFixed(2),
-      'Total Cost': '$' + (Math.round(cur.avg_purchase_price * cur.quantity * 100) / 100).toFixed(2),
-      'Total Value': cur.amzn_price_fba ? '$' + (Math.round(cur.amzn_price_fba * cur.quantity * 100) / 100).toFixed(2) : '$' + (Math.round(cur.amzn_price_fbm * cur.quantity * 100) / 100).toFixed(2),
-      ROI: cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100) + '%',
-      '  ': <Button
-        className='styles__viewDetailsButton___sBKyW'
-        onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)}
-        floating
-        raised
-      > View Details
-      </Button>
-    };
-  });
+  const tableData = inventory.map(cur => ({
+    ' ': <img alt='thumbnail' src={cur.amzn_thumb_url} />,
+    SKU: cur.seller_sku,
+    ASIN: cur.amzn_asin,
+    Title: cur.amzn_title && (cur.amzn_title.slice(0, 100)),
+    QTY: cur.quantity,
+    Cost: cur.avg_purchase_price && `$${(Math.round(cur.avg_purchase_price * 100) / 100).toFixed(2)}`,
+    'FBM Price': cur.amzn_price_fbm && `$${(Math.round(cur.amzn_price_fbm * 100) / 100).toFixed(2)}`,
+    'FBA Price': cur.amzn_price_fba && `$${(Math.round(cur.amzn_price_fba * 100) / 100).toFixed(2)}`,
+    'Total Cost': `$${(Math.round(cur.avg_purchase_price * cur.quantity * 100) / 100).toFixed(2)}`,
+    'Total Value': cur.amzn_price_fba ? `$${(Math.round(cur.amzn_price_fba * cur.quantity * 100) / 100).toFixed(2)}` : `$${(Math.round(cur.amzn_price_fbm * cur.quantity * 100) / 100).toFixed(2)}`,
+    ROI: `${cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100)}%`,
+    '  ': <Button
+      className='styles__viewDetailsButton___sBKyW'
+      onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)}
+      floating
+      raised
+    > View Details
+    </Button>
+  }));
   store.smartDispatch(actions.UPDATE_TABLE_DATA, tableData);
   return tableData;
 }
@@ -176,4 +155,23 @@ export function processGeneralTableData(inventory) {
 export function simpleValidateEmail(email) {
   const re = /\S+@\S+\.\S+/;
   return re.test(email);
+}
+
+/**
+ * Called whenever new data is recieved by requests: processNewInventory
+ * All of the functions invoked within processNewData format the new data as needed and save it to the store.
+ * function processNewData
+ * @param  {Object[]} inventory - Inventory data from the server
+ * @return {Object[]} Validated object with a new profit propery
+ */
+
+export function processNewData(data) {
+  // Each of these functions return something for testing purposes, but don't need to.
+
+  const withProfit = processRawInventory(data);
+  
+  processGeneralGraphData(withProfit);
+  processPieChartData(withProfit);
+  processGeneralTableData(withProfit);
+  processNotifications(withProfit);
 }
