@@ -21,7 +21,7 @@ const NotificationsComponent = ({data, visitItem}) => (
 );
 
 NotificationsComponent.propTypes = {
-  data: React.PropTypes.object,
+  data: React.PropTypes.array,
   visitItem: React.PropTypes.func
 };
 

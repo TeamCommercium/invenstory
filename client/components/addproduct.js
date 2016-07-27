@@ -75,7 +75,7 @@ AddProductComponent.propTypes = {
   err_seller_sku: React.PropTypes.string,
   asin: React.PropTypes.string,
   err_asin: React.PropTypes.string,
-  quantity: React.PropTypes.number,
+  quantity: React.PropTypes.string,
   err_quantity: React.PropTypes.string,
   purchase_date: React.PropTypes.string,
   err_purchase_date: React.PropTypes.string,

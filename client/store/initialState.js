@@ -11,5 +11,11 @@ export default {
   detail: {},
   notifications: [],
   tab: 0,
-  userSettings: {}
+  userSettings: {
+    name: '',
+    zipcode: '',
+    email: '',
+    err_email: '',
+    mailNotifications: false
+  }
 };

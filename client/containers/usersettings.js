@@ -1,90 +1,62 @@
-import React from 'react';
 import { connect } from 'react-redux';
 
 import Settings from '../components/settings';
 import { simpleValidateEmail } from '../util/util';
-import { getUserInfo, updateUserInfo } from '../util/requests';
+import { updateUserInfo, getUserInfo } from '../util/requests';
 
+import { 
+  USER_SETTINGS_UPDATE_EMAIL,
+  USER_SETTINGS_UPDATE_ZIPCODE,
+  USER_SETTINGS_UPDATE_NAME,
+  USER_SETTINGS_UPDATE_ERR_EMAIL,
+  USER_SETTINGS_TOGGLE_MAIL,
+  USER_SETTINGS_UPDATE_MAIL
+} from '../actionTypes';
 
-class SettingsContainer extends React.Component {
+const mapState = (store) => ({
+  name: store.userSettings.name,
+  email: store.userSettings.email,
+  zipcode: store.userSettings.zipcode,
+  mailNotifications: store.userSettings.mailNotifications,
+  err_email: store.userSettings.err_email
+});
 
-  constructor(props) {
-    super(props);
+const mapDispatch = (dispatch) => {
+  // Rather than using a componentWillMount, I'll just do the call ahead of time.
+  getUserInfo()
+   .then(response => {
+      dispatch({ type: USER_SETTINGS_UPDATE_NAME, data: response[0].amzn_username });
+      dispatch({ type: USER_SETTINGS_UPDATE_EMAIL, data: response[0].amzn_email });
+      dispatch({ type: USER_SETTINGS_UPDATE_ZIPCODE, data: response[0].amzn_zip });
 
-    this.state = {
-      name: '',
-      email: '',
-      zipcode: '',
-      mailNotifications: false,
-      err_email: ''
-    };
-  }
+      if (!! response[0].emailnotify) {
+        dispatch({ type: USER_SETTINGS_UPDATE_MAIL, data: true });
+      }
+    });
 
-  componentDidMount() {
-    const that = this;
-    getUserInfo()
-      .then(response => {
-        that.setState({ name: response[0].amzn_username });
-        that.setState({ email: response[0].amzn_email });
-        that.setState({ zipcode: response[0].amzn_zip });
+  return {
+    handleInput: (name, value) => {
+      dispatch({ type: name, data: value });
+    },
+    handleSubmit: (name, email, zipcode, mailNotifications) => {
+      if (!simpleValidateEmail(email)) {
+        dispatch({ type: USER_SETTINGS_UPDATE_ERR_EMAIL, data: 'Must be valid email address' });
+      } else {
+        dispatch({ type: USER_SETTINGS_UPDATE_ERR_EMAIL, data: '' });
 
-        if (!! response[0].emailnotify) {
-          that.setState({ mailNotifications: true });
-        }
-      });
-  }
+        const userInfo = {};
+        userInfo.amzn_username = name;
+        userInfo.amzn_email = email;
+        userInfo.amzn_zip = zipcode;
+        userInfo.emailnotify = mailNotifications;
 
-
-  handleSubmit() {
-    let settingError = 0;
-    if (!simpleValidateEmail(this.state.email)) {
-      this.setState({ err_email: 'Must be valid email address' });
-      settingError++;
+        updateUserInfo(userInfo);
+      }
+    },
+    handleToggle: () => {
+      dispatch({ type: USER_SETTINGS_TOGGLE_MAIL });
     }
-
-    if (!settingError) {
-      const userInfo = {};
-      userInfo.amzn_username = this.state.name;
-      userInfo.amzn_email = this.state.email;
-      userInfo.amzn_zip = this.state.zipcode;
-      userInfo.emailnotify = this.state.mailNotifications;
-      updateUserInfo(userInfo);
-    }
   }
+};
 
-  handleInput(name, value) {
-    this.setState({[name]: value});
-  }
-
-  handleToggle() {
-    this.setState({ mailNotifications: !this.state.mailNotifications });
-  }
-
-  render() {
-    return (
-      <div>
-        <Settings
-          name={this.state.name}
-          email={this.state.email}
-          zipcode={this.state.zipcode}
-          mailNotifications={this.state.mailNotifications}
-          err_email={this.state.err_email}
-
-          handleInput={this.handleInput.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
-          handleToggle={this.handleToggle.bind(this)}
-        />
-      </div>
-    );
-  }
-}
-
-// const mapState = (store) => ({
-//   // ...store.settings
-// });
-
-// const mapDispatch = (dispatch) => ({
-
-// });
-
-export default connect(mapState, mapDispatch)(SettingsContainer);
+export default connect(mapState, mapDispatch)(Settings);

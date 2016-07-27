@@ -6,7 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 
 import Tabs from './containers/tabs';
-import Login from './containers/login';
+import Login from './components/login';
 import { store } from './store/initStore';
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });

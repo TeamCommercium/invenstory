@@ -77,7 +77,7 @@ ShipComponent.propTypes = {
   data: React.PropTypes.object,
   active: React.PropTypes.bool,
   modalSize: React.PropTypes.string,
-  ship_quantity: React.PropTypes.number,
+  ship_quantity: React.PropTypes.string,
   columnNames: React.PropTypes.array,
   handleShipModal: React.PropTypes.func,
   confirmShip: React.PropTypes.func,

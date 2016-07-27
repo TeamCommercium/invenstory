@@ -60,7 +60,7 @@ const TableComponent = ({ columnNames, data }) => (
 
 TableComponent.propTypes = {
   columnNames: React.PropTypes.array,
-  data: React.PropTypes.object
+  data: React.PropTypes.array
 };
 
 export default TableComponent;

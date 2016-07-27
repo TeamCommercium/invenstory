@@ -432,15 +432,15 @@ class DashboardContainer extends React.Component {
 }
 
 DashboardContainer.propTypes = {
-  tableData: React.PropTypes.object
+  tableData: React.PropTypes.array
 };
 
 const mapState = (state) => ({
   tableData: state.tableData
 });
 
-// const mapDispatch = (dispatch) => ({
+const mapDispatch = (dispatch) => ({
 
-// })
+})
 
 export default connect(mapState, mapDispatch)(DashboardContainer);
