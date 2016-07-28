@@ -4,7 +4,7 @@ import Settings from '../components/settings';
 import { simpleValidateEmail } from '../util/util';
 import { updateUserInfo, getUserInfo } from '../util/requests';
 
-import { 
+import {
   USER_SETTINGS_UPDATE_EMAIL,
   USER_SETTINGS_UPDATE_ZIPCODE,
   USER_SETTINGS_UPDATE_NAME,
@@ -24,7 +24,7 @@ const mapState = (store) => ({
 const mapDispatch = (dispatch) => {
   // Rather than using a componentWillMount, I'll just do the call ahead of time.
   getUserInfo()
-   .then(response => {
+    .then(response => {
       dispatch({ type: USER_SETTINGS_UPDATE_NAME, data: response[0].amzn_username });
       dispatch({ type: USER_SETTINGS_UPDATE_EMAIL, data: response[0].amzn_email });
       dispatch({ type: USER_SETTINGS_UPDATE_ZIPCODE, data: response[0].amzn_zip });
@@ -56,7 +56,7 @@ const mapDispatch = (dispatch) => {
     handleToggle: () => {
       dispatch({ type: USER_SETTINGS_TOGGLE_MAIL });
     }
-  }
+  };
 };
 
 export default connect(mapState, mapDispatch)(Settings);

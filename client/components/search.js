@@ -38,7 +38,7 @@ const SearchComponent = ({inherit}) => (
       <Button
         className='styles__inlineButton___16AEc'
         label='Search'
-        onMouseUp={inherit.handleAmazonSearch}
+        onMouseUp={() => inherit.handleAmazonSearch(this.props.searchString)}
         raised floating
       />
     </div>

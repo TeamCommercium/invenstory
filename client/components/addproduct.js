@@ -2,8 +2,21 @@ import React from 'react';
 import { Button, Input, Dialog } from 'react-toolbox';
 import SearchModule from '../components/search';
 
+import {
+  UPDATE_FORM_PURCHASE_DATE,
+  UPDATE_FORM_QUANTITY,
+  UPDATE_FORM_PURCHASE_PRICE,
+  UPDATE_FORM_SELLER_SKU,
+  UPDATE_FORM_ASIN
+} from '../actionTypes';
+
 const AddProductComponent = (props) => (
-  <Dialog className='styles__dialogModal___2q57r' type={props.modalSize} active={props.active} onOverlayClick={props.resetModal}>
+  <Dialog
+    className='styles__dialogModal___2q57r'
+    type={props.modalSize}
+    active={props.active}
+    onOverlayClick={props.resetModal}
+  >
     <h3 style={{color: 'black', textAlign: 'center'}}>Add Product</h3>
     <SearchModule inherit={props} />
     <Input
@@ -14,7 +27,7 @@ const AddProductComponent = (props) => (
       icon='local_offer'
       value={props.asin}
       error={props.err_asin}
-      onChange={props.handleInput.bind(this, 'asin')}
+      onChange={props.handleInput.bind(this, UPDATE_FORM_ASIN)}
     />
     <Input
       disabled={props.lock_sku}
@@ -25,7 +38,7 @@ const AddProductComponent = (props) => (
       maxLength={30}
       value={props.seller_sku}
       error={props.err_seller_sku}
-      onChange={props.handleInput.bind(this, 'seller_sku')}
+      onChange={props.handleInput.bind(this, UPDATE_FORM_SELLER_SKU)}
     />
     <Input
       type='number'
@@ -34,7 +47,7 @@ const AddProductComponent = (props) => (
       icon={<span>$</span>}
       value={props.purchase_price}
       error={props.err_purchase_price}
-      onChange={props.handleInput.bind(this, 'purchase_price')}
+      onChange={props.handleInput.bind(this, UPDATE_FORM_PURCHASE_PRICE)}
     />
     <Input
       type='number'
@@ -43,7 +56,7 @@ const AddProductComponent = (props) => (
       icon='equalizer'
       value={props.quantity}
       error={props.err_quantity}
-      onChange={props.handleInput.bind(this, 'quantity')}
+      onChange={props.handleInput.bind(this, UPDATE_FORM_QUANTITY)}
     />
     <Input
       type='date'
@@ -52,13 +65,20 @@ const AddProductComponent = (props) => (
       icon='date_range'
       value={props.purchase_date}
       error={props.err_purchase_date}
-      onChange={props.handleInput.bind(this, 'purchase_date')}
+      onChange={props.handleInput.bind(this, UPDATE_FORM_PURCHASE_DATE)}
     />
     <div className='addProductButtons text-center'>
       <Button
         className='styles__inlineButton___16AEc'
         label='Submit' raised floating primary
-        onMouseUp={props.handleSubmit.bind(this)}
+        onMouseUp={props.handleSubmit.bind(
+          this,
+          props.asin,
+          props.seller_sku,
+          props.purchase_date,
+          props.purchase_price,
+          props.quantity
+        )}
       />
       <Button
         className='styles__inlineButton___16AEc'

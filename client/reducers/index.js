@@ -11,6 +11,8 @@ import authenticated from './authentication';
 import lastChanged from './lastChanged';
 import userSettings from './userSettings';
 import notifications from './notification';
+import historicalData from './historicalData';
+import dashboard from './dashboard';
 
 export default combineReducers({
   tableData,
@@ -22,5 +24,7 @@ export default combineReducers({
   routing,
   notifications,
   tab,
-  userSettings
+  userSettings,
+  historicalData,
+  dashboard
 });

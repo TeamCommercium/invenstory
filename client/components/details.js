@@ -8,7 +8,6 @@ const DetailComponent = ({
   data,
   hideDetails,
   smartAdd,
-  deleteAll,
   handleShipModal,
   handleDeleteModal
 }) => (
@@ -20,12 +19,30 @@ const DetailComponent = ({
     <div> Sales Rank: {data.amzn_sales_rank} </div>
     <div> Weight: {data.amzn_weight} lbs</div>
     <div className='styles__detailButtonsDiv___3qeKQ'>
-      <Button className='styles__inlineButton___16AEc detailBut' label='Delete all' raised floating primary onMouseUp={handleDeleteModal.bind(this)} />
-      <Button className='styles__inlineButton___16AEc detailBut' label='Add' raised floating primary onMouseUp={smartAdd.bind(null, data)} />
-      <Button className='styles__inlineButton___16AEc detailBut' label='Ship' raised floating primary onMouseUp={handleShipModal.bind(this)} />
+      <Button
+        className='styles__inlineButton___16AEc detailBut'
+        label='Delete all'
+        onMouseUp={handleDeleteModal}
+        raised floating primary
+      />
+      <Button
+        className='styles__inlineButton___16AEc detailBut'
+        label='Add' raised floating primary
+        onMouseUp={() => smartAdd(data)}
+      />
+      <Button
+        className='styles__inlineButton___16AEc detailBut'
+        label='Ship' raised floating primary
+        onMouseUp={handleShipModal}
+      />
     </div>
 
-    <Chart className='styles__detailChart___1CgJr' chartType='LineChart' data={historical} options={options} />
+    <Chart
+      className='styles__detailChart___1CgJr'
+      chartType='LineChart'
+      data={historical}
+      options={options}
+    />
 
   </div>
 );
@@ -36,7 +53,6 @@ DetailComponent.propTypes = {
   data: React.PropTypes.object,
   hideDetails: React.PropTypes.func,
   smartAdd: React.PropTypes.func,
-  deleteAll: React.PropTypes.func,
   handleShipModal: React.PropTypes.func,
   handleDeleteModal: React.PropTypes.func
 };

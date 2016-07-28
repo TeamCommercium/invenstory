@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Switch, Input } from 'react-toolbox';
-import { 
+import {
   USER_SETTINGS_UPDATE_EMAIL,
   USER_SETTINGS_UPDATE_ZIPCODE,
-  USER_SETTINGS_UPDATE_NAME 
+  USER_SETTINGS_UPDATE_NAME
 } from '../actionTypes';
 
 const UserSettingsComponent = ({

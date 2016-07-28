@@ -66,7 +66,7 @@ const ShipComponent = (props) => (
       <Button
         className='styles__inlineButton___16AEc'
         label='Cancel'
-        onMouseUp={props.handleShipModal.bind(this)}
+        onMouseUp={props.handleShipModal}
         raised floating
       />
     </div>
