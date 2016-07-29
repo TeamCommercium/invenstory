@@ -6,6 +6,7 @@ import tab from './tab';
 import detail from './detail';
 import tableData from './table';
 import graphData from './graph';
+import lastDetailId from './lastDetailId';
 import pieChartData from './pieChart';
 import authenticated from './authentication';
 import lastChanged from './lastChanged';
@@ -26,5 +27,6 @@ export default combineReducers({
   tab,
   userSettings,
   historicalData,
-  dashboard
+  dashboard,
+  lastDetailId
 });

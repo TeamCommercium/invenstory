@@ -1,22 +1,22 @@
 import React from 'react';
 import { List, ListItem, ListSubHeader, Button, Input, Avatar } from 'react-toolbox';
 
-const SearchComponent = ({inherit}) => (
+const SearchComponent = ({ passedProps }) => (
   <div>
-    {inherit.showSearch &&
+    {passedProps.showSearch &&
       <div>
         <Input
           label='Product Search'
           name='Search Amazon'
           icon='search'
-          value={inherit.searchString}
-          onChange={inherit.handleSearchStringChange}
+          value={passedProps.searchString}
+          onChange={passedProps.handleSearchStringChange}
         />
 
-        {inherit.searchResults && inherit.searchResults.length > 0
+        {passedProps.searchResults && passedProps.searchResults.length > 0
         ? <List className='list' selectable>
           <ListSubHeader caption='Results' />
-          {Array.prototype.map.call(inherit.searchResults, (cur, index) =>
+          {Array.prototype.map.call(passedProps.searchResults, (cur, index) =>
             <ListItem
               key={index}
               leftIcon={
@@ -26,7 +26,7 @@ const SearchComponent = ({inherit}) => (
               }
               caption={cur.amzn_title && cur.amzn_title.slice(0, 50)}
               legend=''
-              onClick={() => inherit.handleAmazonResultSelection(cur.amzn_asin)}
+              onClick={() => passedProps.handleAmazonResultSelection(cur.amzn_asin)}
             />
           )}
         </List>
@@ -38,7 +38,7 @@ const SearchComponent = ({inherit}) => (
       <Button
         className='styles__inlineButton___16AEc'
         label='Search'
-        onMouseUp={() => inherit.handleAmazonSearch(this.props.searchString)}
+        onMouseUp={() => passedProps.handleAmazonSearch(passedProps.searchString)}
         raised floating
       />
     </div>
@@ -46,7 +46,7 @@ const SearchComponent = ({inherit}) => (
 );
 
 SearchComponent.propTypes = {
-  inherit: React.PropTypes.object
+  passedProps: React.PropTypes.object
 };
 
 export default SearchComponent;

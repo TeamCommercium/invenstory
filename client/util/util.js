@@ -63,7 +63,7 @@ export function processNotifications(inventory) {
     .filter(cur => cur.profit > 150)
     .sort((a, b) => b.profit - a.profit);
 
-  store.smartDispatch(actions.UPDATE_NOTIFICATIONS, notifications);
+  store.dispatch({ type: actions.UPDATE_NOTIFICATIONS, data: notifications });
   return notifications;
 }
 
@@ -89,7 +89,7 @@ export function processGeneralGraphData(inventory) {
     );
   });
 
-  store.smartDispatch(actions.UPDATE_GRAPH_DATA, lineData);
+  store.dispatch({ type: actions.UPDATE_GRAPH_DATA, data: lineData });
   return lineData;
 }
 
@@ -112,7 +112,7 @@ export function processPieChartData(inventory) {
       ]
     );
   });
-  store.smartDispatch(actions.UPDATE_PIECHART_DATA, lineData);
+  store.dispatch({ type: actions.UPDATE_PIECHART_DATA, data: lineData });
   return lineData;
 }
 
@@ -137,13 +137,16 @@ export function processGeneralTableData(inventory) {
     ROI: `${cur.avg_purchase_price && (cur.amzn_price_fba || cur.amzn_price_fbm) && Math.round(((cur.amzn_price_fba || cur.amzn_price_fbm) - cur.avg_purchase_price) / cur.avg_purchase_price * 100)}%`,
     '  ': <Button
       className='styles__viewDetailsButton___sBKyW'
-      onClick={store.smartDispatch.bind(null, actions.UPDATE_DETAIL_DATA, cur)}
+      onClick={() => {
+        store.dispatch({ type: actions.UPDATE_DETAIL_DATA, data: cur });
+      }}
       floating
       raised
     > View Details
     </Button>
   }));
-  store.smartDispatch(actions.UPDATE_TABLE_DATA, tableData);
+  
+  store.dispatch({ type: actions.UPDATE_TABLE_DATA, data: tableData });
   return tableData;
 }
 

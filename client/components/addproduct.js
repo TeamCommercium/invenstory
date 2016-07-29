@@ -18,7 +18,7 @@ const AddProductComponent = (props) => (
     onOverlayClick={props.resetModal}
   >
     <h3 style={{color: 'black', textAlign: 'center'}}>Add Product</h3>
-    <SearchModule inherit={props} />
+    <SearchModule passedProps={props} />
     <Input
       disabled
       type='text'
@@ -27,7 +27,7 @@ const AddProductComponent = (props) => (
       icon='local_offer'
       value={props.asin}
       error={props.err_asin}
-      onChange={props.handleInput.bind(this, UPDATE_FORM_ASIN)}
+      onChange={(newASIN) => props.handleInput(UPDATE_FORM_ASIN, newASIN)}
     />
     <Input
       disabled={props.lock_sku}
@@ -38,7 +38,7 @@ const AddProductComponent = (props) => (
       maxLength={30}
       value={props.seller_sku}
       error={props.err_seller_sku}
-      onChange={props.handleInput.bind(this, UPDATE_FORM_SELLER_SKU)}
+      onChange={(newSKU) => props.handleInput(UPDATE_FORM_SELLER_SKU, newSKU)}
     />
     <Input
       type='number'
@@ -47,7 +47,7 @@ const AddProductComponent = (props) => (
       icon={<span>$</span>}
       value={props.purchase_price}
       error={props.err_purchase_price}
-      onChange={props.handleInput.bind(this, UPDATE_FORM_PURCHASE_PRICE)}
+      onChange={(newPrice) => props.handleInput(UPDATE_FORM_PURCHASE_PRICE, newPrice)}
     />
     <Input
       type='number'
@@ -56,7 +56,7 @@ const AddProductComponent = (props) => (
       icon='equalizer'
       value={props.quantity}
       error={props.err_quantity}
-      onChange={props.handleInput.bind(this, UPDATE_FORM_QUANTITY)}
+      onChange={(newQty) => props.handleInput(UPDATE_FORM_QUANTITY, newQty)}
     />
     <Input
       type='date'
@@ -65,7 +65,7 @@ const AddProductComponent = (props) => (
       icon='date_range'
       value={props.purchase_date}
       error={props.err_purchase_date}
-      onChange={props.handleInput.bind(this, UPDATE_FORM_PURCHASE_DATE)}
+      onChange={(newDate) => props.handleInput(UPDATE_FORM_PURCHASE_DATE, newDate)}
     />
     <div className='addProductButtons text-center'>
       <Button
@@ -83,7 +83,7 @@ const AddProductComponent = (props) => (
       <Button
         className='styles__inlineButton___16AEc'
         label='Cancel' raised floating
-        onMouseUp={props.resetModal.bind(this)}
+        onMouseUp={props.resetModal}
       />
     </div>
   </Dialog>

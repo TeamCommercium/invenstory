@@ -14,7 +14,7 @@ const NotificationsComponent = ({data, visitItem}) => (
         }
         caption={cur.amzn_title}
         legend={`Current ROI: ${cur.profit}%`}
-        onClick={visitItem.bind(null, cur)}
+        onClick={() => visitItem(cur)}
       />
     )}
   </List>

@@ -1,12 +1,6 @@
-import React from 'react';
-import { Button } from 'react-toolbox';
 import { connect } from 'react-redux';
 
-import Table from '../components/table';
-import Addproduct from '../components/addproduct';
-import Ship from '../components/ship';
-import DeleteProduct from '../components/deleteproduct';
-import Details from '../components/details';
+import Dashboard from '../components/dashboard';
 
 import * as api from '../util/requests';
 
@@ -30,220 +24,13 @@ import {
   UPDATE_FORM_ERR_SELLER_SKU,
   UPDATE_FORM_ERR_PURCHASE_PRICE,
   UPDATE_FORM_ERR_PURCHASE_DATE,
-  UPDATE_HISTORICAL_DATA
+  UPDATE_HISTORICAL_DATA,
+  UPDATE_LAST_CHANGED_DETAIL_ID,
+  UPDATE_DETAIL_DATA
 } from '../actionTypes';
 
-
-function calculateTotals(data) {
-  let totalValue = 0;
-  let totalCost = 0;
-  data.forEach(item => {
-    totalValue += Number((item['Total Value']).slice(1));
-    totalCost += Number((item['Total Cost']).slice(1));
-  });
-
-  return { totalCost, totalValue };
-}
-
-class DashboardContainer extends React.Component {
-
-  componentDidMount() {
-    if (document.getElementById('styles__table___1QENt')
-      && document.getElementById('styles__table___1QENt').getElementsByTagName('input')
-      && document.getElementById('styles__table___1QENt').getElementsByTagName('input')[0]
-    ) {
-      document.getElementsByTagName('input')[0].placeholder = ' Search Table ...';
-      const element = document.getElementsByClassName('reactable-filterer')[0];
-      const iconElement = document.createElement('span');
-      iconElement.className += 'material-icons md-dark';
-      iconElement.innerHTML += 'search';
-
-      element.insertBefore(iconElement, element.firstChild);
-    }
-  }
-
-  render() {
-    let details;
-    let dashboard;
-
-    const historicalOptions = {
-      title: 'Product Historical Price Data',
-      curveType: 'function',
-      bar: { groupWidth: '75%' },
-      isStacked: true,
-      pointSize: 3,
-      hAxis: {
-        format: 'MMM d, y'
-      }
-    };
-
-    if (this.props.detail && typeof this.props.detail.id === 'number') {
-      api.getHistoricalData(this.props.detail.id)
-      .then(data => {
-        const historicalData = [
-          ['Date', 'Price'],
-          ...data[0].history.map((cur) =>
-            [new Date(cur.amzn_fetch_date), cur.amzn_price_fba || cur.amzn_price_fbm]
-          )
-        ];
-        this.props.updateHistoricalData(historicalData);
-      })
-      .catch(err => {
-        console.log('error in catch from api.getHistoricalData in the DashboardContainer', err);
-      });
-    }
-
-    if (this.props.detail && this.props.detail.amzn_asin) {
-      details = (
-        <Details
-          smartAdd={this.props.smartAdd.bind(this)}
-          hideDetails={this.props.handleBlur}
-          data={this.props.detail}
-          historical={this.props.historical}
-          options={historicalOptions}
-          handleShipModal={this.props.handleShipModal.bind(this)}
-          handleDeleteModal={this.props.handleDeleteModal.bind(this)}
-        />
-      );
-    }
-
-    if (this.props.tableData !== undefined && this.props.tableData[0]) {
-      dashboard = (
-        <Table
-          data={this.props.tableData}
-          columnNames={Object.keys(this.props.tableData[0])}
-        />
-      );
-    }
-
-    return (
-      <div>
-        <div style={{display: 'inline'}}>
-          <h3 style={{display: 'inline', color: '#264653', fontWeight: 900}}>
-            Total Inventory Value:
-            <span style={{color: 'green'}}>
-              ${(calculateTotals(this.props.tableData).totalValue).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
-            </span>
-          </h3>
-          <Button
-            className='styles__inlineButton___16AEc'
-            style={{display: 'inline', float: 'right'}}
-            label='Add Product'
-            onMouseUp={this.props.handleModal.bind(this)}
-            raised floating
-          />
-        </div>
-        <h5 style={{color: '#264653', marginTop: '5px', marginBottom: '5px'}}>
-          Original Cost: ${(calculateTotals(this.props.tableData).totalCost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
-        </h5>
-        <h5 style={{color: '#264653', marginTop: '5px', marginBottom: '5px'}}>
-          Current ROI:
-          {
-            calculateTotals(this.props.tableData).totalValue
-            ? ((((calculateTotals(this.props.tableData).totalValue)) / ((calculateTotals(this.props.tableData).totalCost)) - 1) * 100).toFixed(1)
-            : 0
-          }
-          %
-        </h5>
-        <br />
-        {dashboard}
-        {this.props.children}
-        <Addproduct
-          active={this.props.showModal}
-          modalSize={this.props.modalSize}
-          handleSubmit={this.props.handleSubmit.bind(this)}
-          handleInput={this.props.handleInput.bind(this)}
-          resetModal={this.props.resetModal.bind(this)}
-          asin={this.props.asin}
-          seller_sku={this.props.seller_sku}
-          lock_sku={this.props.lock_sku}
-          purchase_price={this.props.purchase_price}
-          quantity={this.props.quantity}
-          purchase_date={this.props.purchase_date}
-          err_asin={this.props.err_asin}
-          err_seller_sku={this.props.err_seller_sku}
-          err_purchase_price={this.props.err_purchase_price}
-          err_quantity={this.props.err_quantity}
-          err_purchase_date={this.props.err_purchase_date}
-          handleSearchStringChange={this.props.handleSearchStringChange.bind(this)}
-          handleAmazonSearch={this.props.handleAmazonSearch.bind(this)}
-          handleAmazonResultSelection={this.props.handleAmazonResultSelection.bind(this)}
-          handleSearchToggle={this.props.handleSearchToggle.bind(this)}
-          showSearch={this.props.showSearchOption}
-          searchResults={this.props.searchResults}
-          searchString={this.props.searchString}
-        />
-        <Ship
-          active={this.props.showShipModal}
-          modalSize={this.props.modalSize}
-          data={this.props.detail}
-          ship_quantity={this.props.ship_quantity}
-          err_quantity={this.props.err_ship_quantity}
-          handleShipModal={this.props.handleShipModal}
-          handleQuantityChange={this.props.handleQuantityChange.bind(this)}
-          confirmShip={this.props.confirmShip.bind(this, this.props.ship_quantity)}
-        />
-        <DeleteProduct
-          active={this.props.showDeleteModal}
-          modalSize={this.props.modalSize}
-          data={this.props.detail}
-          handleDeleteModal={this.props.handleDeleteModal.bind(this)}
-          confirmDelete={this.props.confirmDelete.bind(this)}
-        />
-        {details}
-      </div>
-    );
-  }
-}
-
-DashboardContainer.propTypes = {
-  tableData: React.PropTypes.array,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node
-  ]),
-  showModal: React.PropTypes.bool,
-  showShipModal: React.PropTypes.bool,
-  showDeleteModal: React.PropTypes.bool,
-  showSearchOption: React.PropTypes.bool,
-  lock_sku: React.PropTypes.bool,
-  modalSize: React.PropTypes.string,
-  detail: React.PropTypes.object,
-  historical: React.PropTypes.array,
-  searchResults: React.PropTypes.string,
-  searchString: React.PropTypes.string,
-  asin: React.PropTypes.string,
-  seller_sku: React.PropTypes.string,
-  purchase_price: React.PropTypes.string,
-  purchase_date: React.PropTypes.string,
-  quantity: React.PropTypes.string,
-  ship_quantity: React.PropTypes.string,
-  err_asin: React.PropTypes.string,
-  err_purchase_price: React.PropTypes.string,
-  err_purchase_date: React.PropTypes.string,
-  err_quantity: React.PropTypes.string,
-  err_ship_quantity: React.PropTypes.string,
-
-  resetModal: React.PropTypes.func,
-  smartAdd: React.PropTypes.func,
-  setModalSize: React.PropTypes.func,
-  handleQuantityChange: React.PropTypes.func,
-  resetShipQuantity: React.PropTypes.func,
-  handleAmazonResultSelection: React.PropTypes.func,
-  handleSearchToggle: React.PropTypes.func,
-  handleSearchStringChange: React.PropTypes.func,
-  handleModal: React.PropTypes.func,
-  handleAmazonSearch: React.PropTypes.func,
-  confirmShip: React.PropTypes.func,
-  handleDeleteModal: React.PropTypes.func,
-  updateHistoricalData: React.PropTypes.func,
-  confirmDelete: React.PropTypes.func,
-  handleInput: React.PropTypes.func,
-  handleBlur: React.PropTypes.func,
-  handleSubmit: React.PropTypes.func
-};
-
 const mapState = (store) => ({
+  lastDetailId: store.lastDetailId,
   tableData: store.tableData,
   showModal: store.dashboard.showModal,
   showSearchOption: store.dashboard.showSearchOption,
@@ -252,19 +39,20 @@ const mapState = (store) => ({
   lock_sku: store.dashboard.lock_sku,
   modalSize: store.dashboard.modalSize,
   detail: store.detail,
+  lastDetailId: store.lastDetailId,
   historical: store.historicalData,
-  searchResults: store.dashboard.form.err_ship_quantity,
-  searchString: store.dashboard.form.err_ship_quantity,
-  asin: store.dashboard.form.err_ship_quantity,
-  seller_sku: store.dashboard.form.err_ship_quantity,
-  purchase_price: store.dashboard.form.err_ship_quantity,
-  purchase_date: store.dashboard.form.err_ship_quantity,
-  quantity: store.dashboard.form.err_ship_quantity,
-  ship_quantity: store.dashboard.form.err_ship_quantity,
-  err_asin: store.dashboard.form.err_ship_quantity,
-  err_purchase_price: store.dashboard.form.err_ship_quantity,
-  err_purchase_date: store.dashboard.form.err_ship_quantity,
-  err_quantity: store.dashboard.form.err_ship_quantity,
+  searchResults: store.dashboard.form.searchResults,
+  searchString: store.dashboard.form.searchString,
+  asin: store.dashboard.form.asin,
+  seller_sku: store.dashboard.form.seller_sku,
+  purchase_price: store.dashboard.form.purchase_price,
+  purchase_date: store.dashboard.form.purchase_date,
+  quantity: store.dashboard.form.quantity,
+  ship_quantity: store.dashboard.form.ship_quantity,
+  err_asin: store.dashboard.form.err_asin,
+  err_purchase_price: store.dashboard.form.err_purchase_price,
+  err_purchase_date: store.dashboard.form.err_purchase_date,
+  err_quantity: store.dashboard.form.err_quantity,
   err_ship_quantity: store.dashboard.form.err_ship_quantity
 });
 
@@ -272,8 +60,11 @@ const mapDispatch = (dispatch) => {
   api.checkAuth();
 
   const methods = {
-    handleBlur: () => {
-      dispatch({ type: 'UPDATE_DETAIL_DATA', data: {} });
+    setLastChangedId: (newOldId) => {
+      dispatch({ type: UPDATE_LAST_CHANGED_DETAIL_ID, data: newOldId });
+    },
+    handleBlur: (oldId) => {
+      dispatch({ type: UPDATE_DETAIL_DATA, data: {} });
     },
     resetModal: () => {
       dispatch({ type: DASHBOARD_RESET_MODAL });
@@ -380,8 +171,20 @@ const mapDispatch = (dispatch) => {
       // });
       dispatch({ type: TOGGLE_DELETE_MODAL });
     },
-    updateHistoricalData: (historicalData) => {
-      dispatch({ type: UPDATE_HISTORICAL_DATA, data: historicalData});
+    updateHistoricalData: (id) => {
+      api.getHistoricalData(id)
+        .then(data => {
+          const historicalData = [
+            ['Date', 'Price'],
+            ...data[0].history.map((cur) =>
+              [new Date(cur.amzn_fetch_date), cur.amzn_price_fba || cur.amzn_price_fbm]
+            )
+          ];
+          dispatch({ type: UPDATE_HISTORICAL_DATA, data: historicalData});
+        })
+        .catch(err => {
+          console.log('error in catch from api.getHistoricalData in the DashboardContainer', err);
+        });
     },
     confirmDelete: (id) => {
       api.deleteInventoryItem({ id });
@@ -389,6 +192,7 @@ const mapDispatch = (dispatch) => {
       methods.handleDeleteModal();
     },
     handleInput: (name, value) => {
+      console.log('dispatching', name, 'with data:', value);
       dispatch({ type: name, data: value });
     },
     handleSubmit: (
@@ -468,4 +272,4 @@ const mapDispatch = (dispatch) => {
   return methods;
 };
 
-export default connect(mapState, mapDispatch)(DashboardContainer);
+export default connect(mapState, mapDispatch)(Dashboard);

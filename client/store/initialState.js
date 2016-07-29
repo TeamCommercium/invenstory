@@ -11,6 +11,7 @@ export default {
   lastChanged: null,
   detail: {},
   notifications: [],
+  lastDetailId: null,
   tab: 0,
   userSettings: {
     name: '',

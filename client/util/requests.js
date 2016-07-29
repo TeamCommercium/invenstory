@@ -3,6 +3,8 @@ import { store } from '../store/initStore';
 import { redirect, processNewData } from './util';
 import { UPDATE_AUTHENTICATION } from '../actionTypes';
 
+// TODO: Factor out "if bad status redirect"
+
 export function searchAmazonForASIN(searchString) {
   return fetch(`/products/search?q=${searchString}`,
     {
@@ -65,7 +67,7 @@ export function getHistoricalData(productId) {
 export function logout() {
   return fetch('/auth/logout', {credentials: 'include'})
     .then(() => {
-      store.smartDispatch(UPDATE_AUTHENTICATION, false);
+      store.dispatch({ type: UPDATE_AUTHENTICATION, data: false });
       redirect('/#/login')();
     })
     .catch(error => {
@@ -94,7 +96,7 @@ export function checkAuth() {
       if (status > 400 && status < 500) {
         redirect('/#/login')();
       } else {
-        store.smartDispatch(UPDATE_AUTHENTICATION, true);
+        store.dispatch({ type: UPDATE_AUTHENTICATION, data: false });
       }
     });
 }

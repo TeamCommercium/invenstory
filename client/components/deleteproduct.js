@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Dialog} from 'react-toolbox';
 
-
 const DeleteProductComponent = ({
   active,
   modalSize,
@@ -32,13 +31,13 @@ const DeleteProductComponent = ({
         className='styles__inlineButton___16AEc'
         label='CONFIRM DELETE'
         raised floating primary
-        onMouseUp={confirmDelete.bind(null, data.id)}
+        onMouseUp={() => confirmDelete(data.id)}
       />
       <Button
         className='styles__inlineButton___16AEc'
         label='Cancel'
         raised floating
-        onMouseUp={handleDeleteModal.bind(this)}
+        onMouseUp={handleDeleteModal}
       />
     </div>
   </Dialog>
