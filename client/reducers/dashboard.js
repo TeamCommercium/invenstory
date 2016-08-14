@@ -39,20 +39,20 @@ export default function(state = initialState.dashboard, action) {
 
   switch (action.type) {
     case DASHBOARD_RESET_MODAL:
-      oldState.showSearchOption       = initialState.dashboard.showSearchOption;
-      oldState.showModal              = initialState.dashboard.showModal;
-      oldState.lock_sku               = initialState.dashboard.lock_sku;
-      oldState.form.asin              = initialState.dashboard.form.asin;
-      oldState.form.seller_sku        = initialState.dashboard.form.seller_sku;
-      oldState.form.purchase_price    = initialState.dashboard.form.purchase_price;
-      oldState.form.purchase_quantity = initialState.dashboard.form.purchase_quantity;
-      oldState.form.purchase_date     = initialState.dashboard.form.purchase_date;
-      oldState.form.quantity          = initialState.dashboard.form.quantity;
-      oldState.form.err_asin          = initialState.dashboard.form.err_asin;
-      oldState.form.err_seller_sku    = initialState.dashboard.form.err_seller_sku;
-      oldState.form.err_purchase_price= initialState.dashboard.form.err_purchase_price;
-      oldState.form.err_purchase_date = initialState.dashboard.form.err_purchase_date;
-      oldState.form.err_quantity      = initialState.dashboard.form.err_quantity;
+      oldState.lock_sku               = false;
+      oldState.showModal              = false;
+      oldState.showSearchOption       = true;
+      oldState.form.quantity          = 0;
+      oldState.form.purchase_price    = 0;
+      oldState.form.purchase_quantity = 0;
+      oldState.form.asin              = '';
+      oldState.form.seller_sku        = '';
+      oldState.form.purchase_date     = '';
+      oldState.form.err_asin          = '';
+      oldState.form.err_seller_sku    = '';
+      oldState.form.err_purchase_price= '';
+      oldState.form.err_purchase_date = '';
+      oldState.form.err_quantity      = '';
       return oldState;
  
     case UPDATE_SEARCH_STRING:

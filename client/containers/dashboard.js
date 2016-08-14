@@ -159,7 +159,6 @@ const mapDispatch = (dispatch) => {
       purchase_price,
       quantity
     ) => {
-
       let inputErr = 0;
 
       // Need to refactor
