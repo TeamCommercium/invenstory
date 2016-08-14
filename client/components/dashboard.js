@@ -51,8 +51,6 @@ class DashboardContainer extends React.Component {
       }
     };
 
-    console.log("this.props.ship_quantity", this.props.ship_quantity)
-
 
     // If there is a detail ID, the user wants to view specific data.
     // If the data.id === lastDetailId, we could be entering
@@ -68,13 +66,13 @@ class DashboardContainer extends React.Component {
     if (this.props.detail && this.props.detail.amzn_asin) {
       details = (
         <Details
-          smartAdd={this.props.smartAdd.bind(this)}
+          smartAdd={this.props.smartAdd}
           hideDetails={() => this.props.handleBlur(this.props.detail.id)}
           data={this.props.detail}
           historical={this.props.historical}
           options={historicalOptions}
-          handleShipModal={this.props.handleShipModal.bind(this)}
-          handleDeleteModal={this.props.handleDeleteModal.bind(this)}
+          handleShipModal={this.props.handleShipModal}
+          handleDeleteModal={this.props.handleDeleteModal}
         />
       );
     }
@@ -101,7 +99,7 @@ class DashboardContainer extends React.Component {
             className='styles__inlineButton___16AEc'
             style={{display: 'inline', float: 'right'}}
             label='Add Product'
-            onMouseUp={this.props.handleModal.bind(this)}
+            onMouseUp={this.props.handleModal}
             raised floating
           />
         </div>
@@ -123,9 +121,9 @@ class DashboardContainer extends React.Component {
         <Addproduct
           active={this.props.showModal}
           modalSize={this.props.modalSize}
-          handleSubmit={this.props.handleSubmit.bind(this)}
-          handleInput={this.props.handleInput.bind(this)}
-          resetModal={this.props.resetModal.bind(this)}
+          handleSubmit={this.props.handleSubmit}
+          handleInput={this.props.handleInput}
+          resetModal={this.props.resetModal}
           asin={this.props.asin}
           seller_sku={this.props.seller_sku}
           lock_sku={this.props.lock_sku}
@@ -137,10 +135,10 @@ class DashboardContainer extends React.Component {
           err_purchase_price={this.props.err_purchase_price}
           err_quantity={this.props.err_quantity}
           err_purchase_date={this.props.err_purchase_date}
-          handleSearchStringChange={this.props.handleSearchStringChange.bind(this)}
-          handleAmazonSearch={this.props.handleAmazonSearch.bind(this)}
-          handleAmazonResultSelection={this.props.handleAmazonResultSelection.bind(this)}
-          handleSearchToggle={this.props.handleSearchToggle.bind(this)}
+          handleSearchStringChange={this.props.handleSearchStringChange}
+          handleAmazonSearch={this.props.handleAmazonSearch}
+          handleAmazonResultSelection={this.props.handleAmazonResultSelection}
+          handleSearchToggle={this.props.handleSearchToggle}
           showSearch={this.props.showSearchOption}
           searchResults={this.props.searchResults}
           searchString={this.props.searchString}
@@ -152,15 +150,15 @@ class DashboardContainer extends React.Component {
           ship_quantity={this.props.ship_quantity}
           err_quantity={this.props.err_ship_quantity}
           handleShipModal={this.props.handleShipModal}
-          handleQuantityChange={this.props.handleQuantityChange.bind(this)}
-          confirmShip={this.props.confirmShip.bind(this, this.props.ship_quantity)}
+          handleQuantityChange={this.props.handleQuantityChange}
+          confirmShip={this.props.confirmShip}
         />
         <DeleteProduct
           active={this.props.showDeleteModal}
           modalSize={this.props.modalSize}
           data={this.props.detail}
-          handleDeleteModal={this.props.handleDeleteModal.bind(this)}
-          confirmDelete={this.props.confirmDelete.bind(this)}
+          handleDeleteModal={this.props.handleDeleteModal}
+          confirmDelete={this.props.confirmDelete}
         />
         {details}
       </div>

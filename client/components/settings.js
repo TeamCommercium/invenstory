@@ -23,7 +23,7 @@ const UserSettingsComponent = ({
       name='name'
       icon='account_box'
       value={name}
-      onChange={handleInput.bind(this, USER_SETTINGS_UPDATE_NAME)}
+      onChange={(val) => handleInput(USER_SETTINGS_UPDATE_NAME, val)}
     />
     <Input
       type='number'
@@ -31,7 +31,7 @@ const UserSettingsComponent = ({
       name='zipcode'
       icon='place'
       value={zipcode}
-      onChange={handleInput.bind(this, USER_SETTINGS_UPDATE_ZIPCODE)}
+      onChange={(val) => handleInput(USER_SETTINGS_UPDATE_ZIPCODE, val)}
     />
     <Input
       type='email'
@@ -40,7 +40,7 @@ const UserSettingsComponent = ({
       value={email}
       error={err_email}
       icon='email'
-      onChange={handleInput.bind(this, USER_SETTINGS_UPDATE_EMAIL)}
+      onChange={(val) => handleInput(USER_SETTINGS_UPDATE_EMAIL, val)}
     />
     <Switch
       checked={mailNotifications}
@@ -50,7 +50,7 @@ const UserSettingsComponent = ({
     <br />
     <Button
       label='Save'
-      onMouseUp={handleSubmit.bind(this, name, email, zipcode, mailNotifications)}
+      onMouseUp={() => handleSubmit(name, email, zipcode, mailNotifications)}
       raised floating
     />
   </div>

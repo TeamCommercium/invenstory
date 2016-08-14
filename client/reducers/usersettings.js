@@ -33,7 +33,7 @@ export default function(state = initialState.userSettings, action) {
       return oldState;
 
     case USER_SETTINGS_UPDATE_ZIPCODE:
-      oldState.zipcode = action.data;
+      oldState.zipcode = Number(action.data);
       return oldState;
 
     case USER_SETTINGS_UPDATE_NAME:

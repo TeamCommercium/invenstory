@@ -13,7 +13,6 @@ import {
   UPDATE_SHIP_QUANTITY,
   TOGGLE_SHIP_MODAL,
   UPDATE_SEARCH_RESULTS,
-  HIDE_SEARCH,
   TOGGLE_SHOW_MODAL,
   AMAZON_RESULTS_SELECTION,
   RESET_SHIP_QUANTITY,
@@ -39,7 +38,6 @@ const mapState = (store) => ({
   lock_sku: store.dashboard.lock_sku,
   modalSize: store.dashboard.modalSize,
   detail: store.detail,
-  lastDetailId: store.lastDetailId,
   historical: store.historicalData,
   searchResults: store.dashboard.form.searchResults,
   searchString: store.dashboard.form.searchString,
@@ -63,71 +61,45 @@ const mapDispatch = (dispatch) => {
     setLastChangedId: (newOldId) => {
       dispatch({ type: UPDATE_LAST_CHANGED_DETAIL_ID, data: newOldId });
     },
-    handleBlur: (oldId) => {
+    handleBlur: () => {
       dispatch({ type: UPDATE_DETAIL_DATA, data: {} });
     },
     resetModal: () => {
       dispatch({ type: DASHBOARD_RESET_MODAL });
     },
     smartAdd: (data) => {
-      // this.setState({
-      //   lock_sku: true,
-      //   showSearchOption: false,
-      //   asin: data.amzn_asin,
-      //   seller_sku: data.seller_sku,
-      //   quantity: '',
-      //   showModal: true
-      // });
-
       dispatch({ type: FORM_SMART_ADD, data});
     },
-      // Detect mobile screen and set modal size
     setModalSize: () => {
+      // Detect mobile screen and set modal size
       if (window.innerWidth <= 569) {
         dispatch({ type: UPDATE_MODAL_SIZE, data: 'large' });
-        // this.setState({modalSize: 'large'});
       } else {
         dispatch({ type: UPDATE_MODAL_SIZE, data: 'normal' });
-        // this.setState({modalSize: 'normal'});
       }
     },
     handleQuantityChange: (val) => {
-      // this.setState({ship_quantity: val});
       dispatch({ type: UPDATE_SHIP_QUANTITY, data: val});
     },
     resetShipQuantity: () => {
-      // this.setState({
-      //   ship_quantity: '',
-      //   err_ship_quantity: ''
-      // });
       dispatch({ type: RESET_SHIP_QUANTITY });
     },
     handleAmazonResultSelection: (ASIN) => {
-      // this.setState({
-      //   asin: ASIN,
-      //   searchResults: [],
-      //   searchString: '',
-      //   showSearchOption: false
-      // });
       dispatch({ type: AMAZON_RESULTS_SELECTION, data: ASIN});
     },
     handleSearchToggle: () => {
-      // this.setState({ showSearchOption: !this.state.showSearchOption });
       dispatch({ type: TOGGLE_SHOW_SEARCH_OPTION });
     },
     handleSearchStringChange: (value) => {
-      // this.setState({ searchString: value });
       dispatch({ type: UPDATE_SEARCH_STRING, data: value });
     },
     handleModal: () => {
       methods.setModalSize();
-      // this.setState({ showModal: !this.state.showModal });
       dispatch({ type: TOGGLE_SHOW_MODAL });
     },
     handleAmazonSearch: (searchString) => {
       api.searchAmazonForASIN(searchString)
         .then(data => {
-          // setState searchresult: data
           dispatch({ type: UPDATE_SEARCH_RESULTS, data });
         })
         .catch(err => {
@@ -137,9 +109,6 @@ const mapDispatch = (dispatch) => {
     handleShipModal: () => {
       methods.setModalSize();
       methods.resetShipQuantity();
-      // this.setState({
-      //   showShipModal: !this.state.showShipModal
-      // });
       dispatch({ type: TOGGLE_SHIP_MODAL });
     },
     confirmShip: (ship_quantity, id) => {
@@ -148,24 +117,17 @@ const mapDispatch = (dispatch) => {
       }
 
       if (isNaN(ship_quantity) || ship_quantity < 1) {
-        // this.setState({ship_quantity: 0});
         dispatch({ type: UPDATE_SHIP_QUANTITY, data: 0 });
       } else {
-        // this.setState({err_ship_quantity: ''});
         dispatch({ type: UPDATE_ERR_SHIP_QUANTITY, data: '' });
 
         api.shipInventoryItems({ id, quantity: ship_quantity });
         methods.handleShipModal();
-        console.log('Confirmed Shipped:', ship_quantity);
       }
     },
     handleDeleteModal: () => {
       methods.setModalSize();
-      // this.setState({
-      //   showDeleteModal: !this.state.showDeleteModal
-      // });
       dispatch({ type: TOGGLE_DELETE_MODAL });
-      console.log("Should be toggling delete")
     },
     updateHistoricalData: (id) => {
       api.getHistoricalData(id)
@@ -188,7 +150,6 @@ const mapDispatch = (dispatch) => {
       methods.handleDeleteModal();
     },
     handleInput: (name, value) => {
-      console.log('dispatching', name, 'with data:', value);
       dispatch({ type: name, data: value });
     },
     handleSubmit: (
@@ -198,18 +159,6 @@ const mapDispatch = (dispatch) => {
       purchase_price,
       quantity
     ) => {
-      if (asin === undefined
-        || seller_sku === undefined
-        || purchase_price === undefined
-        || purchase_date === undefined
-        || quantity === undefined) {
-        console.log('Shit, missed a value');
-      }
-
-      console.log('asin', asin, 'sku', seller_sku,
-        'date', purchase_date, 'price', purchase_price,
-        'qty', quantity
-      );
 
       let inputErr = 0;
 

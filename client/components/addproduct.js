@@ -71,8 +71,7 @@ const AddProductComponent = (props) => (
       <Button
         className='styles__inlineButton___16AEc'
         label='Submit' raised floating primary
-        onMouseUp={props.handleSubmit.bind(
-          this,
+        onMouseUp={() => props.handleSubmit(
           props.asin,
           props.seller_sku,
           props.purchase_date,

@@ -34,25 +34,25 @@ import {
  * @return new value for this store property or default state
  */
 
-export default function(state = initialState.userSettings, action) {
+export default function(state = initialState.dashboard, action) {
   const oldState = Object.assign({}, state);
 
   switch (action.type) {
     case DASHBOARD_RESET_MODAL:
-      oldState.showSearchOption = true;
-      oldState.showModal = false;
-      oldState.lock_sku = false;
-      oldState.form.asin = '';
-      oldState.form.seller_sku = '';
-      oldState.form.purchase_price = '';
-      oldState.form.purchase_quantity = '';
-      oldState.form.purchase_date = '';
-      oldState.form.quantity = '';
-      oldState.form.err_asin = '';
-      oldState.form.err_seller_sku = '';
-      oldState.form.err_purchase_price = '';
-      oldState.form.err_purchase_date = '';
-      oldState.form.err_quantity = '';
+      oldState.showSearchOption       = initialState.dashboard.showSearchOption;
+      oldState.showModal              = initialState.dashboard.showModal;
+      oldState.lock_sku               = initialState.dashboard.lock_sku;
+      oldState.form.asin              = initialState.dashboard.form.asin;
+      oldState.form.seller_sku        = initialState.dashboard.form.seller_sku;
+      oldState.form.purchase_price    = initialState.dashboard.form.purchase_price;
+      oldState.form.purchase_quantity = initialState.dashboard.form.purchase_quantity;
+      oldState.form.purchase_date     = initialState.dashboard.form.purchase_date;
+      oldState.form.quantity          = initialState.dashboard.form.quantity;
+      oldState.form.err_asin          = initialState.dashboard.form.err_asin;
+      oldState.form.err_seller_sku    = initialState.dashboard.form.err_seller_sku;
+      oldState.form.err_purchase_price= initialState.dashboard.form.err_purchase_price;
+      oldState.form.err_purchase_date = initialState.dashboard.form.err_purchase_date;
+      oldState.form.err_quantity      = initialState.dashboard.form.err_quantity;
       return oldState;
  
     case UPDATE_SEARCH_STRING:
@@ -71,12 +71,12 @@ export default function(state = initialState.userSettings, action) {
       return oldState;
 
     case RESET_SHIP_QUANTITY:
-      oldState.form.ship_quantity = '';
+      oldState.form.ship_quantity = 0;
       oldState.form.err_ship_quantity = '';
       return oldState;
 
     case UPDATE_SHIP_QUANTITY:
-      oldState.form.ship_quantity = action.data;
+      oldState.form.ship_quantity = Number(action.data);
       return oldState;
 
     case UPDATE_ERR_SHIP_QUANTITY:
@@ -91,7 +91,7 @@ export default function(state = initialState.userSettings, action) {
       oldState.showModal = true;
       oldState.showSearchOption = false;
       oldState.lock_sku = true;
-      oldState.form.quantity = '';
+      oldState.form.quantity = 0;
       oldState.form.asin = action.data.amzn_asin;
       oldState.form.seller_sku = action.data.seller_sku;
       return oldState;
@@ -125,7 +125,7 @@ export default function(state = initialState.userSettings, action) {
       return oldState;
 
     case UPDATE_FORM_PURCHASE_PRICE:
-      oldState.form.purchase_price = action.data;
+      oldState.form.purchase_price = Number(action.data);
       return oldState;
 
     case UPDATE_FORM_PURCHASE_DATE:
@@ -133,7 +133,7 @@ export default function(state = initialState.userSettings, action) {
       return oldState;
 
     case UPDATE_FORM_QUANTITY:
-      oldState.form.quantity = action.data;
+      oldState.form.quantity = Number(action.data);
       return oldState;
 
     case UPDATE_FORM_ERR_QUANTITY:
@@ -160,27 +160,3 @@ export default function(state = initialState.userSettings, action) {
       return state;
   }
 }
-
-// dashboard: {
-//   showModal: false,
-//   showSearchOption: true,
-//   showShipModal: false,
-//   showDeleteModal: false,
-//   lock_sku: false,
-//   modalSize: '',
-//   form: {
-//     searchResults: [],
-//     searchString: '',
-//     asin: '',
-//     seller_sku: '',
-//     purchase_price: '',
-//     purchase_date: '',
-//     quantity: '',
-//     ship_quantity: '',
-//     err_asin: '',
-//     err_purchase_price: '',
-//     err_purchase_date: '',
-//     err_quantity: '',
-//     err_ship_quantity: ''
-//   }
-// }

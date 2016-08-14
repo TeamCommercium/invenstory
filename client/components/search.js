@@ -3,7 +3,6 @@ import { List, ListItem, ListSubHeader, Button, Input, Avatar } from 'react-tool
 
 const SearchComponent = ({ passedProps }) => (
   <div>
-    {console.log('passedProps', Object.keys(passedProps), passedProps)}
     {passedProps.showSearch &&
       <div>
         <Input

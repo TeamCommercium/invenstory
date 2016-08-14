@@ -60,7 +60,7 @@ const ShipComponent = (props) => (
       <Button
         className='styles__inlineButton___16AEc'
         label='Ship'
-        onMouseUp={props.confirmShip.bind(null, props.data.id)}
+        onMouseUp={() => props.confirmShip(props.ship_quantity, props.data.id)}
         raised floating primary
       />
       <Button

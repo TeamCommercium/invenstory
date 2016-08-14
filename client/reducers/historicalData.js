@@ -2,8 +2,8 @@ import initialState from '../store/initialState';
 import { UPDATE_HISTORICAL_DATA } from '../actionTypes';
 
 /**
- * Reducer for user settings
- * @function userSettingsReducer
+ * Reducer for Historical Data
+ * @function historicalDataReducer
  * @param {Object} state
  * @param {string} action
  * @return new value for this store property or default state
