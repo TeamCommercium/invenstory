@@ -1,5 +1,5 @@
-import initialState from '../store/initialState'
-import { CHANGE_TAB } from '../actionTypes'
+import initialState from '../store/initialState';
+import { CHANGE_TAB } from '../actionTypes';
 
 /**
  * Reducer for tab changes
@@ -8,14 +8,13 @@ import { CHANGE_TAB } from '../actionTypes'
  * @param {string} action
  * @return new value for this store property or default state
  */
-export default function(state = initialState, action) {
 
-  switch(action.type){
+export default function(state = initialState.tab, action) {
+  switch (action.type) {
     case CHANGE_TAB:
-      return action.data
-      break
+      return action.data;
 
     default:
-      return state
+      return state;
   }
 }

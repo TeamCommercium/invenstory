@@ -1,9 +1,10 @@
+/* eslint-disable */
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import { store } from '../../store/initStore'
 import initialState from '../../store/initialState'
 
-describe('Client: store/initStore.jsx', function () {
+xdescribe('Client: store/initStore.jsx', function () {
   it('should export an object named store', function () {
     expect(store).to.exist;
     expect(typeof store).to.equal("object")

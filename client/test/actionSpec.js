@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { expect } from 'chai'
 import * as types from '../actionTypes'
 

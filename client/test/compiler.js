@@ -1,3 +1,4 @@
+/* eslint-disable */
 var fs = require('fs'),
     ReactTools = require('react-tools'),
     origJs = require.extensions['.jsx'];

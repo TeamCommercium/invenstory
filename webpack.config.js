@@ -1,6 +1,6 @@
+var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var webpack = require("webpack");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -8,9 +8,10 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   filename: 'index.html',
   inject: 'body'
 });
+
 module.exports = {
   entry: [
-    './client/index.jsx',
+    './client/index.js',
     './client/styles.css'
   ],
   output: {
@@ -26,7 +27,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { 
+      {
         test: /(\.jsx|\.js)$/,
         loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015'],
         exclude: /node_modules/
@@ -38,8 +39,8 @@ module.exports = {
     ]
   },
   plugins: [
-    HTMLWebpackPluginConfig, 
-    new ExtractTextPlugin("/bundle.css"), 
+    HTMLWebpackPluginConfig,
+    new ExtractTextPlugin('/bundle.css'),
   ]
 }
 
@@ -48,4 +49,4 @@ module.exports = {
 //     warnings: false
 //   }
 // })
-// 
+//

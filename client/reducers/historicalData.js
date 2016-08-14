@@ -1,17 +1,17 @@
 import initialState from '../store/initialState';
-import { UPDATE_PIECHART_DATA } from '../actionTypes';
+import { UPDATE_HISTORICAL_DATA } from '../actionTypes';
 
 /**
- * Reducer for pie chart data
- * @function pieChartReducer
+ * Reducer for Historical Data
+ * @function historicalDataReducer
  * @param {Object} state
  * @param {string} action
  * @return new value for this store property or default state
  */
 
-export default function(state = initialState.pieChartData, action) {
+export default function(state = initialState.userSettings, action) {
   switch (action.type) {
-    case UPDATE_PIECHART_DATA:
+    case UPDATE_HISTORICAL_DATA:
       return action.data;
 
     default:

@@ -1,4 +1,4 @@
-import action from './propActions'
+import action from './propActions';
 
 /**
  * Additional utilities for the store object for safe rendering.
@@ -6,18 +6,18 @@ import action from './propActions'
  * @param subscribeTo - Function bound to the store for intelligent event subscription.
  * @param smartDispatch - Function bound to the store for intelligent event emitting.
  */
-export default class Backlog{
+export default class Backlog {
 
-  constructor(props){
-    this.containers = {}
-    this.subscribeTo = props.subscribeTo
-    this.smartDispatch = props.smartDispatch
+  constructor(props) {
+    this.containers = {};
+    this.subscribeTo = props.subscribeTo;
+    this.smartDispatch = props.smartDispatch;
 
     // This is necessary because I need methods in the enumerable keys
     // Same as this.unMounting = Backlog.prototype.unMounting
-    this.unMounting = this.unMounting
-    this.register = this.register
-    this.syncWithStore = this.syncWithStore
+    this.unMounting = this.unMounting;
+    this.register = this.register;
+    this.syncWithStore = this.syncWithStore;
   }
 
 
@@ -38,29 +38,30 @@ export default class Backlog{
    * @this Backlog
    * @return context of the container that invoked function
    */
-  register(container, listenTo, context, callback){
-    // if(this.containers[container])
-    //   console.log("Container already exists.")
+  register(container, listenTo, context, callback) {
+    if (Array.isArray(listenTo) === false) {
+      throw new Error('Register expected an array in the second parameter');
+    }
 
-    if(Array.isArray(listenTo) === false)
-      throw new Error("Register expected an array in the second parameter")
+    this.containers[container] = {
+      association: listenTo,
+      mounted: context.mounted
+    };
 
-    this.containers[container] = { association: listenTo, mounted: context.mounted }
-
-    listenTo.forEach((key)=>
-      this.subscribeTo(key, function(newState){
-
-        if(context.mounted){
-          context.setState({ [key]: newState[key] })
-          if(typeof callback === "function") callback(newState)
-        }
-        else{
-          action[key].pending = true
-          action[key].payload = newState[key]
+    listenTo.forEach((key) =>
+      this.subscribeTo(key, (newState) => {
+        if (context.mounted) {
+          context.setState({ [key]: newState[key] });
+          if (typeof callback === 'function') {
+            callback(newState);
+          }
+        } else {
+          action[key].pending = true;
+          action[key].payload = newState[key];
         }
       })
-    )
-    return context
+    );
+    return context;
   }
 
   /**
@@ -72,14 +73,15 @@ export default class Backlog{
    * @this Backlog
    * @return context of the container that invoked function
    */
-  unMounting(container, context){
-    if( ! this.containers[container])
-      throw new Error("Recieved a container that isn't registered. Don't forget to add it to subscribeTo.jsx")
+  unMounting(container, context) {
+    if (! this.containers[container]) {
+      throw new Error(`Recieved a container that isn't registered. Don't forget to add it to subscribeTo.jsx`);
+    }
 
-    this.containers[container].mounted = false
-    context.mounted = false
+    this.containers[container].mounted = false;
+    context.mounted = false;
 
-    return context
+    return context;
   }
 
   /**
@@ -92,26 +94,26 @@ export default class Backlog{
    * @this Backlog
    * @return context of the container that invoked function
    */
-  syncWithStore(container, listenTo, context){
+  syncWithStore(container, listenTo, context) {
+    if (! this.containers[container]) {
+      throw new Error(`Recieved a container that isn't registered. Don't forget to add it to subscribeTo.jsx`);
+    }
 
-    if( ! this.containers[container])
-      throw new Error("Recieved a container that isn't registered. Don't forget to add it to subscribeTo.jsx")
+    if (Array.isArray(listenTo) === false) {
+      throw new Error(`sync expected an array in the listenTo property of the first parameter ${container}`, listenTo);
+    }
 
-    if(Array.isArray(listenTo) === false)
-      throw new Error("sync expected an array in the listenTo property of the first parameter" + container, listenTo)
+    this.containers[container].mounted = true;
+    context.mounted = true;
 
-    this.containers[container].mounted = true
-    context.mounted = true
-
-
-    //find all relevant properties that have pending data and grab payload.
+    // Find all relevant properties that have pending data and grab payload.
     this.containers[container].association
-      .filter(cur=>action[cur].pending)
-      .map(cur=>{
-        context.setState({[cur]: action[cur].payload})
-        action[cur].pending = false
-      })
+      .filter(cur => action[cur].pending)
+      .forEach(cur => {
+        context.setState({[cur]: action[cur].payload});
+        action[cur].pending = false;
+      });
 
-    return context
+    return context;
   }
 }

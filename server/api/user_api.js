@@ -69,7 +69,7 @@ const router = express.Router()
   User.updateUserInfo(req.user.id, params)
     .then(result => {
       log('update user result ',result)
-      res.status(200).send(result)
+      res.status(200).send(JSON.stringify(result))
     })
     .catch( err => {
       log('error in getting user profile ', err)
