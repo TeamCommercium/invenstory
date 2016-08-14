@@ -51,6 +51,8 @@ class DashboardContainer extends React.Component {
       }
     };
 
+    console.log("this.props.ship_quantity", this.props.ship_quantity)
+
 
     // If there is a detail ID, the user wants to view specific data.
     // If the data.id === lastDetailId, we could be entering
@@ -185,10 +187,10 @@ DashboardContainer.propTypes = {
   searchString: React.PropTypes.string,
   asin: React.PropTypes.string,
   seller_sku: React.PropTypes.string,
-  purchase_price: React.PropTypes.string,
+  purchase_price: React.PropTypes.number,
   purchase_date: React.PropTypes.string,
-  quantity: React.PropTypes.string,
-  ship_quantity: React.PropTypes.string,
+  quantity: React.PropTypes.number,
+  ship_quantity: React.PropTypes.number,
   err_asin: React.PropTypes.string,
   err_purchase_price: React.PropTypes.string,
   err_purchase_date: React.PropTypes.string,

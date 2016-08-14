@@ -39,20 +39,20 @@ export default function(state = initialState.userSettings, action) {
 
   switch (action.type) {
     case DASHBOARD_RESET_MODAL:
-      oldState.asin = '';
-      oldState.seller_sku = '';
-      oldState.purchase_price = '';
-      oldState.purchase_quantity = '';
-      oldState.purchase_date = '';
-      oldState.err_asin = '';
-      oldState.err_seller_sku = '';
-      oldState.err_purchase_price = '';
-      oldState.err_purchase_date = '';
-      oldState.err_quantity = '';
-      oldState.quantity = '';
       oldState.showSearchOption = true;
       oldState.showModal = false;
       oldState.lock_sku = false;
+      oldState.form.asin = '';
+      oldState.form.seller_sku = '';
+      oldState.form.purchase_price = '';
+      oldState.form.purchase_quantity = '';
+      oldState.form.purchase_date = '';
+      oldState.form.quantity = '';
+      oldState.form.err_asin = '';
+      oldState.form.err_seller_sku = '';
+      oldState.form.err_purchase_price = '';
+      oldState.form.err_purchase_date = '';
+      oldState.form.err_quantity = '';
       return oldState;
  
     case UPDATE_SEARCH_STRING:
@@ -88,12 +88,12 @@ export default function(state = initialState.userSettings, action) {
       return oldState;
 
     case FORM_SMART_ADD:
-      oldState.lock_sku = true;
-      oldState.quantity = '';
       oldState.showModal = true;
       oldState.showSearchOption = false;
-      oldState.asin = action.data.amzn_asin;
-      oldState.seller_sku = action.data.seller_sku;
+      oldState.lock_sku = true;
+      oldState.form.quantity = '';
+      oldState.form.asin = action.data.amzn_asin;
+      oldState.form.seller_sku = action.data.seller_sku;
       return oldState;
 
     case TOGGLE_SHOW_MODAL:
@@ -113,7 +113,7 @@ export default function(state = initialState.userSettings, action) {
       return oldState;
 
     case TOGGLE_DELETE_MODAL:
-      oldState.showDeleteModal = !oldState.form.showDeleteModal;
+      oldState.showDeleteModal = !oldState.showDeleteModal;
       return oldState;
 
     case UPDATE_FORM_ASIN:

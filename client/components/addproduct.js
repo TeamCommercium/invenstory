@@ -45,7 +45,7 @@ const AddProductComponent = (props) => (
       label='Cost Per Unit'
       name='purchase_price'
       icon={<span>$</span>}
-      value={props.purchase_price}
+      value={props.purchase_price === 0 ? undefined : props.purchase_price}
       error={props.err_purchase_price}
       onChange={(newPrice) => props.handleInput(UPDATE_FORM_PURCHASE_PRICE, newPrice)}
     />
@@ -54,7 +54,7 @@ const AddProductComponent = (props) => (
       label='Quantity'
       name='quantity'
       icon='equalizer'
-      value={props.quantity}
+      value={props.quantity === 0 ? undefined : props.quantity}
       error={props.err_quantity}
       onChange={(newQty) => props.handleInput(UPDATE_FORM_QUANTITY, newQty)}
     />
@@ -95,11 +95,11 @@ AddProductComponent.propTypes = {
   err_seller_sku: React.PropTypes.string,
   asin: React.PropTypes.string,
   err_asin: React.PropTypes.string,
-  quantity: React.PropTypes.string,
+  quantity: React.PropTypes.number,
   err_quantity: React.PropTypes.string,
   purchase_date: React.PropTypes.string,
   err_purchase_date: React.PropTypes.string,
-  purchase_price: React.PropTypes.string,
+  purchase_price: React.PropTypes.number,
   err_purchase_price: React.PropTypes.string,
   modalSize: React.PropTypes.string,
   active: React.PropTypes.bool,

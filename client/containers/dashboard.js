@@ -125,11 +125,6 @@ const mapDispatch = (dispatch) => {
       dispatch({ type: TOGGLE_SHOW_MODAL });
     },
     handleAmazonSearch: (searchString) => {
-      // if (!this.state.showSearchOption) {
-      //   this.setState({ showSearchOption: !this.state.showSearchOption });
-      // }
-      dispatch({ type: HIDE_SEARCH });
-
       api.searchAmazonForASIN(searchString)
         .then(data => {
           // setState searchresult: data
@@ -140,14 +135,14 @@ const mapDispatch = (dispatch) => {
         });
     },
     handleShipModal: () => {
-      // methods.setModalSize();
-      // methods.resetShipQuantity();
+      methods.setModalSize();
+      methods.resetShipQuantity();
       // this.setState({
       //   showShipModal: !this.state.showShipModal
       // });
       dispatch({ type: TOGGLE_SHIP_MODAL });
     },
-    confirmShip: (id, ship_quantity) => {
+    confirmShip: (ship_quantity, id) => {
       if (ship_quantity === undefined || isNaN === undefined) {
         throw new Error(`Shit, didn't work`);
       }
@@ -170,6 +165,7 @@ const mapDispatch = (dispatch) => {
       //   showDeleteModal: !this.state.showDeleteModal
       // });
       dispatch({ type: TOGGLE_DELETE_MODAL });
+      console.log("Should be toggling delete")
     },
     updateHistoricalData: (id) => {
       api.getHistoricalData(id)

@@ -15,7 +15,7 @@ export default {
   tab: 0,
   userSettings: {
     name: '',
-    zipcode: '',
+    zipcode: 0,
     email: '',
     err_email: '',
     mailNotifications: false
@@ -32,10 +32,10 @@ export default {
       searchString: '',
       asin: '',
       seller_sku: '',
-      purchase_price: '',
+      purchase_price: 0,
       purchase_date: '',
-      quantity: '',
-      ship_quantity: '',
+      quantity: 0,
+      ship_quantity: 0,
       err_asin: '',
       err_purchase_price: '',
       err_purchase_date: '',

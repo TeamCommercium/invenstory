@@ -26,7 +26,7 @@ const UserSettingsComponent = ({
       onChange={handleInput.bind(this, USER_SETTINGS_UPDATE_NAME)}
     />
     <Input
-      type='text'
+      type='number'
       label='Zipcode'
       name='zipcode'
       icon='place'
@@ -60,7 +60,7 @@ UserSettingsComponent.propTypes = {
   name: React.PropTypes.string,
   email: React.PropTypes.string,
   err_email: React.PropTypes.string,
-  zipcode: React.PropTypes.string,
+  zipcode: React.PropTypes.number,
   mailNotifications: React.PropTypes.bool,
   handleSubmit: React.PropTypes.func,
   handleInput: React.PropTypes.func,

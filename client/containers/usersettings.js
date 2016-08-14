@@ -27,7 +27,7 @@ const mapDispatch = (dispatch) => {
     .then(response => {
       dispatch({ type: USER_SETTINGS_UPDATE_NAME, data: response[0].amzn_username });
       dispatch({ type: USER_SETTINGS_UPDATE_EMAIL, data: response[0].amzn_email });
-      dispatch({ type: USER_SETTINGS_UPDATE_ZIPCODE, data: response[0].amzn_zip });
+      dispatch({ type: USER_SETTINGS_UPDATE_ZIPCODE, data: Number(response[0].amzn_zip) });
 
       if (!! response[0].emailnotify) {
         dispatch({ type: USER_SETTINGS_UPDATE_MAIL, data: true });

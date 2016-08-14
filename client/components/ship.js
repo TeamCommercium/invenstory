@@ -54,7 +54,7 @@ const ShipComponent = (props) => (
       step={1}
       editable={true}
       value={Number(props.ship_quantity) || 0}
-      onChange={props.handleQuantityChange.bind(this)}
+      onChange={val => props.handleQuantityChange(val)}
     />
     <div className='text-center'>
       <Button
@@ -77,7 +77,7 @@ ShipComponent.propTypes = {
   data: React.PropTypes.object,
   active: React.PropTypes.bool,
   modalSize: React.PropTypes.string,
-  ship_quantity: React.PropTypes.string,
+  ship_quantity: React.PropTypes.number,
   columnNames: React.PropTypes.array,
   handleShipModal: React.PropTypes.func,
   confirmShip: React.PropTypes.func,
